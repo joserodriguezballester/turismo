@@ -10,5 +10,5 @@ package Modelo;
  * @author joser
  */
 public class Usuario {
-    
+    //Esto es una prueba
 }

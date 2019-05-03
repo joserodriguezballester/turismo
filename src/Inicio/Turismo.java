@@ -24,7 +24,7 @@ public class Turismo extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
-        
+        System.out.println(root);
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
