@@ -14,6 +14,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 
 /**
  *
@@ -25,7 +26,7 @@ public class UsuarioController implements Initializable {
     @FXML
     private Label nombre;
     @FXML
-    private Label contrasena;
+    private PasswordField contrasena;
     
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
