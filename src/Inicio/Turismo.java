@@ -2,7 +2,7 @@ package Inicio;
 
 
 
-/*
+/* cambio
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -29,14 +29,8 @@ public class Turismo extends Application {
         
         stage.setScene(scene);
         stage.show();
-<<<<<<< HEAD
-        
         System.out.println("Toni ha estado aqui");
-=======
-        System.out.println("Estoy aqui");
-        
-        
->>>>>>> 650ba60898fe10ea1763c0991a5939a8a03ddd74
+        System.out.println("Estoy aqui");            
     }
 
     /**
