@@ -21,12 +21,12 @@ import javafx.scene.control.Label;
  */
 public class UsuarioController implements Initializable {
     
-    @FXML
     private Label label;
     @FXML
-    private Button button;
-    
+    private Label nombre;
     @FXML
+    private Label contrasena;
+    
     private void handleButtonAction(ActionEvent event) {
         System.out.println("You clicked me!");
         label.setText("Hello World!");
@@ -36,5 +36,13 @@ public class UsuarioController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void logearse(ActionEvent event) {
+    }
+
+    @FXML
+    private void registrarse(ActionEvent event) {
+    }
     
 }
