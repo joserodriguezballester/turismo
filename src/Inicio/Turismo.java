@@ -9,10 +9,12 @@ package Inicio;
  */
 
 
+import Vista.Usuario.UsuarioController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -23,14 +25,22 @@ public class Turismo extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
-        System.out.println(root);
-        Scene scene = new Scene(root);
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
+         Parent root = loader.load(); // el meotodo initialize() se ejecuta
         
+
+        Scene scene = new Scene(root);
+        Image icono = new Image(this.getClass().getResource("/Imagenes/logotipo.jpg").toString());
+        stage.getIcons().add(icono);
+        stage.setTitle(" Amsterdam");   // o nombre agencia
         stage.setScene(scene);
         stage.show();
-        System.out.println("Toni ha estado aqui");
-        System.out.println("Estoy aqui");            
+        UsuarioController usuarioController=loader.getController();
+//        UsuarioController.setEscenario(stage);  //pasamos stage a ventanaprincipal
+      
+        System.out.println("Jose ha estado aqui trabajando en el cambio de ventanas");
+        System.out.println(" y ya no estoy aqui");            
     }
 
     /**
