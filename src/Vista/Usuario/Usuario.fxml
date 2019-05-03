@@ -7,7 +7,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="435.0" prefWidth="483.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Usuario.UsuarioController">
    <children>
-      <Label fx:id="nombre" layoutX="128.0" layoutY="127.0" prefHeight="17.0" prefWidth="74.0" text="nombre" />
+      <Label fx:id="nombreET" layoutX="128.0" layoutY="127.0" prefHeight="17.0" prefWidth="74.0" text="nombre" />
       <Button layoutX="102.0" layoutY="218.0" mnemonicParsing="false" onAction="#logearse" text="Logearse" />
       <Button layoutX="202.0" layoutY="218.0" mnemonicParsing="false" onAction="#registrarse" text="Registrarse" />
       <PasswordField fx:id="contrasena" layoutX="128.0" layoutY="163.0" />

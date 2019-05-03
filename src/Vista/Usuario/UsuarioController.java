@@ -7,6 +7,9 @@ package Vista.Usuario;
  */
 
 
+import Vista.Principal.PrincipalController;
+import com.sun.security.auth.PrincipalComparator;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,6 +21,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.stage.Stage;
 
 /**
  *
@@ -27,15 +31,11 @@ public class UsuarioController implements Initializable {
     
     private Label label;
     @FXML
-    private Label nombre;
-    @FXML
     private PasswordField contrasena;
+    @FXML
+    private Label nombreET;
     
-    private void handleButtonAction(ActionEvent event) {
-        System.out.println("You clicked me!");
-        label.setText("Hello World!");
-    }
-    
+ 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -43,10 +43,36 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void logearse(ActionEvent event) {
+        cargarVentana();
     }
 
     @FXML
     private void registrarse(ActionEvent event) {
+        cargarVentana();
+    }
+    public void cargarVentana(){
+    Stage escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
+        PrincipalController principalController;
+        String nombrefichero = "/Vista/Principal/Principal.fxml";
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(nombrefichero));
+            root = loader.load(); // el metodo initialize() se ejecuta
+            principalController = loader.getController();
+//Pasamos informacion a la clase ConexionController
+       //     principalController.setParametros(usuario, bda, cambiador);
+//Damos valores a los nodos antes de mostrarlos
+    //        principalController.calcularnodos();
+
+            escenario.setScene(new Scene(root));
+            escenario.show();
+
+        } catch (IOException ex) {
+            
+//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+                System.err.println("error");  ////mostrar en ventana
+        }
     }
 
 }
