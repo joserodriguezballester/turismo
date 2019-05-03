@@ -7,6 +7,6 @@
 <AnchorPane id="AnchorPane" prefHeight="200" prefWidth="320" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="Vista.Usuario.UsuarioController">
     <children>
         <Button fx:id="button" layoutX="126" layoutY="90" onAction="#handleButtonAction" text="Click Me!" />
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" text="ya ba asdfasdfadf" />
+        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" text="ya ba" />
     </children>
 </AnchorPane>
