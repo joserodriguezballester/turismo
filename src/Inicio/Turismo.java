@@ -29,8 +29,8 @@ public class Turismo extends Application {
         
         stage.setScene(scene);
         stage.show();
+        System.out.println("Toni ha estado aqui");
         System.out.println("Estoy aqui");            
-        
     }
 
     /**
