@@ -9,6 +9,6 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="124.0" layoutY="86.0" prefHeight="17.0" prefWidth="407.0" text="Ventana actividad. no hay que poner el menu. Tamaño ya puesto" />
+      <Label layoutX="124.0" layoutY="86.0" prefHeight="17.0" prefWidth="407.0" text="Ventana actividad. en el diseño no hay que poner el menu" />
    </children>
 </AnchorPane>

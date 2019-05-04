@@ -5,9 +5,8 @@ package Vista.Usuario;
  *   To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
-
 import Vista.Principal.PrincipalController;
+import Vista.Registrar.RegistrarController;
 import com.sun.security.auth.PrincipalComparator;
 import java.io.IOException;
 import java.net.URL;
@@ -21,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -28,32 +28,34 @@ import javafx.stage.Stage;
  * @author joser
  */
 public class UsuarioController implements Initializable {
-    
+
     private Label label;
     @FXML
     private PasswordField contrasena;
     @FXML
     private Label nombreET;
-    
- 
+    private Stage escenario;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void logearse(ActionEvent event) {
-        cargarVentana();
+        cargarVentanaPrincipal();    //Es temporal aqui, poner cuando se verifique usuario
     }
 
     @FXML
     private void registrarse(ActionEvent event) {
-        cargarVentana();
+        cargarVentanaRegistrarse();
     }
-    public void cargarVentana(){
-    Stage escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
-        PrincipalController principalController;
+
+    public void cargarVentanaPrincipal() {
+        Stage escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
         String nombrefichero = "/Vista/Principal/Principal.fxml";
+        PrincipalController principalController;
+
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -61,18 +63,53 @@ public class UsuarioController implements Initializable {
             root = loader.load(); // el metodo initialize() se ejecuta
             principalController = loader.getController();
 //Pasamos informacion a la clase ConexionController
-       //     principalController.setParametros(usuario, bda, cambiador);
+            //     principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
-    //        principalController.calcularnodos();
+            //        principalController.calcularnodos();
 
             escenario.setScene(new Scene(root));
             escenario.show();
 
         } catch (IOException ex) {
-            
+
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
-                System.err.println("error");  ////mostrar en ventana
+            System.err.println("error");  ////mostrar en ventana
         }
     }
+
+  
+
+    private void cargarVentanaRegistrarse() {
+       Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
+            root = loader.load(); // el metodo initialize() se ejecuta
+            //OBTENER EL CONTROLADOR DE LA VENTANA     UsuarioController usuarioControlador = loader.getController();
+            
+            Stage escena = new Stage();                      //En Stage nuevo.
+            escena.setTitle("Registrarse");
+            escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+            escena.setScene(new Scene(root));
+            escena.showAndWait();
+            //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
+          
+
+        } catch (IOException ex) {
+//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+//       mostrar error
+
+        }
+    }
+        
+        
+        
+        
+        
+        
+       
+       
+      
+   
 
 }

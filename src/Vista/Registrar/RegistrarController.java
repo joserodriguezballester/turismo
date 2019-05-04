@@ -3,24 +3,28 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Vista.Actividad;
+package Vista.Registrar;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
  * @author joser
  */
-public class ActividadController implements Initializable {
+public class RegistrarController implements Initializable {
 
     @FXML
     private AnchorPane Ventana;
+    @FXML
+    private Button aceptarBT;
 
     /**
      * Initializes the controller class.
@@ -29,4 +33,15 @@ public class ActividadController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
     }    
+
+    @FXML
+    private void registrar(ActionEvent event) {
+        // aparte de lo que haga con los datos tiene que cerrarse la ventana
+       
+        //////// cerrar ventana ////
+         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
+         stage.close(); 
+        //////// fin cerrar ventana ////
+    }
+    
 }
