@@ -43,7 +43,7 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void logearse(ActionEvent event) {
-        cargarVentanaPrincipal();    //Es temporal aqui, poner cuando se verifique usuario
+        cargarVentanaPrincipal();    //Es temporal aqui, Este metodo debe ser llamado cuando se verifique usuario
     }
 
     @FXML
@@ -62,8 +62,9 @@ public class UsuarioController implements Initializable {
             loader.setLocation(getClass().getResource(nombrefichero));
             root = loader.load(); // el metodo initialize() se ejecuta
             principalController = loader.getController();
-//Pasamos informacion a la clase ConexionController
-            //     principalController.setParametros(usuario, bda, cambiador);
+//Pasamos informacion a la clase siguiente
+    principalController.setParametros(escenario);
+//                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();
 

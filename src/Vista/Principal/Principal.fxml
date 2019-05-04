@@ -31,7 +31,7 @@
                   <Button mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="200.0" text="Experiencias" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="200.0" text="Buscar" GridPane.columnIndex="3" />
-                  <Button mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="Button" GridPane.columnIndex="4" />
+                  <Button mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="200.0" text="Transportes" GridPane.columnIndex="4" />
                </children>
             </GridPane>
          </children>
