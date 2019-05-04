@@ -39,8 +39,8 @@ public class Turismo extends Application {
         UsuarioController usuarioController=loader.getController();
 //        UsuarioController.setEscenario(stage);  //pasamos stage a ventanaprincipal
       
-        System.out.println("Jose ha estado aqui trabajando en el cambio de ventanas");
-        System.out.println(" y ya no estoy aqui");            
+        System.out.println("Jose esta aqui trabajando en el cambio de ventanas");
+      //  System.out.println(" y ya no estoy aqui");            
     }
 
     /**
