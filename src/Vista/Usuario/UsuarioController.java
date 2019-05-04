@@ -16,10 +16,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
-/**
- *
- * @author joser
- */
 public class UsuarioController implements Initializable {
     
     private Label label;

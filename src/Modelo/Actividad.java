@@ -13,6 +13,8 @@ public class Actividad implements Comparable<Actividad> {
     private String telefono;
     private String foto;
     private int idSubtipo;
+    
+    
 
     public int getId() {
         return id;
