@@ -19,6 +19,8 @@ public class Actividad implements Comparable<Actividad> {
     
     private final Map<String, String> mapFotos = new HashMap<>();
     
+    
+    
     public Actividad(){
         
     }
