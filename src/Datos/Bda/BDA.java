@@ -15,14 +15,14 @@ import java.sql.SQLException;
  *
  * @author joser
  */
-public class Conexion {
-    
-    private Conexion bda;
+public class BDA {
+
+    private BDA bda;
     private Connection conn;
     private String informacion;  //mensajes de resultado de conexion o desconexion
     private boolean conectado;
     private PreparedStatement ps;
-    
+
     public Connection getConn() {
         return conn;
     }
@@ -31,19 +31,19 @@ public class Conexion {
         this.conn = conn;
     }
 
-    public String getInformacion() {  
+    public String getInformacion() {
         return informacion;
     }
 
     public boolean conectar() {     //Establecer conexion con la base de datos  lanza trow
         conectado = false;
-        String nombre="turismo"; //nombre de la base de datos
-        String usuario="root";   //Usuario de la base de datos, Distinto del usuario de la aplicacion
-        String pwd ="root";     //Contraseña de la base de datos, Distinto de la aplicacion
+        String nombre = "turismo"; //nombre de la base de datos
+        String usuario = "root";   //Usuario de la base de datos, Distinto del usuario de la aplicacion
+        String pwd = "root";     //Contraseña de la base de datos, Distinto de la aplicacion
         String url = "jdbc:mysql://localhost:3306/" + nombre + "?serverTimezone=UTC";
         try {
             conn = DriverManager.getConnection(url, usuario, pwd);
-         
+
             if (conn != null) {
                 //CONECTADOS CON LA BDA REFERENCIADA POR URL, CON EL USUARIO LOGIN Y SU PASSWORD
                 informacion = "Conexion a base de datos " + url + " ... OK";
@@ -82,13 +82,12 @@ public class Conexion {
         return conectado;
     }
 
-   
-    public void setParametro(Conexion bda) {
+    public void setParametro(BDA bda) {
         this.bda = bda;
 
     }
 
-    public Conexion getBda() {
+    public BDA getBda() {
         return bda;
     }
 }
