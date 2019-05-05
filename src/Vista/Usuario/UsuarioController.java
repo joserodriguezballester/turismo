@@ -23,10 +23,6 @@ import javafx.scene.control.PasswordField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-/**
- *
- * @author joser
- */
 public class UsuarioController implements Initializable {
 
     private Label label;

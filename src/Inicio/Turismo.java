@@ -17,10 +17,6 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
-/**
- *
- * @author joser
- */
 public class Turismo extends Application {
     
     @Override
@@ -36,18 +32,11 @@ public class Turismo extends Application {
         stage.setTitle(" Amsterdam");   // o nombre agencia
         stage.setScene(scene);
         stage.show();
-        UsuarioController usuarioController=loader.getController();
-//        UsuarioController.setEscenario(stage);  //pasamos stage a ventanaprincipal
-      
-        System.out.println("Jose esta aqui trabajando en el cambio de ventanas");
-        System.out.println(" y ya no estoy aqui");            
     }
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
         launch(args);
     }
     
 }
+           
