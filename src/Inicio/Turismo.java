@@ -17,15 +17,18 @@ public class Turismo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
-        Parent root = loader.load(); // el metodo initialize() se ejecuta
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
 
-        Scene scene = new Scene(root);
-        stage.getIcons().add(new Image("/Imagenes/logotipo.jpg"));
-        stage.setTitle(" Amsterdam");   // o nombre agencia
-        stage.setScene(scene);
-        stage.show();
+            Scene scene = new Scene(root);
+            stage.getIcons().add(new Image("/Imagenes/logotipo.jpg"));
+            stage.setTitle(" Amsterdam");   // o nombre agencia
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void main(String[] args) {
