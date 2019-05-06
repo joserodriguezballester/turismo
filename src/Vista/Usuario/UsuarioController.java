@@ -40,8 +40,9 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void logearse(ActionEvent event) {
-          //      cargarVentanaPrincipal();    //Es temporal aqui, Este metodo debe ser llamado cuando se verifique usuario
-        cargarVentanaPrincipalAdmin();
+        /// Cuando se verifique que es usuario y segun el roll ejecutará uno de los dos metodos
+        cargarVentanaPrincipal();    // usuario cliente
+       // cargarVentanaPrincipalAdmin();  //usuario administrador
    
      
     }
