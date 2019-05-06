@@ -8,7 +8,12 @@ package Vista.Perfil;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.layout.AnchorPane;
 
 /**
  * FXML Controller class
@@ -21,6 +26,16 @@ public class PerfilController implements Initializable {
      * Initializes the controller class.
      */
     private Connection conn;
+    @FXML
+    private AnchorPane Ventana;
+    @FXML
+    private PasswordField repContraPF;
+    @FXML
+    private RadioButton clienteRB;
+    @FXML
+    private ToggleGroup rolUsuRB;
+    @FXML
+    private RadioButton AdminRB;
 
     public PerfilController(Connection conn) {
         this.conn = conn;
