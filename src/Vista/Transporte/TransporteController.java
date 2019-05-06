@@ -6,6 +6,7 @@
 package Vista.Transporte;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;
 
@@ -19,6 +20,11 @@ public class TransporteController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    private Connection conn;
+
+    public TransporteController(Connection conn) {
+        this.conn = conn;
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

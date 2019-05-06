@@ -15,9 +15,9 @@ import java.sql.SQLException;
  *
  * @author joser
  */
-public class BDA {
+public class GestionBD {
 
-    private BDA bda;
+    private GestionBD bda;
     private Connection conn;
     private String informacion;  //mensajes de resultado de conexion o desconexion
     private boolean conectado;
@@ -82,12 +82,12 @@ public class BDA {
         return conectado;
     }
 
-    public void setParametro(BDA bda) {
+    public void setParametro(GestionBD bda) {
         this.bda = bda;
 
     }
 
-    public BDA getBda() {
+    public GestionBD getBda() {
         return bda;
     }
 }

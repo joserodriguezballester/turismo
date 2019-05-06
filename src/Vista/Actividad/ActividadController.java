@@ -5,7 +5,11 @@
  */
 package Vista.Actividad;
 
+import Modelo.Tipo;
 import java.net.URL;
+import java.sql.Connection;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,11 +29,24 @@ public class ActividadController implements Initializable {
     @FXML
     private ScrollPane scrollTipoActividades;
 
+    static private Connection conn;
+
+    public ActividadController(Connection conn) {
+        this.conn = conn;
+    }
+
+    public static void setConn(Connection conexion) {
+        conn = conexion;
+    }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        List<Tipo> lista = new ArrayList<>();
+        for (Tipo tipo : lista) {
+            System.out.println(tipo);
+        }
     }
 }

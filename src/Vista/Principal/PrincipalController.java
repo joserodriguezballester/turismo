@@ -5,6 +5,8 @@
  */
 package Vista.Principal;
 
+import Datos.Bda.GestionBD;
+import Vista.Actividad.ActividadController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,13 +29,14 @@ public class PrincipalController implements Initializable {
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
+    private GestionBD bda = new GestionBD();
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        bda.conectar();
     }
 
     @FXML
@@ -41,12 +44,14 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Actividad/Actividad.fxml";
+        ActividadController.setConn(bda.getConn());
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
+            ex.printStackTrace();
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         }
@@ -110,7 +115,7 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void irTransporte(ActionEvent event) {
-         Ventana.getChildren().removeAll(Ventana.getChildren());
+        Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Transporte/Transporte.fxml";
         loader.setLocation(getClass().getResource(nombrefichero));
@@ -123,9 +128,7 @@ public class PrincipalController implements Initializable {
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
-        
-        
-        
+
     }
 
 }
