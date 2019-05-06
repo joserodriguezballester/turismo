@@ -5,6 +5,7 @@ package Vista.Usuario;
  *   To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
 import com.sun.security.auth.PrincipalComparator;
@@ -39,7 +40,10 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void logearse(ActionEvent event) {
-        cargarVentanaPrincipal();    //Es temporal aqui, Este metodo debe ser llamado cuando se verifique usuario
+          //      cargarVentanaPrincipal();    //Es temporal aqui, Este metodo debe ser llamado cuando se verifique usuario
+        cargarVentanaPrincipalAdmin();
+   
+     
     }
 
     @FXML
@@ -99,7 +103,35 @@ public class UsuarioController implements Initializable {
         }
     }
         
+     
+    private void cargarVentanaPrincipalAdmin() {
         
+         Stage escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
+        String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
+         PrincipalAdminController principalAdminController;
+
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(nombrefichero));
+            root = loader.load(); // el metodo initialize() se ejecuta
+            principalAdminController = loader.getController();
+//Pasamos informacion a la clase siguiente
+//    principalAdminController.setParametros(escenario);
+//                 principalController.setParametros(usuario, bda, cambiador);
+//Damos valores a los nodos antes de mostrarlos
+            //        principalController.calcularnodos();
+
+            escenario.setScene(new Scene(root));
+            escenario.show();
+
+        } catch (IOException ex) {
+
+//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            System.err.println("error");  ////mostrar en ventana
+        }
+    }
+           
         
         
         
