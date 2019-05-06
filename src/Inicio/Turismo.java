@@ -5,7 +5,6 @@ package Inicio;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-import Vista.Usuario.UsuarioController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -17,18 +16,13 @@ public class Turismo extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        try {
-            Parent root = FXMLLoader.load(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
 
-            Scene scene = new Scene(root);
-            stage.getIcons().add(new Image("/Imagenes/logotipo.jpg"));
-            stage.setTitle(" Amsterdam");   // o nombre agencia
-            stage.setScene(scene);
-            stage.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
+        Scene scene = new Scene(root);
+        stage.getIcons().add(new Image("/Imagenes/logotipo.jpg"));
+        stage.setTitle(" Amsterdam");   // o nombre agencia
+        stage.setScene(scene);
+        stage.show();
     }
 
     public static void main(String[] args) {

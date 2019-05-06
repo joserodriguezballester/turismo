@@ -10,6 +10,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 
 /**
@@ -21,6 +22,8 @@ public class ActividadController implements Initializable {
 
     @FXML
     private AnchorPane Ventana;
+    @FXML
+    private ScrollPane scrollTipoActividades;
 
     /**
      * Initializes the controller class.
@@ -28,5 +31,5 @@ public class ActividadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 }
