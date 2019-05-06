@@ -11,6 +11,6 @@
     </stylesheets>
    <children>
       <Label layoutX="384.0" layoutY="150.0" prefHeight="17.0" prefWidth="407.0" text="Ventana actividad. en el diseño no hay que poner el menu" />
-      <ScrollPane fx:id="scrollTipoActividades" layoutY="1.0" prefHeight="630.0" prefWidth="208.0" />
+      <ScrollPane fx:id="scrollTipoActividades" layoutY="1.0" prefHeight="630.0" prefWidth="208.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

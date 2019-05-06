@@ -36,7 +36,7 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="Ventana" layoutX="14.0" layoutY="70.0" prefHeight="730.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+      <AnchorPane fx:id="Ventana" layoutX="14.0" layoutY="70.0" prefHeight="630.0" prefWidth="1000.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
             <Label layoutX="257.0" layoutY="234.0" text="Esta es la primera ventana despues del login. Foto de fondo, nombre agencia... que sea bonito. " />
          </children>
