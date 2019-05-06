@@ -22,12 +22,13 @@ public class TransporteController implements Initializable {
      */
     private Connection conn;
 
-    public TransporteController(Connection conn) {
+    public void setConn(Connection conn) {
         this.conn = conn;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
-    
+    }
+
 }

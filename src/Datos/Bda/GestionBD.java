@@ -17,7 +17,6 @@ import java.sql.SQLException;
  */
 public class GestionBD {
 
-    private GestionBD bda;
     private Connection conn;
     private String informacion;  //mensajes de resultado de conexion o desconexion
     private boolean conectado;
@@ -82,12 +81,4 @@ public class GestionBD {
         return conectado;
     }
 
-    public void setParametro(GestionBD bda) {
-        this.bda = bda;
-
-    }
-
-    public GestionBD getBda() {
-        return bda;
-    }
 }

@@ -22,9 +22,11 @@ public class BuscadorController implements Initializable {
      */
     private Connection conn;
 
-    public BuscadorController(Connection conn) {
+    public void setConn(Connection conn) {
         this.conn = conn;
     }
+
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

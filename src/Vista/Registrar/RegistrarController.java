@@ -6,6 +6,7 @@
 package Vista.Registrar;
 
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -25,6 +26,11 @@ public class RegistrarController implements Initializable {
     private AnchorPane Ventana;
     @FXML
     private Button aceptarBT;
+    private Connection conn;
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
+    }
 
     /**
      * Initializes the controller class.
@@ -32,16 +38,16 @@ public class RegistrarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void registrar(ActionEvent event) {
         // aparte de lo que haga con los datos tiene que cerrarse la ventana
-       
+
         //////// cerrar ventana ////
-         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
-         stage.close(); 
+        Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
+        stage.close();
         //////// fin cerrar ventana ////
     }
-    
+
 }

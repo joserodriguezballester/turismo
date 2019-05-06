@@ -83,7 +83,9 @@ public class actividadesDAO {
         String sql = "SELECT id, nombre from TIPOS;";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
-        listaActividades.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
+        while (rs.next()) {
+            listaActividades.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
+        }
 
         return listaActividades;
     }

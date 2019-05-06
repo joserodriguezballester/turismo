@@ -22,9 +22,10 @@ public class PerfilController implements Initializable {
      */
     private Connection conn;
 
-    public PerfilController(Connection conn) {
+    public void setConn(Connection conn) {
         this.conn = conn;
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
