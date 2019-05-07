@@ -84,6 +84,7 @@ public class PerfilController implements Initializable {
     @FXML
     private void mostrarRepContra(MouseEvent event) {
         //al entrar mostrar las etiquetas de repetir contraseña
+        
     }
     
 }

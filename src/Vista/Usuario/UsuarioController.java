@@ -12,6 +12,8 @@ import com.sun.security.auth.PrincipalComparator;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,8 +50,37 @@ public class UsuarioController implements Initializable {
     }
 
     @FXML
-    private void registrarse(ActionEvent event) {
-        cargarVentanaRegistrarse();
+    private void registrarse(ActionEvent event) throws IOException {
+        Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
+            root = loader.load(); // el meotodo initialize() se ejecuta
+            //OBTENER EL CONTROLADOR DE LA VENTANA
+//            UsuarioController usuarioControlador = loader.getController();
+            Stage escena = new Stage();                      //En Stage nuevo.
+            escena.setTitle("Nuevo Stage Usuario");
+            escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+            escena.setScene(new Scene(root));
+            escena.showAndWait();
+            //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
+//            if (usuarioControlador.isValido()) {
+//                usuario = usuarioControlador.getUsuario();
+//            }
+
+        } catch (IOException ex) {
+//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+
+        }
+        
+        
+        
+        
+        
+            
+       
+        
+
     }
 
     public void cargarVentanaPrincipal() {
