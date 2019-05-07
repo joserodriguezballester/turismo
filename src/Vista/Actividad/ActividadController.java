@@ -35,7 +35,7 @@ public class ActividadController implements Initializable {
     @FXML
     private AnchorPane Ventana;
     @FXML
-    private ScrollPane scrollTipoActividades;
+    private ScrollPane scrollTipoActividades = new ScrollPane();
 
     static private Connection conn;
 
@@ -54,8 +54,13 @@ public class ActividadController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 //        paneListaBotones.setMinHeight(700);
 //        paneListaBotones.setMaxHeight(15000);
-        scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        try {
+            scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+            scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         actividadesDAO gestionActividad = new actividadesDAO(conn);
 
         try {
@@ -63,19 +68,19 @@ public class ActividadController implements Initializable {
             double posicionX = 13;
             double posicionY = 10;
             JFXButton boton;
-                for (Tipo tipo : lista) {
-                    boton = new JFXButton(tipo.getNombre());
-                    boton.setLayoutX(posicionX);
-                    boton.setLayoutY(posicionY);
-                    posicionY += 60;
-                    boton.setMinSize(185, 50);
-                    boton.setStyle("-fx-padding: 0.7em 0.57em;"
-                            + "-fx-font-size: 14px;"
-                            + "-jfx-button-type: RAISED;"
-                            + "-fx-background-color: rgb(77,102,204);"
-                            + "-fx-text-fill: WHITE;");
-                    botones.add(boton);
-                }  
+            for (Tipo tipo : lista) {
+                boton = new JFXButton(tipo.getNombre());
+                boton.setLayoutX(posicionX);
+                boton.setLayoutY(posicionY);
+                posicionY += 60;
+                boton.setMinSize(185, 50);
+                boton.setStyle("-fx-padding: 0.7em 0.57em;"
+                        + "-fx-font-size: 14px;"
+                        + "-jfx-button-type: RAISED;"
+                        + "-fx-background-color: rgb(77,102,204);"
+                        + "-fx-text-fill: WHITE;");
+                botones.add(boton);
+            }
 
             for (Button botonLista : botones) {
                 paneListaBotones.getChildren().add(botonLista);
