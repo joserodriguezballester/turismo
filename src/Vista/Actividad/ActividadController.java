@@ -7,6 +7,7 @@ package Vista.Actividad;
 
 import Datos.Bda.actividadesDAO;
 import Modelo.Tipo;
+import com.jfoenix.controls.JFXButton;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -61,17 +62,20 @@ public class ActividadController implements Initializable {
             List<Tipo> lista = gestionActividad.consultarTipoActividades();
             double posicionX = 13;
             double posicionY = 10;
-            Button boton;
-            
-            for (int i = 0; i < 10; i++) {
-                for (Tipo tipo : lista) {
-                    boton = new Button(tipo.getNombre());
-                    boton.setLayoutX(posicionX);
-                    boton.setLayoutY(posicionY);
-                    posicionY += 60;
-                    boton.setMinSize(180, 50);
-                    botones.add(boton);
-                }
+            JFXButton boton;
+
+            for (Tipo tipo : lista) {
+                boton = new JFXButton(tipo.getNombre());
+                boton.setLayoutX(posicionX);
+                boton.setLayoutY(posicionY);
+                posicionY += 60;
+                boton.setMinSize(185, 50);
+                boton.setStyle("-fx-padding: 0.7em 0.57em;"
+                        + "-fx-font-size: 14px;"
+                        + "-jfx-button-type: RAISED;"
+                        + "-fx-background-color: rgb(77,102,204);"
+                        + "-fx-text-fill: WHITE;");
+                botones.add(boton);
             }
 
             for (Button botonLista : botones) {
