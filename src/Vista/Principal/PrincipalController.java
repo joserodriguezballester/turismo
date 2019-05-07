@@ -45,7 +45,7 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Actividad/Actividad.fxml";
-        ActividadController controladorActividad = new ActividadController(gestion);
+        ActividadController.setGestion(gestion);
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice

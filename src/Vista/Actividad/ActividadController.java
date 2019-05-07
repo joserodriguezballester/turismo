@@ -12,12 +12,10 @@ import Modelo.Tipo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,10 +23,12 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -42,7 +42,7 @@ public class ActividadController implements Initializable {
     @FXML
     private ScrollPane scrollTipoActividades = new ScrollPane();
 
-    private GestionBD gestion;
+    private static GestionBD gestion;
 
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     @FXML
@@ -52,19 +52,28 @@ public class ActividadController implements Initializable {
 
     ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
 
-    private actividadesDAO gestionActividad = new actividadesDAO(gestion);
+    private actividadesDAO gestionActividad;
     Tipo tipoElegido = null;
     @FXML
     private JFXListView<Actividad> listaElementos = new JFXListView<Actividad>();
 
-    public ActividadController(GestionBD gestion) {
-        this.gestion = gestion;
+    public static void setGestion(GestionBD gestion) {
+        ActividadController.gestion = gestion;
     }
+    @FXML
+    private JFXButton botonCerrarInformacion;
+    @FXML
+    private Label comprobarQueCargan;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//        paneListaBotones.setMinHeight(700);
-//        paneListaBotones.setMaxHeight(15000);
+        botonCerrarInformacion.setStyle("-fx-padding: 0.7em 0.57em;"
+                + "-fx-font-size: 10px;"
+                + "-jfx-button-type: RAISED;"
+                + "-fx-background-color: rgb(238,32,32);"
+                + "-fx-text-fill: WHITE;");
+        paneInformacion.setVisible(false);
+        gestionActividad = new actividadesDAO(gestion);
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
@@ -80,6 +89,7 @@ public class ActividadController implements Initializable {
                 posicionY += 130;
                 boton.setMinSize(186, 100);
                 boton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
                     public void handle(MouseEvent me) {
                         cargarActividades(tipo);
                     }
@@ -113,5 +123,24 @@ public class ActividadController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    private void cerrarInformacion(ActionEvent event) {
+        FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
+        ft.setFromValue(1.0);
+        ft.setToValue(0);
+        ft.play();
+    }
+
+    @FXML
+    private void cargarInformacionActividad(MouseEvent event) {
+        paneInformacion.setVisible(true);
+        FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
+        Actividad actividad = listaElementos.getSelectionModel().getSelectedItem();
+        comprobarQueCargan.setText(actividad.getNombre());
     }
 }
