@@ -86,12 +86,16 @@ public class RegistrarController implements Initializable {
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String DNI = dniTF.getText();
+       
         /// dar formato fecha y parese LocalDate fecNac=fecNacTF.getText();
+        
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
        //insertar usuario//
+       
         //usuarioDAO.insertarUsuario(DNI, nombre, apellidos, DNI, Contrasena, direccion, telefono, email)
+        
         
         // aparte de lo que haga con los datos tiene que cerrarse la ventana
         //////// cerrar ventana ////
