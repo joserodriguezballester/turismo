@@ -58,12 +58,14 @@ public class ActividadController implements Initializable {
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
         actividadesDAO gestionActividad = new actividadesDAO(conn);
+
         try {
             List<Tipo> lista = gestionActividad.consultarTipoActividades();
             double posicionX = 13;
             double posicionY = 10;
             Button boton;
-            for (int i = 0; i < 5; i++) {
+            
+            for (int i = 0; i < 10; i++) {
                 for (Tipo tipo : lista) {
                     boton = new Button(tipo.getNombre());
                     boton.setLayoutX(posicionX);
