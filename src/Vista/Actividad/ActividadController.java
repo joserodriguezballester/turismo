@@ -23,8 +23,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.dialog.*;
 
 /**
  * FXML Controller class
