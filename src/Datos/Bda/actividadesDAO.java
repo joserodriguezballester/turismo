@@ -5,6 +5,7 @@
  */
 package Datos.Bda;
 
+import Modelo.Actividad;
 import Modelo.Tipo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,10 +20,12 @@ import java.util.List;
  */
 public class actividadesDAO {
 
+    private GestionBD gestion;
     private Connection conn;
 
-    public actividadesDAO(Connection conn) {
-        this.conn = conn;
+    public actividadesDAO(GestionBD gestion) {
+        this.gestion = gestion;
+        this.conn = gestion.getConn();
     }
 
     //CREATE
@@ -79,12 +82,25 @@ public class actividadesDAO {
     }
 
     public List<Tipo> consultarTipoActividades() throws SQLException {
-        List<Tipo> listaActividades = new ArrayList<>();
-        String sql = "SELECT id, nombre from TIPOS;";
+        List<Tipo> listaTiposActividades = new ArrayList<>();
+        String sql = "SELECT id, nombre FROM tipos;";
         PreparedStatement ps = conn.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            listaActividades.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
+            listaTiposActividades.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
+        }
+
+        return listaTiposActividades;
+    }
+
+    public List<Actividad> consultarActividadesPorTipo(Tipo tipo) throws SQLException {
+        List<Actividad> listaActividades = new ArrayList<>();
+        String sql = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ?);";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setInt(1, tipo.getId());
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            listaActividades.add(new Actividad(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("horario"), rs.getString("descripcion"), rs.getString("url"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("foto"), rs.getInt("idsubtipo"))); //FALTAN LOS PARAMETROS
         }
 
         return listaActividades;

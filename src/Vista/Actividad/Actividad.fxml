@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXListView?>
 <?import java.net.URL?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -11,11 +11,12 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="384.0" layoutY="150.0" prefHeight="17.0" prefWidth="407.0" text="Ventana actividad. en el diseño no hay que poner el menu" />
-      <ScrollPane fx:id="scrollTipoActividades" prefHeight="730.0" prefWidth="216.0">
+      <ScrollPane fx:id="scrollTipoActividades" prefHeight="730.0" prefWidth="200.0">
          <content>
             <Pane fx:id="paneListaBotones" />
          </content>
       </ScrollPane>
+      <Pane fx:id="paneInformacion" layoutX="400.0" prefHeight="730.0" prefWidth="600.0" />
+      <JFXListView fx:id="listaElementos" layoutX="200.0" maxWidth="200.0" minWidth="200.0" prefHeight="730.0" prefWidth="200.0" />
    </children>
 </AnchorPane>

@@ -1,11 +1,10 @@
-
 package Modelo;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class Actividad implements Comparable<Actividad> {
-    
+
     private int id;
     private String nombre;
     private double precio;
@@ -16,14 +15,26 @@ public class Actividad implements Comparable<Actividad> {
     private String telefono;
     private String foto;
     private int idSubtipo;
-    
+
     private final Map<String, String> mapFotos = new HashMap<>();
-    
-    
-    
-    public Actividad(){
-        
+
+    public Actividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String foto, int idSubtipo) {
+        this.id = id;
+        this.nombre = nombre;
+        this.precio = precio;
+        this.horario = horario;
+        this.descripcion = descripcion;
+        this.url = url;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.foto = foto;
+        this.idSubtipo = idSubtipo;
     }
+
+    public Actividad() {
+
+    }
+
     public int getId() {
         return id;
     }
@@ -103,11 +114,10 @@ public class Actividad implements Comparable<Actividad> {
     public void setIdSubtipo(int idSubtipo) {
         this.idSubtipo = idSubtipo;
     }
-    
+
 // ----------------------- CARGAR MAPFOTOS ----------------------------------
-    
-    private void cargarMapFotos(){
-        
+    private void cargarMapFotos() {
+
         mapFotos.put("logotipo", "/Imagenes/logotipo.jpg");
         mapFotos.put("rest1", "/Imagenes/rest1.png");
         mapFotos.put("rest2", "/Imagenes/rest2.png");
@@ -137,54 +147,40 @@ public class Actividad implements Comparable<Actividad> {
         mapFotos.put("trans4", "/Imagenes/trans4.png");
         mapFotos.put("trans5", "/Imagenes/trans5.png");
     }
-    
-    public String dameRutaFoto(String foto){
+
+    public String dameRutaFoto(String foto) {
         cargarMapFotos();
         String ruta;
-        
-        if(mapFotos != null){
+
+        if (mapFotos != null) {
             ruta = mapFotos.get(foto);
-            if(ruta.equals("")){
+            if (ruta.equals("")) {
                 ruta = "La foto seleccionada no existe en la lista";
             }
-        }
-        else{
+        } else {
             ruta = "La lista de fotos esta vacia";
         }
-        
+
         return ruta;
     }
 
 // -----------------------------               -----------------------------
-    
-    
     @Override
     public String toString() {
-        return "Actividad{"+", id=" + id + 
-                            ", nombre=" + nombre + 
-                            ", precio=" + precio + 
-                            ", horario=" + horario + 
-                            ", descripcion=" + descripcion + 
-                            ", url=" + url + 
-                            ", direccion=" + direccion + 
-                            ", telefono=" + telefono + 
-                            ", foto=" + foto + 
-                            ", idSubtipo=" + idSubtipo + '}';
+        return nombre;
     }
 
     @Override
     public int compareTo(Actividad o) {
         int compara;
-        if(this.id < o.getId()){
+        if (this.id < o.getId()) {
             compara = -1;
-        }
-        else if(this.id > o.getId()){
+        } else if (this.id > o.getId()) {
             compara = 1;
-        }
-        else{
+        } else {
             compara = 0;
         }
         return compara;
     }
-  
+
 }
