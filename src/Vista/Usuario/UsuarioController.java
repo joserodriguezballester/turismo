@@ -5,12 +5,15 @@ package Vista.Usuario;
  *   To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Datos.Bda.GestionBD;
+import Datos.Bda.usuariosDAO;
 import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
 import com.sun.security.auth.PrincipalComparator;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,9 +37,14 @@ public class UsuarioController implements Initializable {
     @FXML
     private Label nombreET;
     private Stage escenario;
-
+    private GestionBD bda;
+    private usuariosDAO usuarioDAO;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        bda = new GestionBD();
+        bda.conectar();
+       usuarioDAO=new usuariosDAO(bda);
         // TODO
     }
 
@@ -57,9 +65,10 @@ public class UsuarioController implements Initializable {
             loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
             root = loader.load(); // el meotodo initialize() se ejecuta
             //OBTENER EL CONTROLADOR DE LA VENTANA
-//            UsuarioController usuarioControlador = loader.getController();
+            RegistrarController registrarController = loader.getController();
+            registrarController.setParametros(bda,usuarioDAO);
             Stage escena = new Stage();                      //En Stage nuevo.
-            escena.setTitle("Nuevo Stage Usuario");
+            escena.setTitle("Registrarse");
             escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
             escena.setScene(new Scene(root));
             escena.showAndWait();
