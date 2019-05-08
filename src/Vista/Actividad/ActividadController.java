@@ -36,29 +36,26 @@ public class ActividadController implements Initializable {
     private AnchorPane Ventana;
     @FXML
     private ScrollPane scrollTipoActividades = new ScrollPane();
-
-    private static GestionBD gestion;
-
-    private ObservableList<Button> botones = FXCollections.observableArrayList();
     @FXML
     private Pane paneListaBotones;
     @FXML
     private Pane paneInformacion;
-
-    ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
-
-    private actividadesDAO gestionActividad;
-    Tipo tipoElegido = null;
     @FXML
     private JFXListView<Actividad> listaElementos = new JFXListView<Actividad>();
-
-    public static void setGestion(GestionBD gestion) {
-        ActividadController.gestion = gestion;
-    }
     @FXML
     private JFXButton botonCerrarInformacion;
     @FXML
     private Label comprobarQueCargan;
+
+    private static GestionBD gestion;
+    private ObservableList<Button> botones = FXCollections.observableArrayList();
+    private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
+    private actividadesDAO gestionActividad;
+    private Tipo tipoElegido = null;
+
+    public static void setGestion(GestionBD gestion) {
+        ActividadController.gestion = gestion;
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
