@@ -5,6 +5,7 @@
  */
 package Datos.Bda;
 
+import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -17,16 +18,15 @@ import java.time.LocalDate;
 public class usuariosDAO {
 
     private Connection conn;
-    private GestionBD bda;
+    private GestionBD gestion;
 
-  
-    public usuariosDAO(GestionBD bda) {
-        this.bda=bda;
+    public usuariosDAO(GestionBD gestion) {
+        this.gestion = gestion;
     }
 
-    //CREATE
+    //CREATE PASANDO PARAMETROS
     public boolean insertarUsuario(String DNI, String nombre, String apellidos, String rol, String contraseña, String direccion, String telefono, String email) {
-   
+
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (DNI, NOMBRE, APELLIDOS, ROL, CONTRASEÑA, DIRECCION, TELEFONO, EMAIL) VALUES(?, ?, ?, ?, ?);";
         try {
@@ -41,6 +41,35 @@ public class usuariosDAO {
             ps.setString(8, email);
             ps.executeUpdate();
             insertado = true;
+        } catch (SQLException e) {
+            //MENSAJE DE ERROR
+        }
+        return insertado;
+    }
+
+    //CREATE PASANDO USUARIO
+    public boolean insertarUsuario(Usuario usuario) {
+        //instruccion valida en sql
+        //  insert into usuarios (nick,contraseña,fecNac,nombre,apellidos,dni,rol,telefono,direccion,email) 
+//values('juanito','khjsd$kjshd','20170314','juan','Perez Garcia','12345678a',default,'963838101','Marie curie, 4-5 mislata','joserodriguezballester@gmail.com');
+        boolean insertado = false;
+        String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email)"
+                + " VALUES(?, ?, ?, ?, ?,?,?,?,?);";
+        try {
+//            PreparedStatement ps = conn.prepareStatement(consulta);
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+            ps.setString(1, usuario.getNick());
+            ps.setString(2, usuario.getPassword());
+            ps.setString(3, usuario.getFecNac().toString());
+            ps.setString(4, usuario.getNombre());
+            ps.setString(5, usuario.getApellidos());
+            ps.setString(6, usuario.getDNI());
+            ps.setString(7, usuario.getTelefono());
+            ps.setString(8, usuario.getDireccion());
+            ps.setString(9, usuario.getEmail());
+            ps.executeUpdate();
+            insertado = true;
+            System.out.println("lo he conseguido "+insertado);
         } catch (SQLException e) {
             //MENSAJE DE ERROR
         }

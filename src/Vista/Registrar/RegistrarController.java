@@ -7,10 +7,12 @@ package Vista.Registrar;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
+import Modelo.Usuario;
 import java.net.URL;
 import java.sql.Connection;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -65,8 +67,7 @@ public class RegistrarController implements Initializable {
     private RadioButton AdminRB;
     @FXML
     private Button salirBT;
-    
-    
+
     private Connection conn;
     private GestionBD bda;
     private usuariosDAO usuarioDAO;
@@ -85,29 +86,31 @@ public class RegistrarController implements Initializable {
 
     @FXML
     private void registrar(ActionEvent event) {
-        
-        String Nick = nickTF.getText();
-        String Contrasena = ContraPF.getText();
+
+        String nick = nickTF.getText();
+        String contrasena = ContraPF.getText();
         String ContrasenaCopia = repContraPF.getText();
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String DNI = dniTF.getText();
-       
+
         /// dar formato fecha y parese LocalDate fecNac=fecNacTF.getText();
-        
+        LocalDate fecNac = LocalDate.parse(fecNacTF.getText(), DateTimeFormatter.ISO_DATE);
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
-       //insertar usuario//
-       
-        //usuarioDAO.insertarUsuario(DNI, nombre, apellidos, DNI, Contrasena, direccion, telefono, email)
-        
-        
-        // aparte de lo que haga con los datos tiene que cerrarse la ventana
-        //////// cerrar ventana ////
-        Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
-        stage.close();
-        //////// fin cerrar ventana ////
+        if (contrasena.equals(ContrasenaCopia)) {
+            //crear usuario//
+            Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
+            //insertar usuario en BD//      
+            usuarioDAO.insertarUsuario(usuario);
+
+            // aparte de lo que haga con los datos tiene que cerrarse la ventana
+            //////// cerrar ventana ////
+            Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
+            stage.close();
+            //////// fin cerrar ventana ////
+        }
     }
 
     @FXML
@@ -119,11 +122,9 @@ public class RegistrarController implements Initializable {
     }
 
     public void setParametros(GestionBD bda, usuariosDAO usuarioDAO) {
-        this.bda=bda;
-        this.usuarioDAO=usuarioDAO;
-    
-    }
+        this.bda = bda;
+        this.usuarioDAO = usuarioDAO;
 
-  
+    }
 
 }

@@ -1,19 +1,60 @@
-
 package Modelo;
 
+import java.time.LocalDate;
+
 public class Usuario implements Comparable<Usuario> {
-    
+
     private int id;
-    private String dni;
+    private String DNI;
     private String nombre;
     private String apellidos;
     private String password;
     private String direccion;
     private String telefono;
     private String email;
+    private String nick;
+    private LocalDate fecNac;
 
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
+    }
+
+    public LocalDate getFecNac() {
+        return fecNac;
+    }
+
+    public void setFecNac(LocalDate fecNac) {
+        this.fecNac = fecNac;
+    }
     
-    private enum roll {USUARIO,EMPLEADO}
+
+    public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac) {
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.password = contrasena;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+        this.nick = nick;
+        this.fecNac = fecNac;
+    }
+
+    private enum roll {
+        CLIENTE, ADMINISTRADOR
+    }
 
     public int getId() {
         return id;
@@ -24,11 +65,11 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public String getDni() {
-        return dni;
+        return DNI;
     }
 
     public void setDni(String dni) {
-        this.dni = dni;
+        this.DNI = dni;
     }
 
     public String getNombre() {
@@ -46,7 +87,7 @@ public class Usuario implements Comparable<Usuario> {
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
-    
+
     public String getPassword() {
         return password;
     }
@@ -81,30 +122,28 @@ public class Usuario implements Comparable<Usuario> {
 
     @Override
     public String toString() {
-        return "Usuario{" + "id=" + id + 
-                            ", dni=" + dni + 
-                            ", nombre=" + nombre +
-                            ", apellidos=" + apellidos +
-                            ", password=" + password +
-                            ", direccion=" + direccion + 
-                            ", telefono=" + telefono + 
-                            ", email=" + email + '}';
+        return "Usuario{" + "id=" + id
+                + ", dni=" + DNI
+                + ", nombre=" + nombre
+                + ", apellidos=" + apellidos
+                + ", password=" + password
+                + ", direccion=" + direccion
+                + ", telefono=" + telefono
+                + ", email=" + email + '}';
     }
-      
+
     @Override
     public int compareTo(Usuario us) {
         int compara;
-        if(this.id < us.getId()){
+        if (this.id < us.getId()) {
             compara = -1;
-        }
-        else if(this.id > us.getId()){
+        } else if (this.id > us.getId()) {
             compara = 1;
-        }
-        else {
+        } else {
             compara = 0;
         }
-        
+
         return compara;
     }
-    
+
 }
