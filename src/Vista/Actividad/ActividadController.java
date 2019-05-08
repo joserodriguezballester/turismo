@@ -3,6 +3,7 @@ package Vista.Actividad;
 import Datos.Bda.GestionBD;
 import Datos.Bda.actividadesDAO;
 import Modelo.Actividad;
+import Modelo.Notificacion;
 import Modelo.Tipo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
@@ -24,6 +25,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -46,7 +48,7 @@ public class ActividadController implements Initializable {
     private JFXButton botonCerrarInformacion;
     @FXML
     private Label tituloActividad;
-    
+
     private static GestionBD gestion;
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
@@ -56,7 +58,6 @@ public class ActividadController implements Initializable {
     public static void setGestion(GestionBD gestion) {
         ActividadController.gestion = gestion;
     }
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -122,6 +123,13 @@ public class ActividadController implements Initializable {
 
     @FXML
     private void cargarInformacionActividad(MouseEvent event) {
+//        try {
+//            Notificacion notificacion = new Notificacion();
+//            notificacion.error("ERROR", "Esto es un error");
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+
         paneInformacion.setVisible(true);
         FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
         ft.setFromValue(0);
@@ -129,5 +137,9 @@ public class ActividadController implements Initializable {
         ft.play();
         Actividad actividad = listaElementos.getSelectionModel().getSelectedItem();
         tituloActividad.setText(actividad.getNombre());
+    }
+
+    private void notificacion() {
+
     }
 }
