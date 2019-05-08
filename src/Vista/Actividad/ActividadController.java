@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista.Actividad;
 
 import Datos.Bda.GestionBD;
@@ -44,22 +39,18 @@ public class ActividadController implements Initializable {
     @FXML
     private Pane paneListaBotones;
     @FXML
-    private final Pane paneInformacion = new Pane();
+    private Pane paneInformacion;
     @FXML
     private JFXListView<Actividad> listaElementos = new JFXListView<Actividad>();
     @FXML
-    private final JFXButton botonCerrarInformacion = new JFXButton();
+    private JFXButton botonCerrarInformacion;
     @FXML
     private Label comprobarQueCargan;
 
     private static GestionBD gestion;
-
     private ObservableList<Button> botones = FXCollections.observableArrayList();
-
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
-
     private actividadesDAO gestionActividad;
-
     private Tipo tipoElegido = null;
 
     public static void setGestion(GestionBD gestion) {
@@ -68,8 +59,12 @@ public class ActividadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        botonCerrarInformacion.setStyle("-fx-padding: 0.7em 0.57em;"
+                + "-fx-font-size: 10px;"
+                + "-jfx-button-type: RAISED;"
+                + "-fx-background-color: rgb(238,32,32);"
+                + "-fx-text-fill: WHITE;");
         paneInformacion.setVisible(false);
-        botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         gestionActividad = new actividadesDAO(gestion);
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -91,7 +86,11 @@ public class ActividadController implements Initializable {
                         cargarActividades(tipo);
                     }
                 });
-                boton.getStyleClass().add("botonActividad");
+                boton.setStyle("-fx-padding: 0.7em 0.57em;"
+                        + "-fx-font-size: 14px;"
+                        + "-jfx-button-type: RAISED;"
+                        + "-fx-background-color: rgb(77,102,204);"
+                        + "-fx-text-fill: WHITE;");
                 botones.add(boton);
             }
 
@@ -114,7 +113,7 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (Exception e) {
-//            MENSAJE DE ERROR
+            e.printStackTrace();
         }
     }
 
