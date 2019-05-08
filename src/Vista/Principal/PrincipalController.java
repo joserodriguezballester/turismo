@@ -32,13 +32,11 @@ public class PrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-//<<<<<<< HEAD
-//       
-//        bda.conectar();
-//=======
-//        gestion = new GestionBD();
-//        gestion.conectar();
-//>>>>>>> origin/master
+    
+
+       gestion = new GestionBD();
+        gestion.conectar();
+
     }
 
     @FXML
