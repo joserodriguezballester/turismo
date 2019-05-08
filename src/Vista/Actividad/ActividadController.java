@@ -46,6 +46,7 @@ public class ActividadController implements Initializable {
     private JFXButton botonCerrarInformacion;
     @FXML
     private Label tituloActividad;
+    
     private static GestionBD gestion;
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();

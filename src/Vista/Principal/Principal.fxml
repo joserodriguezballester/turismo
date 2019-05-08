@@ -27,11 +27,11 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="300.0" text="Actividades" />
-                  <Button mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="2" />
-                  <Button mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="200.0" text="Buscar" GridPane.columnIndex="3" />
-                  <Button mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="200.0" text="Transportes" GridPane.columnIndex="4" />
+                  <Button fx:id="botonActividades" mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="300.0" text="Actividades" />
+                  <Button fx:id="botonExperiencias" mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="1" />
+                  <Button fx:id="botonPerfil" mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="300.0" text="Perfil" GridPane.columnIndex="2" />
+                  <Button fx:id="botonBuscar" mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="300.0" text="Buscar" GridPane.columnIndex="3" />
+                  <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Transportes" GridPane.columnIndex="4" />
                </children>
             </GridPane>
          </children>

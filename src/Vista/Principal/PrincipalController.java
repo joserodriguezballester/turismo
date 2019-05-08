@@ -10,6 +10,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -25,16 +26,29 @@ public class PrincipalController implements Initializable {
     @FXML
     private AnchorPane Ventana;
     private GestionBD gestion;
+    @FXML
+    private Button botonActividades;
+    @FXML
+    private Button botonExperiencias;
+    @FXML
+    private Button botonPerfil;
+    @FXML
+    private Button botonBuscar;
+    @FXML
+    private Button botonTransportes;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        botonActividades.getStyleClass().add("botonMenu");
+        botonExperiencias.getStyleClass().add("botonMenu");
+        botonPerfil.getStyleClass().add("botonMenu");
+        botonBuscar.getStyleClass().add("botonMenu");
+        botonTransportes.getStyleClass().add("botonMenu");
 
-    
-
-       gestion = new GestionBD();
+        gestion = new GestionBD();
         gestion.conectar();
 
     }
