@@ -7,8 +7,9 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="Ventana" prefHeight="730.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Actividad.ActividadController">
+<AnchorPane id="AnchorPane" fx:id="Ventana" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Actividad.ActividadController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
@@ -18,10 +19,13 @@
                 <Pane fx:id="paneListaBotones" />
             </content>
         </ScrollPane>
-        <Pane fx:id="paneInformacion" layoutX="400.0" prefHeight="730.0" prefWidth="600.0">
+        <Pane fx:id="paneInformacion" layoutX="410.0" layoutY="10.0" prefHeight="710.0" prefWidth="880.0">
          <children>
             <JFXButton fx:id="botonCerrarInformacion" layoutX="14.0" layoutY="14.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
-            <Label fx:id="comprobarQueCargan" layoutX="258.0" layoutY="323.0" text="Label" />
+            <Label fx:id="tituloActividad" alignment="CENTER" layoutX="50.0" layoutY="6.0" prefHeight="41.0" prefWidth="800.0" text="Label">
+               <font>
+                  <Font name="System Bold Italic" size="24.0" />
+               </font></Label>
          </children></Pane>
         <JFXListView fx:id="listaElementos" layoutX="200.0" maxWidth="200.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="730.0" prefWidth="200.0" />
     </children>

@@ -45,8 +45,7 @@ public class ActividadController implements Initializable {
     @FXML
     private JFXButton botonCerrarInformacion;
     @FXML
-    private Label comprobarQueCargan;
-
+    private Label tituloActividad;
     private static GestionBD gestion;
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
@@ -56,11 +55,14 @@ public class ActividadController implements Initializable {
     public static void setGestion(GestionBD gestion) {
         ActividadController.gestion = gestion;
     }
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        tituloActividad.getStyleClass().add("tituloActividades");
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
+        paneInformacion.getStyleClass().add("paneInformacionActividades");
         gestionActividad = new actividadesDAO(gestion);
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -125,6 +127,6 @@ public class ActividadController implements Initializable {
         ft.setToValue(1);
         ft.play();
         Actividad actividad = listaElementos.getSelectionModel().getSelectedItem();
-        comprobarQueCargan.setText(actividad.getNombre());
+        tituloActividad.setText(actividad.getNombre());
     }
 }
