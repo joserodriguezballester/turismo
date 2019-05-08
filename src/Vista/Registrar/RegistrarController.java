@@ -35,7 +35,6 @@ public class RegistrarController implements Initializable {
     private AnchorPane Ventana;
     @FXML
     private Button aceptarBT;
-    private Connection conn;
     @FXML
     private AnchorPane Ventana1;
     @FXML
@@ -66,9 +65,16 @@ public class RegistrarController implements Initializable {
     private RadioButton AdminRB;
     @FXML
     private Button salirBT;
+    
+    
+    private Connection conn;
     private GestionBD bda;
- private usuariosDAO usuarioDAO;
-   
+    private usuariosDAO usuarioDAO;
+
+    public void setConn(Connection conn) {
+        this.conn = conn;
+    }
+
     /**
      * Initializes the controller class.
      */

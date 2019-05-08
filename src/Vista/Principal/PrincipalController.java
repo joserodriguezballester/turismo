@@ -25,15 +25,20 @@ public class PrincipalController implements Initializable {
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
-    private GestionBD bda = new GestionBD();
+    private GestionBD gestion;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
-        bda.conectar();
+//<<<<<<< HEAD
+//       
+//        bda.conectar();
+//=======
+//        gestion = new GestionBD();
+//        gestion.conectar();
+//>>>>>>> origin/master
     }
 
     @FXML
@@ -41,7 +46,7 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Actividad/Actividad.fxml";
-        ActividadController.setConn(bda.getConn());
+        ActividadController.setGestion(gestion);
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
