@@ -17,13 +17,16 @@ import java.time.LocalDate;
 public class usuariosDAO {
 
     private Connection conn;
+    private GestionBD bda;
 
-    public usuariosDAO(Connection conn) {
-        this.conn = conn;
+  
+    public usuariosDAO(GestionBD bda) {
+        this.bda=bda;
     }
 
     //CREATE
     public boolean insertarUsuario(String DNI, String nombre, String apellidos, String rol, String contraseña, String direccion, String telefono, String email) {
+   
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (DNI, NOMBRE, APELLIDOS, ROL, CONTRASEÑA, DIRECCION, TELEFONO, EMAIL) VALUES(?, ?, ?, ?, ?);";
         try {

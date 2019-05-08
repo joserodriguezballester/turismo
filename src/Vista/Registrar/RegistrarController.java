@@ -5,8 +5,12 @@
  */
 package Vista.Registrar;
 
+import Datos.Bda.GestionBD;
+import Datos.Bda.usuariosDAO;
 import java.net.URL;
 import java.sql.Connection;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -64,6 +68,8 @@ public class RegistrarController implements Initializable {
     
     
     private Connection conn;
+    private GestionBD bda;
+    private usuariosDAO usuarioDAO;
 
     public void setConn(Connection conn) {
         this.conn = conn;
@@ -79,8 +85,25 @@ public class RegistrarController implements Initializable {
 
     @FXML
     private void registrar(ActionEvent event) {
+        
+        String Nick = nickTF.getText();
+        String Contrasena = ContraPF.getText();
+        String ContrasenaCopia = repContraPF.getText();
+        String nombre = nombreTF.getText();
+        String apellidos = apellidosTF.getText();
+        String DNI = dniTF.getText();
+       
+        /// dar formato fecha y parese LocalDate fecNac=fecNacTF.getText();
+        
+        String telefono = telefonoTF.getText();
+        String direccion = direccionTF.getText();
+        String email = emailTF.getText();
+       //insertar usuario//
+       
+        //usuarioDAO.insertarUsuario(DNI, nombre, apellidos, DNI, Contrasena, direccion, telefono, email)
+        
+        
         // aparte de lo que haga con los datos tiene que cerrarse la ventana
-
         //////// cerrar ventana ////
         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
         stage.close();
@@ -94,5 +117,13 @@ public class RegistrarController implements Initializable {
     @FXML
     private void salir(ActionEvent event) {
     }
+
+    public void setParametros(GestionBD bda, usuariosDAO usuarioDAO) {
+        this.bda=bda;
+        this.usuarioDAO=usuarioDAO;
+    
+    }
+
+  
 
 }
