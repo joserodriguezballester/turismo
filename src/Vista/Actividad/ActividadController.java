@@ -59,11 +59,7 @@ public class ActividadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        botonCerrarInformacion.setStyle("-fx-padding: 0.7em 0.57em;"
-                + "-fx-font-size: 10px;"
-                + "-jfx-button-type: RAISED;"
-                + "-fx-background-color: rgb(238,32,32);"
-                + "-fx-text-fill: WHITE;");
+        botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         gestionActividad = new actividadesDAO(gestion);
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -86,11 +82,7 @@ public class ActividadController implements Initializable {
                         cargarActividades(tipo);
                     }
                 });
-                boton.setStyle("-fx-padding: 0.7em 0.57em;"
-                        + "-fx-font-size: 14px;"
-                        + "-jfx-button-type: RAISED;"
-                        + "-fx-background-color: rgb(77,102,204);"
-                        + "-fx-text-fill: WHITE;");
+                boton.getStyleClass().add("botonActividad");
                 botones.add(boton);
             }
 
