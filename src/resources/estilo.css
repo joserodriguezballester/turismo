@@ -8,3 +8,17 @@ and open the template in the editor.
     Author     : joser
 */
 
+.botonCerrarInformacion{
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 10px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(238,32,32);
+    -fx-text-fill: WHITE;
+}
+.botonActividad{
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 14px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(77,102,204);
+    -fx-text-fill: WHITE;
+}
