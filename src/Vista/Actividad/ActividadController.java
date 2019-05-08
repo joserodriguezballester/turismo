@@ -51,31 +51,25 @@ public class ActividadController implements Initializable {
     private final JFXButton botonCerrarInformacion = new JFXButton();
     @FXML
     private Label comprobarQueCargan;
-    
+
     private static GestionBD gestion;
 
     private ObservableList<Button> botones = FXCollections.observableArrayList();
-    
+
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
 
-    actividadesDAO gestionActividad;
-    
+    private actividadesDAO gestionActividad;
+
     private Tipo tipoElegido = null;
-    
 
     public static void setGestion(GestionBD gestion) {
         ActividadController.gestion = gestion;
     }
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        botonCerrarInformacion.setStyle("-fx-padding: 0.7em 0.57em;"
-                + "-fx-font-size: 10px;"
-                + "-jfx-button-type: RAISED;"
-                + "-fx-background-color: rgb(238,32,32);"
-                + "-fx-text-fill: WHITE;");
         paneInformacion.setVisible(false);
+        botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         gestionActividad = new actividadesDAO(gestion);
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
@@ -97,11 +91,7 @@ public class ActividadController implements Initializable {
                         cargarActividades(tipo);
                     }
                 });
-                boton.setStyle("-fx-padding: 0.7em 0.57em;"
-                        + "-fx-font-size: 14px;"
-                        + "-jfx-button-type: RAISED;"
-                        + "-fx-background-color: rgb(77,102,204);"
-                        + "-fx-text-fill: WHITE;");
+                boton.getStyleClass().add("botonActividad");
                 botones.add(boton);
             }
 
@@ -124,7 +114,7 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (Exception e) {
-            e.printStackTrace();
+//            MENSAJE DE ERROR
         }
     }
 
