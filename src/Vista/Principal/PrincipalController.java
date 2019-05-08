@@ -31,8 +31,12 @@ public class PrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        gestion = new GestionBD();
+
+    
+
+       gestion = new GestionBD();
         gestion.conectar();
+
     }
 
     @FXML
