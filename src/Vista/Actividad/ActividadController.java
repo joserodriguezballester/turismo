@@ -37,30 +37,25 @@ import javafx.util.Duration;
  */
 public class ActividadController implements Initializable {
 
-    @FXML
     private AnchorPane Ventana;
-    @FXML
-    private ScrollPane scrollTipoActividades = new ScrollPane();
+    private static GestionBD gestion;
+    private ObservableList<Button> botones = FXCollections.observableArrayList();
+    private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
+    private actividadesDAO gestionActividad;
+    private Tipo tipoElegido = null;
+
     @FXML
     private Pane paneListaBotones;
     @FXML
-    private final Pane paneInformacion = new Pane();
+    private Pane paneInformacion;
     @FXML
     private JFXListView<Actividad> listaElementos = new JFXListView<Actividad>();
     @FXML
-    private final JFXButton botonCerrarInformacion = new JFXButton();
+    private ScrollPane scrollTipoActividades = new ScrollPane();
+    @FXML
+    private JFXButton botonCerrarInformacion;
     @FXML
     private Label comprobarQueCargan;
-
-    private static GestionBD gestion;
-
-    private ObservableList<Button> botones = FXCollections.observableArrayList();
-
-    private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
-
-    private actividadesDAO gestionActividad;
-
-    private Tipo tipoElegido = null;
 
     public static void setGestion(GestionBD gestion) {
         ActividadController.gestion = gestion;
@@ -68,6 +63,7 @@ public class ActividadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         paneInformacion.setVisible(false);
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         gestionActividad = new actividadesDAO(gestion);
