@@ -8,6 +8,7 @@ package Datos.Bda;
 import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -24,34 +25,11 @@ public class usuariosDAO {
         this.gestion = gestion;
     }
 
-    //CREATE PASANDO PARAMETROS
-    public boolean insertarUsuario(String DNI, String nombre, String apellidos, String rol, String contraseña, String direccion, String telefono, String email) {
-
-        boolean insertado = false;
-        String consulta = "INSERT INTO USUARIOS (DNI, NOMBRE, APELLIDOS, ROL, CONTRASEÑA, DIRECCION, TELEFONO, EMAIL) VALUES(?, ?, ?, ?, ?);";
-        try {
-            PreparedStatement ps = conn.prepareStatement(consulta);
-            ps.setString(1, DNI);
-            ps.setString(2, nombre);
-            ps.setString(3, apellidos);
-            ps.setString(4, rol);
-            ps.setString(5, contraseña);
-            ps.setString(6, direccion);
-            ps.setString(7, telefono);
-            ps.setString(8, email);
-            ps.executeUpdate();
-            insertado = true;
-        } catch (SQLException e) {
-            //MENSAJE DE ERROR
-        }
-        return insertado;
-    }
+      
 
     //CREATE PASANDO USUARIO
     public boolean insertarUsuario(Usuario usuario) {
-        //instruccion valida en sql
-        //  insert into usuarios (nick,contraseña,fecNac,nombre,apellidos,dni,rol,telefono,direccion,email) 
-//values('juanito','khjsd$kjshd','20170314','juan','Perez Garcia','12345678a',default,'963838101','Marie curie, 4-5 mislata','joserodriguezballester@gmail.com');
+              
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email)"
                 + " VALUES(?, ?, ?, ?, ?,?,?,?,?);";
@@ -69,7 +47,7 @@ public class usuariosDAO {
             ps.setString(9, usuario.getEmail());
             ps.executeUpdate();
             insertado = true;
-            System.out.println("lo he conseguido "+insertado);
+          
         } catch (SQLException e) {
             //MENSAJE DE ERROR
         }
@@ -116,4 +94,26 @@ public class usuariosDAO {
 
         return borrado;
     }
+  public String obtenerContra(String nick){
+      String contrasena = null;
+        String sql = "SELECT Contraseña FROM USUARIOS WHERE nick=?;";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, nick);
+         ResultSet rs = ps.executeQuery();
+        while (rs.next()){
+             contrasena = rs.getString("Contraseña");
+        }
+        } catch (SQLException e) {
+            //MENSAJE DE ERROR
+        }
+        return contrasena; 
+        
+        
+        
+        
+        
+  }  
+    
+    
 }

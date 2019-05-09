@@ -23,22 +23,25 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 
 public class UsuarioController implements Initializable {
 
     private Label label;
-    @FXML
-    private PasswordField contrasena;
-    @FXML
     private Label nombreET;
     private Stage escenario;
     private GestionBD bda;
     private usuariosDAO usuarioDAO;
+    @FXML
+    private PasswordField contraTF;
+    @FXML
+    private TextField nickTF;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -50,6 +53,11 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void logearse(ActionEvent event) {
+        //comprobar si existe usuario//
+        String nick=nickTF.getText();
+        String contrasenaBD = usuarioDAO.obtenerContra(nick);
+        PasswordEncryptor encryptor = new BasicPasswordEncryptor(); 
+        
         /// Cuando se verifique que es usuario y segun el roll ejecutará uno de los dos metodos
         cargarVentanaPrincipal();    // usuario cliente
        // cargarVentanaPrincipalAdmin();  //usuario administrador

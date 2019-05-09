@@ -150,8 +150,8 @@ public class Usuario implements Comparable<Usuario> {
     }
 
      public String encriptar (String contrasena){
-     PasswordEncryptor encryptor = new BasicPasswordEncryptor();
-        
+     PasswordEncryptor encryptor = new BasicPasswordEncryptor();  
+     
         String contrasenaEncriptada = encryptor.encryptPassword(contrasena);
 //          /**
 //         * Compara el password cifrado con nuestra palabra secreta
