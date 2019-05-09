@@ -98,7 +98,7 @@ public class usuariosDAO {
       String contrasena = null;
         String sql = "SELECT Contraseña FROM USUARIOS WHERE nick=?;";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ps.setString(1, nick);
          ResultSet rs = ps.executeQuery();
         while (rs.next()){

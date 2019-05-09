@@ -28,6 +28,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.controlsfx.dialog.LoginDialog;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 
@@ -42,27 +43,28 @@ public class UsuarioController implements Initializable {
     private PasswordField contraTF;
     @FXML
     private TextField nickTF;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bda = new GestionBD();
         bda.conectar();
-       usuarioDAO=new usuariosDAO(bda);
+        usuarioDAO = new usuariosDAO(bda);
         // TODO
     }
 
     @FXML
     private void logearse(ActionEvent event) {
-        //comprobar si existe usuario//
-        String nick=nickTF.getText();
-        String contrasenaBD = usuarioDAO.obtenerContra(nick);
-        PasswordEncryptor encryptor = new BasicPasswordEncryptor(); 
         
-        /// Cuando se verifique que es usuario y segun el roll ejecutará uno de los dos metodos
-        cargarVentanaPrincipal();    // usuario cliente
-       // cargarVentanaPrincipalAdmin();  //usuario administrador
+//////////        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
+        boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
+        if (logeado) {
    
-     
+/// segun el roll ejecutará uno de los dos metodos
+        cargarVentanaPrincipal();    // usuario cliente
+        // cargarVentanaPrincipalAdmin();  //usuario administrador
+        }else{
+           // mostrar ventana que no existe o contraseña erronea
+        }
     }
 
     @FXML
@@ -74,7 +76,7 @@ public class UsuarioController implements Initializable {
             root = loader.load(); // el meotodo initialize() se ejecuta
             //OBTENER EL CONTROLADOR DE LA VENTANA
             RegistrarController registrarController = loader.getController();
-            registrarController.setParametros(bda,usuarioDAO);
+            registrarController.setParametros(bda, usuarioDAO);
             Stage escena = new Stage();                      //En Stage nuevo.
             escena.setTitle("Registrarse");
             escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
@@ -89,19 +91,11 @@ public class UsuarioController implements Initializable {
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
 
         }
-        
-        
-        
-        
-        
-            
-       
-        
 
     }
 
     public void cargarVentanaPrincipal() {
-        Stage escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
+        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
         String nombrefichero = "/Vista/Principal/Principal.fxml";
         PrincipalController principalController;
 
@@ -112,7 +106,7 @@ public class UsuarioController implements Initializable {
             root = loader.load(); // el metodo initialize() se ejecuta
             principalController = loader.getController();
 //Pasamos informacion a la clase siguiente
-    principalController.setParametros(escenario);
+            principalController.setParametros(escenario);
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();
@@ -127,23 +121,20 @@ public class UsuarioController implements Initializable {
         }
     }
 
-  
-
     private void cargarVentanaRegistrarse() {
-       Parent root;
+        Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
             root = loader.load(); // el metodo initialize() se ejecuta
             //OBTENER EL CONTROLADOR DE LA VENTANA     UsuarioController usuarioControlador = loader.getController();
-            
+
             Stage escena = new Stage();                      //En Stage nuevo.
             escena.setTitle("Registrarse");
             escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
             escena.setScene(new Scene(root));
             escena.showAndWait();
             //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
-          
 
         } catch (IOException ex) {
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
@@ -151,13 +142,12 @@ public class UsuarioController implements Initializable {
 
         }
     }
-        
-     
+
     private void cargarVentanaPrincipalAdmin() {
-        
-         Stage escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
+
+        escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
         String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
-         PrincipalAdminController principalAdminController;
+        PrincipalAdminController principalAdminController;
 
         Parent root;
         try {
@@ -180,14 +170,18 @@ public class UsuarioController implements Initializable {
             System.err.println("error");  ////mostrar en ventana
         }
     }
-           
-        
-        
-        
-        
-       
-       
-      
-   
+
+    public boolean verificaUsuario() {
+        boolean existe=false;
+        PasswordEncryptor encryptor = new BasicPasswordEncryptor();
+        boolean checkPassword;
+
+        //comprobar si existe usuario//
+        String nick = nickTF.getText();
+        String contrasenaBD = usuarioDAO.obtenerContra(nick);
+        String contrasena = contraTF.getText();
+        checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
+        return checkPassword;
+    }
 
 }
