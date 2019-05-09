@@ -8,10 +8,10 @@ package Vista.Registrar;
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Usuario;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
-import java.sql.Connection;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -25,9 +25,6 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
-import org.jasypt.util.password.BasicPasswordEncryptor;
-import org.jasypt.util.password.PasswordEncryptor;
 
 /**
  * FXML Controller class
@@ -59,9 +56,9 @@ public class RegistrarController implements Initializable {
     @FXML
     private TextField emailTF;
     @FXML
-    private PasswordField repContraPF;
+    private JFXTextField repContraPF;
     @FXML
-    private TextField fecNacTF;
+    private JFXDatePicker fecNacTF;
     @FXML
     private RadioButton clienteRB;
     @FXML
@@ -71,19 +68,12 @@ public class RegistrarController implements Initializable {
     @FXML
     private Button salirBT;
 
-   
-    
     private GestionBD bda;
     private usuariosDAO usuarioDAO;
 
-   
-    
-
-   
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        aceptarBT.getStyleClass().add("botonAceptarRegistro");
     }
 
     @FXML
@@ -95,13 +85,15 @@ public class RegistrarController implements Initializable {
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String DNI = dniTF.getText();
-  
-        LocalDate fecNac = LocalDate.parse(fecNacTF.getText(), DateTimeFormatter.ISO_DATE);
+
+//        LocalDate fecNac = LocalDate.parse(fecNacTF.getText(), DateTimeFormatter.ISO_DATE); VIEJO
+        LocalDate fecNac = fecNacTF.getValue(); //NUEVO CALENDARIO JFOENIX
+
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
         //Encriptar contraseña //////
-        
+
         if (contrasena.equals(ContrasenaCopia)) {
             //crear usuario//
             Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
@@ -114,17 +106,6 @@ public class RegistrarController implements Initializable {
             stage.close();
             //////// fin cerrar ventana ////
         }
-    }
-
-     
-    
-    
-    
-    
-    
-    
-    @FXML
-    private void mostrarRepContra(MouseEvent event) {
     }
 
     @FXML

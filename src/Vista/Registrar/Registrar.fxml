@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -52,27 +52,28 @@
                   <Label prefHeight="48.0" prefWidth="100.0" text="DNI.-" GridPane.rowIndex="6" />
                   <Label prefHeight="48.0" prefWidth="100.0" text="email" GridPane.rowIndex="11" />
                   <Label prefHeight="48.0" prefWidth="100.0" text="Nick" />
-                  <TextField fx:id="nickTF" GridPane.columnIndex="1" />
-                  <TextField fx:id="ContraPF" onMouseClicked="#mostrarRepContra" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <TextField fx:id="nombreTF" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                  <TextField fx:id="apellidosTF" prefHeight="32.0" prefWidth="388.0" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="5" />
-                  <TextField fx:id="dniTF" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-                  <TextField fx:id="telefonoTF" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-                  <TextField fx:id="direccionTF" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" />
-                  <TextField fx:id="emailTF" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="11" />
                   <Label prefHeight="42.0" prefWidth="145.0" text="Repetir Contraseña" GridPane.rowIndex="2" />
-                  <PasswordField fx:id="repContraPF" prefHeight="31.0" prefWidth="213.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                   <Label prefHeight="48.0" prefWidth="100.0" text="Fecha Nacimiento" GridPane.rowIndex="7" />
-                  <TextField fx:id="fecNacTF" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                   <RadioButton fx:id="clienteRB" mnemonicParsing="false" prefHeight="27.0" prefWidth="129.0" selected="true" text="Cliente" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="13">
                      <toggleGroup>
                         <ToggleGroup fx:id="rolUsuRB" />
                      </toggleGroup>
                   </RadioButton>
                   <RadioButton fx:id="AdminRB" mnemonicParsing="false" prefHeight="27.0" prefWidth="129.0" text="Administrador" toggleGroup="$rolUsuRB" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                  <JFXDatePicker fx:id="fecNacTF" prefHeight="28.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                  <JFXTextField fx:id="nickTF" GridPane.columnIndex="1" />
+                  <JFXTextField fx:id="ContraPF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <JFXTextField fx:id="repContraPF" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <JFXTextField fx:id="nombreTF" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <JFXTextField fx:id="apellidosTF" prefHeight="26.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <JFXTextField fx:id="dniTF" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <JFXTextField fx:id="telefonoTF" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                  <JFXTextField fx:id="direccionTF" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                  <JFXTextField fx:id="emailTF" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                </children>
             </GridPane>
-            <Button fx:id="salirBT" layoutX="348.0" layoutY="526.0" mnemonicParsing="false" onAction="#salir" prefHeight="68.0" prefWidth="100.0">
+            <JFXButton fx:id="aceptarBT" layoutX="592.0" layoutY="556.0" onAction="#registrar" text="Aceptar" />
+            <JFXButton fx:id="salirBT" layoutX="300.0" layoutY="514.0" onAction="#salir" prefHeight="60.0" prefWidth="5.0" text=" ">
                <graphic>
                   <ImageView fitHeight="76.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -80,8 +81,7 @@
                      </image>
                   </ImageView>
                </graphic>
-            </Button>
-            <Button fx:id="aceptarBT" layoutX="656.0" layoutY="568.0" mnemonicParsing="false" onAction="#registrar" text="Aceptar" />
+            </JFXButton>
          </children>
       </AnchorPane>
    </children>
