@@ -25,6 +25,9 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
+import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 
 /**
  * FXML Controller class
@@ -68,17 +71,16 @@ public class RegistrarController implements Initializable {
     @FXML
     private Button salirBT;
 
-    private Connection conn;
+   
+    
     private GestionBD bda;
     private usuariosDAO usuarioDAO;
 
-    public void setConn(Connection conn) {
-        this.conn = conn;
-    }
+   
+    
 
-    /**
-     * Initializes the controller class.
-     */
+   
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
@@ -93,12 +95,13 @@ public class RegistrarController implements Initializable {
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String DNI = dniTF.getText();
-
-        /// dar formato fecha y parese LocalDate fecNac=fecNacTF.getText();
+  
         LocalDate fecNac = LocalDate.parse(fecNacTF.getText(), DateTimeFormatter.ISO_DATE);
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
+        //Encriptar contraseña //////
+        
         if (contrasena.equals(ContrasenaCopia)) {
             //crear usuario//
             Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
@@ -113,6 +116,13 @@ public class RegistrarController implements Initializable {
         }
     }
 
+     
+    
+    
+    
+    
+    
+    
     @FXML
     private void mostrarRepContra(MouseEvent event) {
     }

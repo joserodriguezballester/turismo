@@ -1,6 +1,8 @@
 package Modelo;
 
 import java.time.LocalDate;
+import org.jasypt.util.password.BasicPasswordEncryptor;
+import org.jasypt.util.password.PasswordEncryptor;
 
 public class Usuario implements Comparable<Usuario> {
 
@@ -44,7 +46,8 @@ public class Usuario implements Comparable<Usuario> {
         this.DNI = DNI;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        this.password = contrasena;
+        String passwordEncriptado=encriptar(contrasena);
+        this.password = passwordEncriptado;
         this.direccion = direccion;
         this.telefono = telefono;
         this.email = email;
@@ -146,4 +149,20 @@ public class Usuario implements Comparable<Usuario> {
         return compara;
     }
 
+     public String encriptar (String contrasena){
+     PasswordEncryptor encryptor = new BasicPasswordEncryptor();
+        
+        String contrasenaEncriptada = encryptor.encryptPassword(contrasena);
+//          /**
+//         * Compara el password cifrado con nuestra palabra secreta
+//         */
+//        if (encryptor.checkPassword("123456", contrasenaEncriptada )) {
+//            System.out.println("Bienvenido!!!");
+//        } else {
+//            System.out.println("Acceso Denegado!!!");
+//        } 
+        return  contrasenaEncriptada;
+     }
+    
+    
 }
