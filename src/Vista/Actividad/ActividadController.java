@@ -8,6 +8,7 @@ import Modelo.Tipo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -22,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -35,7 +37,7 @@ import javafx.util.Duration;
  * @author joser
  */
 public class ActividadController implements Initializable {
-    
+
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -48,17 +50,15 @@ public class ActividadController implements Initializable {
     private JFXListView<Actividad> listaElementos = new JFXListView<Actividad>();
     @FXML
     private JFXButton botonCerrarInformacion;
-    
+
     private static GestionBD gestion;
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
     private actividadesDAO gestionActividad;
-    
+
     public static void setGestion(GestionBD gestion) {
         ActividadController.gestion = gestion;
     }
-    @FXML
-    private Label etiquetaPrecio;
     @FXML
     private Label etiquetaSubtipoTitulo;
     @FXML
@@ -71,18 +71,25 @@ public class ActividadController implements Initializable {
     private ImageView fotoActividad;
     @FXML
     private WebView webViewActividad;
-    
+    @FXML
+    private JFXTextField informacionDireccion;
+    @FXML
+    private JFXTextArea informacionHorario;
+    @FXML
+    private JFXTextField informacionPrecio;
+    @FXML
+    private Pane paneWebView;
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        etiquetaSubtipoTitulo.getStyleClass().add("tituloActividades");
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
         gestionActividad = new actividadesDAO(gestion);
-        
+
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        
+
         try {
             List<Tipo> lista = gestionActividad.consultarTipoActividades();
             double posicionX = 5;
@@ -103,7 +110,7 @@ public class ActividadController implements Initializable {
                 boton.getStyleClass().add("botonActividad");
                 botones.add(boton);
             }
-            
+
             for (Button botonLista : botones) {
                 paneListaBotones.getChildren().add(botonLista);
             }
@@ -112,10 +119,11 @@ public class ActividadController implements Initializable {
         } catch (Exception e) {
 //            MENSAJE DE ERROR
         }
-        
+
     }
-    
+
     public void cargarActividades(Tipo tipo) {
+        paneInformacion.setVisible(false);
         listaDatosActividades.clear();
         try {
             for (Actividad actividad : gestionActividad.consultarActividadesPorTipo(tipo)) {
@@ -126,15 +134,19 @@ public class ActividadController implements Initializable {
             e.printStackTrace();
         }
     }
-    
+
+    private void cerrarInformacionEvent(ActionEvent event) {
+        cerrarInformacion();
+    }
+
     @FXML
-    private void cerrarInformacion(ActionEvent event) {
+    private void cerrarInformacion() {
         FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
         ft.setFromValue(1.0);
         ft.setToValue(0);
         ft.play();
     }
-    
+
     @FXML
     private void cargarInformacionActividad(MouseEvent event) {
         paneInformacion.setVisible(true);
@@ -144,7 +156,47 @@ public class ActividadController implements Initializable {
         ft.play();
         Actividad actividad = listaElementos.getSelectionModel().getSelectedItem();
         etiquetaSubtipoTitulo.setText(actividad.getNombre());
-        etiquetaDireccion.setText(actividad.getDireccion());
-        etiquetaPrecio.setText(String.valueOf(actividad.getPrecio()));
+        etiquetaSubtipoTitulo.getStyleClass().add("tituloActividades");
+
+        informacionDireccion.setText(actividad.getDireccion());
+        informacionDireccion.getStyleClass().add("textoActividad");
+
+        informacionPrecio.setText(String.valueOf(actividad.getPrecio()) + "€ por persona");
+        informacionPrecio.getStyleClass().add("textoActividad");
+
+        informacionHorario.setText(actividad.getHorario());
+        informacionHorario.getStyleClass().add("textoActividad");
+
+        descripcionActividad.setText(actividad.getDescripcion());
+        descripcionActividad.getStyleClass().add("textoActividad");
+        try {
+            if (actividad.getUrl() == null) {
+                fotoActividad.setVisible(false);
+            } else {
+                fotoActividad.setVisible(true);
+                fotoActividad.setImage(new Image("Imagenes/" + actividad.getFoto()));
+                fotoActividad.setFitHeight(330);
+                fotoActividad.setFitWidth(330);
+                fotoActividad.setPreserveRatio(false);
+            } 
+        } catch (Exception e) {
+            fotoActividad.setVisible(false);
+            System.out.println("la foto no ha podido cargarse");
+        }
+        
+
+        if (actividad.getUrl() == null) {
+            paneWebView.setVisible(false);
+            webViewActividad.setVisible(false);
+            System.out.println("no tiene");
+        } else {
+            paneWebView.setVisible(true);
+            webViewActividad.setVisible(true);
+            webViewActividad.setMaxSize(426, 240);
+            webViewActividad.setMinSize(426, 240);
+            webViewActividad.resize(426, 240);
+            webViewActividad.getEngine().load(actividad.getUrl());
+        }
+
     }
 }
