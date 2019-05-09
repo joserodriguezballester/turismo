@@ -7,6 +7,7 @@ import Modelo.Notificacion;
 import Modelo.Tipo;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
+import com.jfoenix.controls.JFXTextArea;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
@@ -21,11 +22,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.web.WebView;
 import javafx.util.Duration;
-import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -33,11 +35,11 @@ import org.controlsfx.control.Notifications;
  * @author joser
  */
 public class ActividadController implements Initializable {
-
+    
     @FXML
     private AnchorPane Ventana;
     @FXML
-    private ScrollPane scrollTipoActividades = new ScrollPane();
+    private ScrollPane scrollTipoActividades;
     @FXML
     private Pane paneListaBotones;
     @FXML
@@ -46,29 +48,41 @@ public class ActividadController implements Initializable {
     private JFXListView<Actividad> listaElementos = new JFXListView<Actividad>();
     @FXML
     private JFXButton botonCerrarInformacion;
-    @FXML
-    private Label tituloActividad;
-
+    
     private static GestionBD gestion;
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
     private actividadesDAO gestionActividad;
-    private Tipo tipoElegido = null;
-
+    
     public static void setGestion(GestionBD gestion) {
         ActividadController.gestion = gestion;
     }
-
+    @FXML
+    private Label etiquetaPrecio;
+    @FXML
+    private Label etiquetaSubtipoTitulo;
+    @FXML
+    private Label etiquetaHorario;
+    @FXML
+    private Label etiquetaDireccion;
+    @FXML
+    private JFXTextArea descripcionActividad;
+    @FXML
+    private ImageView fotoActividad;
+    @FXML
+    private WebView webViewActividad;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        tituloActividad.getStyleClass().add("tituloActividades");
+        etiquetaSubtipoTitulo.getStyleClass().add("tituloActividades");
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
         gestionActividad = new actividadesDAO(gestion);
+        
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
+        
         try {
             List<Tipo> lista = gestionActividad.consultarTipoActividades();
             double posicionX = 5;
@@ -89,7 +103,7 @@ public class ActividadController implements Initializable {
                 boton.getStyleClass().add("botonActividad");
                 botones.add(boton);
             }
-
+            
             for (Button botonLista : botones) {
                 paneListaBotones.getChildren().add(botonLista);
             }
@@ -98,9 +112,9 @@ public class ActividadController implements Initializable {
         } catch (Exception e) {
 //            MENSAJE DE ERROR
         }
-
+        
     }
-
+    
     public void cargarActividades(Tipo tipo) {
         listaDatosActividades.clear();
         try {
@@ -112,7 +126,7 @@ public class ActividadController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     @FXML
     private void cerrarInformacion(ActionEvent event) {
         FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
@@ -120,26 +134,17 @@ public class ActividadController implements Initializable {
         ft.setToValue(0);
         ft.play();
     }
-
+    
     @FXML
     private void cargarInformacionActividad(MouseEvent event) {
-//        try {
-//            Notificacion notificacion = new Notificacion();
-//            notificacion.error("ERROR", "Esto es un error");
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-
         paneInformacion.setVisible(true);
         FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
         ft.setFromValue(0);
         ft.setToValue(1);
         ft.play();
         Actividad actividad = listaElementos.getSelectionModel().getSelectedItem();
-        tituloActividad.setText(actividad.getNombre());
-    }
-
-    private void notificacion() {
-
+        etiquetaSubtipoTitulo.setText(actividad.getNombre());
+        etiquetaDireccion.setText(actividad.getDireccion());
+        etiquetaPrecio.setText(String.valueOf(actividad.getPrecio()));
     }
 }

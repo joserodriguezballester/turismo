@@ -14,7 +14,7 @@ import org.controlsfx.control.Notifications;
  */
 public class Notificacion {
 
-    Notifications notificacion;
+//    Notifications notificacion;
 
     public void error(String titulo, String mensaje) {
         Notifications.create()
