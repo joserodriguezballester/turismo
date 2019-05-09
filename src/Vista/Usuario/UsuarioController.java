@@ -1,20 +1,5 @@
 package Vista.Usuario;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-/*
-=======
-/*  
->>>>>>> origin/master
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
-=======
-/*    
- *  To change this license header, choose License Headers in Project Properties.
- *   To change this template file, choose Tools | Templates
->>>>>>> 18b199a9dcb67c4dd6b7f2019f033009fb7ac4dc
- * and open the template in the editor.
- */
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Vista.Administrador.Principal.PrincipalAdminController;
