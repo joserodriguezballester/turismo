@@ -141,7 +141,7 @@ public class ActividadController implements Initializable {
 
     @FXML
     private void cerrarInformacion() {
-        FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), paneInformacion);
         ft.setFromValue(1.0);
         ft.setToValue(0);
         ft.play();
@@ -150,7 +150,7 @@ public class ActividadController implements Initializable {
     @FXML
     private void cargarInformacionActividad(MouseEvent event) {
         paneInformacion.setVisible(true);
-        FadeTransition ft = new FadeTransition(Duration.millis(500), paneInformacion);
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), paneInformacion);
         ft.setFromValue(0);
         ft.setToValue(1);
         ft.play();
@@ -178,12 +178,11 @@ public class ActividadController implements Initializable {
                 fotoActividad.setFitHeight(330);
                 fotoActividad.setFitWidth(330);
                 fotoActividad.setPreserveRatio(false);
-            } 
+            }
         } catch (Exception e) {
             fotoActividad.setVisible(false);
             System.out.println("la foto no ha podido cargarse");
         }
-        
 
         if (actividad.getUrl() == null) {
             paneWebView.setVisible(false);
@@ -197,6 +196,5 @@ public class ActividadController implements Initializable {
             webViewActividad.resize(426, 240);
             webViewActividad.getEngine().load(actividad.getUrl());
         }
-
     }
 }

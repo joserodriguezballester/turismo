@@ -28,7 +28,7 @@ and open the template in the editor.
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 .tituloActividades {
-    -fx-font-size: 16px;
+    -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
 }
@@ -45,4 +45,8 @@ and open the template in the editor.
     -fx-text-fill: WHITE;
     -fx-font-size: 14px;
     -fx-background-color: rgb(77,102,204);
+}
+
+.scrollPaneActividades{
+    
 }
