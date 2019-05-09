@@ -40,3 +40,9 @@ and open the template in the editor.
     -fx-font-weight: bold;
     -fx-background-color: rgb(77,102,204);
 }
+
+.textoActividad{
+    -fx-text-fill: WHITE;
+    -fx-font-size: 14px;
+    -fx-background-color: rgb(77,102,204);
+}

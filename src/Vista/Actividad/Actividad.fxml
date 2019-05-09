@@ -3,6 +3,7 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextArea?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
@@ -29,11 +30,6 @@
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font></Label>
-            <Label fx:id="etiquetaPrecio" layoutX="605.0" layoutY="85.0" text="Precio">
-               <font>
-                  <Font size="24.0" />
-               </font>
-            </Label>
             <Label fx:id="etiquetaHorario" layoutX="70.0" layoutY="120.0" text="Horario:">
                <font>
                   <Font size="24.0" />
@@ -45,8 +41,14 @@
                </font>
             </Label>
             <JFXTextArea fx:id="descripcionActividad" layoutX="50.0" layoutY="480.0" prefHeight="185.0" prefWidth="800.0" />
-            <ImageView fx:id="fotoActividad" fitHeight="200.0" fitWidth="200.0" layoutX="605.0" layoutY="120.0" pickOnBounds="true" preserveRatio="true" />
-            <WebView fx:id="webViewActividad" layoutX="50.0" layoutY="220.0" prefHeight="240.0" prefWidth="426.0" />
+            <ImageView fx:id="fotoActividad" fitHeight="330.0" fitWidth="330.0" layoutX="517.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
+            <JFXTextField fx:id="informacionDireccion" layoutX="188.0" layoutY="85.0" maxWidth="300.0" prefHeight="25.0" prefWidth="150.0" />
+            <JFXTextArea fx:id="informacionHorario" layoutX="165.0" layoutY="120.0" prefHeight="86.0" prefWidth="311.0" />
+            <JFXTextField fx:id="informacionPrecio" layoutX="605.0" layoutY="85.0" maxWidth="300.0" prefHeight="25.0" prefWidth="150.0" />
+            <Pane fx:id="paneWebView" layoutX="50.0" layoutY="220.0" prefHeight="240.0" prefWidth="426.0">
+               <children>
+                  <WebView fx:id="webViewActividad" prefHeight="240.0" prefWidth="426.0" />
+               </children></Pane>
          </children></Pane>
         <JFXListView fx:id="listaElementos" layoutX="200.0" maxWidth="200.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="730.0" prefWidth="200.0" />
     </children>
