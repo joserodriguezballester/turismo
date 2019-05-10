@@ -90,7 +90,7 @@ public class PrincipalController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            /////////tratar el error////
+            
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         }
