@@ -30,9 +30,9 @@ public class usuariosDAO {
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email)"
                 + " VALUES(?, ?, ?, ?, ?,?,?,?,?);";
-       
+
         try {
-  
+
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setString(1, usuario.getNick());
             ps.setString(2, usuario.getPassword());
@@ -43,10 +43,10 @@ public class usuariosDAO {
             ps.setString(7, usuario.getTelefono());
             ps.setString(8, usuario.getDireccion());
             ps.setString(9, usuario.getEmail());
-           
+
             ps.executeUpdate();
             insertado = true;
-           
+
         } catch (SQLException e) {
 //////////           tratar error System.out.println("error sql");
 //MENSAJE DE ERROR
@@ -113,19 +113,19 @@ public class usuariosDAO {
 
     public Usuario cargarUsuario(String nick) throws SQLException {
         Usuario usuario = new Usuario();
-       java.sql.Date fechabda;
-              
+        java.sql.Date fechabda;
         String sql = "SELECT id,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM USUARIOS WHERE nick=?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(sql);
         ps.setString(1, nick);
         ResultSet rs = ps.executeQuery();
+        usuario.setNick(nick);
         while (rs.next()) {
             usuario.setId(rs.getInt("id"));
             usuario.setPassword(rs.getString("contraseña"));
 //            usuario.setFecNac(rs.getLocalDate("fecNac"));
-        fechabda = rs.getDate("fecNac");
-       
-        usuario.setFecNac(fechabda.toLocalDate());
+            fechabda = rs.getDate("fecNac");
+
+            usuario.setFecNac(fechabda.toLocalDate());
             usuario.setNombre(rs.getString("nombre"));
             usuario.setApellidos(rs.getString("apellidos"));
             usuario.setDNI(rs.getString("dni"));
@@ -134,6 +134,7 @@ public class usuariosDAO {
             usuario.setEmail(rs.getString("email"));
             usuario.setPerfil(rs.getString("rol").toUpperCase());
         }
+        
         return usuario;
     }
 }

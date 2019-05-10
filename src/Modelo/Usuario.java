@@ -85,9 +85,7 @@ public class Usuario implements Comparable<Usuario> {
         this.id = id;
     }
 
-    public String getDni() {
-        return DNI;
-    }
+  
 
     public String getNombre() {
         return nombre;

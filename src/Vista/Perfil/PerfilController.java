@@ -73,6 +73,7 @@ public class PerfilController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         // comprobar  rol usuario para mostrar radioButton
         // TODO
     }    
@@ -91,32 +92,27 @@ public class PerfilController implements Initializable {
         
     }
      public void setUsuario(Usuario usuario) {
+      
       this.usuario=usuario;
-         System.out.println("usuario"+usuario+" ver"+this.usuario);
+      
         
     }
      
      
     public void calcularnodos() {
-        nickTF.setText("hola");
-        System.out.println(" usua "+usuario.getNick());
-//        nickTF.setText(usuario.getNick());
-//    @FXML
-//    private TextField ContraPF;
-//    @FXML
-//    private TextField nombreTF;
-//    @FXML
-//    private TextField apellidosTF;
-//    @FXML
-//    private TextField dniTF;
-//    @FXML
-//    private TextField telefonoTF;
-//    @FXML
-//    private TextField direccionTF;
-//    @FXML
-//    private TextField emailTF;
-//    @FXML
-//    private TextField fecNacTF;
+//        Usuario usuario=new Usuario();
+//        usuario=this.usuario;
+//          System.out.println("2usuario"+usuario+" ver"+this.usuario);
+        nickTF.setText(this.usuario.getNick());
+//    TextField ContraPF;
+
+nombreTF.setText(usuario.getNombre());
+apellidosTF.setText(usuario.getApellidos());
+dniTF.setText(usuario.getDNI());
+telefonoTF.setText(usuario.getTelefono());
+ direccionTF.setText(usuario.getDireccion());
+emailTF.setText(usuario.getEmail());
+//fecNacTF.setText(usuario.getFecNac());
 //        
         
     }
