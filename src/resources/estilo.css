@@ -58,3 +58,12 @@ and open the template in the editor.
 .scrollPaneActividades{
 
 }
+.calendarioRegistrar{
+    -jfx-default-color: rgb(77,102,204);
+    -fx-control-inner-background: rgb(240, 240, 240);
+    -fx-pref-width: 220.0;
+    -fx-pref-height: 180.0;
+}
+.calendarioRegistrar:hover{
+    -jfx-default-color: rgb(33,68,208);
+}

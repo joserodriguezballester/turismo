@@ -54,7 +54,7 @@ public class ActividadController implements Initializable {
     private static GestionBD gestion;
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
-    private actividadesDAO gestionActividad;
+    private actividadesDAO gestionBDActividad;
 
     public static void setGestion(GestionBD gestion) {
         ActividadController.gestion = gestion;
@@ -85,13 +85,13 @@ public class ActividadController implements Initializable {
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
-        gestionActividad = new actividadesDAO(gestion);
+        gestionBDActividad = new actividadesDAO(gestion);
 
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 
         try {
-            List<Tipo> lista = gestionActividad.consultarTipoActividades();
+            List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
             double posicionX = 5;
             double posicionY = 15;
             JFXButton boton;
@@ -126,12 +126,15 @@ public class ActividadController implements Initializable {
         paneInformacion.setVisible(false);
         listaDatosActividades.clear();
         try {
-            for (Actividad actividad : gestionActividad.consultarActividadesPorTipo(tipo)) {
+            for (Actividad actividad : gestionBDActividad.consultarActividadesPorTipo(tipo)) {
                 listaDatosActividades.add(actividad);
             }
             listaElementos.setItems(listaDatosActividades);
+        } catch (SQLException e) {
+//            ERROR BD
         } catch (Exception e) {
-            e.printStackTrace();
+//            ERROR
+
         }
     }
 
