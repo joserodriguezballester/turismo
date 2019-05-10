@@ -71,7 +71,6 @@ public class UsuarioController implements Initializable {
                         System.out.println("Segun lorenzo soy tonto");
                     }
                 }
-
             } catch (SQLException ex) {
                 ////tratar error ////
             }

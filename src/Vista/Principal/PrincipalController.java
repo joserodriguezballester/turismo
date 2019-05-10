@@ -102,13 +102,20 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Perfil/Perfil.fxml";
-//        PerfilController.setUsuario(usuario);
+ 
+//        PerfilController perfilController=loader.getController();
+//        perfilController.setUsuario(usuario);
+//        perfilController.calcularnodos();
+//        PerfilController.setGestion(gestion);
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
-            
+            PerfilController perfilController=loader.getController();
+        perfilController.setUsuario(usuario);
+         perfilController.calcularnodos();
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
+            
         } catch (IOException ex) {
             /////////tratar el error////
             ex.printStackTrace();

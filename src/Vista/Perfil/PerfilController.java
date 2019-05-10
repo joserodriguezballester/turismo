@@ -5,6 +5,7 @@
  */
 package Vista.Perfil;
 
+import Datos.Bda.GestionBD;
 import Modelo.Usuario;
 import java.net.URL;
 import java.sql.Connection;
@@ -27,14 +28,14 @@ import javafx.scene.paint.Color;
  * @author joser
  */
 public class PerfilController implements Initializable {
-    
 
    
+
 
     /**
      * Initializes the controller class.
      */
-    private Connection conn;
+//    private Connection conn;
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -89,7 +90,38 @@ public class PerfilController implements Initializable {
         //al entrar mostrar las etiquetas de repetir contraseña
         
     }
-//     public static void setUsuario(Usuario usuario) {
-//       PerfilController.usuario=usuario;
-//    }
+     public void setUsuario(Usuario usuario) {
+      this.usuario=usuario;
+         System.out.println("usuario"+usuario+" ver"+this.usuario);
+        
+    }
+     
+     
+    public void calcularnodos() {
+        nickTF.setText("hola");
+        System.out.println(" usua "+usuario.getNick());
+//        nickTF.setText(usuario.getNick());
+//    @FXML
+//    private TextField ContraPF;
+//    @FXML
+//    private TextField nombreTF;
+//    @FXML
+//    private TextField apellidosTF;
+//    @FXML
+//    private TextField dniTF;
+//    @FXML
+//    private TextField telefonoTF;
+//    @FXML
+//    private TextField direccionTF;
+//    @FXML
+//    private TextField emailTF;
+//    @FXML
+//    private TextField fecNacTF;
+//        
+        
+    }
+    
+
+   
+     
 }
