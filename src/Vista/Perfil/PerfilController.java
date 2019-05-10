@@ -63,9 +63,7 @@ public class PerfilController implements Initializable {
     @FXML
     private TextField fecNacTF;
 
-    public void setConn(Connection conn) {
-        this.conn = conn;
-    }
+   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

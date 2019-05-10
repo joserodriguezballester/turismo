@@ -55,14 +55,14 @@ public class UsuarioController implements Initializable {
     @FXML
     private void logearse(ActionEvent event) {
 
-        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
-//        boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
+//        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
+       boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
         if (logeado) {
             try {
                 usuario = usuarioDAO.cargarUsuario(nickTF.getText());
 /// segun el roll ejecutará uno de los dos metodos
-                cargarVentanaPrincipal();    // usuario cliente
-// cargarVentanaPrincipalAdmin();  //usuario administrador
+               cargarVentanaPrincipal();    // usuario cliente
+ //          cargarVentanaPrincipalAdmin();  //usuario administrador
             } catch (SQLException ex) {
                 //////tratar error ////
             }
@@ -111,6 +111,7 @@ public class UsuarioController implements Initializable {
             principalController = loader.getController();
 //Pasamos informacion a la clase siguiente
             principalController.setParametros(escenario);
+            principalController.setParametroUsuario(usuario);
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();
@@ -149,7 +150,7 @@ public class UsuarioController implements Initializable {
 
     private void cargarVentanaPrincipalAdmin() {
 
-        escenario = (Stage) this.nombreET.getParent().getScene().getWindow();
+        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
         String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
         PrincipalAdminController principalAdminController;
 
