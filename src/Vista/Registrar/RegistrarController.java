@@ -98,6 +98,7 @@ public class RegistrarController implements Initializable {
         if (contrasena.equals(ContrasenaCopia)) {
             //crear usuario//
             Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
+          
             //insertar usuario en BD//      
             usuarioDAO.insertarUsuario(usuario);
 
@@ -106,6 +107,8 @@ public class RegistrarController implements Initializable {
             Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
             stage.close();
             //////// fin cerrar ventana ////
+        }else{
+            System.out.println("contraseña distinta");
         }
     }
 

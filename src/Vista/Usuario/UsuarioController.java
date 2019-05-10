@@ -55,20 +55,29 @@ public class UsuarioController implements Initializable {
     @FXML
     private void logearse(ActionEvent event) {
 
-//        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
-       boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
+        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
+        //      boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
         if (logeado) {
- //           try {
-  //              usuario = usuarioDAO.cargarUsuario(nickTF.getText());
+            try {
+                usuario = usuarioDAO.cargarUsuario(nickTF.getText());
+
 /// segun el roll ejecutará uno de los dos metodos
-               cargarVentanaPrincipal();    // usuario cliente
- //          cargarVentanaPrincipalAdmin();  //usuario administrador
-  //          } catch (SQLException ex) {
-                //////tratar error ////
+                if ("CLIENTE".equalsIgnoreCase(usuario.getPerfilString())) {
+                    cargarVentanaPrincipal();    // usuario cliente
+                } else {
+                    if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
+                        cargarVentanaPrincipalAdmin();  //usuario administrador
+                    } else {
+                        System.out.println("Segun lorenzo soy tonto");
+                    }
+                }
+
+            } catch (SQLException ex) {
+                ////tratar error ////
             }
- //       } else {
-            // mostrar ventana que no existe o contraseña erronea
-//        }
+        } else {
+//             mostrar ventana que no existe o contraseña erronea
+        }
     }
 
     @FXML

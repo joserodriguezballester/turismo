@@ -27,12 +27,12 @@ public class usuariosDAO {
 
     //CREATE PASANDO USUARIO
     public boolean insertarUsuario(Usuario usuario) {
-
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email)"
                 + " VALUES(?, ?, ?, ?, ?,?,?,?,?);";
+       
         try {
-//            PreparedStatement ps = conn.prepareStatement(consulta);
+  
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setString(1, usuario.getNick());
             ps.setString(2, usuario.getPassword());
@@ -43,11 +43,13 @@ public class usuariosDAO {
             ps.setString(7, usuario.getTelefono());
             ps.setString(8, usuario.getDireccion());
             ps.setString(9, usuario.getEmail());
+           
             ps.executeUpdate();
             insertado = true;
-
+           
         } catch (SQLException e) {
-            //MENSAJE DE ERROR
+//////////           tratar error System.out.println("error sql");
+//MENSAJE DE ERROR
         }
         return insertado;
     }
@@ -130,7 +132,7 @@ public class usuariosDAO {
             usuario.setTelefono(rs.getString("telefono"));
             usuario.setDireccion(rs.getString("direccion"));
             usuario.setEmail(rs.getString("email"));
-            usuario.setPerfil(rs.getString("rol"));
+            usuario.setPerfil(rs.getString("rol").toUpperCase());
         }
         return usuario;
     }

@@ -17,19 +17,26 @@ public class Usuario implements Comparable<Usuario> {
     private String nick;
     private LocalDate fecNac;
     private rol perfil;
+
     private enum rol {
         CLIENTE, ADMINISTRADOR
     }
 
     public rol getPerfil() {
         return perfil;
+
+    }
+
+    public String getPerfilString() {
+        return perfil.toString();
+
     }
 
     public void setPerfil(String perfil) {
-        
+
         this.perfil = rol.valueOf(perfil);
     }
-    
+
     public String getDNI() {
         return DNI;
     }
@@ -56,13 +63,12 @@ public class Usuario implements Comparable<Usuario> {
 
     public Usuario() {
     }
-    
 
     public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac) {
         this.DNI = DNI;
         this.nombre = nombre;
         this.apellidos = apellidos;
-        String passwordEncriptado=encriptar(contrasena);
+        String passwordEncriptado = encriptar(contrasena);
         this.password = passwordEncriptado;
         this.direccion = direccion;
         this.telefono = telefono;
@@ -70,8 +76,6 @@ public class Usuario implements Comparable<Usuario> {
         this.nick = nick;
         this.fecNac = fecNac;
     }
-
-    
 
     public int getId() {
         return id;
@@ -84,8 +88,6 @@ public class Usuario implements Comparable<Usuario> {
     public String getDni() {
         return DNI;
     }
-
-   
 
     public String getNombre() {
         return nombre;
@@ -161,9 +163,9 @@ public class Usuario implements Comparable<Usuario> {
         return compara;
     }
 
-     public String encriptar (String contrasena){
-     PasswordEncryptor encryptor = new BasicPasswordEncryptor();  
-    
+    public String encriptar(String contrasena) {
+        PasswordEncryptor encryptor = new BasicPasswordEncryptor();
+
         String contrasenaEncriptada = encryptor.encryptPassword(contrasena);
 //          /**
 //         * Compara el password cifrado con nuestra palabra secreta
@@ -173,8 +175,7 @@ public class Usuario implements Comparable<Usuario> {
 //        } else {
 //            System.out.println("Acceso Denegado!!!");
 //        } 
-        return  contrasenaEncriptada;
-     }
-    
-    
+        return contrasenaEncriptada;
+    }
+
 }
