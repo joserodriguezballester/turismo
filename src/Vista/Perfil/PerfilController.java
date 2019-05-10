@@ -5,6 +5,7 @@
  */
 package Vista.Perfil;
 
+import Modelo.Usuario;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
@@ -18,6 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class
@@ -25,6 +27,9 @@ import javafx.scene.layout.AnchorPane;
  * @author joser
  */
 public class PerfilController implements Initializable {
+    
+
+   
 
     /**
      * Initializes the controller class.
@@ -62,7 +67,7 @@ public class PerfilController implements Initializable {
     private TextField emailTF;
     @FXML
     private TextField fecNacTF;
-
+    private Usuario usuario;
    
 
     @Override
@@ -84,5 +89,7 @@ public class PerfilController implements Initializable {
         //al entrar mostrar las etiquetas de repetir contraseña
         
     }
-    
+//     public static void setUsuario(Usuario usuario) {
+//       PerfilController.usuario=usuario;
+//    }
 }

@@ -5,6 +5,7 @@
  */
 package Vista.Administrador.Principal;
 
+import Datos.Bda.GestionBD;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -27,6 +28,7 @@ public class PrincipalAdminController implements Initializable {
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
+    private GestionBD gestion;
 
     /**
      * Initializes the controller class.
@@ -34,6 +36,8 @@ public class PrincipalAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        gestion = new GestionBD();
+        gestion.conectar();
     }
 
     @FXML
