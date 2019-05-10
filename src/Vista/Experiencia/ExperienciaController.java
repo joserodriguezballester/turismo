@@ -8,6 +8,7 @@ package Vista.Experiencia;
 import Datos.Bda.GestionBD;
 import Datos.Bda.experienciasDAO;
 import Modelo.Experiencia;
+import Modelo.Notificacion;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
@@ -76,9 +77,10 @@ public class ExperienciaController implements Initializable {
                 listaVisualExperiencias.getItems().add(exp);
             }
         } catch (SQLException e) {
-//            ERROR SQL
-        } catch (Exception e) {
-//            ERROR   
+            Notificacion.error("ERROR SQL EXCEPTION", "(initialize ExperienciaController");
+        } catch (Exception es){
+            Notificacion.error("ERROR EXCEPTION (initialize ExperienciaController)",
+                                    "Revisa el código y vuelve a intentarlo");
         }
     }
 

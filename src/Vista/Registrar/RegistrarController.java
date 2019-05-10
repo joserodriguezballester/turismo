@@ -107,6 +107,7 @@ public class RegistrarController implements Initializable {
             stage.close();
             //////// fin cerrar ventana ////
         }
+        // ---- I SINO QUE?
     }
 
     @FXML
