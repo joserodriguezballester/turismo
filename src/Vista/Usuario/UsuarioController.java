@@ -2,6 +2,7 @@ package Vista.Usuario;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
+import Modelo.Usuario;
 import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
@@ -9,6 +10,8 @@ import com.sun.security.auth.PrincipalComparator;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -34,6 +37,7 @@ public class UsuarioController implements Initializable {
     private Stage escenario;
     private GestionBD bda;
     private usuariosDAO usuarioDAO;
+    Usuario usuario;
     @FXML
     private PasswordField contraTF;
     @FXML
@@ -44,21 +48,26 @@ public class UsuarioController implements Initializable {
         bda = new GestionBD();
         bda.conectar();
         usuarioDAO = new usuariosDAO(bda);
+        usuario = new Usuario();
         // TODO
     }
 
     @FXML
     private void logearse(ActionEvent event) {
-        
-//////////        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
-        boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
+
+        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
+//        boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
         if (logeado) {
-   
+            try {
+                usuario = usuarioDAO.cargarUsuario(nickTF.getText());
 /// segun el roll ejecutará uno de los dos metodos
-        cargarVentanaPrincipal();    // usuario cliente
-        // cargarVentanaPrincipalAdmin();  //usuario administrador
-        }else{
-           // mostrar ventana que no existe o contraseña erronea
+                cargarVentanaPrincipal();    // usuario cliente
+// cargarVentanaPrincipalAdmin();  //usuario administrador
+            } catch (SQLException ex) {
+                //////tratar error ////
+            }
+        } else {
+            // mostrar ventana que no existe o contraseña erronea
         }
     }
 
@@ -167,7 +176,7 @@ public class UsuarioController implements Initializable {
     }
 
     public boolean verificaUsuario() {
-        boolean existe=false;
+        boolean existe = false;
         PasswordEncryptor encryptor = new BasicPasswordEncryptor();
         boolean checkPassword;
 
