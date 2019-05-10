@@ -5,6 +5,7 @@
  */
 package Vista.Administrador.Principal;
 
+import Modelo.Notificacion;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -49,6 +50,9 @@ public class PrincipalAdminController implements Initializable {
         } catch (IOException ex) {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es) {
+            Notificacion.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+        
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -65,6 +69,9 @@ public class PrincipalAdminController implements Initializable {
         } catch (IOException ex) {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+        
         }
     }
 
@@ -81,6 +88,9 @@ public class PrincipalAdminController implements Initializable {
         } catch (IOException ex) {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+        
         }
     }
 
