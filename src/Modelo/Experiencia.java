@@ -1,16 +1,24 @@
-
 package Modelo;
 
 import java.time.LocalDate;
 
 public class Experiencia implements Comparable<Experiencia> {
-    
+
     private int id;
     private int idUsuario;
     private String nombre;
     private String descripcion;
     private LocalDate fechaTopeValidez;
     private String foto;
+
+    public Experiencia(int id, int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String foto) {
+        this.id = id;
+        this.idUsuario = idUsuario;
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.fechaTopeValidez = fechaTopeValidez;
+        this.foto = foto;
+    }
 
     public int getId() {
         return id;
@@ -62,24 +70,17 @@ public class Experiencia implements Comparable<Experiencia> {
 
     @Override
     public String toString() {
-        return "Experiencia{" + "id=" + id + 
-                            ", idUsuario=" + idUsuario + 
-                            ", nombre=" + nombre + 
-                            ", descripcion=" + descripcion + 
-                            ", fechaTopeValidez=" + fechaTopeValidez + 
-                            ", foto=" + foto + '}';
+        return nombre;
     }
 
     @Override
-    public int compareTo(Experiencia o) { 
+    public int compareTo(Experiencia o) {
         int compara;
-        if(this.id < o.getId()){
+        if (this.id < o.getId()) {
             compara = -1;
-        }
-        else if(this.id > o.getId()){
+        } else if (this.id > o.getId()) {
             compara = 1;
-        }
-        else {
+        } else {
             compara = 0;
         }
         return compara;

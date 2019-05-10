@@ -74,6 +74,7 @@ public class RegistrarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aceptarBT.getStyleClass().add("botonAceptarRegistro");
+        fecNacTF.getStyleClass().add("calendarioRegistrar");
     }
 
     @FXML

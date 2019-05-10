@@ -3,7 +3,11 @@ package Vista.Principal;
 import Datos.Bda.GestionBD;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
+
 import Vista.Perfil.PerfilController;
+
+import Vista.Experiencia.ExperienciaController;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,6 +83,7 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Experiencia/Experiencia.fxml";
+        ExperienciaController.setGestion(gestion);
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
