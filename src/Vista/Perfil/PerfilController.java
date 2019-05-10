@@ -29,9 +29,6 @@ import javafx.scene.paint.Color;
  */
 public class PerfilController implements Initializable {
 
-   
-
-
     /**
      * Initializes the controller class.
      */
@@ -69,14 +66,13 @@ public class PerfilController implements Initializable {
     @FXML
     private TextField fecNacTF;
     private Usuario usuario;
-   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         // comprobar  rol usuario para mostrar radioButton
         // TODO
-    }    
+    }
 
     @FXML
     private void salir(ActionEvent event) {
@@ -89,35 +85,26 @@ public class PerfilController implements Initializable {
     @FXML
     private void mostrarRepContra(MouseEvent event) {
         //al entrar mostrar las etiquetas de repetir contraseña
-        
+
     }
-     public void setUsuario(Usuario usuario) {
-      
-      this.usuario=usuario;
-      
-        
+
+    public void setUsuario(Usuario usuario) {
+
+        this.usuario = usuario;
+
     }
-     
-     
+
     public void calcularnodos() {
-//        Usuario usuario=new Usuario();
-//        usuario=this.usuario;
-//          System.out.println("2usuario"+usuario+" ver"+this.usuario);
-        nickTF.setText(this.usuario.getNick());
-//    TextField ContraPF;
+        nickTF.setText(usuario.getNick());
+        nombreTF.setText(usuario.getNombre());
+        apellidosTF.setText(usuario.getApellidos());
+        dniTF.setText(usuario.getDNI());
+        telefonoTF.setText(usuario.getTelefono());
+        direccionTF.setText(usuario.getDireccion());
+        emailTF.setText(usuario.getEmail());
+        fecNacTF.setText(usuario.getFecNac().toString());
+        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
 
-nombreTF.setText(usuario.getNombre());
-apellidosTF.setText(usuario.getApellidos());
-dniTF.setText(usuario.getDNI());
-telefonoTF.setText(usuario.getTelefono());
- direccionTF.setText(usuario.getDireccion());
-emailTF.setText(usuario.getEmail());
-//fecNacTF.setText(usuario.getFecNac());
-//        
-        
     }
-    
 
-   
-     
 }

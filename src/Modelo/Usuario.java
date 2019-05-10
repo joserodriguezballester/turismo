@@ -1,6 +1,7 @@
 package Modelo;
 
 import java.time.LocalDate;
+import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 
@@ -17,7 +18,7 @@ public class Usuario implements Comparable<Usuario> {
     private String nick;
     private LocalDate fecNac;
     private rol perfil;
-
+     StandardPBEStringEncryptor encriptar ;
     private enum rol {
         CLIENTE, ADMINISTRADOR
     }
@@ -162,18 +163,19 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public String encriptar(String contrasena) {
-        PasswordEncryptor encryptor = new BasicPasswordEncryptor();
-
-        String contrasenaEncriptada = encryptor.encryptPassword(contrasena);
-//          /**
-//         * Compara el password cifrado con nuestra palabra secreta
-//         */
-//        if (encryptor.checkPassword("123456", contrasenaEncriptada )) {
-//            System.out.println("Bienvenido!!!");
-//        } else {
-//            System.out.println("Acceso Denegado!!!");
-//        } 
+        String mpCryptoPassword = "miclave";
+        encriptar = new StandardPBEStringEncryptor();
+        encriptar.setPassword(mpCryptoPassword);
+        String contrasenaEncriptada = encriptar.encrypt(contrasena);
         return contrasenaEncriptada;
     }
 
+     public String desencriptar(String contrasenaencriptada) {
+       String mpCryptoPassword = "miclave";
+      
+        encriptar.setPassword(mpCryptoPassword);
+        String contrasena = encriptar.decrypt(contrasenaencriptada);
+        
+        return contrasena;
+}
 }

@@ -94,11 +94,6 @@ public class UsuarioController implements Initializable {
             escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
             escena.setScene(new Scene(root));
             escena.showAndWait();
-            //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
-//            if (usuarioControlador.isValido()) {
-//                usuario = usuarioControlador.getUsuario();
-//            }
-
         } catch (IOException ex) {
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
 
@@ -185,15 +180,14 @@ public class UsuarioController implements Initializable {
     }
 
     public boolean verificaUsuario() {
-        boolean existe = false;
-        PasswordEncryptor encryptor = new BasicPasswordEncryptor();
         boolean checkPassword;
-
         //comprobar si existe usuario//
         String nick = nickTF.getText();
         String contrasenaBD = usuarioDAO.obtenerContra(nick);
-        String contrasena = contraTF.getText();
-        checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
+        String contrasena =  usuario.encriptar(contraTF.getText());
+        System.out.println("contrabd: "+contrasenaBD);
+        System.out.println("contrase: "+contrasena);
+        checkPassword = contrasena.equals(contrasenaBD);
         return checkPassword;
     }
 

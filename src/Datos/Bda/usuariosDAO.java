@@ -18,7 +18,7 @@ import java.time.LocalDate;
  */
 public class usuariosDAO {
 
-    private Connection conn;
+//    private Connection conn;
     private GestionBD gestion;
 
     public usuariosDAO(GestionBD gestion) {
@@ -60,7 +60,7 @@ public class usuariosDAO {
         boolean insertado = false;
         String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, CONTRASEÑA = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ? WHERE ID = ?;";
         try {
-            PreparedStatement ps = conn.prepareStatement(consulta);
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setString(1, DNI);
             ps.setString(2, nombre);
             ps.setString(3, apellidos);
@@ -81,17 +81,15 @@ public class usuariosDAO {
     //DELETE
     public boolean borrarUsuario(int idUsuario) {
         boolean borrado = false;
-
         String sql = "DELETE FROM USUARIOS WHERE id = ?;";
         try {
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ps.setInt(1, idUsuario);
             ps.executeUpdate();
             borrado = true;
         } catch (SQLException e) {
             //MENSAJE DE ERROR
         }
-
         return borrado;
     }
 
@@ -122,10 +120,10 @@ public class usuariosDAO {
         while (rs.next()) {
             usuario.setId(rs.getInt("id"));
             usuario.setPassword(rs.getString("contraseña"));
-//            usuario.setFecNac(rs.getLocalDate("fecNac"));
-            fechabda = rs.getDate("fecNac");
 
+            fechabda = rs.getDate("fecNac");
             usuario.setFecNac(fechabda.toLocalDate());
+
             usuario.setNombre(rs.getString("nombre"));
             usuario.setApellidos(rs.getString("apellidos"));
             usuario.setDNI(rs.getString("dni"));
@@ -133,8 +131,7 @@ public class usuariosDAO {
             usuario.setDireccion(rs.getString("direccion"));
             usuario.setEmail(rs.getString("email"));
             usuario.setPerfil(rs.getString("rol").toUpperCase());
-        }
-        
+        }        
         return usuario;
     }
 }
