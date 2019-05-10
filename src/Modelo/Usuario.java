@@ -16,7 +16,20 @@ public class Usuario implements Comparable<Usuario> {
     private String email;
     private String nick;
     private LocalDate fecNac;
+    private rol perfil;
+    private enum rol {
+        CLIENTE, ADMINISTRADOR
+    }
 
+    public rol getPerfil() {
+        return perfil;
+    }
+
+    public void setPerfil(String perfil) {
+        
+        this.perfil = rol.valueOf(perfil);
+    }
+    
     public String getDNI() {
         return DNI;
     }
@@ -40,6 +53,9 @@ public class Usuario implements Comparable<Usuario> {
     public void setFecNac(LocalDate fecNac) {
         this.fecNac = fecNac;
     }
+
+    public Usuario() {
+    }
     
 
     public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac) {
@@ -55,9 +71,7 @@ public class Usuario implements Comparable<Usuario> {
         this.fecNac = fecNac;
     }
 
-    private enum roll {
-        CLIENTE, ADMINISTRADOR
-    }
+    
 
     public int getId() {
         return id;
@@ -71,9 +85,7 @@ public class Usuario implements Comparable<Usuario> {
         return DNI;
     }
 
-    public void setDni(String dni) {
-        this.DNI = dni;
-    }
+   
 
     public String getNombre() {
         return nombre;

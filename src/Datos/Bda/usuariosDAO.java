@@ -25,11 +25,9 @@ public class usuariosDAO {
         this.gestion = gestion;
     }
 
-      
-
     //CREATE PASANDO USUARIO
     public boolean insertarUsuario(Usuario usuario) {
-              
+
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email)"
                 + " VALUES(?, ?, ?, ?, ?,?,?,?,?);";
@@ -47,7 +45,7 @@ public class usuariosDAO {
             ps.setString(9, usuario.getEmail());
             ps.executeUpdate();
             insertado = true;
-          
+
         } catch (SQLException e) {
             //MENSAJE DE ERROR
         }
@@ -94,26 +92,46 @@ public class usuariosDAO {
 
         return borrado;
     }
-  public String obtenerContra(String nick){
-      String contrasena = null;
+
+    public String obtenerContra(String nick) {
+        String contrasena = null;
         String sql = "SELECT Contraseña FROM USUARIOS WHERE nick=?;";
         try {
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ps.setString(1, nick);
-         ResultSet rs = ps.executeQuery();
-        while (rs.next()){
-             contrasena = rs.getString("Contraseña");
-        }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                contrasena = rs.getString("Contraseña");
+            }
         } catch (SQLException e) {
             //MENSAJE DE ERROR
         }
-        return contrasena; 
-        
-        
-        
-        
-        
-  }  
-    
-    
+        return contrasena;
+    }
+
+    public Usuario cargarUsuario(String nick) throws SQLException {
+        Usuario usuario = new Usuario();
+       java.sql.Date fechabda;
+              
+        String sql = "SELECT id,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM USUARIOS WHERE nick=?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(sql);
+        ps.setString(1, nick);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            usuario.setId(rs.getInt("id"));
+            usuario.setPassword(rs.getString("contraseña"));
+//            usuario.setFecNac(rs.getLocalDate("fecNac"));
+        fechabda = rs.getDate("fecNac");
+       
+        usuario.setFecNac(fechabda.toLocalDate());
+            usuario.setNombre(rs.getString("nombre"));
+            usuario.setApellidos(rs.getString("apellidos"));
+            usuario.setDNI(rs.getString("dni"));
+            usuario.setTelefono(rs.getString("telefono"));
+            usuario.setDireccion(rs.getString("direccion"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setPerfil(rs.getString("rol"));
+        }
+        return usuario;
+    }
 }

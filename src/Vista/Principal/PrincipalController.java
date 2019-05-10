@@ -1,6 +1,7 @@
 package Vista.Principal;
 
 import Datos.Bda.GestionBD;
+import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
 import Vista.Experiencia.ExperienciaController;
 import java.io.IOException;
@@ -37,6 +38,7 @@ public class PrincipalController implements Initializable {
     private Button botonBuscar;
     @FXML
     private Button botonTransportes;
+    private Usuario usuario;
 
     /**
      * Initializes the controller class.
@@ -129,7 +131,7 @@ public class PrincipalController implements Initializable {
     }
 
     public void setParametros(Stage escenario) {
-
+        
     }
 
     @FXML
@@ -149,6 +151,11 @@ public class PrincipalController implements Initializable {
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
 
+    }
+
+  
+    public void setParametroUsuario(Usuario usuario) {
+       this.usuario=usuario;
     }
 
 }
