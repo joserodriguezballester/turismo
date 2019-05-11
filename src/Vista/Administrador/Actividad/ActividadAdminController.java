@@ -5,6 +5,7 @@
  */
 package Vista.Administrador.Actividad;
 
+import Datos.Bda.GestionBD;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -18,6 +19,10 @@ import javafx.scene.layout.GridPane;
  * @author joser
  */
 public class ActividadAdminController implements Initializable {
+
+    public static void setGestion(GestionBD gestion) {
+        
+    }
 
     @FXML
     private GridPane menu2;
