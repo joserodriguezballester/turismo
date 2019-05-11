@@ -110,7 +110,7 @@ public class PerfilAdminController implements Initializable {
         roleOL.add("Administradores");
         roleOL.add("Todos");
         tipoUsuario.setItems(roleOL);
-        tipoUsuario.setValue("Administradores");
+        tipoUsuario.setValue("Clientes");
      }
 
     @FXML
@@ -143,6 +143,8 @@ public class PerfilAdminController implements Initializable {
 
     @FXML
     private void borrar(ActionEvent event) {
+        int id=Integer.valueOf(id_invisibleTF.getText());
+        usuariosDAO.borrarUsuario(id);
     }
 
 
