@@ -7,8 +7,10 @@ package Vista.Perfil;
 
 import Datos.Bda.GestionBD;
 import Modelo.Usuario;
+import Vista.Usuario.UsuarioController;
 import java.net.URL;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -46,11 +49,7 @@ public class PerfilController implements Initializable {
     @FXML
     private Button salirBT;
     @FXML
-    private Button aceptarBT;
-    @FXML
     private TextField nickTF;
-    @FXML
-    private TextField ContraPF;
     @FXML
     private TextField nombreTF;
     @FXML
@@ -66,6 +65,8 @@ public class PerfilController implements Initializable {
     @FXML
     private TextField fecNacTF;
     private Usuario usuario;
+    @FXML
+    private Button modificarBT;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -76,17 +77,9 @@ public class PerfilController implements Initializable {
 
     @FXML
     private void salir(ActionEvent event) {
+               
     }
 
-    @FXML
-    private void aceptar(ActionEvent event) {
-    }
-
-    @FXML
-    private void mostrarRepContra(MouseEvent event) {
-        //al entrar mostrar las etiquetas de repetir contraseña
-
-    }
 
     public void setUsuario(Usuario usuario) {
 
@@ -102,10 +95,26 @@ public class PerfilController implements Initializable {
         telefonoTF.setText(usuario.getTelefono());
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
+        
         fecNacTF.setText(usuario.getFecNac().toString());
         
 //        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
 
     }
+
+  
+
+    @FXML
+    private void modificar(ActionEvent event) {
+        
+    }
+
+    @FXML
+    private void mostrarBoton(MouseEvent event) {
+      
+            modificarBT.setDisable(false);      
+    }
+
+  
 
 }
