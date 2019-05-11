@@ -92,6 +92,10 @@ public class ActividadController implements Initializable {
 
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
+            System.out.println(lista.isEmpty());
+            for (Tipo tipo : lista) {
+                System.out.println(tipo);
+            }
             double posicionX = 5;
             double posicionY = 15;
             JFXButton boton;
@@ -115,9 +119,12 @@ public class ActividadController implements Initializable {
                 paneListaBotones.getChildren().add(botonLista);
             }
         } catch (SQLException e) {
-//            MENSAJE DE ERROR
+            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+                    + "(initialize ActividadController");
         } catch (Exception e) {
-//            MENSAJE DE ERROR
+            e.printStackTrace();
+            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+                    + "(initialize ActividadController");
         }
 
     }
@@ -131,9 +138,11 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException e) {
-//            ERROR BD
+            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+                    + "(cargarActividades ActividadController");
         } catch (Exception e) {
-//            ERROR
+            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+                    + "(cargarActividades ActividadController");
 
         }
     }
@@ -184,7 +193,8 @@ public class ActividadController implements Initializable {
             }
         } catch (Exception e) {
             fotoActividad.setVisible(false);
-            System.out.println("la foto no ha podido cargarse");
+            Notificacion.error("ERROR EXCEPTION","la foto no ha podido cargarse"
+                    + "(cargarInformacionActividad ActividadController");
         }
 
         if (actividad.getUrl() == null) {

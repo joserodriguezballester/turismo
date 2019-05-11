@@ -5,9 +5,12 @@
  */
 package Vista.Perfil;
 
+import Datos.Bda.GestionBD;
 import Modelo.Usuario;
+import Vista.Usuario.UsuarioController;
 import java.net.URL;
 import java.sql.Connection;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +20,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -27,14 +31,11 @@ import javafx.scene.paint.Color;
  * @author joser
  */
 public class PerfilController implements Initializable {
-    
-
-   
 
     /**
      * Initializes the controller class.
      */
-    private Connection conn;
+//    private Connection conn;
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -48,11 +49,7 @@ public class PerfilController implements Initializable {
     @FXML
     private Button salirBT;
     @FXML
-    private Button aceptarBT;
-    @FXML
     private TextField nickTF;
-    @FXML
-    private TextField ContraPF;
     @FXML
     private TextField nombreTF;
     @FXML
@@ -68,28 +65,56 @@ public class PerfilController implements Initializable {
     @FXML
     private TextField fecNacTF;
     private Usuario usuario;
-   
+    @FXML
+    private Button modificarBT;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         // comprobar  rol usuario para mostrar radioButton
         // TODO
-    }    
+    }
 
     @FXML
     private void salir(ActionEvent event) {
+               
     }
 
-    @FXML
-    private void aceptar(ActionEvent event) {
+
+    public void setUsuario(Usuario usuario) {
+
+        this.usuario = usuario;
+
     }
 
+    public void calcularnodos() {
+        nickTF.setText(usuario.getNick());
+        nombreTF.setText(usuario.getNombre());
+        apellidosTF.setText(usuario.getApellidos());
+        dniTF.setText(usuario.getDNI());
+        telefonoTF.setText(usuario.getTelefono());
+        direccionTF.setText(usuario.getDireccion());
+        emailTF.setText(usuario.getEmail());
+        
+        fecNacTF.setText(usuario.getFecNac().toString());
+        
+//        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
+
+    }
+
+  
+
     @FXML
-    private void mostrarRepContra(MouseEvent event) {
-        //al entrar mostrar las etiquetas de repetir contraseña
+    private void modificar(ActionEvent event) {
         
     }
-//     public static void setUsuario(Usuario usuario) {
-//       PerfilController.usuario=usuario;
-//    }
+
+    @FXML
+    private void mostrarBoton(MouseEvent event) {
+      
+            modificarBT.setDisable(false);      
+    }
+
+  
+
 }

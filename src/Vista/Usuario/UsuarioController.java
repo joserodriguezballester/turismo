@@ -54,21 +54,10 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void logearse(ActionEvent event) {
-
-//        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
-       boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
-        if (logeado) {
- //           try {
-  //              usuario = usuarioDAO.cargarUsuario(nickTF.getText());
-/// segun el roll ejecutará uno de los dos metodos
-               cargarVentanaPrincipal();    // usuario cliente
- //          cargarVentanaPrincipalAdmin();  //usuario administrador
-  //          } catch (SQLException ex) {
-                //////tratar error ////
-            }
- //       } else {
-            // mostrar ventana que no existe o contraseña erronea
-//        }
+        // Utilizar uno de estos tres metodos
+//      logearseBueno();        
+//        logearseComoCliente();
+      logearseComoAdministrador();     
     }
 
     @FXML
@@ -86,11 +75,6 @@ public class UsuarioController implements Initializable {
             escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
             escena.setScene(new Scene(root));
             escena.showAndWait();
-            //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
-//            if (usuarioControlador.isValido()) {
-//                usuario = usuarioControlador.getUsuario();
-//            }
-
         } catch (IOException ex) {
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
 
@@ -180,13 +164,50 @@ public class UsuarioController implements Initializable {
         boolean existe = false;
         PasswordEncryptor encryptor = new BasicPasswordEncryptor();
         boolean checkPassword;
-
         //comprobar si existe usuario//
         String nick = nickTF.getText();
         String contrasenaBD = usuarioDAO.obtenerContra(nick);
         String contrasena = contraTF.getText();
         checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
+
         return checkPassword;
+    }
+
+    private void logearseBueno() {
+        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
+        //      boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
+        if (logeado) {
+            try {
+                usuario = usuarioDAO.cargarUsuario(nickTF.getText());
+
+/// segun el roll ejecutará uno de los dos metodos
+                if ("CLIENTE".equalsIgnoreCase(usuario.getPerfilString())) {
+//                    if ("CLIENTE".equalsIgnoreCase(usuario.getRol2())) {
+                    cargarVentanaPrincipal();    // usuario cliente
+                } else {
+//                   if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getRol2())) {
+                    if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
+                        cargarVentanaPrincipalAdmin();  //usuario administrador
+                    } else {
+                        System.out.println("Segun lorenzo soy tonto");
+                    }
+                }
+            } catch (SQLException ex) {
+                ////tratar error ////
+            }
+        } else {
+//             mostrar ventana que no existe o contraseña erronea
+            nickTF.setText("");
+            contraTF.setText("");
+        }
+    }
+
+    private void logearseComoCliente() {
+        cargarVentanaPrincipal();
+    }
+
+    private void logearseComoAdministrador() {
+        cargarVentanaPrincipalAdmin();
     }
 
 }

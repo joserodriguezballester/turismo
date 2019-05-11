@@ -22,16 +22,14 @@ public class ActividadExperiencia {
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinal;
     private Duration duracion;
-    private double precio;
 
-    public ActividadExperiencia(int orden, int idExperiencia, Actividad actividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal, double precio) {
+    public ActividadExperiencia(int orden, int idExperiencia, Actividad actividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal) {
         this.orden = orden;
         this.idExperiencia = idExperiencia;
         this.actividad = actividad;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.duracion = Duration.between(fechaFinal, fechaInicio);
-        this.precio = precio;
     }
 
     public int getOrden() {
@@ -80,14 +78,6 @@ public class ActividadExperiencia {
 
     public void setDuracion(Duration duracion) {
         this.duracion = duracion;
-    }
-
-    public double getPrecio() {
-        return precio;
-    }
-
-    public void setPrecio(double precio) {
-        this.precio = precio;
     }
 
     @Override

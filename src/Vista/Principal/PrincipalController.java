@@ -1,6 +1,7 @@
 package Vista.Principal;
 
 import Datos.Bda.GestionBD;
+import Modelo.Notificacion;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
 
@@ -74,6 +75,9 @@ public class PrincipalController implements Initializable {
             ex.printStackTrace();
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR VENTANA ACTIVIDAD",
+                 "Revisa el código y vuelve a intentarlo,(irActividad PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -93,6 +97,9 @@ public class PrincipalController implements Initializable {
             
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+      "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -102,17 +109,27 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Perfil/Perfil.fxml";
-//        PerfilController.setUsuario(usuario);
+ 
+//        PerfilController perfilController=loader.getController();
+//        perfilController.setUsuario(usuario);
+//        perfilController.calcularnodos();
+//        PerfilController.setGestion(gestion);
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
-            
+            PerfilController perfilController=loader.getController();
+        perfilController.setUsuario(usuario);
+         perfilController.calcularnodos();
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
+            
         } catch (IOException ex) {
             /////////tratar el error////
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR VENTANA PERFIL",
+        "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -131,6 +148,9 @@ public class PrincipalController implements Initializable {
             /////////tratar el error////
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR VENTANA BUSCADOR",
+        "Revisa el código y vuelve a intentarlo, (irBuscar PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -153,6 +173,9 @@ public class PrincipalController implements Initializable {
             /////////tratar el error////
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR VENTANA TRANSPORTE",
+        "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
 

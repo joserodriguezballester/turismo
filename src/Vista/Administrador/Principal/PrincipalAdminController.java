@@ -7,6 +7,8 @@ package Vista.Administrador.Principal;
 
 import Datos.Bda.GestionBD;
 import Modelo.Notificacion;
+import Vista.Administrador.Actividad.ActividadAdminController;
+import Vista.Administrador.Perfil.PerfilAdminController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,6 +31,8 @@ public class PrincipalAdminController implements Initializable {
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
+    
+    
     private GestionBD gestion;
 
     /**
@@ -37,25 +41,36 @@ public class PrincipalAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+//        gestion = new GestionBD();
         gestion = new GestionBD();
         gestion.conectar();
+        
+//        System.out.println("¿Hay conexion?" + gestion.conectar());
     }
 
     @FXML
     private void irActividad(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-        String nombrefichero = "/Vista/Administrador/Actividad/ActividadAdmin.fxml";
+        String nombrefichero = "/Vista/Administrador/Actividad/ActividadAdmin.fxml";      
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
+            
+             ActividadAdminController actividadAdminController=loader.getController();
+             actividadAdminController.setGestion(gestion);
+             System.out.println("pricicipal gestion: "+ gestion.isConectado());
+             actividadAdminController.ejecutaAlPrincipio();
+        
+             
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
-            Notificacion.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+            Notificacion.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,"
+          + " No se encuentra la ventana de login (irActividad PrincipalAdminController)");
         
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
@@ -74,7 +89,8 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+            Notificacion.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,"
+         + "  No se encuentra la ventana de login (irExperiencia PrincipalAdminController)");
         
         }
     }
@@ -87,13 +103,17 @@ public class PrincipalAdminController implements Initializable {
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
+             PerfilAdminController perfilAdminController=loader.getController();
+             perfilAdminController.setGestion(gestion);
+             perfilAdminController.ejecutaAlPrincipio();
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
+        + "  No se encuentra la ventana de login (irPerfil PrincipalAdminController)");
         
         }
     }
