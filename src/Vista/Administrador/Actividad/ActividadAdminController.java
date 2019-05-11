@@ -119,9 +119,6 @@ public class ActividadAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         actividades = FXCollections.observableArrayList();
         System.out.println("inicialice");
-
-        
-
     }    
     
     private void cargarTabla(){
@@ -147,7 +144,7 @@ public class ActividadAdminController implements Initializable {
             tb_url.setCellValueFactory(new PropertyValueFactory<>("url"));
             tb_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
             tb_foto.setCellValueFactory(new PropertyValueFactory<>("foto"));
-            tb_idTipo.setCellValueFactory(new PropertyValueFactory<>("idTipo"));
+            tb_idTipo.setCellValueFactory(new PropertyValueFactory<>("idSubtipo"));
             
         } catch (SQLException ex) {
             System.out.println("SQL ERROR: " + ex.getMessage());

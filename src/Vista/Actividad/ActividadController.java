@@ -92,6 +92,10 @@ public class ActividadController implements Initializable {
 
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
+            System.out.println(lista.isEmpty());
+            for (Tipo tipo : lista) {
+                System.out.println(tipo);
+            }
             double posicionX = 5;
             double posicionY = 15;
             JFXButton boton;
@@ -118,6 +122,7 @@ public class ActividadController implements Initializable {
             Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
                     + "(initialize ActividadController");
         } catch (Exception e) {
+            e.printStackTrace();
             Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
                     + "(initialize ActividadController");
         }

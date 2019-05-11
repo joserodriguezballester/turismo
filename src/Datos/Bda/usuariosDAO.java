@@ -58,24 +58,23 @@ public class usuariosDAO {
 
     //READ
     //UPDATE
-    
     public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id) throws SQLException {
         boolean insertado = false;
         String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ? WHERE ID = ?;";
-      
-            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ps.setString(1, DNI);
-            ps.setString(2, nombre);
-            ps.setString(3, apellidos);
-            ps.setString(4, rol);
-            ps.setString(5, nick);
-            ps.setString(6, direccion);
-            ps.setString(7, telefono);
-            ps.setString(8, email);
-            ps.setInt(9, id);
-            ps.executeUpdate();
-            insertado = true;
-       
+
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, DNI);
+        ps.setString(2, nombre);
+        ps.setString(3, apellidos);
+        ps.setString(4, rol);
+        ps.setString(5, nick);
+        ps.setString(6, direccion);
+        ps.setString(7, telefono);
+        ps.setString(8, email);
+        ps.setInt(9, id);
+        ps.executeUpdate();
+        insertado = true;
+
         return insertado;
     }
 
@@ -155,6 +154,7 @@ public class usuariosDAO {
         listaUsuarios = darValorRs(rs);
         return listaUsuarios;
     }
+
     public List<Usuario> listarTodos() throws SQLException {
         List<Usuario> listaUsuarios = null;
         if (gestion.getConn() != null) {
@@ -165,6 +165,7 @@ public class usuariosDAO {
         }
         return listaUsuarios;
     }
+
     private List<Usuario> darValorRs(ResultSet rs) throws SQLException {
         List<Usuario> listaUsuarios = new ArrayList<>();
         while (rs.next()) {
