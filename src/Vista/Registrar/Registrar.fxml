@@ -7,8 +7,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.ToggleGroup?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -70,18 +68,12 @@
                   <JFXTextField fx:id="telefonoTF" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                   <JFXTextField fx:id="direccionTF" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                   <JFXTextField fx:id="emailTF" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                  <Label prefHeight="48.0" prefWidth="100.0" text="rol" visible="false" GridPane.rowIndex="13" />
+                  <JFXTextField fx:id="rolTF" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="13" />
                </children>
             </GridPane>
-            <JFXButton fx:id="aceptarBT" layoutX="592.0" layoutY="556.0" onAction="#registrar" text="Aceptar" />
-            <JFXButton fx:id="salirBT" layoutX="300.0" layoutY="514.0" onAction="#salir" prefHeight="60.0" prefWidth="5.0" text=" ">
-               <graphic>
-                  <ImageView fitHeight="76.0" fitWidth="155.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../../Imagenes/iconos/Status-dialog-error-icon.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
+            <JFXButton fx:id="aceptarBT" layoutX="650.0" layoutY="574.0" onAction="#registrar" text="Aceptar" />
+            <JFXButton fx:id="salirBT" layoutX="647.0" layoutY="624.0" onAction="#salir" prefHeight="25.0" prefWidth="63.0" text="Cancelar" />
          </children>
       </AnchorPane>
    </children>

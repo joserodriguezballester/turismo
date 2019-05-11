@@ -4,6 +4,8 @@ import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
+import Vista.Registrar.RegistrarController;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -16,7 +18,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,6 +33,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -65,7 +72,7 @@ public class PerfilAdminController implements Initializable {
     private ObservableList<String> rolOL;
     private GestionBD gestion;
     ObservableList<Usuario> usuarios;
-    private usuariosDAO usuariosDAO;
+    private usuariosDAO usuarioDAO;
     @FXML
     private TableView<Usuario> usuariosTV;
     @FXML
@@ -104,17 +111,39 @@ public class PerfilAdminController implements Initializable {
     }
 
     public void ejecutaAlPrincipio() {
-        usuariosDAO = new usuariosDAO(gestion);
+        usuarioDAO = new usuariosDAO(gestion);
         ObservableList<String> roleOL = FXCollections.observableArrayList();
         roleOL.add("Clientes");
         roleOL.add("Administradores");
         roleOL.add("Todos");
         tipoUsuario.setItems(roleOL);
         tipoUsuario.setValue("Clientes");
+        tipoUsuario.getSelectionModel().selectedItemProperty().addListener( (options, oldValue, newValue) -> {
+           cargarTabla(newValue);
+                   });
+       
      }
 
     @FXML
     private void anadir(ActionEvent event) {
+         Parent root;
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
+            root = loader.load(); // el meotodo initialize() se ejecuta
+            //OBTENER EL CONTROLADOR DE LA VENTANA
+            RegistrarController registrarController = loader.getController();
+            registrarController.setParametros(gestion, usuarioDAO);
+            Stage escena = new Stage();                      //En Stage nuevo.
+            escena.setTitle("Registrarse");
+            
+            escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+            escena.setScene(new Scene(root));
+            escena.showAndWait();
+        } catch (IOException ex) {
+//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+
+        }
         
     }
 
@@ -134,7 +163,7 @@ public class PerfilAdminController implements Initializable {
         int id =Integer.parseInt(id_invisibleTF.getText());
         
         try {
-            usuariosDAO.modificarUsuario(DNI, nombre, apellidos, rol,nick, direccion, telefono, email, id);
+            usuarioDAO.modificarUsuario(DNI, nombre, apellidos, rol,nick, direccion, telefono, email, id);
         } catch (SQLException ex) {
              Notificacion.error("ERROR SQL ", "Ha ocurrido un grave problema");
         }
@@ -144,25 +173,24 @@ public class PerfilAdminController implements Initializable {
     @FXML
     private void borrar(ActionEvent event) {
         int id=Integer.valueOf(id_invisibleTF.getText());
-        usuariosDAO.borrarUsuario(id);
+        usuarioDAO.borrarUsuario(id);
     }
 
 
-    @FXML
-    private void cargarTabla(ActionEvent event) {
+    private void cargarTabla(String seleccion) {
         try {
             List<Usuario> lista = new ArrayList<>();
-            String seleccion = tipoUsuario.getSelectionModel().getSelectedItem();
+//            String seleccion = tipoUsuario.getSelectionModel().getSelectedItem();
 
             switch (seleccion) {
                 case "Clientes":
-                    lista = usuariosDAO.listarClientes();
+                    lista = usuarioDAO.listarClientes();
                     break;
                 case "Administradores":
-                    lista = usuariosDAO.listarAdministradores();
+                    lista = usuarioDAO.listarAdministradores();
                     break;
                 case "Todos":
-                    lista = usuariosDAO.listarClientes();
+                    lista = usuarioDAO.listarClientes();
                     break;
             }
             cargarUsuarios(lista);
@@ -191,9 +219,6 @@ public class PerfilAdminController implements Initializable {
         rolTC.setCellValueFactory(new PropertyValueFactory<>("rol"));
     }
 
-    @FXML
-    private void cargarTabla(MouseEvent event) {
-    }
 
     private void cargarEtiquetas(Usuario usuario) {
        id_invisibleTF.setText(Integer.toString(usuario.getId()));
@@ -209,4 +234,6 @@ public class PerfilAdminController implements Initializable {
        rolTF.setText(usuario.getPerfilString());
        
     }
+
+   
  }

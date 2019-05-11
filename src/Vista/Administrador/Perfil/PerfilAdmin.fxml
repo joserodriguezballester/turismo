@@ -91,7 +91,7 @@
             <TextField fx:id="dniTF" layoutX="150.0" layoutY="490.0" />
             <Line endX="86.0" layoutX="853.0" layoutY="365.0" startX="-204.0" />
             <Line endX="171.0" layoutX="770.0" layoutY="655.0" startX="-121.0" />
-            <ComboBox fx:id="tipoUsuario" layoutX="97.0" layoutY="24.0" onAction="#cargarTabla" onMouseClicked="#cargarTabla" prefWidth="150.0" />
+            <ComboBox fx:id="tipoUsuario" layoutX="97.0" layoutY="24.0" prefWidth="150.0" />
             <Label layoutX="340.0" layoutY="525.0" text="Rol">
                <font>
                   <Font size="16.0" />
