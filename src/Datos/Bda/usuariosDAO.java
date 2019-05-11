@@ -58,25 +58,24 @@ public class usuariosDAO {
 
     //READ
     //UPDATE
-    public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String contraseña, String direccion, String telefono, String email, int id) {
+    
+    public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id) throws SQLException {
         boolean insertado = false;
-        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, CONTRASEÑA = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ? WHERE ID = ?;";
-        try {
+        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ? WHERE ID = ?;";
+      
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setString(1, DNI);
             ps.setString(2, nombre);
             ps.setString(3, apellidos);
             ps.setString(4, rol);
-            ps.setString(5, contraseña);
+            ps.setString(5, nick);
             ps.setString(6, direccion);
             ps.setString(7, telefono);
             ps.setString(8, email);
             ps.setInt(9, id);
             ps.executeUpdate();
             insertado = true;
-        } catch (SQLException e) {
-            //MENSAJE DE ERROR
-        }
+       
         return insertado;
     }
 
@@ -137,36 +136,53 @@ public class usuariosDAO {
         return usuario;
     }
 
-    public List<Usuario> listarUsuarios() throws SQLException {
-
-        List<Usuario> listaTodosUsuarios = new ArrayList<>();
+    public List<Usuario> listarClientes() throws SQLException {
+        List<Usuario> listaUsuarios = null;
         if (gestion.getConn() != null) {
-            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM USUARIOS;";
-//            String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades;";
+            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Usuario usuario = new Usuario();
-                listaTodosUsuarios.add(usuario);
-                usuario.setId(rs.getInt("id"));
-                usuario.setPassword(rs.getString("contraseña"));
-                usuario.setNick(rs.getString("nick"));
-                Date fechabda = rs.getDate("fecNac");
-                usuario.setFecNac(fechabda.toLocalDate());
-
-                usuario.setNombre(rs.getString("nombre"));
-                usuario.setApellidos(rs.getString("apellidos"));
-                usuario.setDNI(rs.getString("dni"));
-                usuario.setTelefono(rs.getString("telefono"));
-                usuario.setDireccion(rs.getString("direccion"));
-                usuario.setEmail(rs.getString("email"));
-                usuario.setPerfil(rs.getString("rol").toUpperCase());
-            }
-        } else {
-            System.out.println(" ESTOY EN LISTAR ACTIVIDAD ,gestion NULA");
+            listaUsuarios = darValorRs(rs);
         }
-
-        return listaTodosUsuarios;
+        return listaUsuarios;
     }
 
+    public List<Usuario> listarAdministradores() throws SQLException {
+        List<Usuario> listaUsuarios;
+        String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM administradores;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ResultSet rs = ps.executeQuery();
+        listaUsuarios = darValorRs(rs);
+        return listaUsuarios;
+    }
+    public List<Usuario> listarTodos() throws SQLException {
+        List<Usuario> listaUsuarios = null;
+        if (gestion.getConn() != null) {
+            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM usuarios;";
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            listaUsuarios = darValorRs(rs);
+        }
+        return listaUsuarios;
+    }
+    private List<Usuario> darValorRs(ResultSet rs) throws SQLException {
+        List<Usuario> listaUsuarios = new ArrayList<>();
+        while (rs.next()) {
+            Usuario usuario = new Usuario();
+            listaUsuarios.add(usuario);
+            usuario.setId(rs.getInt("id"));
+            usuario.setPassword(rs.getString("contraseña"));
+            usuario.setNick(rs.getString("nick"));
+            Date fechabda = rs.getDate("fecNac");
+            usuario.setFecNac(fechabda.toLocalDate());
+            usuario.setNombre(rs.getString("nombre"));
+            usuario.setApellidos(rs.getString("apellidos"));
+            usuario.setDNI(rs.getString("dni"));
+            usuario.setTelefono(rs.getString("telefono"));
+            usuario.setDireccion(rs.getString("direccion"));
+            usuario.setEmail(rs.getString("email"));
+            usuario.setPerfil(rs.getString("rol").toUpperCase());
+        }
+        return listaUsuarios;
+    }
 }

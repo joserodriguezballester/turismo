@@ -56,6 +56,7 @@ public class actividadesDAO {
                 usuario.setTelefono(rs.getString("telefono"));
                 usuario.setDireccion(rs.getString("direccion"));
                 usuario.setEmail(rs.getString("email"));
+                
                 usuario.setPerfil(rs.getString("rol").toUpperCase());
             }
           
