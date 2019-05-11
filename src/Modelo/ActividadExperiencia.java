@@ -5,6 +5,7 @@
  */
 package Modelo;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
@@ -13,48 +14,48 @@ import java.util.List;
  *
  * @author 20857464y
  */
-public class ExperienciaActividad {
+public class ActividadExperiencia {
 
-    private int id;
-    private List<Actividad> listaActividades;
-    private int numPlazas;
+    private int orden;
+    private int idExperiencia;
+    private Actividad actividad;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinal;
-    private LocalTime duracion;
+    private Duration duracion;
     private double precio;
 
-    public ExperienciaActividad(int id, List<Actividad> listaActividades, int numPlazas, LocalDateTime fechaInicio, LocalDateTime fechaFinal, LocalTime duracion, double precio) {
-        this.id = id;
-        this.listaActividades = listaActividades;
-        this.numPlazas = numPlazas;
+    public ActividadExperiencia(int orden, int idExperiencia, Actividad actividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal, double precio) {
+        this.orden = orden;
+        this.idExperiencia = idExperiencia;
+        this.actividad = actividad;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
-        this.duracion = duracion;
+        this.duracion = Duration.between(fechaFinal, fechaInicio);
         this.precio = precio;
     }
 
-    public int getId() {
-        return id;
+    public int getOrden() {
+        return orden;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setOrden(int orden) {
+        this.orden = orden;
     }
 
-    public List<Actividad> getListaActividades() {
-        return listaActividades;
+    public Actividad getActividad() {
+        return actividad;
     }
 
-    public void setListaActividades(List<Actividad> listaActividades) {
-        this.listaActividades = listaActividades;
+    public void setActividad(Actividad actividad) {
+        this.actividad = actividad;
     }
 
-    public int getNumPlazas() {
-        return numPlazas;
+    public int getIdExperiencia() {
+        return idExperiencia;
     }
 
-    public void setNumPlazas(int numPlazas) {
-        this.numPlazas = numPlazas;
+    public void setIdExperiencia(int idExperiencia) {
+        this.idExperiencia = idExperiencia;
     }
 
     public LocalDateTime getFechaInicio() {
@@ -73,11 +74,11 @@ public class ExperienciaActividad {
         this.fechaFinal = fechaFinal;
     }
 
-    public LocalTime getDuracion() {
+    public Duration getDuracion() {
         return duracion;
     }
 
-    public void setDuracion(LocalTime duracion) {
+    public void setDuracion(Duration duracion) {
         this.duracion = duracion;
     }
 
@@ -87,6 +88,11 @@ public class ExperienciaActividad {
 
     public void setPrecio(double precio) {
         this.precio = precio;
+    }
+
+    @Override
+    public String toString() {
+        return orden + " - " + actividad;
     }
 
 }

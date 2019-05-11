@@ -48,6 +48,18 @@ public class actividadesDAO {
     }
     //READ
 
+    public Actividad consultarActividad(int idActividad) throws SQLException {
+        Actividad actividad = null;
+        String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo FROM actividades WHERE id = ?;";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setInt(1, idActividad);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            actividad = new Actividad(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("horario"), rs.getString("descripcion"), rs.getString("url"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("foto"), rs.getInt("idSubtipo"));
+        }
+        return actividad;
+    }
+
     //UPDATE
     public boolean modificarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int idSubtipo) throws SQLException {
         boolean modificado = false;
@@ -100,7 +112,7 @@ public class actividadesDAO {
         ps.setInt(1, tipo.getId());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            listaActividades.add(new Actividad(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("horario"), rs.getString("descripcion"), rs.getString("url"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("foto"), rs.getInt("idsubtipo"))); //FALTAN LOS PARAMETROS
+            listaActividades.add(new Actividad(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("horario"), rs.getString("descripcion"), rs.getString("url"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("foto"), rs.getInt("idsubtipo")));
         }
 
         return listaActividades;

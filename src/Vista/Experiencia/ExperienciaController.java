@@ -7,6 +7,7 @@ package Vista.Experiencia;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.experienciasDAO;
+import Modelo.ActividadExperiencia;
 import Modelo.Experiencia;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
@@ -22,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -59,11 +61,9 @@ public class ExperienciaController implements Initializable {
     @FXML
     private JFXTextField textFieldFechaValidez;
     @FXML
-    private JFXDatePicker entradaFechaInicio;
+    private Label etiquetaListaActividades;
     @FXML
-    private JFXDatePicker entradaFechaFinal;
-    @FXML
-    private JFXTextField textFieldDuracion;
+    private JFXListView<ActividadExperiencia> listaActividades;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -77,21 +77,27 @@ public class ExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
 //            ERROR SQL
+            e.printStackTrace();
         } catch (Exception e) {
-//            ERROR   
+//            ERROR  
+            e.printStackTrace();
         }
     }
 
     @FXML
     public void cargarExperiencia() {
+        listaActividades.getItems().clear();
         paneInformacion.setVisible(true);
-        FadeTransition ft = new FadeTransition(Duration.millis(1000), paneInformacion);
-        ft.setFromValue(0);
-        ft.setToValue(1);
-        ft.play();
+        FadeTransition transicion = new FadeTransition(Duration.millis(1000), paneInformacion);
+        transicion.setFromValue(0);
+        transicion.setToValue(1);
+        transicion.play();
         Experiencia experiencia = listaVisualExperiencias.getSelectionModel().getSelectedItem();
         textAreaDescripcion.setText(experiencia.getDescripcion());
         textFieldFechaValidez.setText(experiencia.getFechaTopeValidez().toString());
+        for (ActividadExperiencia actExp : experiencia.getListaActividades()) {
+            listaActividades.getItems().add(actExp);
+        }
     }
 
     @FXML
@@ -100,9 +106,9 @@ public class ExperienciaController implements Initializable {
     }
 
     private void cerrarInfo() {
-        FadeTransition ft = new FadeTransition(Duration.millis(1000), paneInformacion);
-        ft.setFromValue(1.0);
-        ft.setToValue(0);
-        ft.play();
+        FadeTransition transicion = new FadeTransition(Duration.millis(1000), paneInformacion);
+        transicion.setFromValue(1.0);
+        transicion.setToValue(0);
+        transicion.play();
     }
 }
