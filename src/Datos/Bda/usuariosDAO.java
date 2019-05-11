@@ -5,12 +5,16 @@
  */
 package Datos.Bda;
 
+import Modelo.Actividad;
 import Modelo.Usuario;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,8 +22,7 @@ import java.time.LocalDate;
  */
 public class usuariosDAO {
 
-//    private Connection conn;
-    private GestionBD gestion;
+    private final GestionBD gestion;
 
     public usuariosDAO(GestionBD gestion) {
         this.gestion = gestion;
@@ -130,7 +133,40 @@ public class usuariosDAO {
             usuario.setDireccion(rs.getString("direccion"));
             usuario.setEmail(rs.getString("email"));
             usuario.setPerfil(rs.getString("rol").toUpperCase());
-        }        
+        }
         return usuario;
     }
+
+    public List<Usuario> listarUsuarios() throws SQLException {
+
+        List<Usuario> listaTodosUsuarios = new ArrayList<>();
+        if (gestion.getConn() != null) {
+            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM USUARIOS;";
+//            String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades;";
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                listaTodosUsuarios.add(usuario);
+                usuario.setId(rs.getInt("id"));
+                usuario.setPassword(rs.getString("contraseña"));
+                usuario.setNick(rs.getString("nick"));
+                Date fechabda = rs.getDate("fecNac");
+                usuario.setFecNac(fechabda.toLocalDate());
+
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setDNI(rs.getString("dni"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setDireccion(rs.getString("direccion"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPerfil(rs.getString("rol").toUpperCase());
+            }
+        } else {
+            System.out.println(" ESTOY EN LISTAR ACTIVIDAD ,gestion NULA");
+        }
+
+        return listaTodosUsuarios;
+    }
+
 }
