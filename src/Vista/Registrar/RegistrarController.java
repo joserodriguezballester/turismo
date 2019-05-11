@@ -110,6 +110,7 @@ public class RegistrarController implements Initializable {
         }else{
             System.out.println("contraseña distinta");
         }
+        // ---- I SINO QUE?
     }
 
     @FXML

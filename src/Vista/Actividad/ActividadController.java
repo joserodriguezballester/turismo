@@ -115,9 +115,11 @@ public class ActividadController implements Initializable {
                 paneListaBotones.getChildren().add(botonLista);
             }
         } catch (SQLException e) {
-//            MENSAJE DE ERROR
+            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+                    + "(initialize ActividadController");
         } catch (Exception e) {
-//            MENSAJE DE ERROR
+            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+                    + "(initialize ActividadController");
         }
 
     }
@@ -131,9 +133,11 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException e) {
-//            ERROR BD
+            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+                    + "(cargarActividades ActividadController");
         } catch (Exception e) {
-//            ERROR
+            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+                    + "(cargarActividades ActividadController");
 
         }
     }
@@ -184,7 +188,8 @@ public class ActividadController implements Initializable {
             }
         } catch (Exception e) {
             fotoActividad.setVisible(false);
-            System.out.println("la foto no ha podido cargarse");
+            Notificacion.error("ERROR EXCEPTION","la foto no ha podido cargarse"
+                    + "(cargarInformacionActividad ActividadController");
         }
 
         if (actividad.getUrl() == null) {

@@ -55,7 +55,8 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
-            Notificacion.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+            Notificacion.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,"
+          + " No se encuentra la ventana de login (irActividad PrincipalAdminController)");
         
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
@@ -74,7 +75,8 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+            Notificacion.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,"
+         + "  No se encuentra la ventana de login (irExperiencia PrincipalAdminController)");
         
         }
     }
@@ -93,7 +95,8 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,  No se encuentra la ventana de login");
+            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
+        + "  No se encuentra la ventana de login (irPerfil PrincipalAdminController)");
         
         }
     }
