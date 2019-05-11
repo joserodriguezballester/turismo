@@ -7,6 +7,7 @@ package Vista.Administrador.Principal;
 
 import Datos.Bda.GestionBD;
 import Modelo.Notificacion;
+import Vista.Administrador.Actividad.ActividadAdminController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -46,6 +47,7 @@ public class PrincipalAdminController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Administrador/Actividad/ActividadAdmin.fxml";
+        ActividadAdminController.setGestion(gestion);
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
