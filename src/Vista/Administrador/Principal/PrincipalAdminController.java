@@ -29,6 +29,8 @@ public class PrincipalAdminController implements Initializable {
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
+    
+    
     private GestionBD gestion;
 
     /**
@@ -38,7 +40,8 @@ public class PrincipalAdminController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
         gestion = new GestionBD();
-        gestion.conectar();
+        
+//        System.out.println("¿Hay conexion?" + gestion.conectar());
     }
 
     @FXML
