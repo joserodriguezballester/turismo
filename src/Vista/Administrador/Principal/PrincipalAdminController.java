@@ -40,7 +40,9 @@ public class PrincipalAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+//        gestion = new GestionBD();
         gestion = new GestionBD();
+        gestion.conectar();
         
 //        System.out.println("¿Hay conexion?" + gestion.conectar());
     }
@@ -50,10 +52,17 @@ public class PrincipalAdminController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Administrador/Actividad/ActividadAdmin.fxml";
-        ActividadAdminController.setGestion(gestion);
+       
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
+            
+             ActividadAdminController actividadAdminController=loader.getController();
+             actividadAdminController.setGestion(gestion);
+             System.out.println("pricicipal gestion: "+ gestion.isConectado());
+             actividadAdminController.ejecutaAlPrincipio();
+        
+             
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {

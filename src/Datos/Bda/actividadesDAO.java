@@ -7,12 +7,15 @@ package Datos.Bda;
 
 import Modelo.Actividad;
 import Modelo.Tipo;
+import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -25,21 +28,47 @@ public class actividadesDAO {
     private ResultSet rs;
 
     public actividadesDAO(GestionBD gestion) {
+        System.out.println("gestion actividades DAO"+gestion);
+        System.out.println(" 1"+ gestion.isConectado());
         this.gestion = gestion;
-        this.conn = gestion.getConn();
-        if(conn != null){
-            System.out.println("conn no es nulo");
-        }
-        System.out.println("crea actividadesDAO "+this.gestion);
-        
+        System.out.println(" 2"+ this.gestion.isConectado());
     }
-
+  public Usuario cargarUsuario(String nick)  {
+      Usuario usuario=null ;
+        try {
+            usuario = new Usuario();
+            java.sql.Date fechabda;
+            String sql = "SELECT id,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM USUARIOS WHERE nick=?;";
+            PreparedStatement ps = gestion.getConn().prepareStatement(sql);
+            ps.setString(1, nick);
+            ResultSet rs = ps.executeQuery();
+            usuario.setNick(nick);
+            while (rs.next()) {
+                usuario.setId(rs.getInt("id"));
+                usuario.setPassword(rs.getString("contraseña"));
+                
+                fechabda = rs.getDate("fecNac");
+                usuario.setFecNac(fechabda.toLocalDate());
+                
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setDNI(rs.getString("dni"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setDireccion(rs.getString("direccion"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPerfil(rs.getString("rol").toUpperCase());
+            }
+          
+        } catch (SQLException ex) {
+            System.out.println("error sql");
+        }
+         return usuario;
+    }
     //CREATE
     public boolean insertarActividad(int id,String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int subtipo) throws SQLException {
         boolean insertado = false;
-        if(conn != null){
             String consulta = "INSERT INTO ACTIVIDADES (ID, NOMBRE, PRECIO, HORARIO, DESCRIPCION, URL, DIRECCION, TELEFONO, FOTO, IDSUBTIPO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-            PreparedStatement ps = conn.prepareStatement(consulta);
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setInt(1, id);
             ps.setString(2, nombre);
             ps.setDouble(3, precio);
@@ -52,7 +81,7 @@ public class actividadesDAO {
             ps.setInt(10, subtipo);
             ps.executeUpdate();
             insertado = true;
-        }
+       
         return insertado;
     }
     
@@ -60,9 +89,9 @@ public class actividadesDAO {
     public List<Actividad> listarActividad() throws SQLException {
         List<Actividad> listaTodasActividades = new ArrayList<>();
         System.out.println("ESTOY FUERA DE LISTAR ACTIVIDAD");
-        System.out.println("Hay conexion: " + gestion.isConectado());
-        if(conn != null){
-            System.out.println("ESTOY EN LISTAR ACTIVIDAD");
+        System.out.println("Hay conexion: " + gestion.isConectado()+"gestion "+gestion);
+        if(gestion.getConn() != null){
+            System.out.println("ESTOY EN LISTAR ACTIVIDAD ,gestion no nula");
             String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades;";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             rs = ps.executeQuery();
@@ -80,6 +109,8 @@ public class actividadesDAO {
                 rs.getInt("idsubtipo")));
                              
             }
+        }else{
+            System.out.println(" ESTOY EN LISTAR ACTIVIDAD ,gestion NULA");
         }
         
         return listaTodasActividades;

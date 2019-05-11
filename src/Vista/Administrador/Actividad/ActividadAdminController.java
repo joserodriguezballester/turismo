@@ -6,6 +6,7 @@ import Datos.Bda.actividadesDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
+import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
 import java.net.URL;
 import java.sql.Connection;
@@ -104,19 +105,23 @@ public class ActividadAdminController implements Initializable {
 //    private Connection conn;
     private actividadesDAO activiDAO;
     
-    public static void setGestion(GestionBD gestion) {
-        ActividadAdminController.gestion = gestion;
+    public void setGestion(GestionBD gestion) {
+        System.out.println("setgestion");
+        ActividadAdminController.gestion = gestion; 
+    }
+    public void ejecutaAlPrincipio(){
+        System.out.println("nuevo actividao");
+        activiDAO=new actividadesDAO(gestion);
+        cargarTabla();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         actividades = FXCollections.observableArrayList();
-//        conn = gestion.getConn();
-        activiDAO = new actividadesDAO(gestion);
-//         activiDAO = new actividadesDAO(gestion);
-         cargarTabla();
-//        conn = gestion.getConn();
-//        System.out.println(gestion.isConectado());
+        System.out.println("inicialice");
+
+        
+
     }    
     
     private void cargarTabla(){

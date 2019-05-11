@@ -30,7 +30,6 @@ public class usuariosDAO {
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email)"
                 + " VALUES(?, ?, ?, ?, ?,?,?,?,?);";
-
         try {
 
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
