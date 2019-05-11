@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
+import org.jasypt.util.text.BasicTextEncryptor;
 
 public class Usuario implements Comparable<Usuario> {
 
@@ -18,7 +19,7 @@ public class Usuario implements Comparable<Usuario> {
     private String nick;
     private LocalDate fecNac;
     private rol perfil;
-     StandardPBEStringEncryptor encriptar ;
+
     private enum rol {
         CLIENTE, ADMINISTRADOR
     }
@@ -85,8 +86,6 @@ public class Usuario implements Comparable<Usuario> {
     public void setId(int id) {
         this.id = id;
     }
-
-  
 
     public String getNombre() {
         return nombre;
@@ -163,19 +162,8 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public String encriptar(String contrasena) {
-        String mpCryptoPassword = "miclave";
-        encriptar = new StandardPBEStringEncryptor();
-        encriptar.setPassword(mpCryptoPassword);
-        String contrasenaEncriptada = encriptar.encrypt(contrasena);
+        PasswordEncryptor encryptor = new BasicPasswordEncryptor();
+        String contrasenaEncriptada = encryptor.encryptPassword(contrasena);
         return contrasenaEncriptada;
     }
-
-     public String desencriptar(String contrasenaencriptada) {
-       String mpCryptoPassword = "miclave";
-      
-        encriptar.setPassword(mpCryptoPassword);
-        String contrasena = encriptar.decrypt(contrasenaencriptada);
-        
-        return contrasena;
-}
 }

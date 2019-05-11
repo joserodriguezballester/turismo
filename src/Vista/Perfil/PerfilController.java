@@ -103,7 +103,8 @@ public class PerfilController implements Initializable {
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
         fecNacTF.setText(usuario.getFecNac().toString());
-        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
+        
+//        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
 
     }
 

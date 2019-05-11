@@ -31,7 +31,7 @@ import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 
 public class UsuarioController implements Initializable {
-
+    
     private Label label;
     private Label nombreET;
     private Stage escenario;
@@ -42,7 +42,7 @@ public class UsuarioController implements Initializable {
     private PasswordField contraTF;
     @FXML
     private TextField nickTF;
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         bda = new GestionBD();
@@ -51,10 +51,10 @@ public class UsuarioController implements Initializable {
         usuario = new Usuario();
         // TODO
     }
-
+    
     @FXML
     private void logearse(ActionEvent event) {
-
+        
         boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
         //      boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
         if (logeado) {
@@ -75,10 +75,14 @@ public class UsuarioController implements Initializable {
                 ////tratar error ////
             }
         } else {
+
 //             mostrar ventana que no existe o contraseña erronea
+            nickTF.setText("");
+            contraTF.setText("");
+            
         }
     }
-
+    
     @FXML
     private void registrarse(ActionEvent event) throws IOException {
         Parent root;
@@ -98,14 +102,14 @@ public class UsuarioController implements Initializable {
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
 
         }
-
+        
     }
-
+    
     public void cargarVentanaPrincipal() {
         escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
         String nombrefichero = "/Vista/Principal/Principal.fxml";
         PrincipalController principalController;
-
+        
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -121,14 +125,14 @@ public class UsuarioController implements Initializable {
 
             escenario.setScene(new Scene(root));
             escenario.show();
-
+            
         } catch (IOException ex) {
 
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
             System.err.println("error");  ////mostrar en ventana
         }
     }
-
+    
     private void cargarVentanaRegistrarse() {
         Parent root;
         try {
@@ -150,13 +154,13 @@ public class UsuarioController implements Initializable {
 
         }
     }
-
+    
     private void cargarVentanaPrincipalAdmin() {
-
+        
         escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
         String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
         PrincipalAdminController principalAdminController;
-
+        
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
@@ -171,24 +175,25 @@ public class UsuarioController implements Initializable {
 
             escenario.setScene(new Scene(root));
             escenario.show();
-
+            
         } catch (IOException ex) {
 
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
             System.err.println("error");  ////mostrar en ventana
         }
     }
-
+    
     public boolean verificaUsuario() {
+        boolean existe = false;
+        PasswordEncryptor encryptor = new BasicPasswordEncryptor();
         boolean checkPassword;
         //comprobar si existe usuario//
         String nick = nickTF.getText();
         String contrasenaBD = usuarioDAO.obtenerContra(nick);
-        String contrasena =  usuario.encriptar(contraTF.getText());
-        System.out.println("contrabd: "+contrasenaBD);
-        System.out.println("contrase: "+contrasena);
-        checkPassword = contrasena.equals(contrasenaBD);
+        String contrasena = contraTF.getText();
+        checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
+        
         return checkPassword;
     }
-
+    
 }
