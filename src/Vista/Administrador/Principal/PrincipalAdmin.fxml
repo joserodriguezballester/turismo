@@ -8,14 +8,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="0.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
       <AnchorPane fx:id="Menu" layoutX="20.0" layoutY="20.0" prefHeight="70.0" prefWidth="1000.0">
          <children>
-            <GridPane prefHeight="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane layoutX="-20.0" layoutY="-14.0" minHeight="0.0" prefHeight="70.0" prefWidth="1000.0" AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -27,7 +27,7 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="200.0" text="Actividades" />
+                  <Button mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="201.0" text="Actividades" />
                   <Button mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="200.0" text="Experiencias" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" onAction="#irSalir" prefHeight="70.0" prefWidth="200.0" text="salir" GridPane.columnIndex="4" />
@@ -35,9 +35,9 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="Ventana" layoutX="34.0" layoutY="90.0" prefHeight="730.0" prefWidth="1000.0">
+      <AnchorPane fx:id="Ventana" layoutY="90.0" prefHeight="730.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0">
          <children>
-            <Label layoutX="257.0" layoutY="234.0" text="Esta es la primera ventana despues del login. Foto de fondo, nombre agencia... que sea bonito. " />
+            <Label layoutX="461.0" layoutY="323.0" text="Label" />
          </children>
       </AnchorPane>
    </children>
