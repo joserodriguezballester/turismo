@@ -14,11 +14,11 @@ public class Actividad implements Comparable<Actividad> {
     private String direccion;
     private String telefono;
     private String foto;
-    private int idSubtipo;
+    private int idsubTipo;
 
     private final Map<String, String> mapFotos = new HashMap<>();
 
-    public Actividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String foto, int idSubtipo) {
+    public Actividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String foto, int idsubTipo) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -28,7 +28,7 @@ public class Actividad implements Comparable<Actividad> {
         this.direccion = direccion;
         this.telefono = telefono;
         this.foto = foto;
-        this.idSubtipo = idSubtipo;
+        this.idsubTipo = idsubTipo;
     }
 
     public Actividad() {
@@ -107,13 +107,17 @@ public class Actividad implements Comparable<Actividad> {
         this.foto = foto;
     }
 
-    public int getIdSubtipo() {
-        return idSubtipo;
+    public int getIdsubTipo() {
+        return idsubTipo;
     }
 
-    public void setIdSubtipo(int idSubtipo) {
-        this.idSubtipo = idSubtipo;
+    public void setIdsubTipo(int idsubTipo) {
+        this.idsubTipo = idsubTipo;
     }
+
+   
+    
+    
 
 // ----------------------- CARGAR MAPFOTOS ----------------------------------
     private void cargarMapFotos() {
@@ -165,10 +169,13 @@ public class Actividad implements Comparable<Actividad> {
     }
 
 // -----------------------------               -----------------------------
+
     @Override
     public String toString() {
-        return nombre;
+        return nombre + "," + precio + "," + horario;  
+                
     }
+    
 
     @Override
     public int compareTo(Actividad o) {
