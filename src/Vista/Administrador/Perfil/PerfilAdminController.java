@@ -234,6 +234,7 @@ public class PerfilAdminController implements Initializable {
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
         fecNacTF.setText(usuario.getFecNac().toString());
+        rolCB.setValue(usuario.getPerfilString());
 //        rolTF.setText(usuario.getPerfilString());
 
     }

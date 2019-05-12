@@ -55,8 +55,8 @@ public class PrincipalController implements Initializable {
         botonPerfil.getStyleClass().add("botonMenu");
         botonBuscar.getStyleClass().add("botonMenu");
         botonTransportes.getStyleClass().add("botonMenu");
-        gestion = new GestionBD();
-        gestion.conectar();
+//        gestion = new GestionBD();
+//        gestion.conectar();
 
     }
 
@@ -159,6 +159,11 @@ public class PrincipalController implements Initializable {
         
     }
 
+    public void setGestion(GestionBD gestion) {
+        this.gestion=gestion;
+    }
+
+    
     @FXML
     private void irTransporte(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());

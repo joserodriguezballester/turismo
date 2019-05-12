@@ -41,11 +41,12 @@ public class PrincipalAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+
 //        gestion = new GestionBD();
-        gestion = new GestionBD();
-        gestion.conectar();
-        
-//        System.out.println("¿Hay conexion?" + gestion.conectar());
+//        gestion.conectar();
+    }
+    public void setGestion(GestionBD gestion) {
+        this.gestion=gestion;
     }
 
     @FXML

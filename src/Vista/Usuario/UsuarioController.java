@@ -35,7 +35,7 @@ public class UsuarioController implements Initializable {
     private Label label;
     private Label nombreET;
     private Stage escenario;
-    private GestionBD bda;
+    private GestionBD gestion;
     private usuariosDAO usuarioDAO;
     Usuario usuario;
     @FXML
@@ -45,9 +45,9 @@ public class UsuarioController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        bda = new GestionBD();
-        bda.conectar();
-        usuarioDAO = new usuariosDAO(bda);
+        gestion = new GestionBD();
+        gestion.conectar();
+        usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
         // TODO
     }
@@ -69,7 +69,7 @@ public class UsuarioController implements Initializable {
             root = loader.load(); // el meotodo initialize() se ejecuta
             //OBTENER EL CONTROLADOR DE LA VENTANA
             RegistrarController registrarController = loader.getController();
-            registrarController.setParametros(bda, usuarioDAO);
+            registrarController.setParametros(usuarioDAO);
             Stage escena = new Stage();                      //En Stage nuevo.
             escena.setTitle("Registrarse");
             escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
@@ -95,6 +95,7 @@ public class UsuarioController implements Initializable {
             principalController = loader.getController();
 //Pasamos informacion a la clase siguiente
             principalController.setParametros(escenario);
+            principalController.setGestion(gestion);
             principalController.setParametroUsuario(usuario);
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
@@ -145,7 +146,7 @@ public class UsuarioController implements Initializable {
             root = loader.load(); // el metodo initialize() se ejecuta
             principalAdminController = loader.getController();
 //Pasamos informacion a la clase siguiente
-//    principalAdminController.setParametros(escenario);
+    principalAdminController.setGestion(gestion);
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();

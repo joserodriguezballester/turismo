@@ -65,7 +65,7 @@ public class RegistrarController implements Initializable {
     @FXML
     private Button salirBT;
 
-    private GestionBD bda;
+  
     private usuariosDAO usuarioDAO;
     @FXML
     private JFXTextField rolTF;
@@ -118,8 +118,7 @@ public class RegistrarController implements Initializable {
         stage.close();
     }
 
-    public void setParametros(GestionBD bda, usuariosDAO usuarioDAO) {
-        this.bda = bda;
+    public void setParametros( usuariosDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
 
     }
