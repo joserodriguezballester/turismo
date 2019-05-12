@@ -15,6 +15,8 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -135,12 +137,12 @@ public class usuariosDAO {
         return usuario;
     }
 
-    public List<Usuario> listarClientes() throws SQLException {
+    public List<Usuario> listarClientes() throws SQLException {    
         List<Usuario> listaUsuarios = null;
-        if (gestion.getConn() != null) {
+        if (gestion.getConn() != null) {       
             String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();       
             listaUsuarios = darValorRs(rs);
         }
         return listaUsuarios;
@@ -167,23 +169,24 @@ public class usuariosDAO {
     }
 
     private List<Usuario> darValorRs(ResultSet rs) throws SQLException {
-        List<Usuario> listaUsuarios = new ArrayList<>();
-        while (rs.next()) {
-            Usuario usuario = new Usuario();
-            listaUsuarios.add(usuario);
-            usuario.setId(rs.getInt("id"));
-            usuario.setPassword(rs.getString("contraseña"));
-            usuario.setNick(rs.getString("nick"));
-            Date fechabda = rs.getDate("fecNac");
-            usuario.setFecNac(fechabda.toLocalDate());
-            usuario.setNombre(rs.getString("nombre"));
-            usuario.setApellidos(rs.getString("apellidos"));
-            usuario.setDNI(rs.getString("dni"));
-            usuario.setTelefono(rs.getString("telefono"));
-            usuario.setDireccion(rs.getString("direccion"));
-            usuario.setEmail(rs.getString("email"));
-            usuario.setPerfil(rs.getString("rol").toUpperCase());
-        }
-        return listaUsuarios;
+        List<Usuario> listaUsuarios = null;   
+            listaUsuarios = new ArrayList<>();
+            while (rs.next()) {
+                Usuario usuario = new Usuario();
+                listaUsuarios.add(usuario);
+                usuario.setId(rs.getInt("id"));
+                usuario.setPassword(rs.getString("contraseña"));
+                usuario.setNick(rs.getString("nick"));
+                Date fechabda = rs.getDate("fecNac");
+                usuario.setFecNac(fechabda.toLocalDate());
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setDNI(rs.getString("dni"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setDireccion(rs.getString("direccion"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPerfil(rs.getString("rol").toUpperCase());
+            }  
+         return listaUsuarios;
     }
 }

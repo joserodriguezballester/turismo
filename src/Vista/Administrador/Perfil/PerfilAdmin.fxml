@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -81,23 +81,21 @@
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="nickTF" layoutX="150.0" layoutY="385.0" />
-            <TextField fx:id="nombreTF" layoutX="150.0" layoutY="420.0" />
-            <TextField fx:id="apellidosTF" layoutX="150.0" layoutY="455.0" />
-            <TextField fx:id="telefonoTF" layoutX="450.0" layoutY="385.0" />
-            <TextField fx:id="direccionTF" layoutX="450.0" layoutY="420.0" />
-            <TextField fx:id="emailTF" layoutX="450.0" layoutY="455.0" />
-            <TextField fx:id="fecNacTF" layoutX="150.0" layoutY="525.0" />
-            <TextField fx:id="dniTF" layoutX="150.0" layoutY="490.0" />
+            <JFXTextField fx:id="nickTF" layoutX="150.0" layoutY="385.0" />
+            <JFXTextField fx:id="nombreTF" layoutX="150.0" layoutY="420.0" />
+            <JFXTextField fx:id="apellidosTF" layoutX="150.0" layoutY="455.0" />
+            <JFXTextField fx:id="telefonoTF" layoutX="450.0" layoutY="385.0" />
+            <JFXTextField fx:id="direccionTF" layoutX="450.0" layoutY="420.0" />
+            <JFXTextField fx:id="emailTF" layoutX="450.0" layoutY="455.0" />
+            <JFXTextField fx:id="fecNacTF" layoutX="150.0" layoutY="525.0" />
+            <JFXTextField fx:id="dniTF" layoutX="150.0" layoutY="490.0" />
             <Line endX="86.0" layoutX="853.0" layoutY="365.0" startX="-204.0" />
             <Line endX="171.0" layoutX="770.0" layoutY="655.0" startX="-121.0" />
-            <ComboBox fx:id="tipoUsuario" layoutX="97.0" layoutY="24.0" prefWidth="150.0" />
             <Label layoutX="340.0" layoutY="525.0" text="Rol">
                <font>
                   <Font size="16.0" />
                </font>
             </Label>
-            <TextField fx:id="rolTF" layoutX="450.0" layoutY="525.0" />
             <GridPane layoutX="648.0" layoutY="400.0" vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -114,6 +112,8 @@
                </children>
             </GridPane>
             <Label fx:id="id_invisibleTF" layoutX="780.0" layoutY="542.0" text="id_invisible" visible="false" />
+            <JFXComboBox fx:id="rolCB" layoutX="450.0" layoutY="525.0" prefHeight="25.0" prefWidth="135.0" />
+            <JFXComboBox fx:id="tipoUsuario" layoutX="106.0" layoutY="24.0" prefHeight="25.0" prefWidth="135.0" />
          </children>
       </AnchorPane>
    </children>

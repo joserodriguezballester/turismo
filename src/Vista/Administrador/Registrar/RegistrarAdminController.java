@@ -1,6 +1,6 @@
-
 package Vista.Administrador.Registrar;
 
+import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
@@ -17,6 +17,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import static javafx.scene.paint.Color.color;
 import javafx.stage.Stage;
 
 /**
@@ -57,6 +59,7 @@ public class RegistrarAdminController implements Initializable {
     @FXML
     private JFXPasswordField contraPF;
     private usuariosDAO usuarioDAO;
+    private GestionBD gestion;
 
     /**
      * Initializes the controller class.
@@ -66,11 +69,11 @@ public class RegistrarAdminController implements Initializable {
         aceptarBT.getStyleClass().add("botonAceptarRegistro");
         salirBT.getStyleClass().add("botonSalirRegistro");
         fecNacTF.getStyleClass().add("calendarioRegistrar");
-    }    
+    }
 
     @FXML
     private void registrar(ActionEvent event) {
-        
+
         String nick = nickTF.getText();
         String contrasena = contraPF.getText();
         String ContrasenaCopia = repContraPF.getText();
@@ -84,25 +87,40 @@ public class RegistrarAdminController implements Initializable {
         //Encriptar contraseña //////
         if (contrasena.equals(ContrasenaCopia)) {
             //crear usuario//
-            Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);       
-            //insertar usuario en BD//      
-            usuarioDAO.insertarUsuario(usuario);
+            Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
+            //insertar usuario en BD//
+            boolean insertado = usuarioDAO.insertarUsuario(usuario);
+            if (insertado) {
+                ///mostrar aviso se ha insertado correctamente
+            } else {
+                ///mostrar aviso NO se ha insertado correctamente
+            }
 
-            // aparte de lo que haga con los datos tiene que cerrarse la ventana
             //////// cerrar ventana ////
             Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
             stage.close();
             //////// fin cerrar ventana ////
-        }else{
-            Notificacion.alert("alerta","contraseña distinta"); // solo imprime
+        } else { //avisa que no coinciden contraseñas;
+            // dar color a etiquetas repContraPF.
+            Color color = color(0.5, 0.5, 0.5);
+            Color color2 = color(1, 1, .5);
+            contraPF.setUnFocusColor(color2);
+            repContraPF.setUnFocusColor(color);
+
+            Notificacion.alert("alerta", "contraseña distinta"); // solo imprime
         }
-        // ---- I SINO QUE? nada
+
     }
 
     @FXML
     private void salir(ActionEvent event) {
         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
-        stage.close(); 
+        stage.close();
     }
-    
+
+    public void setParametros(GestionBD gestion, usuariosDAO usuarioDAO) {
+        this.gestion = gestion;
+        this.usuarioDAO = usuarioDAO;
+    }
+
 }
