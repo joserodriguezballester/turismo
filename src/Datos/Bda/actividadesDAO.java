@@ -14,8 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -28,10 +27,8 @@ public class actividadesDAO {
     private ResultSet rs;
 
     public actividadesDAO(GestionBD gestion) {
-        System.out.println("gestion actividades DAO"+gestion);
-        System.out.println(" 1"+ gestion.isConectado());
         this.gestion = gestion;
-        System.out.println(" 2"+ this.gestion.isConectado());
+        conn = gestion.getConn();
     }
     
     public Usuario cargarUsuario(String nick)  {
@@ -65,9 +62,12 @@ public class actividadesDAO {
         }
          return usuario;
     }
+
     //CREATE
-    public boolean insertarActividad(int id,String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int subtipo) throws SQLException {
+    public boolean insertarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int subtipo) throws SQLException {
         boolean insertado = false;
+
+        
         if(gestion.getConn() != null){
             String consulta = "INSERT INTO ACTIVIDADES (ID, NOMBRE, PRECIO, HORARIO, DESCRIPCION, URL, DIRECCION, TELEFONO, FOTO, IDSUBTIPO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
@@ -87,44 +87,55 @@ public class actividadesDAO {
         else{
             System.out.println("Conexion insertar es null");
         }
+      
         return insertado;
     }
-    
+
     //READ
     public List<Actividad> listarActividad() throws SQLException {
         List<Actividad> listaTodasActividades = new ArrayList<>();
-        System.out.println("ESTOY FUERA DE LISTAR ACTIVIDAD");
-        System.out.println("Hay conexion: " + gestion.isConectado()+"gestion "+gestion);
-        if(gestion.getConn() != null){
-            System.out.println("ESTOY EN LISTAR ACTIVIDAD ,gestion no nula");
+        if (gestion.getConn() != null) {
             String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades;";
-            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+            PreparedStatement ps = conn.prepareStatement(consulta);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 listaTodasActividades.add(new Actividad(
-                rs.getInt("id"),
-                rs.getString("nombre"),
-                rs.getDouble("precio"),
-                rs.getString("horario"),
-                rs.getString("descripcion"),
-                rs.getString("url"),
-                rs.getString("direccion"),
-                rs.getString("telefono"),
-                rs.getString("foto"),
-                rs.getInt("idsubtipo")));
-                             
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getDouble("precio"),
+                        rs.getString("horario"),
+                        rs.getString("descripcion"),
+                        rs.getString("url"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("foto"),
+                        rs.getInt("idsubtipo")));
+
             }
-        }else{
-            System.out.println(" ESTOY EN LISTAR ACTIVIDAD ,gestion NULA");
         }
-        
         return listaTodasActividades;
+    }
+
+    public Actividad consultarActividad(int idActividad) throws SQLException {
+        Actividad actividad = null;
+        String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo FROM actividades WHERE id = ?;";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setInt(1, idActividad);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            actividad = new Actividad(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("horario"), rs.getString("descripcion"), rs.getString("url"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("foto"), rs.getInt("idSubtipo"));
+        }
+        return actividad;
     }
 
     //UPDATE
     public boolean modificarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int idSubtipo) throws SQLException {
         boolean modificado = false;
+
         if(gestion.getConn() != null){
+
+        
+
             String consulta = "UPDATE ACTIVIDADES SET NOMBRE = ?, PRECIO = ?, HORARIO = ?, DESCRIPCION = ?, URL = ?, DIRECCION = ?, TELEFONO = ?, FOTO = ?, IDSUBTIPO = ? WHERE ID = ?;";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setString(1, nombre);
@@ -146,7 +157,9 @@ public class actividadesDAO {
     //DELETE
     public boolean borrarActividad(int idActividad) throws SQLException {
         boolean borrado = false;
+
         if(gestion.getConn() != null){
+
             String sql = "DELETE FROM ACTIVIDADES WHERE id = ?;";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ps.setInt(1, idActividad);
@@ -158,8 +171,9 @@ public class actividadesDAO {
 
     public List<Tipo> consultarTipoActividades() throws SQLException {
         List<Tipo> listaTiposActividades = new ArrayList<>();
+
         if(gestion.getConn() != null){
-            System.out.println("Estoy dentro de consultarTipoActividades");
+
             String sql = "SELECT id, nombre FROM tipos;";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -172,23 +186,25 @@ public class actividadesDAO {
 
     public List<Actividad> consultarActividadesPorTipo(Tipo tipo) throws SQLException {
         List<Actividad> listaActividades = new ArrayList<>();
+
         if(gestion.getConn() != null){
+
             String sql = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ?);";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ps.setInt(1, tipo.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 listaActividades.add(new Actividad(
-                rs.getInt("id"), 
-                rs.getString("nombre"), 
-                rs.getDouble("precio"),
-                rs.getString("horario"), 
-                rs.getString("descripcion"), 
-                rs.getString("url"), 
-                rs.getString("direccion"),
-                rs.getString("telefono"), 
-                rs.getString("foto"), 
-                rs.getInt("idsubtipo"))); //FALTAN LOS PARAMETROS
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getDouble("precio"),
+                        rs.getString("horario"),
+                        rs.getString("descripcion"),
+                        rs.getString("url"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("foto"),
+                        rs.getInt("idsubtipo")));
             }
         }
         return listaActividades;

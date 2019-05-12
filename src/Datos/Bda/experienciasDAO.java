@@ -26,15 +26,15 @@ public class experienciasDAO {
     public experienciasDAO(GestionBD gestion) {
         this.gestion = gestion;
         this.conn = gestion.getConn();
-        
+
     }
 
     //CREATE
-    public boolean insertarExperiencia(int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String rutaFoto) throws SQLException {
+    public boolean insertarExperiencia(int id, String nombre, String descripcion, LocalDate fechaTopeValidez, String rutaFoto) throws SQLException {
         boolean insertado = false;
-        String consulta = "INSERT INTO EXPERIENCIAS (IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES(?, ?, ?, '?', ?);";
+        String consulta = "INSERT INTO EXPERIENCIAS (ID, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES(?, ?, ?, '?', ?);";
         PreparedStatement ps = conn.prepareStatement(consulta);
-        ps.setInt(1, idUsuario);
+        ps.setInt(1, id);
         ps.setString(2, nombre);
         ps.setString(3, descripcion);
         ps.setString(4, (fechaTopeValidez.getYear() + "-" + fechaTopeValidez.getMonth() + "-" + fechaTopeValidez.getDayOfMonth()));
@@ -47,11 +47,12 @@ public class experienciasDAO {
     //READ
     public List<Experiencia> consultarTodasExperiencias() throws SQLException {
         List<Experiencia> listaExperiencias = new ArrayList<>();
-        String consulta = "SELECT id, idUsuario, nombre, descripcion, fechaTopeValidez,foto FROM experiencias;";
+        String consulta = "SELECT id, nombre, descripcion, fechaTopeValidez, foto FROM experiencias;";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ResultSet rs = ps.executeQuery();
+        experienciasActividadesDAO experienciasActividadesDAO = new experienciasActividadesDAO(gestion);
         while (rs.next()) {
-            listaExperiencias.add(new Experiencia(rs.getInt("id"), rs.getInt("idUsuario"), rs.getString("nombre"), rs.getString("descripcion"), rs.getDate("fechaTopeValidez").toLocalDate(), rs.getString("foto")));
+            listaExperiencias.add(new Experiencia(rs.getInt("id"), rs.getString("nombre"), rs.getString("descripcion"), rs.getDate("fechaTopeValidez").toLocalDate(), rs.getString("foto"), experienciasActividadesDAO.consultarActividadesDeExperiencia(rs.getInt("id"))));
         }
         return listaExperiencias;
     }

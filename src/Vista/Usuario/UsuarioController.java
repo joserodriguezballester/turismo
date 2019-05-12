@@ -56,7 +56,7 @@ public class UsuarioController implements Initializable {
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
 //      logearseBueno();        
- //       logearseComoCliente();
+//        logearseComoCliente();
       logearseComoAdministrador();     
     }
 
@@ -182,8 +182,10 @@ public class UsuarioController implements Initializable {
 
 /// segun el roll ejecutará uno de los dos metodos
                 if ("CLIENTE".equalsIgnoreCase(usuario.getPerfilString())) {
+//                    if ("CLIENTE".equalsIgnoreCase(usuario.getRol2())) {
                     cargarVentanaPrincipal();    // usuario cliente
                 } else {
+//                   if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getRol2())) {
                     if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
                         cargarVentanaPrincipalAdmin();  //usuario administrador
                     } else {

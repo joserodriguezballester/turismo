@@ -1,23 +1,24 @@
 package Modelo;
 
 import java.time.LocalDate;
+import java.util.List;
 
-public class Experiencia implements Comparable<Experiencia> {
+public class Experiencia {
 
     private int id;
-    private int idUsuario;
     private String nombre;
     private String descripcion;
     private LocalDate fechaTopeValidez;
     private String foto;
+    private List<ActividadExperiencia> listaActividades;
 
-    public Experiencia(int id, int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String foto) {
+    public Experiencia(int id, String nombre, String descripcion, LocalDate fechaTopeValidez, String foto, List<ActividadExperiencia> listaActividades) {
         this.id = id;
-        this.idUsuario = idUsuario;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.fechaTopeValidez = fechaTopeValidez;
         this.foto = foto;
+        this.listaActividades = listaActividades;
     }
 
     public int getId() {
@@ -26,14 +27,6 @@ public class Experiencia implements Comparable<Experiencia> {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getIdUsuario() {
-        return idUsuario;
-    }
-
-    public void setIdUsuario(int idUsuario) {
-        this.idUsuario = idUsuario;
     }
 
     public String getNombre() {
@@ -68,21 +61,16 @@ public class Experiencia implements Comparable<Experiencia> {
         this.foto = foto;
     }
 
-    @Override
-    public String toString() {
-        return nombre;
+    public List<ActividadExperiencia> getListaActividades() {
+        return listaActividades;
+    }
+
+    public void setListaActividades(List<ActividadExperiencia> listaActividades) {
+        this.listaActividades = listaActividades;
     }
 
     @Override
-    public int compareTo(Experiencia o) {
-        int compara;
-        if (this.id < o.getId()) {
-            compara = -1;
-        } else if (this.id > o.getId()) {
-            compara = 1;
-        } else {
-            compara = 0;
-        }
-        return compara;
+    public String toString() {
+        return nombre;
     }
 }

@@ -159,6 +159,27 @@ public class ActividadAdminController implements Initializable {
         try {
             
             lista = activiDAO.listarActividad();
+
+
+
+            System.out.println("Lista :" + lista);
+            System.out.println("ESTOY DESPUES DE CARGARTABLA");
+            
+            actividades.addAll(lista);
+            tableview.setItems(actividades);
+            
+            tb_id.setCellValueFactory(new PropertyValueFactory<>("id"));
+            tb_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+            tb_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
+            tb_horario.setCellValueFactory(new PropertyValueFactory<>("horario"));
+            tb_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+            tb_direccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+            tb_url.setCellValueFactory(new PropertyValueFactory<>("url"));
+            tb_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+            tb_foto.setCellValueFactory(new PropertyValueFactory<>("foto"));
+            tb_idTipo.setCellValueFactory(new PropertyValueFactory<>("idSubtipo"));
+            
+
         } catch (SQLException ex) {
             Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\nconsultar a la DB"); 

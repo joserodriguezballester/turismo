@@ -31,10 +31,6 @@ public class Actividad implements Comparable<Actividad> {
         this.idsubTipo = idsubTipo;
     }
 
-    public Actividad() {
-
-    }
-
     public int getId() {
         return id;
     }
@@ -119,6 +115,7 @@ public class Actividad implements Comparable<Actividad> {
     
     
 
+
 // ----------------------- CARGAR MAPFOTOS ----------------------------------
     private void cargarMapFotos() {
 
@@ -169,6 +166,7 @@ public class Actividad implements Comparable<Actividad> {
     }
 
 // -----------------------------               -----------------------------
+
 
     @Override
     public String toString() {
