@@ -14,11 +14,11 @@ public class Actividad implements Comparable<Actividad> {
     private String direccion;
     private String telefono;
     private String foto;
-    private int idSubtipo;
+    private int idsubTipo;
 
     private final Map<String, String> mapFotos = new HashMap<>();
 
-    public Actividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String foto, int idSubtipo) {
+    public Actividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String foto, int idsubTipo) {
         this.id = id;
         this.nombre = nombre;
         this.precio = precio;
@@ -28,7 +28,7 @@ public class Actividad implements Comparable<Actividad> {
         this.direccion = direccion;
         this.telefono = telefono;
         this.foto = foto;
-        this.idSubtipo = idSubtipo;
+        this.idsubTipo = idsubTipo;
     }
 
     public int getId() {
@@ -103,18 +103,77 @@ public class Actividad implements Comparable<Actividad> {
         this.foto = foto;
     }
 
-    public int getIdSubtipo() {
-        return idSubtipo;
+    public int getIdsubTipo() {
+        return idsubTipo;
     }
 
-    public void setIdSubtipo(int idSubtipo) {
-        this.idSubtipo = idSubtipo;
+    public void setIdsubTipo(int idsubTipo) {
+        this.idsubTipo = idsubTipo;
     }
+
+   
+    
+    
+
+
+// ----------------------- CARGAR MAPFOTOS ----------------------------------
+    private void cargarMapFotos() {
+
+        mapFotos.put("logotipo", "/Imagenes/logotipo.jpg");
+        mapFotos.put("rest1", "/Imagenes/rest1.png");
+        mapFotos.put("rest2", "/Imagenes/rest2.png");
+        mapFotos.put("rest3", "/Imagenes/rest3.png");
+        mapFotos.put("rest4", "/Imagenes/rest4.png");
+        mapFotos.put("rest5", "/Imagenes/rest5.png");
+        mapFotos.put("rest6", "/Imagenes/rest6.png");
+        mapFotos.put("rest7", "/Imagenes/rest7.png");
+        mapFotos.put("rest8", "/Imagenes/rest8.png");
+        mapFotos.put("rest9", "/Imagenes/rest9.png");
+        mapFotos.put("rest10", "/Imagenes/rest10.png");
+        mapFotos.put("rest11", "/Imagenes/rest11.png");
+        mapFotos.put("rest12", "/Imagenes/rest12.png");
+        mapFotos.put("rest13", "/Imagenes/rest13.png");
+        mapFotos.put("rest14", "/Imagenes/rest14.png");
+        mapFotos.put("sitio3", "/Imagenes/sitio3.png");
+        mapFotos.put("sitio4", "/Imagenes/sitio4.png");
+        mapFotos.put("sitio5", "/Imagenes/sitio5.png");
+        mapFotos.put("sitio6", "/Imagenes/sitio6.png");
+        mapFotos.put("sitio7", "/Imagenes/sitio7.png");
+        mapFotos.put("sitio8", "/Imagenes/sitio8.png");
+        mapFotos.put("sitio9", "/Imagenes/sitio9.png");
+        mapFotos.put("sitio10", "/Imagenes/sitio10.png");
+        mapFotos.put("trans1", "/Imagenes/trans1.png");
+        mapFotos.put("trans2", "/Imagenes/trans2.png");
+        mapFotos.put("trans3", "/Imagenes/trans4.png");
+        mapFotos.put("trans4", "/Imagenes/trans4.png");
+        mapFotos.put("trans5", "/Imagenes/trans5.png");
+    }
+
+    public String dameRutaFoto(String foto) {
+        cargarMapFotos();
+        String ruta;
+
+        if (mapFotos != null) {
+            ruta = mapFotos.get(foto);
+            if (ruta.equals("")) {
+                ruta = "La foto seleccionada no existe en la lista";
+            }
+        } else {
+            ruta = "La lista de fotos esta vacia";
+        }
+
+        return ruta;
+    }
+
+// -----------------------------               -----------------------------
+
 
     @Override
     public String toString() {
-        return nombre;
+        return nombre + "," + precio + "," + horario;  
+                
     }
+    
 
     @Override
     public int compareTo(Actividad o) {
