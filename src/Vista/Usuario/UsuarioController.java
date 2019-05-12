@@ -6,15 +6,10 @@ import Modelo.Usuario;
 import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
-import com.sun.security.auth.PrincipalComparator;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +21,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import org.controlsfx.dialog.LoginDialog;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 
@@ -56,8 +50,8 @@ public class UsuarioController implements Initializable {
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
 //      logearseBueno();        
-//        logearseComoCliente();
-      logearseComoAdministrador();     
+        logearseComoCliente();
+//      logearseComoAdministrador();     
     }
 
     @FXML

@@ -128,8 +128,8 @@ public class PrincipalController implements Initializable {
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR VENTANA PERFIL",
-        "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
+//            Notificacion.error("ERROR AL CARGAR VENTANA PERFIL",
+//        "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
