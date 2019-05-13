@@ -43,4 +43,16 @@ public class TransportesDAO {
         }
         return listaTarjetas;
     }
+
+    public List<String> listaTipos() throws SQLException {
+        List<String> listaTipos = null;
+        String consulta = "SELECT Distinct Clase FROM transporte;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ResultSet rs = ps.executeQuery();
+        listaTipos = new ArrayList<>();
+        while (rs.next()) {
+            listaTipos.add(rs.getString("Clase"));
+        }
+        return listaTipos;
+    }
 }

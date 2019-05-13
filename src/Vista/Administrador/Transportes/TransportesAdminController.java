@@ -6,10 +6,16 @@
 package Vista.Administrador.Transportes;
 
 import Datos.Bda.GestionBD;
+import Datos.Bda.TransportesDAO;
+import Modelo.Transporte;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -38,72 +44,53 @@ public class TransportesAdminController implements Initializable {
     private JFXTextField DuracionTF;
     @FXML
     private JFXTextField precioTF;
-     @FXML
+    @FXML
     private JFXTextField seleccionado;
     private GestionBD gestion;
-
-    /**
-     * Initializes the controller class.
-     */
-    
-  
+    private Transporte transporte;
+//Amsterdam Travel Ticket
+//Amsterdam Travel Ticket
+//Amsterdam Travel Ticket
+//Day or multi-day Ticket
+//Day or multi-day Ticket
+//Day or multi-day Ticket
+//Day or multi-day Ticket
+//Day or multi-day Ticket
+//I amsterdam city card
+//I amsterdam city card
+//I amsterdam city card
+//I amsterdam city card
+//I amsterdam city card
+//Amsterdam & Region Travel Ticket
+//Holland Travel Ticket
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-    }
-    private void cargarTV(){ 
-        //CREACION NODO DAW
-        TreeItem<String> daw = new TreeItem<>("DAW");
-        daw.getChildren().add(new TreeItem<>("Base de datos"));
-        daw.getChildren().add(new TreeItem<>("Programacion"));
-        Node icono = new ImageView(new Image(getClass().getResourceAsStream("/imagenes/icono.png")));
-        daw.setGraphic(icono);
+        try {
+            System.out.println("entra aqui");
+            transporte = new Transporte();
+            TransportesDAO transporteDAO = new TransportesDAO(gestion);
+            List<String> listatipos = transporteDAO.listaTipos();
+            List<Transporte> listaTransportes = transporteDAO.listarTarjetas();
+            for (String listatipo : listatipos) {
+                TreeItem<String> padreTreeItem = new TreeItem<>(listatipo);
+                for (Transporte listaTransporte : listaTransportes) {
+                    if (listatipo.equals(listaTransporte.getTipo())) {
+                        padreTreeItem.getChildren().add(new TreeItem<>(listaTransporte.getNombre()));
+                        
+                    }
+                    
+                }
+            }
+            TreeItem<String> tarjetas = new TreeItem<>("Tarjetas");
+            tarjetasTV.setRoot(tarjetas);
+        } catch (SQLException ex) {
+            Logger.getLogger(TransportesAdminController.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
-        //CREACION NODO ASIR
-        TreeItem<String> asir = new TreeItem<>("ASIR");
-        asir.getChildren().add(new TreeItem<>("Redes"));
-        asir.getChildren().add(new TreeItem<>("Sistemas operativos"));
-
-        //CREACION NODO SMR
-        TreeItem<String> smr = new TreeItem<>("SMR");
-        smr.getChildren().add(new TreeItem<>("Implantacion de aplicaciones web"));
-        smr.getChildren().add(new TreeItem<>("ofimatica"));
-
-        //CREACION DEL TREEITEM INICIAL PARA RELLENAR EL TREEVIEW ciclos
-        TreeItem<String> informatica = new TreeItem<>("Ciclos de Informática");
-//        ciclos.setRoot(informatica); //tree view
-//        ciclos.setShowRoot(false);  //OCULTAR EL ROOT
-
-//ASOCIAR AL NODO INFORMATICA LOS NODOS DE CADA CICLO
-        informatica.getChildren().addAll(daw, asir, smr);
-//OTRA FORMA DE ASOCIAR AL NODO INFORMATICA LOS NODOS DE CADA CICLO
-//        informatica.getChildren().add(daw);
-//        informatica.getChildren().add(asir);
-//        informatica.getChildren().add(smr);
-
-    //LO MOSTRAMOS DEPLEGADO
-        informatica.setExpanded(true);
     }
 
-    @FXML
-    private void seleccionar(MouseEvent event) {
-// //       TreeItem<String> nodoSeleccionado = ciclos.getSelectionModel().getSelectedItem();
-//        if (nodoSeleccionado != null) {
-//            String modulo = nodoSeleccionado.getValue();
-//            seleccionado.setText(modulo); //muestra 
-//        }
-//
-//    }
-//
-    }
     public void setGestion(GestionBD gestion) {
-        this.gestion =gestion;
+        this.gestion = gestion;
     }
-
-    
-    
-    
-    
-    
 }
