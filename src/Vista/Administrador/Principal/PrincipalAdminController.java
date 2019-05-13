@@ -7,9 +7,11 @@ package Vista.Administrador.Principal;
 
 import Datos.Bda.GestionBD;
 import Modelo.Notificacion;
+import Modelo.Transicion;
 import Vista.Administrador.Actividad.ActividadAdminController;
 import Vista.Administrador.Experiencia.ExperienciaAdminController;
 import Vista.Administrador.Perfil.PerfilAdminController;
+import Vista.Administrador.Transportes.TransportesAdminController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -18,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -35,6 +38,8 @@ public class PrincipalAdminController implements Initializable {
     
     
     private GestionBD gestion;
+    @FXML
+    private Button transportesBT;
 
     /**
      * Initializes the controller class.
@@ -42,7 +47,13 @@ public class PrincipalAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+ try {
+            Transicion tr = new Transicion();
+            tr.setRoot(Ventana);
+            tr.start();
+        } catch (Exception e) {
+            System.out.println("ha petao");
+        }
 //        gestion = new GestionBD();
 //        gestion.conectar();
     }
@@ -131,6 +142,30 @@ public class PrincipalAdminController implements Initializable {
     private void irSalir(ActionEvent event) {
         Stage escenario = (Stage) this.Menu.getParent().getScene().getWindow();
         escenario.close();
+    }
+
+    @FXML
+    private void irTransportesAdmin(ActionEvent event) {
+        Ventana.getChildren().removeAll(Ventana.getChildren());
+        FXMLLoader loader = new FXMLLoader();
+        String nombrefichero = "/Vista/Administrador/Transportes/TransportesAdmin.fxml";
+        loader.setLocation(getClass().getResource(nombrefichero));
+        try {
+            Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
+             TransportesAdminController transportesAdminController=loader.getController();
+             transportesAdminController.setGestion(gestion);
+     //        transportesAdminController.ejecutaAlPrincipio();
+//           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+            Ventana.getChildren().add(root);
+        } catch (IOException ex) {
+            /////////tratar el error////
+//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+        } catch (Exception es){
+            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
+        + "  No se encuentra la ventana de login (irPerfil PrincipalAdminController)");
+        
+        }
+        
     }
 
 }

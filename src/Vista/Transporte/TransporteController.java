@@ -5,10 +5,15 @@
  */
 package Vista.Transporte;
 
+import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Connection;
 import java.util.ResourceBundle;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.TreeView;
+import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -21,6 +26,18 @@ public class TransporteController implements Initializable {
      * Initializes the controller class.
      */
     private Connection conn;
+    @FXML
+    private TreeView<?> tarjetasTV;
+    @FXML
+    private ImageView imagTarj;
+    @FXML
+    private ImageView imagDescrip;
+    @FXML
+    private JFXTextArea descripTA;
+    @FXML
+    private JFXTextField DuracionTF;
+    @FXML
+    private JFXTextField precioTF;
 
     public void setConn(Connection conn) {
         this.conn = conn;

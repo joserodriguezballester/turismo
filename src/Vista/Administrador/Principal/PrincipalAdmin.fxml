@@ -2,13 +2,12 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="0.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="0.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
@@ -31,14 +30,11 @@
                   <Button mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="200.0" text="Experiencias" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" onAction="#irSalir" prefHeight="70.0" prefWidth="200.0" text="salir" GridPane.columnIndex="4" />
+                  <Button fx:id="transportesBT" mnemonicParsing="false" onAction="#irTransportesAdmin" prefHeight="70.0" prefWidth="200.0" text="Transportes" GridPane.columnIndex="3" />
                </children>
             </GridPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="Ventana" layoutY="90.0" prefHeight="730.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0">
-         <children>
-            <Label layoutX="461.0" layoutY="323.0" text="Label" />
-         </children>
-      </AnchorPane>
+      <AnchorPane fx:id="Ventana" layoutY="90.0" prefHeight="730.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
    </children>
 </AnchorPane>

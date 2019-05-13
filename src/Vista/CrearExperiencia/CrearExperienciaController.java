@@ -113,7 +113,6 @@ public class CrearExperienciaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        System.out.println(experiencia);
         if (experiencia != null) {
             etiquetaNombreExperiencia.setText(experiencia.getNombre());
             cargarActividades();
