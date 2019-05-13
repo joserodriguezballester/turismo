@@ -24,34 +24,34 @@ public class TransportesDAO {
     public TransportesDAO(GestionBD gestion) {
         this.gestion = gestion;
     }
-//
-//       public List<Usuario> listarTarjetas() throws SQLException {    
-////        List<Usuario> listaUsuarios = null;
-////        if (gestion.getConn() != null) {       
-////            String consulta = "SELECT id,nombre,duracion,precio,Descripcion,foto,fotoDescripcion,Clase FROM transporte;";
-////            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-////            ResultSet rs = ps.executeQuery();       
-////                   
-////            listaUsuarios = new ArrayList<>();
-////            while (rs.next()) {
-////                TransportesAdmin transporte = new Usuario();
-////                listaUsuarios.add(usuario);
-////                usuario.setId(rs.getInt("id"));
-////                usuario.setPassword(rs.getString("contraseña"));
-////                usuario.setNick(rs.getString("nick"));
-////                Date fechabda = rs.getDate("fecNac");
-////                usuario.setFecNac(fechabda.toLocalDate());
-////                usuario.setNombre(rs.getString("nombre"));
-////                usuario.setApellidos(rs.getString("apellidos"));
-////                usuario.setDni(rs.getString("dni"));
-////                usuario.setTelefono(rs.getString("telefono"));
-////                usuario.setDireccion(rs.getString("direccion"));
-////                usuario.setEmail(rs.getString("email"));
-////                usuario.setPerfil(rs.getString("rol").toUpperCase());
-////            }  
-////         return listaUsuarios;
-////            
-////        }
+
+       public List<Usuario> listarTarjetas() throws SQLException {    
+        List<Usuario> listaUsuarios = null;
+        if (gestion.getConn() != null) {       
+            String consulta = "SELECT id,nombre,duracion,precio,Descripcion,foto,fotoDescripcion,Clase FROM transporte;";
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();       
+                   
+            listaUsuarios = new ArrayList<>();
+            while (rs.next()) {
+                TransportesAdmin transportesAdmin = new TransportesAdmin();
+                listaUsuarios.add(usuario);
+                usuario.setId(rs.getInt("id"));
+                usuario.setPassword(rs.getString("contraseña"));
+                usuario.setNick(rs.getString("nick"));
+                Date fechabda = rs.getDate("fecNac");
+                usuario.setFecNac(fechabda.toLocalDate());
+                usuario.setNombre(rs.getString("nombre"));
+                usuario.setApellidos(rs.getString("apellidos"));
+                usuario.setDni(rs.getString("dni"));
+                usuario.setTelefono(rs.getString("telefono"));
+                usuario.setDireccion(rs.getString("direccion"));
+                usuario.setEmail(rs.getString("email"));
+                usuario.setPerfil(rs.getString("rol").toUpperCase());
+            }  
+         return listaUsuarios;
+            
+        }
 ////id int(11) AI PK 
 ////nombre varchar(45) 
 ////duracion int(5) 
@@ -87,4 +87,4 @@ public class TransportesDAO {
 //         return listaUsuarios;
 //    }
 //    
-}
+

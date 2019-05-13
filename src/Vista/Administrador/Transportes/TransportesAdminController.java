@@ -45,9 +45,11 @@ public class TransportesAdminController implements Initializable {
     /**
      * Initializes the controller class.
      */
+    
+  
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
         // TODO
     }
     private void cargarTV(){ 
