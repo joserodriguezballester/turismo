@@ -52,16 +52,16 @@ public class UsuarioController implements Initializable {
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
-       
+
         // TODO
     }
 
     @FXML
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
-//      logearseBueno();        
-    //    logearseComoCliente();
-    logearseComoAdministrador();     
+//        logearseBueno();
+//        logearseComoCliente();
+        logearseComoAdministrador();
     }
 
     @FXML
@@ -87,7 +87,7 @@ public class UsuarioController implements Initializable {
     }
 
     public void cargarVentanaPrincipal() {
-         
+
        
         escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
 
@@ -107,7 +107,7 @@ public class UsuarioController implements Initializable {
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();
-             
+
             escenario.setScene(new Scene(root));
             escenario.show();
 
@@ -153,7 +153,7 @@ public class UsuarioController implements Initializable {
             root = loader.load(); // el metodo initialize() se ejecuta
             principalAdminController = loader.getController();
 //Pasamos informacion a la clase siguiente
-    principalAdminController.setGestion(gestion);
+            principalAdminController.setGestion(gestion);
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();
