@@ -35,15 +35,16 @@ public class experienciasActividadesDAO {
 
     public boolean insertarActividadExperiencia(ActividadExperiencia actExp) throws SQLException {
         boolean insertado = false;
-        String consulta = "INSERT INTO experiencia_actividad (idexperiencia, idactividad, numPlazas, fechaInicio, fechaFinal, duracion, precio) VALUES(?, ?, ?, ?, ?, ?, ?);";
+        String consulta = "INSERT INTO experiencia_actividad (orden, idexperiencia, idactividad, numPlazas, fechaInicio, fechaFinal, duracion, precio) VALUES(?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = conn.prepareStatement(consulta);
-        ps.setInt(1, actExp.getIdExperiencia());
-        ps.setInt(2, actExp.getActividad().getId());
-        ps.setInt(3, actExp.getNumPlazas());
-        ps.setTimestamp(4, Timestamp.valueOf(actExp.getFechaInicio()));
-        ps.setTimestamp(5, Timestamp.valueOf(actExp.getFechaFinal()));
-        ps.setInt(6, actExp.getDuracion().toSecondsPart());
-        ps.setDouble(7, actExp.getPrecio());
+        ps.setInt(1, actExp.getOrden());
+        ps.setInt(2, actExp.getIdExperiencia());
+        ps.setInt(3, actExp.getActividad().getId());
+        ps.setInt(4, actExp.getNumPlazas());
+        ps.setTimestamp(5, Timestamp.valueOf(actExp.getFechaInicio()));
+        ps.setTimestamp(6, Timestamp.valueOf(actExp.getFechaFinal()));
+        ps.setInt(7, actExp.getDuracion().toSecondsPart());
+        ps.setDouble(8, actExp.getPrecio());
         ps.executeUpdate();
         insertado = true;
         return insertado;

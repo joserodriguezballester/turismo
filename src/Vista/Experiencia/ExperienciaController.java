@@ -10,11 +10,15 @@ import Datos.Bda.experienciasDAO;
 import Modelo.ActividadExperiencia;
 import Modelo.Experiencia;
 import Modelo.Notificacion;
+import Modelo.Usuario;
+import Vista.CrearExperiencia.CrearExperienciaController;
+import Vista.Principal.PrincipalController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -23,11 +27,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 /**
@@ -42,6 +50,8 @@ public class ExperienciaController implements Initializable {
      */
     private static GestionBD gestion;
     private experienciasDAO gestionBDExperiencias;
+    private Usuario usuario;
+    private Stage escenario;
 
     @FXML
     private AnchorPane Ventana;
@@ -65,9 +75,15 @@ public class ExperienciaController implements Initializable {
     private Label etiquetaListaActividades;
     @FXML
     private JFXListView<ActividadExperiencia> listaActividades;
+    @FXML
+    private JFXButton botonCrearExperiencia;
+    @FXML
+    private JFXButton botonModificarExperiencia;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        botonCrearExperiencia.getStyleClass().add("botonCrearExperiencia");
+        botonModificarExperiencia.getStyleClass().add("botonCrearExperiencia");
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
@@ -111,5 +127,60 @@ public class ExperienciaController implements Initializable {
         transicion.setFromValue(1.0);
         transicion.setToValue(0);
         transicion.play();
+    }
+
+    @FXML
+    private void CrearExperiencia(ActionEvent event) {
+        CargarVentanaCrear();
+    }
+
+    @FXML
+    private void ModificarExperiencia(ActionEvent event) {
+        CargarVentanaCrear(listaVisualExperiencias.getSelectionModel().getSelectedItem());
+    }
+
+    private void CargarVentanaCrear() {
+        Ventana.getChildren().removeAll(Ventana.getChildren());
+        FXMLLoader loader = new FXMLLoader();
+
+        CrearExperienciaController controlador;
+
+        loader.setLocation(getClass().getResource("/Vista/CrearExperiencia/CrearExperiencia.fxml"));
+        try {
+            Parent root = loader.load();
+
+            controlador = loader.getController();
+            controlador.setGestion(gestion);
+            controlador.setUsuario(usuario);
+            Ventana.getChildren().add(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (Exception es) {
+            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+        }
+    }
+
+    private void CargarVentanaCrear(Experiencia experiencia) {
+        Ventana.getChildren().removeAll(Ventana.getChildren());
+        FXMLLoader loader = new FXMLLoader();
+
+        CrearExperienciaController controlador;
+
+        loader.setLocation(getClass().getResource("/Vista/CrearExperiencia/CrearExperiencia.fxml"));
+        try {
+            Parent root = loader.load();
+
+            controlador = loader.getController();
+            controlador.setGestion(gestion);
+            controlador.setUsuario(usuario);
+            controlador.setExperiencia(experiencia);
+            Ventana.getChildren().add(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        } catch (Exception es) {
+            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+        }
     }
 }
