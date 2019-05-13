@@ -1,4 +1,3 @@
-
 package Datos.Bda;
 
 import Modelo.Transporte;
@@ -25,26 +24,23 @@ public class TransportesDAO {
     }
 
     public List<Transporte> listarTarjetas() throws SQLException {
-        List<Transporte> listar = null;
-        if (gestion.getConn() != null) {
-            String consulta = "SELECT id,nombre,duracion,precio,Descripcion,foto,fotoDescripcion,Clase FROM transporte;";
-            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();
-            listarTarjetas() = new ArrayList<>();
-            while (rs.next()) {
-                Transporte transporte = new Transporte();
-                listaUsuarios.add(transporte);
-                transporte.setId(rs.getInt("id"));
-                transporte.setNombre(rs.getString("nombre"));
-                transporte.setDuracion(rs.getString("duracion"));
-                transporte.getClase(rs.getString("clase"));
-                transporte.setPrecio(rs.getDouble("precio"));
-                transporte.setDescripcion(rs.getString("descripcion"));
-                transporte.setFoto(rs.getString(rs.getString("foto")));
-                transporte.setFotoDescripcion(rs.getString("fotoDescripcion"));
-            }
-            return listaTarjetas;
-
+        List<Transporte> listaTarjetas = null;
+        String consulta = "SELECT id,nombre,duracion,precio,Descripcion,foto,fotoDescripcion,Clase FROM transporte;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ResultSet rs = ps.executeQuery();
+        listaTarjetas = new ArrayList<>();
+        while (rs.next()) {
+            Transporte transporte = new Transporte();
+            listarTarjetas().add(transporte);
+            transporte.setId(rs.getInt("id"));
+            transporte.setNombre(rs.getString("nombre"));
+            transporte.setDuracion(rs.getString("duracion"));
+            transporte.setTipo(rs.getString("clase"));
+            transporte.setPrecio(rs.getDouble("precio"));
+            transporte.setDescripcion(rs.getString("descripcion"));
+            transporte.setFoto(rs.getString(rs.getString("foto")));
+            transporte.setFotoDescripcion(rs.getString("fotoDescripcion"));
         }
-
-
+        return listaTarjetas;
+    }
+}

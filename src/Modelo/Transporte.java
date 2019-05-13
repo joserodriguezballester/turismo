@@ -16,7 +16,7 @@ public class Transporte {
     private String descripcion;
     private String foto;
     private String fotoDescripcion;
-    private String clase;
+    private String tipo;
 
     public Transporte() {
     }
@@ -77,13 +77,14 @@ public class Transporte {
         this.fotoDescripcion = fotoDescripcion;
     }
 
-    public String getClase() {
-        return clase;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setClase(String clase) {
-        this.clase = clase;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
+
    
     
     
