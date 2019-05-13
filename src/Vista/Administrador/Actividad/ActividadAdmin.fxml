@@ -22,7 +22,7 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="40.0" layoutY="21.0" text="ActividadAdmin">
+      <Label layoutX="40.0" layoutY="20.0" text="ActividadAdmin">
          <font>
             <Font size="20.0" />
          </font></Label>
@@ -43,7 +43,7 @@
             <Button fx:id="botonModificar" mnemonicParsing="false" onAction="#modificar" prefHeight="39.0" prefWidth="100.0" text="Modificar" />
          </children>
       </GridPane>
-      <TableView fx:id="tableview" layoutX="17.0" layoutY="66.0" onMousePressed="#mostrar" prefHeight="277.0" prefWidth="969.0">
+      <TableView fx:id="tableview" layoutX="15.0" layoutY="65.0" onMousePressed="#mostrar" prefHeight="275.0" prefWidth="975.0">
         <columns>
           <TableColumn fx:id="tb_id" prefWidth="45.0" text="id" />
           <TableColumn fx:id="tb_nombre" prefWidth="93.0" text="nombre" />
@@ -53,8 +53,8 @@
             <TableColumn fx:id="tb_direccion" prefWidth="107.0" text="direccion" />
             <TableColumn fx:id="tb_url" minWidth="0.0" prefWidth="122.0" text="url" />
             <TableColumn fx:id="tb_telefono" prefWidth="109.0" text="telefono" />
-            <TableColumn fx:id="tb_foto" minWidth="0.0" prefWidth="109.0" text="foto" />
-            <TableColumn fx:id="tb_idTipo" minWidth="0.0" prefWidth="54.0" text="idTipo" />
+            <TableColumn fx:id="tb_foto" minWidth="0.0" prefWidth="106.0" text="foto" />
+            <TableColumn fx:id="tb_idTipo" minWidth="0.0" prefWidth="63.0" text="idsubTipo" />
         </columns>
       </TableView>
       <Label layoutX="40.0" layoutY="385.0" text="ID">
@@ -124,8 +124,8 @@
       <Button fx:id="botonGuardar" layoutX="474.0" layoutY="630.0" mnemonicParsing="false" onAction="#guardar" prefHeight="30.0" prefWidth="126.0" text="Limpiar" />
       <Line endX="86.0" layoutX="853.0" layoutY="365.0" startX="-204.0" />
       <Line endX="171.0" layoutX="770.0" layoutY="655.0" startX="-121.0" />
-      <Button fx:id="botonListarIdTipo" layoutX="850.0" layoutY="25.0" mnemonicParsing="false" onAction="#listarId" prefHeight="25.0" prefWidth="53.0" text="Listar" />
-      <Label layoutX="486.0" layoutY="29.0" text="LISTAR ACTIVIDAD POR TIPO  -----  IDTIPO" />
+      <Button fx:id="botonListarIdTipo" layoutX="850.0" layoutY="25.0" mnemonicParsing="false" onAction="#listarId" prefHeight="25.0" prefWidth="66.0" text="ListarID" />
+      <Label layoutX="486.0" layoutY="29.0" text="LISTAR ACTIVIDAD POR TIPO  -----&gt;  IDTIPO" />
       <ComboBox fx:id="comboListarIdTipo" layoutX="739.0" layoutY="25.0" prefHeight="25.0" prefWidth="86.0" promptText="Combo" />
    </children>
 </AnchorPane>

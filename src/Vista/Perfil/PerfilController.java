@@ -91,7 +91,7 @@ public class PerfilController implements Initializable {
         nickTF.setText(usuario.getNick());
         nombreTF.setText(usuario.getNombre());
         apellidosTF.setText(usuario.getApellidos());
-        dniTF.setText(usuario.getDNI());
+        dniTF.setText(usuario.getDni());
         telefonoTF.setText(usuario.getTelefono());
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
