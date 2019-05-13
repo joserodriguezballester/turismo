@@ -50,7 +50,7 @@ public class actividadesDAO {
                 
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellidos(rs.getString("apellidos"));
-                usuario.setDNI(rs.getString("dni"));
+                usuario.setDni(rs.getString("dni"));
                 usuario.setTelefono(rs.getString("telefono"));
                 usuario.setDireccion(rs.getString("direccion"));
                 usuario.setEmail(rs.getString("email"));

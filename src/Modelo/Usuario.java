@@ -9,7 +9,7 @@ import org.jasypt.util.text.BasicTextEncryptor;
 public class Usuario implements Comparable<Usuario> {
 
     private int id;
-    private String DNI;
+    private String dni;
     private String nombre;
     private String apellidos;
     private String password;
@@ -39,13 +39,15 @@ public class Usuario implements Comparable<Usuario> {
         this.perfil = rol.valueOf(perfil);
     }
 
-    public String getDNI() {
-        return DNI;
+    public String getDni() {
+        return dni;
     }
 
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
+    public void setDni(String dni) {
+        this.dni = dni;
     }
+
+ 
 
     public String getNick() {
         return nick;
@@ -67,7 +69,7 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac) {
-        this.DNI = DNI;
+        this.dni = DNI;
         this.nombre = nombre;
         this.apellidos = apellidos;
         String passwordEncriptado = encriptar(contrasena);
@@ -138,7 +140,7 @@ public class Usuario implements Comparable<Usuario> {
     @Override
     public String toString() {
         return "Usuario{" + "id=" + id
-                + ", dni=" + DNI
+                + ", dni=" + dni
                 + ", nombre=" + nombre
                 + ", apellidos=" + apellidos
                 + ", password=" + password

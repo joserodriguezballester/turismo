@@ -43,7 +43,7 @@ public class usuariosDAO {
             ps.setString(3, usuario.getFecNac().toString());
             ps.setString(4, usuario.getNombre());
             ps.setString(5, usuario.getApellidos());
-            ps.setString(6, usuario.getDNI());
+            ps.setString(6, usuario.getDni());
             ps.setString(7, usuario.getTelefono());
             ps.setString(8, usuario.getDireccion());
             ps.setString(9, usuario.getEmail());
@@ -128,7 +128,7 @@ public class usuariosDAO {
 
             usuario.setNombre(rs.getString("nombre"));
             usuario.setApellidos(rs.getString("apellidos"));
-            usuario.setDNI(rs.getString("dni"));
+            usuario.setDni(rs.getString("dni"));
             usuario.setTelefono(rs.getString("telefono"));
             usuario.setDireccion(rs.getString("direccion"));
             usuario.setEmail(rs.getString("email"));
@@ -181,7 +181,7 @@ public class usuariosDAO {
                 usuario.setFecNac(fechabda.toLocalDate());
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellidos(rs.getString("apellidos"));
-                usuario.setDNI(rs.getString("dni"));
+                usuario.setDni(rs.getString("dni"));
                 usuario.setTelefono(rs.getString("telefono"));
                 usuario.setDireccion(rs.getString("direccion"));
                 usuario.setEmail(rs.getString("email"));

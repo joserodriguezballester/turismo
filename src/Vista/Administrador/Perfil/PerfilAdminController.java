@@ -97,7 +97,7 @@ public class PerfilAdminController implements Initializable {
         usuarios = FXCollections.observableArrayList();
         usuariosTV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> cargarEtiquetas(newValue));
-
+        asignarColumnas();
     }
 
     public void setGestion(GestionBD gestion) {
@@ -212,24 +212,34 @@ public class PerfilAdminController implements Initializable {
         nickTC.setCellValueFactory(new PropertyValueFactory<>("nick"));
         nombreTC.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         apellidosTC.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
-        dniTC.setCellValueFactory(new PropertyValueFactory<Usuario, String>("dni"));
+        dniTC.setCellValueFactory(new PropertyValueFactory<>("dni"));
 
         telefonoTC.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         direccionTC.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         emailTC.setCellValueFactory(new PropertyValueFactory<>("email"));
         fecNacTC.setCellValueFactory(new PropertyValueFactory<>("fecNac"));
-//        rolTC.setCellValueFactory(new PropertyValueFactory<>("rol"));
-        
-        
+//        rolTC.setCellValueFactory(new PropertyValueFactory<>("rol"));      
     }
+private void asignarColumnas(){
+       usuariosTV.setItems(usuarios);
+        nickTC.setCellValueFactory(new PropertyValueFactory<>("nick"));
+        nombreTC.setCellValueFactory(new PropertyValueFactory<>("nombre"));
+        apellidosTC.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
+        dniTC.setCellValueFactory(new PropertyValueFactory<>("dni"));
 
+        telefonoTC.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+        direccionTC.setCellValueFactory(new PropertyValueFactory<>("direccion"));
+        emailTC.setCellValueFactory(new PropertyValueFactory<>("email"));
+        fecNacTC.setCellValueFactory(new PropertyValueFactory<>("fecNac"));
+//        rolTC.setCellValueFactory(new PropertyValueFactory<>("rol"));    
+}
     private void cargarEtiquetas(Usuario usuario) {
         id_invisibleTF.setText(Integer.toString(usuario.getId()));
 
         nickTF.setText(usuario.getNick());
         nombreTF.setText(usuario.getNombre());
         apellidosTF.setText(usuario.getApellidos());
-        dniTF.setText(usuario.getDNI());
+        dniTF.setText(usuario.getDni());
         telefonoTF.setText(usuario.getTelefono());
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
