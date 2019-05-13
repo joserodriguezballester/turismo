@@ -22,14 +22,34 @@ public class ActividadExperiencia {
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinal;
     private Duration duracion;
+    private double precio;
+    private int numPlazas;
 
-    public ActividadExperiencia(int orden, int idExperiencia, Actividad actividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal) {
+    public ActividadExperiencia(int orden, int idExperiencia, Actividad actividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal, double precio, int numPlazas) {
         this.orden = orden;
         this.idExperiencia = idExperiencia;
         this.actividad = actividad;
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.duracion = Duration.between(fechaFinal, fechaInicio);
+        this.precio = precio;
+        this.numPlazas = numPlazas;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public int getNumPlazas() {
+        return numPlazas;
+    }
+
+    public void setNumPlazas(int numPlazas) {
+        this.numPlazas = numPlazas;
     }
 
     public int getOrden() {

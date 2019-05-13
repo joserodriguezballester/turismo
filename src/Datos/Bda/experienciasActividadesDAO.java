@@ -30,13 +30,13 @@ public class experienciasActividadesDAO {
 
     public List<ActividadExperiencia> consultarActividadesDeExperiencia(int idExperiencia) throws SQLException {
         List<ActividadExperiencia> listaActividadesExperiencia = new ArrayList<>();
-        String sql = "SELECT orden, idExperiencia, idActividad, fechaInicio, fechaFinal, duracion FROM experiencias_actividades WHERE idExperiencia = ?;";
+        String sql = "SELECT orden, idExperiencia, idActividad, fechaInicio, fechaFinal, duracion, precio, numPlazas FROM experiencia_actividad WHERE idExperiencia = ?;";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setInt(1, idExperiencia);
         ResultSet rs = ps.executeQuery();
         actividadesDAO actividadesDAO = new actividadesDAO(gestion);
         while (rs.next()) {
-            listaActividadesExperiencia.add(new ActividadExperiencia(rs.getInt("orden"), rs.getInt("idExperiencia"), actividadesDAO.consultarActividad(rs.getInt("idActividad")), rs.getTimestamp("fechaInicio").toLocalDateTime(), rs.getTimestamp("fechaFinal").toLocalDateTime()));
+            listaActividadesExperiencia.add(new ActividadExperiencia(rs.getInt("orden"), rs.getInt("idExperiencia"), actividadesDAO.consultarActividad(rs.getInt("idActividad")), rs.getTimestamp("fechaInicio").toLocalDateTime(), rs.getTimestamp("fechaFinal").toLocalDateTime(), rs.getDouble("precio"), rs.getInt("numPlazas")));
         }
         return listaActividadesExperiencia;
     }
