@@ -28,7 +28,7 @@ public class actividadesDAO {
 
     public actividadesDAO(GestionBD gestion) {
         this.gestion = gestion;
-        conn = gestion.getConn();
+        this.conn = gestion.getConn();
     }
     
     public Usuario cargarUsuario(String nick)  {
@@ -66,8 +66,7 @@ public class actividadesDAO {
     //CREATE
     public boolean insertarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int subtipo) throws SQLException {
         boolean insertado = false;
-
-        
+      
         if(gestion.getConn() != null){
             String consulta = "INSERT INTO ACTIVIDADES (ID, NOMBRE, PRECIO, HORARIO, DESCRIPCION, URL, DIRECCION, TELEFONO, FOTO, IDSUBTIPO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
@@ -180,6 +179,7 @@ public class actividadesDAO {
             while (rs.next()) {
                 listaTiposActividades.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
             }
+            System.out.println("ESTOY DENTRO DE CONSULTARTIPOACTIVIDADES");
         }
         return listaTiposActividades;
     }

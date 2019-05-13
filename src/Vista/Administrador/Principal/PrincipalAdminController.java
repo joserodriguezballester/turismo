@@ -8,6 +8,7 @@ package Vista.Administrador.Principal;
 import Datos.Bda.GestionBD;
 import Modelo.Notificacion;
 import Vista.Administrador.Actividad.ActividadAdminController;
+import Vista.Administrador.Experiencia.ExperienciaAdminController;
 import Vista.Administrador.Perfil.PerfilAdminController;
 import java.io.IOException;
 import java.net.URL;
@@ -85,6 +86,13 @@ public class PrincipalAdminController implements Initializable {
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
+            
+            ExperienciaAdminController experienciaAdminController=loader.getController();
+            experienciaAdminController.setGestion(gestion);
+            System.out.println("pricicipal gestion: "+ gestion.isConectado());
+            experienciaAdminController.ejecutaAlPrincipio();
+            
+            
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             /////////tratar el error////

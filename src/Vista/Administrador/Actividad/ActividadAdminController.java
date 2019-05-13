@@ -8,6 +8,7 @@ import Modelo.Notificacion;
 import Modelo.Tipo;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -125,18 +126,23 @@ public class ActividadAdminController implements Initializable {
     
     public void ejecutaAlPrincipio() throws SQLException{
         activiDAO=new actividadesDAO(gestion);
+        
         try {
             listaTipos = activiDAO.consultarTipoActividades();
         } catch (SQLException ex) {
             Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\nconsultar a la DB"); 
         }
+        System.out.println("LISTA TIPOS: " + listaTipos);
         cargarCombo();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+       
         actividades = FXCollections.observableArrayList();
+        
+        
     }
     
 // ---------------------------- CARGAR COMBO TIPO ------------------------
@@ -148,6 +154,7 @@ public class ActividadAdminController implements Initializable {
             id = String.valueOf(valor.getId());
             tipos.add(id);
         }
+        System.out.println("TIPOS: " + tipos);
         comboListarIdTipo.setItems(tipos);
     }
     
@@ -156,30 +163,9 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private void listar(){
         List<Actividad> lista = new ArrayList<>();       
-        try {
-            
-            lista = activiDAO.listarActividad();
-
-
-
-            System.out.println("Lista :" + lista);
-            System.out.println("ESTOY DESPUES DE CARGARTABLA");
-            
-            actividades.addAll(lista);
-            tableview.setItems(actividades);
-            
-            tb_id.setCellValueFactory(new PropertyValueFactory<>("id"));
-            tb_nombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-            tb_descripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-            tb_horario.setCellValueFactory(new PropertyValueFactory<>("horario"));
-            tb_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-            tb_direccion.setCellValueFactory(new PropertyValueFactory<>("direccion"));
-            tb_url.setCellValueFactory(new PropertyValueFactory<>("url"));
-            tb_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
-            tb_foto.setCellValueFactory(new PropertyValueFactory<>("foto"));
-            tb_idTipo.setCellValueFactory(new PropertyValueFactory<>("idSubtipo"));
-            
-
+        try {            
+            lista = activiDAO.listarActividad();           
+          
         } catch (SQLException ex) {
             Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\nconsultar a la DB"); 
@@ -191,7 +177,8 @@ public class ActividadAdminController implements Initializable {
 // -------------------------------- CARGAR TABLA ---------------------------
     
     private void cargarTabla(List<Actividad> coleccion){
-        actividades.remove(0, actividades.size());
+
+        actividades.clear();
         actividades.addAll(coleccion);
         tableview.setItems(actividades);
 
@@ -207,16 +194,16 @@ public class ActividadAdminController implements Initializable {
         tb_idTipo.setCellValueFactory(new PropertyValueFactory<>("idsubTipo"));
             
     }
-// --------------------------- TABLE VIEW POR TIPO ------------------------
+// --------------------------- LISTAR POR TIPO ------------------------
     
     private void cargarTablaPorTipo(){
         List<Actividad> listaPorTipo = new ArrayList<>();
         Tipo tipo;
-        int iden;
-        
+        int iden;      
+                   
         iden = Integer.parseInt(comboListarIdTipo.getValue());
         tipo = dameTipo(iden);
-        
+
         try{
            listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
         }catch (SQLException ex){
@@ -225,7 +212,7 @@ public class ActividadAdminController implements Initializable {
         }catch (Exception es){
            Notificacion.error("ERROR EXCEPTION","verifica tu código no es correcto"); 
         }
-        cargarTabla(listaPorTipo);
+        cargarTabla(listaPorTipo);    
     }
     
     private Tipo dameTipo(int id){
@@ -273,7 +260,7 @@ public class ActividadAdminController implements Initializable {
                 imageView.setImage(new Image("Imagenes/" + foto));
                 imageView.setFitHeight(250);
                 imageView.setFitWidth(250);
-//                imageView.setPreserveRatio(false);
+                imageView.setPreserveRatio(false);
             }
         } catch (Exception ex){
             Notificacion.error("ERROR EXCEPTION","la foto no ha podido cargarse");
@@ -416,6 +403,7 @@ public class ActividadAdminController implements Initializable {
 
     @FXML
     private void modificar(ActionEvent event) {
+        Notificacion.confirm("MODIFICAR EN TABLA ACTIVIDAD", "Estas seguro de esta modificación");
         actualizar();
     }
 
@@ -440,6 +428,6 @@ public class ActividadAdminController implements Initializable {
 
     @FXML
     private void listarId(ActionEvent event) {
-         cargarTablaPorTipo();
+        cargarTablaPorTipo();
     }
 }
