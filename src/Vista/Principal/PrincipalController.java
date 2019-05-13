@@ -78,7 +78,7 @@ public class PrincipalController implements Initializable {
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
-           
+            Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
             /////////tratar el error////
