@@ -57,7 +57,7 @@ public class UsuarioController implements Initializable {
         // Utilizar uno de estos tres metodos
 //      logearseBueno();        
 //        logearseComoCliente();
-      logearseComoAdministrador();     
+     logearseComoAdministrador();     
     }
 
     @FXML
