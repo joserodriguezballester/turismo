@@ -2,6 +2,7 @@ package Vista.Usuario;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
+import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.Principal.PrincipalController;
@@ -24,6 +25,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.controlsfx.dialog.LoginDialog;
@@ -42,6 +44,7 @@ public class UsuarioController implements Initializable {
     private PasswordField contraTF;
     @FXML
     private TextField nickTF;
+    private Pane Ventana;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -49,6 +52,7 @@ public class UsuarioController implements Initializable {
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
+       
         // TODO
     }
 
@@ -83,7 +87,10 @@ public class UsuarioController implements Initializable {
     }
 
     public void cargarVentanaPrincipal() {
+         
+       
         escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
+
         String nombrefichero = "/Vista/Principal/Principal.fxml";
         PrincipalController principalController;
 
@@ -100,7 +107,7 @@ public class UsuarioController implements Initializable {
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();
-
+             
             escenario.setScene(new Scene(root));
             escenario.show();
 

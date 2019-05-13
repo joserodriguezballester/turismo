@@ -82,6 +82,7 @@ public class ActividadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Ventana.setVisible(true);
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
