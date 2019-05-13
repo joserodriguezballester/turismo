@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="0.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="0.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
@@ -31,6 +31,7 @@
                   <Button mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="200.0" text="Experiencias" GridPane.columnIndex="1" />
                   <Button mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="2" />
                   <Button mnemonicParsing="false" onAction="#irSalir" prefHeight="70.0" prefWidth="200.0" text="salir" GridPane.columnIndex="4" />
+                  <Button fx:id="transportesBT" mnemonicParsing="false" onAction="#irTransportesAdmin" prefHeight="70.0" prefWidth="200.0" text="Transportes" GridPane.columnIndex="3" />
                </children>
             </GridPane>
          </children>

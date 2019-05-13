@@ -7,6 +7,7 @@ package Vista.Administrador.Principal;
 
 import Datos.Bda.GestionBD;
 import Modelo.Notificacion;
+import Modelo.Transicion;
 import Vista.Administrador.Actividad.ActividadAdminController;
 import Vista.Administrador.Experiencia.ExperienciaAdminController;
 import Vista.Administrador.Perfil.PerfilAdminController;
@@ -42,7 +43,13 @@ public class PrincipalAdminController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-
+ try {
+            Transicion tr = new Transicion();
+            tr.setRoot(Ventana);
+            tr.start();
+        } catch (Exception e) {
+            System.out.println("ha petao");
+        }
 //        gestion = new GestionBD();
 //        gestion.conectar();
     }
