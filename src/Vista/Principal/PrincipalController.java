@@ -46,12 +46,13 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button botonTransportes;
     private Usuario usuario;
-
+private Notificacion not;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
         botonActividades.getStyleClass().add("botonMenu");
         botonExperiencias.getStyleClass().add("botonMenu");
         botonPerfil.getStyleClass().add("botonMenu");
@@ -87,7 +88,7 @@ public class PrincipalController implements Initializable {
             ex.printStackTrace();
         } catch (Exception es) {
             es.printStackTrace();
-            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
     }
@@ -111,7 +112,7 @@ public class PrincipalController implements Initializable {
             ex.printStackTrace();
         } catch (Exception es) {
             es.printStackTrace();
-            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
     }
@@ -140,7 +141,7 @@ public class PrincipalController implements Initializable {
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
-            Notificacion.error("ERROR AL CARGAR VENTANA PERFIL",
+            not.error("ERROR AL CARGAR VENTANA PERFIL",
                     "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
@@ -161,7 +162,7 @@ public class PrincipalController implements Initializable {
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
-            Notificacion.error("ERROR AL CARGAR VENTANA BUSCADOR",
+            not.error("ERROR AL CARGAR VENTANA BUSCADOR",
                     "Revisa el código y vuelve a intentarlo, (irBuscar PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
@@ -190,7 +191,7 @@ public class PrincipalController implements Initializable {
             ex.printStackTrace();
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
-            Notificacion.error("ERROR AL CARGAR VENTANA TRANSPORTE",
+            not.error("ERROR AL CARGAR VENTANA TRANSPORTE",
                     "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta

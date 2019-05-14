@@ -80,9 +80,11 @@ public class ActividadController implements Initializable {
     private JFXTextField informacionPrecio;
     @FXML
     private Pane paneWebView;
+    private Notificacion not;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
         Ventana.setVisible(true);
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
@@ -123,11 +125,11 @@ public class ActividadController implements Initializable {
                 paneListaBotones.getChildren().add(botonLista);
             }
         } catch (SQLException e) {
-            Notificacion.error("ERROR SQL EXCEPTION", "Problemas con la DB"
+            not.error("ERROR SQL EXCEPTION", "Problemas con la DB"
                     + "(initialize ActividadController");
         } catch (Exception e) {
             e.printStackTrace();
-            Notificacion.error("ERROR EXCEPTION", "Comprueba tu código"
+            not.error("ERROR EXCEPTION", "Comprueba tu código"
                     + "(initialize ActividadController");
         }
     }
@@ -141,10 +143,10 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException e) {
-            Notificacion.error("ERROR SQL EXCEPTION", "Problemas con la DB"
+            not.error("ERROR SQL EXCEPTION", "Problemas con la DB"
                     + "(cargarActividades ActividadController");
         } catch (Exception e) {
-            Notificacion.error("ERROR EXCEPTION", "Comprueba tu código"
+            not.error("ERROR EXCEPTION", "Comprueba tu código"
                     + "(cargarActividades ActividadController");
 
         }
@@ -196,7 +198,7 @@ public class ActividadController implements Initializable {
             }
         } catch (Exception e) {
             fotoActividad.setVisible(false);
-            Notificacion.error("ERROR EXCEPTION", "la foto no ha podido cargarse"
+            not.error("ERROR EXCEPTION", "la foto no ha podido cargarse"
                     + "(cargarInformacionActividad ActividadController");
         }
 

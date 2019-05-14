@@ -60,12 +60,14 @@ public class RegistrarAdminController implements Initializable {
     private JFXPasswordField contraPF;
     private usuariosDAO usuarioDAO;
     private GestionBD gestion;
+    private Notificacion not;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
         aceptarBT.getStyleClass().add("botonAceptarRegistro");
         salirBT.getStyleClass().add("botonSalirRegistro");
         fecNacTF.getStyleClass().add("calendarioRegistrar");
@@ -107,7 +109,7 @@ public class RegistrarAdminController implements Initializable {
             contraPF.setUnFocusColor(color2);
             repContraPF.setUnFocusColor(color);
 
-            Notificacion.alert("alerta", "contraseña distinta"); // solo imprime
+            not.alert("alerta", "contraseña distinta"); // solo imprime
         }
 
     }

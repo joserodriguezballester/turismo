@@ -36,7 +36,7 @@ public class PrincipalAdminController implements Initializable {
     @FXML
     private AnchorPane Ventana;
     
-    
+    private Notificacion not;
     private GestionBD gestion;
     @FXML
     private Button transportesBT;
@@ -82,7 +82,7 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
-            Notificacion.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,"
+            not.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,"
           + " No se encuentra la ventana de login (irActividad PrincipalAdminController)");
         
         }
@@ -109,7 +109,7 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,"
+            not.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,"
          + "  No se encuentra la ventana de login (irExperiencia PrincipalAdminController)");
         
         }
@@ -132,7 +132,7 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
+            not.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
         + "  No se encuentra la ventana de login (irPerfil PrincipalAdminController)");
         
         }
@@ -161,7 +161,7 @@ public class PrincipalAdminController implements Initializable {
             /////////tratar el error////
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es){
-            Notificacion.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
+            not.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
         + "  No se encuentra la ventana de login (irPerfil PrincipalAdminController)");
         
         }

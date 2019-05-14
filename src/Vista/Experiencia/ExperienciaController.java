@@ -75,9 +75,11 @@ public class ExperienciaController implements Initializable {
     private JFXButton botonCrearExperiencia;
     @FXML
     private JFXButton botonModificarExperiencia;
+    private Notificacion not;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
         botonCrearExperiencia.getStyleClass().add("botonCrearExperiencia");
         botonModificarExperiencia.getStyleClass().add("botonCrearExperiencia");
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
@@ -97,10 +99,10 @@ public class ExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            Notificacion.error("ERROR SQL EXCEPTION", "(initialize ExperienciaController");
+             not.error("ERROR SQL EXCEPTION", "(initialize ExperienciaController");
         } catch (Exception es) {
             es.printStackTrace();
-            Notificacion.error("ERROR EXCEPTION (initialize ExperienciaController)",
+            not.error("ERROR EXCEPTION (initialize ExperienciaController)",
                     "Revisa el código y vuelve a intentarlo");
         }
     }
@@ -161,7 +163,7 @@ public class ExperienciaController implements Initializable {
             ex.printStackTrace();
         } catch (Exception es) {
             es.printStackTrace();
-            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
     }
@@ -185,7 +187,7 @@ public class ExperienciaController implements Initializable {
             ex.printStackTrace();
         } catch (Exception es) {
             es.printStackTrace();
-            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
     }

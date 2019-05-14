@@ -118,7 +118,7 @@ public class ActividadAdminController implements Initializable {
     private static GestionBD gestion;
 
     private actividadesDAO activiDAO;
-    
+    private Notificacion not;
       
     public void setGestion(GestionBD gestion) {
         ActividadAdminController.gestion = gestion; 
@@ -130,7 +130,7 @@ public class ActividadAdminController implements Initializable {
         try {
             listaTipos = activiDAO.consultarTipoActividades();
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
+            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\nconsultar a la DB"); 
         }
         System.out.println("LISTA TIPOS: " + listaTipos);
@@ -139,7 +139,7 @@ public class ActividadAdminController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       
+       not = new Notificacion();
         actividades = FXCollections.observableArrayList();
         
         
@@ -167,10 +167,10 @@ public class ActividadAdminController implements Initializable {
             lista = activiDAO.listarActividad();           
           
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
+            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\nconsultar a la DB"); 
         } catch (Exception es){
-            Notificacion.error("ERROR EXCEPTION ", "Ha ocurrido un grave problema");
+            not.error("ERROR EXCEPTION ", "Ha ocurrido un grave problema");
         }
         cargarTabla(lista);
     }
@@ -207,10 +207,10 @@ public class ActividadAdminController implements Initializable {
         try{
            listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
         }catch (SQLException ex){
-           Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
+           not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\nconsultar a la DB"); 
         }catch (Exception es){
-           Notificacion.error("ERROR EXCEPTION","verifica tu código no es correcto"); 
+           not.error("ERROR EXCEPTION","verifica tu código no es correcto"); 
         }
         cargarTabla(listaPorTipo);    
     }
@@ -263,7 +263,7 @@ public class ActividadAdminController implements Initializable {
                 imageView.setPreserveRatio(false);
             }
         } catch (Exception ex){
-            Notificacion.error("ERROR EXCEPTION","la foto no ha podido cargarse");
+            not.error("ERROR EXCEPTION","la foto no ha podido cargarse");
         }          
     }
     
@@ -289,15 +289,15 @@ public class ActividadAdminController implements Initializable {
             ok = activiDAO.insertarActividad(id, nombre, precio, horario,
                          descripcion, url, direccion, telefono, foto, idsubTipo);
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
+            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\ninsertar un registro");
         }
         if(ok == true){
-            Notificacion.info("INSERTAR EN TABLA ACTIVIDADES", "La operación "
+            not.info("INSERTAR EN TABLA ACTIVIDADES", "La operación "
                     + "\nse ha realizado con éxito");
         }
         else {
-            Notificacion.info("INSERTAR EN TABLA ACTIVIDADES","No se ha podido "
+            not.info("INSERTAR EN TABLA ACTIVIDADES","No se ha podido "
                      + "\ninsertar el registro verifica el problema");
         }
     }
@@ -337,14 +337,14 @@ public class ActividadAdminController implements Initializable {
             ok = activiDAO.modificarActividad(id,nombre,precio,horario,descripcion,
                                       url,direccion,telefono,foto,idsubTipo);
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
+            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
                                                      + "\nactualizar un registro");
         }if(ok){
-            Notificacion.info("ACTUALIZAR EN TABLA ACTIVIDADES", "La operación "
+            not.info("ACTUALIZAR EN TABLA ACTIVIDADES", "La operación "
                     + "\nse ha realizado con éxito");
         }
         else {
-            Notificacion.info("ACTUALIZAR EN TABLA ACTIVIDADES","No se ha podido "
+            not.info("ACTUALIZAR EN TABLA ACTIVIDADES","No se ha podido "
                      + "\nactualizar el registro verifica el problema");
         }
     }
@@ -366,11 +366,11 @@ public class ActividadAdminController implements Initializable {
         }
         
         if(ok){
-            Notificacion.info("ELIMINAR EN TABLA ACTIVIDADES", "La operación "
+            not.info("ELIMINAR EN TABLA ACTIVIDADES", "La operación "
                     + "\nse ha realizado con éxito");
         }
         else {
-            Notificacion.info("ELIMINAR EN TABLA ACTIVIDADES","No se ha podido "
+            not.info("ELIMINAR EN TABLA ACTIVIDADES","No se ha podido "
                      + "\neliminar el registro verifica el problema");
         }
     }
@@ -403,7 +403,7 @@ public class ActividadAdminController implements Initializable {
 
     @FXML
     private void modificar(ActionEvent event) {
-        Notificacion.confirm("MODIFICAR EN TABLA ACTIVIDAD", "Estas seguro de esta modificación");
+        not.confirm("MODIFICAR EN TABLA ACTIVIDAD", "Estas seguro de esta modificación");
         actualizar();
     }
 
