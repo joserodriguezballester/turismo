@@ -31,7 +31,7 @@ public class TransportesDAO {
         listaTarjetas = new ArrayList<>();
         while (rs.next()) {
             Transporte transporte = new Transporte();
-            listarTarjetas().add(transporte);
+            
             transporte.setId(rs.getInt("id"));
             transporte.setNombre(rs.getString("nombre"));
             transporte.setDuracion(rs.getString("duracion"));
@@ -40,6 +40,8 @@ public class TransportesDAO {
             transporte.setDescripcion(rs.getString("descripcion"));
             transporte.setFoto(rs.getString(rs.getString("foto")));
             transporte.setFotoDescripcion(rs.getString("fotoDescripcion"));
+            
+            listaTarjetas.add(transporte);
         }
         return listaTarjetas;
     }
