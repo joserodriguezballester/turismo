@@ -7,14 +7,14 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="0.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
+<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <AnchorPane fx:id="Menu" layoutX="20.0" layoutY="20.0" prefHeight="70.0" prefWidth="1000.0">
+      <AnchorPane fx:id="Menu" layoutX="20.0" layoutY="20.0" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane layoutX="-20.0" layoutY="-14.0" minHeight="0.0" prefHeight="70.0" prefWidth="1000.0" AnchorPane.leftAnchor="-20.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-14.0">
+            <GridPane layoutX="-20.0" layoutY="-14.0" minHeight="0.0" prefHeight="70.0" prefWidth="1000.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -35,6 +35,6 @@
             </GridPane>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="Ventana" layoutY="90.0" prefHeight="730.0" prefWidth="1000.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="90.0" />
+      <AnchorPane fx:id="Ventana" layoutY="90.0" prefHeight="730.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />
    </children>
 </AnchorPane>
