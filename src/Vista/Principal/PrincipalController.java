@@ -49,13 +49,7 @@ public class PrincipalController implements Initializable {
     private Button botonTransportes;
     private Usuario usuario;
     private Notificacion not;
-<<<<<<< HEAD
 
-  
-    
-
-=======
->>>>>>> origin/master
     @FXML
     private Button botonLogo;
     @FXML
