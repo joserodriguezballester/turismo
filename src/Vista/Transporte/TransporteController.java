@@ -5,27 +5,42 @@
  */
 package Vista.Transporte;
 
+import Datos.Bda.GestionBD;
+import Datos.Bda.TransportesDAO;
+import Modelo.Notificacion;
+import Modelo.Transporte;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.ImageView;
 
-/**
- * FXML Controller class
- *
- * @author joser
- */
+
 public class TransporteController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-    private Connection conn;
+    //Amsterdam Travel Ticket
+    //Amsterdam Travel Ticket
+    //Amsterdam Travel Ticket
+    //Day or multi-day Ticket
+    //Day or multi-day Ticket
+    //Day or multi-day Ticket
+    //Day or multi-day Ticket
+    //Day or multi-day Ticket
+    //I amsterdam city card
+    //I amsterdam city card
+    //I amsterdam city card
+    //I amsterdam city card
+    //I amsterdam city card
+    //Amsterdam & Region Travel Ticket
+    //Holland Travel Ticket
+    
     @FXML
     private TreeView<?> tarjetasTV;
     @FXML
@@ -38,6 +53,16 @@ public class TransporteController implements Initializable {
     private JFXTextField DuracionTF;
     @FXML
     private JFXTextField precioTF;
+    
+    
+    private static GestionBD gestion;
+    private Connection conn;
+    private TransportesDAO transDAO;
+    private Transporte transporte;
+    
+    
+    private List<Transporte> listaTransporte = new ArrayList<>();
+    
 
     public void setConn(Connection conn) {
         this.conn = conn;
@@ -45,7 +70,17 @@ public class TransporteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+       transDAO = new TransportesDAO(gestion);
+    }
+    
+    private void listar(){      
+        try {
+            listaTransporte = transDAO.listarTarjetas();
+        } catch (SQLException ex) {
+           Notificacion.error("ERROR SQL", "Hay un problema al listar");
+        }
+        
+        System.out.println("Lista Transporte: " + listaTransporte);
     }
 
 }
