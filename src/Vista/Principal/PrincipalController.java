@@ -5,6 +5,7 @@ import Modelo.Notificacion;
 import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
+import Vista.CrearExperiencia.CrearExperienciaController;
 
 import Vista.Perfil.PerfilController;
 
@@ -72,44 +73,47 @@ public class PrincipalController implements Initializable {
     private void irActividad(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-        String nombrefichero = "/Vista/Actividad/Actividad.fxml";
-        ActividadController.setGestion(gestion);
-        loader.setLocation(getClass().getResource(nombrefichero));
+
+        ActividadController controlador;
+
+        loader.setLocation(getClass().getResource("/Vista/Actividad/Actividad.fxml"));
         try {
-            Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
-//           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+            Parent root = loader.load();
+
+            controlador = loader.getController();
+            controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
-            /////////tratar el error////
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
-            Notificacion.error("ERROR AL CARGAR VENTANA ACTIVIDAD",
-                    "Revisa el código y vuelve a intentarlo,(irActividad PrincipalController)");
+            es.printStackTrace();
+            Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
-//        ActividadController actividadController=loader.getController(); por si hace falta
     }
 
     @FXML
     private void irExperiencia(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-        String nombrefichero = "/Vista/Experiencia/Experiencia.fxml";
-        ExperienciaController.setGestion(gestion);
-        loader.setLocation(getClass().getResource(nombrefichero));
+
+        ExperienciaController controlador;
+
+        loader.setLocation(getClass().getResource("/Vista/Experiencia/Experiencia.fxml"));
         try {
-            Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
-//           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+            Parent root = loader.load();
+
+            controlador = loader.getController();
+            controlador.setGestion(gestion);
+            controlador.setUsuario(usuario);
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-
             ex.printStackTrace();
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
         } catch (Exception es) {
+            es.printStackTrace();
             Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
-//        ActividadController actividadController=loader.getController(); por si hace falta
     }
 
     @FXML

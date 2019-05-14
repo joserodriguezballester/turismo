@@ -25,6 +25,9 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -109,10 +112,9 @@ public class CrearExperienciaController implements Initializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-    }
-
-    public Experiencia getExperiencia() {
-        return experiencia;
+        if (experiencia == null) {
+            experiencia = new Experiencia(usuario.getId());
+        }
     }
 
     public void setExperiencia(Experiencia experiencia) {
@@ -124,6 +126,19 @@ public class CrearExperienciaController implements Initializable {
 
     @FXML
     private void AñadirActividad(ActionEvent event) {
+        int orden = 1;
+        LocalDateTime fechaInicio = LocalDateTime.of(datePickerFechaInicio.getValue(), timePickerHoraInicio.getValue());
+        LocalDateTime fechaFinal = LocalDateTime.of(datePickerFechaFinal.getValue(), timePickerHoraFinal.getValue());
+        Actividad actividad = listaActividadesElegir.getSelectionModel().getSelectedItem();
+        ActividadExperiencia nueva = new ActividadExperiencia(
+                orden,
+                experiencia.getId(),
+                actividad,
+                fechaInicio,
+                fechaFinal,
+                actividad.getPrecio(),
+                Integer.parseInt(textNumPlazas.getText()));
+        listaActividadesCarrito.getItems().add(nueva);
     }
 
     @FXML
@@ -167,7 +182,7 @@ public class CrearExperienciaController implements Initializable {
         for (ActividadExperiencia act : listaActividadesCarrito.getItems()) {
             precio += act.getPrecio();
         }
-        etiquetaPrecioTotal.setText(String.valueOf(precio));
+        salidaPrecio.setText(String.valueOf(precio));
     }
 
     @FXML

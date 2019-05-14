@@ -51,13 +51,14 @@ public class ActividadController implements Initializable {
     @FXML
     private JFXButton botonCerrarInformacion;
 
-    private static GestionBD gestion;
+    private GestionBD gestion;
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
     private actividadesDAO gestionBDActividad;
 
-    public static void setGestion(GestionBD gestion) {
-        ActividadController.gestion = gestion;
+    public void setGestion(GestionBD gestion) {
+        this.gestion = gestion;
+        inicio();
     }
     @FXML
     private Label etiquetaSubtipoTitulo;
@@ -86,11 +87,13 @@ public class ActividadController implements Initializable {
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
-        gestionBDActividad = new actividadesDAO(gestion);
 
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+    }
 
+    private void inicio() {
+        gestionBDActividad = new actividadesDAO(gestion);
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
             System.out.println(lista.isEmpty());
@@ -120,14 +123,13 @@ public class ActividadController implements Initializable {
                 paneListaBotones.getChildren().add(botonLista);
             }
         } catch (SQLException e) {
-            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+            Notificacion.error("ERROR SQL EXCEPTION", "Problemas con la DB"
                     + "(initialize ActividadController");
         } catch (Exception e) {
             e.printStackTrace();
-            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+            Notificacion.error("ERROR EXCEPTION", "Comprueba tu código"
                     + "(initialize ActividadController");
         }
-
     }
 
     public void cargarActividades(Tipo tipo) {
@@ -139,10 +141,10 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException e) {
-            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+            Notificacion.error("ERROR SQL EXCEPTION", "Problemas con la DB"
                     + "(cargarActividades ActividadController");
         } catch (Exception e) {
-            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+            Notificacion.error("ERROR EXCEPTION", "Comprueba tu código"
                     + "(cargarActividades ActividadController");
 
         }
@@ -194,7 +196,7 @@ public class ActividadController implements Initializable {
             }
         } catch (Exception e) {
             fotoActividad.setVisible(false);
-            Notificacion.error("ERROR EXCEPTION","la foto no ha podido cargarse"
+            Notificacion.error("ERROR EXCEPTION", "la foto no ha podido cargarse"
                     + "(cargarInformacionActividad ActividadController");
         }
 

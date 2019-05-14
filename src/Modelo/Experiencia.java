@@ -22,6 +22,10 @@ public class Experiencia {
         this.listaActividades = listaActividades;
     }
 
+    public Experiencia(int idUsuario) {
+        this.idUsuario = idUsuario;
+    }
+
     public int getId() {
         return id;
     }
