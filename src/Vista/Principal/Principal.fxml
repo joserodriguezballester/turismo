@@ -2,6 +2,8 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -14,8 +16,11 @@
    <children>
       <AnchorPane fx:id="Menu" prefHeight="70.0" prefWidth="1300.0" AnchorPane.bottomAnchor="710.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane fx:id="gridpane" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -26,11 +31,20 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="botonActividades" mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="300.0" text="Actividades" />
-                  <Button fx:id="botonExperiencias" mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="1" />
-                  <Button fx:id="botonPerfil" mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="300.0" text="Perfil" GridPane.columnIndex="2" />
-                  <Button fx:id="botonBuscar" mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="300.0" text="Buscar" GridPane.columnIndex="3" />
-                  <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Transportes" GridPane.columnIndex="4" />
+                  <Button fx:id="botonActividades" mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="300.0" text="Actividades" GridPane.columnIndex="1" />
+                  <Button fx:id="botonExperiencias" mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="2" />
+                  <Button fx:id="botonPerfil" mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="300.0" text="Perfil" GridPane.columnIndex="7" />
+                  <Button fx:id="botonBuscar" mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="300.0" text="Buscar" GridPane.columnIndex="6" />
+                  <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Transportes" GridPane.columnIndex="3" />
+                  <Button fx:id="botonLogo" mnemonicParsing="false" prefHeight="75.0" prefWidth="162.0">
+                     <graphic>
+                        <ImageView fitHeight="53.0" fitWidth="134.0" pickOnBounds="true">
+                           <image>
+                              <Image url="@../../Imagenes/log1.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </Button>
                </children>
             </GridPane>
          </children>
