@@ -161,10 +161,12 @@ public class ExperienciaController implements Initializable {
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
+            not.error("ERROR IOException",
+                    "en CargarVentanaCrear() --- ExperienciaController");
         } catch (Exception es) {
             es.printStackTrace();
             not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
-                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+                    "en CargarVentanaCrear --- ExperienciaController");
         }
     }
 
@@ -185,10 +187,12 @@ public class ExperienciaController implements Initializable {
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
+            not.error("ERROR IOException",
+                    "en CargarVentanaCrear(param) --- ExperienciaController");
         } catch (Exception es) {
             es.printStackTrace();
             not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
-                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+                    "en CargarVentanaCrear(param) --- ExperienciaController");
         }
     }
 }

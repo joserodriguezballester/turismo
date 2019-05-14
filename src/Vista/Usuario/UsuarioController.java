@@ -2,6 +2,7 @@ package Vista.Usuario;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
+import Modelo.Notificacion;
 import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Administrador.Principal.PrincipalAdminController;
@@ -37,14 +38,17 @@ public class UsuarioController implements Initializable {
     private Label label;
     private Label nombreET;
     private Stage escenario;
-    private GestionBD gestion;
-    private usuariosDAO usuarioDAO;
-    Usuario usuario;
+    
     @FXML
     private PasswordField contraTF;
     @FXML
     private TextField nickTF;
     private Pane Ventana;
+    
+    private GestionBD gestion;
+    private usuariosDAO usuarioDAO;
+    Usuario usuario;
+    private Notificacion not;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -60,8 +64,8 @@ public class UsuarioController implements Initializable {
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
 //        logearseBueno();
-//        logearseComoCliente();
-        logearseComoAdministrador();
+        logearseComoCliente();
+        //logearseComoAdministrador();
     }
 
     @FXML
@@ -80,7 +84,8 @@ public class UsuarioController implements Initializable {
             escena.setScene(new Scene(root));
             escena.showAndWait();
         } catch (IOException ex) {
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            not.error("ERROR IOException",
+                    "en Registrarse() --- UsuarioController");
 
         }
 
@@ -112,7 +117,8 @@ public class UsuarioController implements Initializable {
             escenario.show();
 
         } catch (IOException ex) {
-
+            not.error("ERROR IOException",
+                    "en cargarVentanaPrincipal() --- UsuarioController");
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
             System.err.println("error");  ////mostrar en ventana
         }
@@ -134,6 +140,8 @@ public class UsuarioController implements Initializable {
             //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
 
         } catch (IOException ex) {
+            not.error("ERROR IOException",
+                    "en cargarVentanaRegistrarse() --- UsuarioController");
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
 //       mostrar error
 
@@ -162,7 +170,8 @@ public class UsuarioController implements Initializable {
             escenario.show();
 
         } catch (IOException ex) {
-
+            not.error("ERROR IOException",
+                    "en cargarVentanaPrincipalAdmin() --- UsuarioController");
 //            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
             System.err.println("error");  ////mostrar en ventana
         }
@@ -197,11 +206,13 @@ public class UsuarioController implements Initializable {
                     if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
                         cargarVentanaPrincipalAdmin();  //usuario administrador
                     } else {
-                        System.out.println("Segun lorenzo soy tonto");
+                        not.error("Segun lorenzo soy tonto",
+                            "en logearseBueno() --- UsuarioController");
                     }
                 }
             } catch (SQLException ex) {
-                ////tratar error ////
+                not.error("ERROR SQL",
+                    "en logearseBueno() --- UsuarioController");
             }
         } else {
 //             mostrar ventana que no existe o contraseña erronea

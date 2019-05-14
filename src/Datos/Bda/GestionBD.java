@@ -5,6 +5,7 @@
  */
 package Datos.Bda;
 
+import Modelo.Notificacion;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -20,6 +21,7 @@ public class GestionBD {
     private String informacion;  //mensajes de resultado de conexion o desconexion
     private boolean conectado;
     private PreparedStatement ps;
+    private Notificacion not;
 
     public Connection getConn() {
         return conn;
@@ -59,9 +61,10 @@ public class GestionBD {
                     + nombre
                     + "\n URL utilizada "
                     + url + "\n ERROR: " + ex.getMessage();
-
-        } catch (Exception ex) {
-            throw ex;
+            not.error("ERROR SQL", "" + ex.getMessage() + " en conectar()--- GestionBD");
+        } catch (Exception es) {
+            throw es;
+            
         }
         return conectado;
     }

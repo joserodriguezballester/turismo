@@ -7,6 +7,7 @@ package Vista.Administrador.Transportes;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.TransportesDAO;
+import Modelo.Notificacion;
 import Modelo.Transporte;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -48,6 +49,8 @@ public class TransportesAdminController implements Initializable {
     private JFXTextField seleccionado;
     private GestionBD gestion;
     private Transporte transporte;
+    private Notificacion not;
+    
 //Amsterdam Travel Ticket
 //Amsterdam Travel Ticket
 //Amsterdam Travel Ticket
@@ -85,7 +88,8 @@ public class TransportesAdminController implements Initializable {
             TreeItem<String> tarjetas = new TreeItem<>("Tarjetas");
             tarjetasTV.setRoot(tarjetas);
         } catch (SQLException ex) {
-            Logger.getLogger(TransportesAdminController.class.getName()).log(Level.SEVERE, null, ex);
+            not.error("ERROR SQL", "" + ex.getMessage() + 
+                    "en  initialize --- TransportesAdminController");
         }
 
     }

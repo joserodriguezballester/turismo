@@ -6,15 +6,12 @@ import Datos.Bda.experienciasDAO;
 import Modelo.Experiencia;
 import Modelo.Notificacion;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -193,12 +190,9 @@ public class ExperienciaAdminController implements Initializable {
             tb_idUsuario.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
             
         } catch(SQLException es){
-            System.out.println("ERROR SQL: " + es.getMessage());
+            not.error("ERROR SQL","" + es.getMessage() + 
+                    " en listar() --- ExperienciaAdminController");
         }
-    }
-    
-    private void cargarTabla(){
-        
     }
     
     
@@ -239,7 +233,8 @@ public class ExperienciaAdminController implements Initializable {
             }
             
         } catch(Exception ex){
-            not.alert("ATENCION", "Problema al cargar la foto");
+            not.error("ERROR EXCEPTION","" + ex.getMessage() + 
+                    " en seleccionarItem() --- ExperienciaAdminController");
         }      
     }
     

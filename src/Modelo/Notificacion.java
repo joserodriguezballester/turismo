@@ -28,9 +28,11 @@ public class Notificacion {
         });
         
         notification.showInformation();
+        notification.show();
     }
     
     public void confirm(String titulo, String mensaje){
+        
         Notifications notification = Notifications.create()
         .title(titulo)
         .text(mensaje)
@@ -72,7 +74,7 @@ public class Notificacion {
         .text(mensaje)
         .graphic(null)
         .hideAfter(Duration.seconds(25))
-        .position(Pos.BOTTOM_RIGHT)
+        .position(Pos.TOP_LEFT)
         .onAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {

@@ -296,6 +296,8 @@ public class CrearExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            not.error("ERROR SQL", "" + e.getMessage() + 
+                    "en cargarTodasActividades --- CrearExperienciaController");
         }
 
     }
@@ -324,6 +326,8 @@ public class CrearExperienciaController implements Initializable {
         } catch (SQLException e) {
 //            EXCEPCION SQL
             e.printStackTrace();
+            not.error("ERROR SQL", "" + e.getMessage() + 
+                    "en actualizarTipos --- CrearExperienciaController");
         }
         cargarTodasActividades();
     }
@@ -341,6 +345,8 @@ public class CrearExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            not.error("ERROR SQL", "" + e.getMessage() + 
+                    "en actualizarSubtipos --- CrearExperienciaController");
         }
         cargarTodasActividades();
     }

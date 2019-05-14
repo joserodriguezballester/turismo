@@ -46,10 +46,9 @@ public class PrincipalController implements Initializable {
     @FXML
     private Button botonTransportes;
     private Usuario usuario;
-private Notificacion not;
-    /**
-     * Initializes the controller class.
-     */
+    private Notificacion not;
+  
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
@@ -66,6 +65,8 @@ private Notificacion not;
             tr.start();
         } catch (Exception e) {
             System.out.println("ha petao");
+            not.error("ERROR Exception",
+                    "en initialize --- PrincipalController");
         }
 
     }
@@ -86,9 +87,11 @@ private Notificacion not;
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
+            not.error("ERROR IOException",
+                    "en irActividad --- PrincipalController");
         } catch (Exception es) {
             es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+            not.error("ERROR AL CARGAR VENTANA ACTIVIDAD",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
     }
@@ -110,6 +113,8 @@ private Notificacion not;
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
+            not.error("ERROR IOException",
+                    "en irActividad --- PrincipalController");
         } catch (Exception es) {
             es.printStackTrace();
             not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
@@ -137,9 +142,10 @@ private Notificacion not;
             Ventana.getChildren().add(root);
 
         } catch (IOException ex) {
-            /////////tratar el error////
+            
             ex.printStackTrace();
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            not.error("ERROR IOException",
+                    "en irPerfil --- PrincipalController");
         } catch (Exception es) {
             not.error("ERROR AL CARGAR VENTANA PERFIL",
                     "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
@@ -158,9 +164,10 @@ private Notificacion not;
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            /////////tratar el error////
+            
             ex.printStackTrace();
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            not.error("ERROR IOException",
+                    "en irBuscar --- PrincipalController");
         } catch (Exception es) {
             not.error("ERROR AL CARGAR VENTANA BUSCADOR",
                     "Revisa el código y vuelve a intentarlo, (irBuscar PrincipalController)");
@@ -187,9 +194,10 @@ private Notificacion not;
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            /////////tratar el error////
+            
             ex.printStackTrace();
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            not.error("ERROR IOException",
+                    "en irTransporte --- PrincipalController");
         } catch (Exception es) {
             not.error("ERROR AL CARGAR VENTANA TRANSPORTE",
                     "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");

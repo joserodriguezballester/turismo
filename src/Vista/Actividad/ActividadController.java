@@ -124,13 +124,13 @@ public class ActividadController implements Initializable {
             for (Button botonLista : botones) {
                 paneListaBotones.getChildren().add(botonLista);
             }
-        } catch (SQLException e) {
-            not.error("ERROR SQL EXCEPTION", "Problemas con la DB"
-                    + "(initialize ActividadController");
-        } catch (Exception e) {
-            e.printStackTrace();
-            not.error("ERROR EXCEPTION", "Comprueba tu código"
-                    + "(initialize ActividadController");
+        } catch (SQLException ex) {
+             not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en inicio --- ActividadController");
+        } catch (Exception es) {
+            es.printStackTrace();
+             not.error("ERROR EXCEPTION","" + es.getMessage() + 
+                    " en cargarActividades --- ActividadController");
         }
     }
 
@@ -142,12 +142,12 @@ public class ActividadController implements Initializable {
                 listaDatosActividades.add(actividad);
             }
             listaElementos.setItems(listaDatosActividades);
-        } catch (SQLException e) {
-            not.error("ERROR SQL EXCEPTION", "Problemas con la DB"
-                    + "(cargarActividades ActividadController");
-        } catch (Exception e) {
-            not.error("ERROR EXCEPTION", "Comprueba tu código"
-                    + "(cargarActividades ActividadController");
+        } catch (SQLException ex) {
+            not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en cargarActividades --- ActividadController");
+        } catch (Exception es) {
+            not.error("ERROR EXCEPTION","" + es.getMessage() + 
+                    " en cargarActividades --- ActividadController");
 
         }
     }
@@ -197,10 +197,11 @@ public class ActividadController implements Initializable {
                 fotoActividad.setFitWidth(330);
                 fotoActividad.setPreserveRatio(false);
             }
-        } catch (Exception e) {
+        } catch (Exception es) {
             fotoActividad.setVisible(false);
-            not.error("ERROR EXCEPTION", "la foto no ha podido cargarse"
-                    + "(cargarInformacionActividad ActividadController");
+            not.error("ERROR EXCEPTION","" + es.getMessage() + 
+                    " en cargarInformacionActividad --- ActividadController");
+            
         }
 
         if (actividad.getUrl() == null) {

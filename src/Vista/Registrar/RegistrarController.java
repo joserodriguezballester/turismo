@@ -7,6 +7,7 @@ package Vista.Registrar;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
+import Modelo.Notificacion;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
@@ -64,11 +65,11 @@ public class RegistrarController implements Initializable {
     private RadioButton AdminRB;
     @FXML
     private Button salirBT;
-
-  
-    private usuariosDAO usuarioDAO;
     @FXML
     private JFXTextField rolTF;
+    
+    private usuariosDAO usuarioDAO;
+    private Notificacion not;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -108,6 +109,8 @@ public class RegistrarController implements Initializable {
             //////// fin cerrar ventana ////
         }else{
             System.out.println("contraseña distinta");
+            not.error("ERROR contraseña distinta",
+                    "en registrar --- RegistrarController");
         }
         // ---- I SINO QUE?
     }

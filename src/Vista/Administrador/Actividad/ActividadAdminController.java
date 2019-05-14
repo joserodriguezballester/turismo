@@ -6,21 +6,14 @@ import Datos.Bda.actividadesDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
-import Modelo.Usuario;
-import Vista.Actividad.ActividadController;
-import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -33,7 +26,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 
@@ -130,10 +122,10 @@ public class ActividadAdminController implements Initializable {
         try {
             listaTipos = activiDAO.consultarTipoActividades();
         } catch (SQLException ex) {
-            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
-                                                     + "\nconsultar a la DB"); 
+             not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en ejecutarAlPrincipio() --- ActividadAdminController"); 
         }
-        System.out.println("LISTA TIPOS: " + listaTipos);
+        
         cargarCombo();
     }
     
@@ -154,7 +146,7 @@ public class ActividadAdminController implements Initializable {
             id = String.valueOf(valor.getId());
             tipos.add(id);
         }
-        System.out.println("TIPOS: " + tipos);
+        
         comboListarIdTipo.setItems(tipos);
     }
     
@@ -167,10 +159,11 @@ public class ActividadAdminController implements Initializable {
             lista = activiDAO.listarActividad();           
           
         } catch (SQLException ex) {
-            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
-                                                     + "\nconsultar a la DB"); 
+            not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en listar() --- ActividadAdminController"); 
         } catch (Exception es){
-            not.error("ERROR EXCEPTION ", "Ha ocurrido un grave problema");
+            not.error("ERROR EXCEPTION","" + es.getMessage() + 
+                    " en listar() --- ActividadAdminController");
         }
         cargarTabla(lista);
     }
@@ -207,10 +200,11 @@ public class ActividadAdminController implements Initializable {
         try{
            listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
         }catch (SQLException ex){
-           not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
-                                                     + "\nconsultar a la DB"); 
+           not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en cargarTablaPorTipo() --- ActividadAdminController");  
         }catch (Exception es){
-           not.error("ERROR EXCEPTION","verifica tu código no es correcto"); 
+           not.error("ERROR EXCEPTION","" + es.getMessage() + 
+                    " en cargarTablaPorTipo() --- ActividadAdminController"); 
         }
         cargarTabla(listaPorTipo);    
     }
@@ -263,7 +257,8 @@ public class ActividadAdminController implements Initializable {
                 imageView.setPreserveRatio(false);
             }
         } catch (Exception ex){
-            not.error("ERROR EXCEPTION","la foto no ha podido cargarse");
+            not.error("ERROR EXCEPTION","" + ex.getMessage() + 
+                    " en seleccionarItem() --- ActividadAdminController");
         }          
     }
     
@@ -289,16 +284,16 @@ public class ActividadAdminController implements Initializable {
             ok = activiDAO.insertarActividad(id, nombre, precio, horario,
                          descripcion, url, direccion, telefono, foto, idsubTipo);
         } catch (SQLException ex) {
-            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
-                                                     + "\ninsertar un registro");
+            not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en insertar() --- ActividadAdminController");
         }
         if(ok == true){
-            not.info("INSERTAR EN TABLA ACTIVIDADES", "La operación "
-                    + "\nse ha realizado con éxito");
+            not.info("INSERTAR CON EXITO EN TABLA ACTIVIDADES", 
+                    " en insertar() --- ActividadAdminController");
         }
         else {
-            not.info("INSERTAR EN TABLA ACTIVIDADES","No se ha podido "
-                     + "\ninsertar el registro verifica el problema");
+            not.info("INSERTAR SIN EXITO EN TABLA ACTIVIDADES", 
+                    " en insertar() --- ActividadAdminController");
         }
     }
   
@@ -310,17 +305,6 @@ public class ActividadAdminController implements Initializable {
         String nombre, descripcion, horario, direccion, url, telefono, foto;
         
         actividad = tableview.getSelectionModel().getSelectedItem();
-        
-//        id = actividad.getId();
-//        nombre = actividad.getNombre();
-//        descripcion = actividad.getDescripcion();
-//        horario = actividad.getHorario();
-//        precio = actividad.getPrecio();
-//        direccion = actividad.getDireccion();
-//        url = actividad.getUrl();
-//        telefono = actividad.getTelefono();
-//        foto = actividad.getFoto();
-//        idsubTipo = actividad.getIdsubTipo();
         
         id = Integer.parseInt(textId.getText());
         nombre = textNombre.getText();
@@ -337,15 +321,15 @@ public class ActividadAdminController implements Initializable {
             ok = activiDAO.modificarActividad(id,nombre,precio,horario,descripcion,
                                       url,direccion,telefono,foto,idsubTipo);
         } catch (SQLException ex) {
-            not.error("ERROR SQL EXCEPTION", "Ha habido un problema al "
-                                                     + "\nactualizar un registro");
+            not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en actualizar() --- ActividadAdminController");
         }if(ok){
-            not.info("ACTUALIZAR EN TABLA ACTIVIDADES", "La operación "
-                    + "\nse ha realizado con éxito");
+            not.info("ACTUALIZAR CON EXITO EN TABLA ACTIVIDADES", 
+                    " en actualizar() --- ActividadAdminController");
         }
         else {
-            not.info("ACTUALIZAR EN TABLA ACTIVIDADES","No se ha podido "
-                     + "\nactualizar el registro verifica el problema");
+            not.info("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES", 
+                    " en actualizar() --- ActividadAdminController");
         }
     }
  
@@ -362,16 +346,17 @@ public class ActividadAdminController implements Initializable {
         try {
             ok = activiDAO.borrarActividad(id);
         } catch (SQLException ex) {
-//            Logger.getLogger(ActividadAdminController.class.getName()).log(Level.SEVERE, null, ex);
+            not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en actualizar() --- ActividadAdminController");
         }
         
         if(ok){
-            not.info("ELIMINAR EN TABLA ACTIVIDADES", "La operación "
-                    + "\nse ha realizado con éxito");
+            not.info("ELIMINAR CON EXITO EN TABLA ACTIVIDADES", 
+                    " en eliminar() --- ActividadAdminController");
         }
         else {
-            not.info("ELIMINAR EN TABLA ACTIVIDADES","No se ha podido "
-                     + "\neliminar el registro verifica el problema");
+            not.info("ELIMINAR SIN EXITO EN TABLA ACTIVIDADES", 
+                    " en eliminar() --- ActividadAdminController");
         }
     }
     
@@ -399,12 +384,13 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private void anadir(ActionEvent event) {
         insertar();
+        listar();
     }
 
     @FXML
     private void modificar(ActionEvent event) {
-        not.confirm("MODIFICAR EN TABLA ACTIVIDAD", "Estas seguro de esta modificación");
         actualizar();
+        listar();
     }
 
     @FXML

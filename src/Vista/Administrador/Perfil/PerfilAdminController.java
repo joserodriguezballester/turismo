@@ -142,7 +142,8 @@ private Notificacion not;
             escena.setScene(new Scene(root));
             escena.showAndWait();
         } catch (IOException ex) {
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            not.error("ERROR IOException","" + ex.getMessage() + 
+                    " en anadir() --- PerfilAdminController");
 
         }
 
@@ -166,7 +167,8 @@ private Notificacion not;
         try {
             usuarioDAO.modificarUsuario(DNI, nombre, apellidos, rol, nick, direccion, telefono, email, id);
         } catch (SQLException ex) {
-            not.error("ERROR SQL ", "Ha ocurrido un grave problema");
+            not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en modificar() --- PerfilAdminController");
         }
 
     }
@@ -199,9 +201,11 @@ private Notificacion not;
             cargarUsuarios(lista);
 
         } catch (SQLException ex) {
-            not.error("ERROR SQL ", "Ha ocurrido un grave problema");
+            not.error("ERROR SQL","" + ex.getMessage() + 
+                    " en cargarTabla() --- PerfilAdminController");
         } catch (Exception es) {
-            not.error("ERROR EXCEPTION ", "Ha ocurrido un grave problema");
+            not.error("ERROR EXCEPTION","" + es.getMessage() + 
+                    " en cargarTabla() --- PerfilAdminController");
         }
 
     }

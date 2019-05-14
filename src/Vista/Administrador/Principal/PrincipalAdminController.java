@@ -46,13 +46,14 @@ public class PrincipalAdminController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
- try {
+        
+        try {
             Transicion tr = new Transicion();
             tr.setRoot(Ventana);
             tr.start();
         } catch (Exception e) {
             System.out.println("ha petao");
+            not.error("ERROR EXCEPTION" ," Error en el carrusel");
         }
 //        gestion = new GestionBD();
 //        gestion.conectar();
@@ -79,11 +80,10 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            /////////tratar el error////
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+             not.error("ERROR IOExcepction" ," No se encuentra la ventana de login");
         } catch (Exception es) {
             not.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,"
-          + " No se encuentra la ventana de login (irActividad PrincipalAdminController)");
+          + "(irActividad PrincipalAdminController)");
         
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
@@ -106,11 +106,10 @@ public class PrincipalAdminController implements Initializable {
             
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            /////////tratar el error////
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+             not.error("ERROR IOExcepction" ," No se encuentra la ventana de login");
         } catch (Exception es){
             not.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,"
-         + "  No se encuentra la ventana de login (irExperiencia PrincipalAdminController)");
+         + "(irExperiencia PrincipalAdminController)");
         
         }
     }
@@ -129,11 +128,10 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            /////////tratar el error////
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            not.error("ERROR IOExcepction" ," No se encuentra la ventana de login");
         } catch (Exception es){
             not.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
-        + "  No se encuentra la ventana de login (irPerfil PrincipalAdminController)");
+        + "(irPerfil PrincipalAdminController)");
         
         }
     }
@@ -158,11 +156,10 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            /////////tratar el error////
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+           not.error("ERROR IOExcepction" ," No se encuentra la ventana de login");
         } catch (Exception es){
-            not.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
-        + "  No se encuentra la ventana de login (irPerfil PrincipalAdminController)");
+            not.error("ERROR AL CARGAR TRNSPORTE ADMIN", "Verifica tu código,"
+        + "(irTransporteAdmin PrincipalAdminController)");
         
         }
         

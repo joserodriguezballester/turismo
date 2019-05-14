@@ -93,9 +93,9 @@ public class RegistrarAdminController implements Initializable {
             //insertar usuario en BD//
             boolean insertado = usuarioDAO.insertarUsuario(usuario);
             if (insertado) {
-                ///mostrar aviso se ha insertado correctamente
+                not.info("INFORMACION", "Se ha insertado correctamente");
             } else {
-                ///mostrar aviso NO se ha insertado correctamente
+                not.info("INFORMACION", "No se ha insertado");
             }
 
             //////// cerrar ventana ////
@@ -109,7 +109,7 @@ public class RegistrarAdminController implements Initializable {
             contraPF.setUnFocusColor(color2);
             repContraPF.setUnFocusColor(color);
 
-            not.alert("alerta", "contraseña distinta"); // solo imprime
+            not.alert("ATENCION", "contraseña distinta"); // solo imprime
         }
 
     }

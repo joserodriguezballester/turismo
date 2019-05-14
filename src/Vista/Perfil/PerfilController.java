@@ -5,12 +5,9 @@
  */
 package Vista.Perfil;
 
-import Datos.Bda.GestionBD;
+
 import Modelo.Usuario;
-import Vista.Usuario.UsuarioController;
 import java.net.URL;
-import java.sql.Connection;
-import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -20,10 +17,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
 
 /**
  * FXML Controller class

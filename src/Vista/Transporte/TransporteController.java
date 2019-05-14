@@ -59,6 +59,7 @@ public class TransporteController implements Initializable {
     private Connection conn;
     private TransportesDAO transDAO;
     private Transporte transporte;
+    private Notificacion not;
     
     
     private List<Transporte> listaTransporte = new ArrayList<>();
@@ -77,7 +78,8 @@ public class TransporteController implements Initializable {
         try {
             listaTransporte = transDAO.listarTarjetas();
         } catch (SQLException ex) {
-        
+            not.error("ERROR SQL",
+                    "en listar --- TransporteController");
         }
         System.out.println("Lista Transporte: " + listaTransporte);
     }

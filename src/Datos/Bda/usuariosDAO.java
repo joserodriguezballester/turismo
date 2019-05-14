@@ -6,6 +6,7 @@
 package Datos.Bda;
 
 import Modelo.Actividad;
+import Modelo.Notificacion;
 import Modelo.Usuario;
 import java.sql.Connection;
 import java.sql.Date;
@@ -23,7 +24,8 @@ import java.util.logging.Logger;
  * @author Usuario
  */
 public class usuariosDAO {
-
+    
+    private Notificacion not;
     private final GestionBD gestion;
 
     public usuariosDAO(GestionBD gestion) {
@@ -51,14 +53,17 @@ public class usuariosDAO {
             ps.executeUpdate();
             insertado = true;
 
-        } catch (SQLException e) {
-//////////           tratar error System.out.println("error sql");
-//MENSAJE DE ERROR
+        } catch (SQLException ex) {
+            not.error("SQL ERROR","" + ex.getMessage() + " en insertarUsuario() --- usuariosDAO");
         }
         return insertado;
     }
 
     //READ
+    
+    
+    
+    
     //UPDATE
     public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id) throws SQLException {
         boolean insertado = false;
@@ -89,8 +94,8 @@ public class usuariosDAO {
             ps.setInt(1, idUsuario);
             ps.executeUpdate();
             borrado = true;
-        } catch (SQLException e) {
-            //MENSAJE DE ERROR
+        } catch (SQLException ex) {
+            not.error("SQL ERROR","" + ex.getMessage() + " en insertarUsuario() --- usuariosDAO");
         }
         return borrado;
     }
@@ -105,8 +110,8 @@ public class usuariosDAO {
             while (rs.next()) {
                 contrasena = rs.getString("Contraseña");
             }
-        } catch (SQLException e) {
-            //MENSAJE DE ERROR
+        } catch (SQLException ex) {
+            not.error("SQL ERROR","" + ex.getMessage() + " en insertarUsuario() --- usuariosDAO");
         }
         return contrasena;
     }

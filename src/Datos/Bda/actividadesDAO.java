@@ -6,6 +6,7 @@
 package Datos.Bda;
 
 import Modelo.Actividad;
+import Modelo.Notificacion;
 import Modelo.Subtipo;
 import Modelo.Tipo;
 import Modelo.Usuario;
@@ -21,7 +22,8 @@ import java.util.List;
  * @author Usuario
  */
 public class actividadesDAO {
-
+    
+    private Notificacion not;
     private GestionBD gestion;
     private Connection conn;
     private ResultSet rs;
@@ -59,6 +61,7 @@ public class actividadesDAO {
 
         } catch (SQLException ex) {
             System.out.println("error sql");
+            not.error("SQL ERROR", "" + ex.getMessage() + " en cargaUsuario()--- actividadesDAO");
         }
         return usuario;
     }
@@ -84,6 +87,7 @@ public class actividadesDAO {
             insertado = true;
         } else {
             System.out.println("Conexion insertar es null");
+            
         }
 
         return insertado;

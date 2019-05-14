@@ -6,6 +6,7 @@
 package Datos.Bda;
 
 import Modelo.Experiencia;
+import Modelo.Notificacion;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,7 +22,8 @@ import java.util.List;
  * @author Usuario
  */
 public class experienciasDAO {
-
+    
+    private Notificacion not;
     private GestionBD gestion;
     private Connection conn;
 
@@ -116,8 +118,8 @@ public class experienciasDAO {
             ps.setInt(1, idExperiencia);
             ps.executeUpdate();
             borrado = true;
-        } catch (SQLException e) {
-            //MENSAJE DE ERROR
+        } catch (SQLException ex) {
+            not.error("SQL ERROR", "" + ex.getMessage() + " en borrarExperiencia() --- experienciasDAO");
         }
 
         return borrado;
