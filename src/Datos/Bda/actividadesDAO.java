@@ -6,6 +6,7 @@
 package Datos.Bda;
 
 import Modelo.Actividad;
+import Modelo.Subtipo;
 import Modelo.Tipo;
 import Modelo.Usuario;
 import java.sql.Connection;
@@ -14,7 +15,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  *
@@ -30,9 +30,9 @@ public class actividadesDAO {
         this.gestion = gestion;
         this.conn = gestion.getConn();
     }
-    
-    public Usuario cargarUsuario(String nick)  {
-        Usuario usuario=null ;
+
+    public Usuario cargarUsuario(String nick) {
+        Usuario usuario = null;
         try {
             usuario = new Usuario();
             java.sql.Date fechabda;
@@ -44,10 +44,10 @@ public class actividadesDAO {
             while (rs.next()) {
                 usuario.setId(rs.getInt("id"));
                 usuario.setPassword(rs.getString("contraseña"));
-                
+
                 fechabda = rs.getDate("fecNac");
                 usuario.setFecNac(fechabda.toLocalDate());
-                
+
                 usuario.setNombre(rs.getString("nombre"));
                 usuario.setApellidos(rs.getString("apellidos"));
                 usuario.setDni(rs.getString("dni"));
@@ -56,18 +56,18 @@ public class actividadesDAO {
                 usuario.setEmail(rs.getString("email"));
                 usuario.setPerfil(rs.getString("rol").toUpperCase());
             }
-          
+
         } catch (SQLException ex) {
             System.out.println("error sql");
         }
-         return usuario;
+        return usuario;
     }
 
     //CREATE
     public boolean insertarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int subtipo) throws SQLException {
         boolean insertado = false;
-      
-        if(gestion.getConn() != null){
+
+        if (gestion.getConn() != null) {
             String consulta = "INSERT INTO ACTIVIDADES (ID, NOMBRE, PRECIO, HORARIO, DESCRIPCION, URL, DIRECCION, TELEFONO, FOTO, IDSUBTIPO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setInt(1, id);
@@ -82,11 +82,10 @@ public class actividadesDAO {
             ps.setInt(10, subtipo);
             ps.executeUpdate();
             insertado = true;
-        }
-        else{
+        } else {
             System.out.println("Conexion insertar es null");
         }
-      
+
         return insertado;
     }
 
@@ -131,9 +130,7 @@ public class actividadesDAO {
     public boolean modificarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int idSubtipo) throws SQLException {
         boolean modificado = false;
 
-        if(gestion.getConn() != null){
-
-        
+        if (gestion.getConn() != null) {
 
             String consulta = "UPDATE ACTIVIDADES SET NOMBRE = ?, PRECIO = ?, HORARIO = ?, DESCRIPCION = ?, URL = ?, DIRECCION = ?, TELEFONO = ?, FOTO = ?, IDSUBTIPO = ? WHERE ID = ?;";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
@@ -157,7 +154,7 @@ public class actividadesDAO {
     public boolean borrarActividad(int idActividad) throws SQLException {
         boolean borrado = false;
 
-        if(gestion.getConn() != null){
+        if (gestion.getConn() != null) {
 
             String sql = "DELETE FROM ACTIVIDADES WHERE id = ?;";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
@@ -171,7 +168,7 @@ public class actividadesDAO {
     public List<Tipo> consultarTipoActividades() throws SQLException {
         List<Tipo> listaTiposActividades = new ArrayList<>();
 
-        if(gestion.getConn() != null){
+        if (gestion.getConn() != null) {
 
             String sql = "SELECT id, nombre FROM tipos;";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
@@ -187,7 +184,7 @@ public class actividadesDAO {
     public List<Actividad> consultarActividadesPorTipo(Tipo tipo) throws SQLException {
         List<Actividad> listaActividades = new ArrayList<>();
 
-        if(gestion.getConn() != null){
+        if (gestion.getConn() != null) {
 
             String sql = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ?);";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
@@ -209,5 +206,31 @@ public class actividadesDAO {
         }
         return listaActividades;
     }
-    
+
+    public List<Actividad> consultarActividadesPorTipoYSubTipo(Tipo tipo, Subtipo subtipo) throws SQLException {
+        List<Actividad> listaActividades = new ArrayList<>();
+
+        if (gestion.getConn() != null) {
+            String sql = "SELECT * FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ? AND idsubtipo = ?);"; //falta la consulta
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setInt(1, tipo.getId());
+            ps.setInt(2, subtipo.getId());
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listaActividades.add(new Actividad(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getDouble("precio"),
+                        rs.getString("horario"),
+                        rs.getString("descripcion"),
+                        rs.getString("url"),
+                        rs.getString("direccion"),
+                        rs.getString("telefono"),
+                        rs.getString("foto"),
+                        rs.getInt("idsubtipo")));
+            }
+        }
+        return listaActividades;
+    }
+
 }

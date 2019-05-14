@@ -32,6 +32,7 @@ public class subtiposDAO {
         List<Subtipo> lista = new ArrayList<>();
         String consulta = "SELECT id, idtipo, nombre FROM subtipos WHERE idtipo = ?;";
         PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setInt(1, tipo.getId());
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             lista.add(new Subtipo(rs.getInt("id"), tipo, rs.getString("nombre")));

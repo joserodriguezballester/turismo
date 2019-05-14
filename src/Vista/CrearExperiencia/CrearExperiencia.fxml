@@ -60,11 +60,6 @@
          </font>
       </Label>
       <JFXTextField fx:id="textNumPlazas" layoutX="638.0" layoutY="390.0" />
-      <Label fx:id="etiquetaNombreExperiencia" layoutX="646.0" layoutY="34.0">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Label>
       <JFXTextField fx:id="textNombreExperiencia" alignment="CENTER" layoutX="522.0" layoutY="39.0" promptText="Nombra tu experiencia...">
          <font>
             <Font size="24.0" />
@@ -82,6 +77,6 @@
             <Font size="14.0" />
          </font>
       </JFXTextArea>
-      <JFXComboBox fx:id="comboBoxSubTipos" layoutX="200.0" layoutY="70.0" prefHeight="30.0" prefWidth="150.0" />
+      <JFXComboBox fx:id="comboBoxSubTipos" layoutX="200.0" layoutY="70.0" onAction="#cargarActividades" prefHeight="30.0" prefWidth="150.0" />
    </children>
 </AnchorPane>

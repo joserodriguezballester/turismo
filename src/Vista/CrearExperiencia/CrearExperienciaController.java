@@ -6,9 +6,11 @@
 package Vista.CrearExperiencia;
 
 import Datos.Bda.GestionBD;
+import Datos.Bda.actividadesDAO;
 import Datos.Bda.experienciasDAO;
 import Datos.Bda.subtiposDAO;
 import Datos.Bda.tiposDAO;
+import Modelo.Actividad;
 import Modelo.ActividadExperiencia;
 import Modelo.Experiencia;
 import Modelo.Subtipo;
@@ -23,6 +25,7 @@ import com.jfoenix.controls.JFXTextField;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,7 +50,7 @@ public class CrearExperienciaController implements Initializable {
     @FXML
     private JFXListView<ActividadExperiencia> listaActividadesCarrito;
     @FXML
-    private JFXListView<ActividadExperiencia> listaActividadesElegir;
+    private JFXListView<Actividad> listaActividadesElegir;
     @FXML
     private Label etiquetaActividades;
     @FXML
@@ -74,8 +77,6 @@ public class CrearExperienciaController implements Initializable {
     private Label etiquetaNumPlazas;
     @FXML
     private JFXTextField textNumPlazas;
-    @FXML
-    private Label etiquetaNombreExperiencia;
     @FXML
     private JFXTextField textNombreExperiencia;
     @FXML
@@ -109,14 +110,14 @@ public class CrearExperienciaController implements Initializable {
 
     public void setExperiencia(Experiencia experiencia) {
         this.experiencia = experiencia;
+        textNombreExperiencia.setText(experiencia.getNombre());
+        cargarActividadesExperiencia();
+        actualizarTipos();
     }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        if (experiencia != null) {
-            etiquetaNombreExperiencia.setText(experiencia.getNombre());
-            cargarActividades();
-        }
+
     }
 
     @FXML
@@ -127,11 +128,36 @@ public class CrearExperienciaController implements Initializable {
     private void EliminarActividad(ActionEvent event) {
     }
 
-    private void cargarActividades() {
+    private void cargarActividadesExperiencia() {
         for (ActividadExperiencia act : experiencia.getListaActividades()) {
             listaActividadesCarrito.getItems().add(act);
         }
         calcularPrecio();
+    }
+
+    private void cargarTodasActividades() {
+        listaActividadesElegir.getItems().clear();
+        actividadesDAO actividadesDAO = new actividadesDAO(gestion);
+        Tipo tipo = comboBoxTipos.getSelectionModel().getSelectedItem();
+        Subtipo subtipo = comboBoxSubTipos.getSelectionModel().getSelectedItem();
+        List<Actividad> lista;
+        try {
+            if (tipo != null && subtipo == null) {
+                lista = actividadesDAO.consultarActividadesPorTipo(tipo);
+                for (Actividad act : lista) {
+                    listaActividadesElegir.getItems().add(act);
+                }
+            }
+            if (subtipo != null) {
+                lista = actividadesDAO.consultarActividadesPorTipoYSubTipo(tipo, subtipo);
+                for (Actividad act : lista) {
+                    listaActividadesElegir.getItems().add(act);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void calcularPrecio() {
@@ -157,18 +183,30 @@ public class CrearExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
 //            EXCEPCION SQL
+            e.printStackTrace();
         }
+        cargarTodasActividades();
     }
 
     @FXML
     private void actualizarSubtipos(ActionEvent event) {
+        if (!comboBoxSubTipos.getSelectionModel().isEmpty()) {
+            comboBoxSubTipos.getItems().clear();
+        }
+
         subtiposDAO subtiposDAO = new subtiposDAO(gestion);
         try {
             for (Subtipo subtipo : subtiposDAO.consultarSubtiposporTipo(comboBoxTipos.getSelectionModel().getSelectedItem())) {
                 comboBoxSubTipos.getItems().add(subtipo);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
+        cargarTodasActividades();
+    }
 
+    @FXML
+    private void cargarActividades(ActionEvent event) {
+        cargarTodasActividades();
     }
 }
