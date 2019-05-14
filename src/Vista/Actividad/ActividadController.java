@@ -187,7 +187,8 @@ public class ActividadController implements Initializable {
         descripcionActividad.setText(actividad.getDescripcion());
         descripcionActividad.getStyleClass().add("textoActividad");
         try {
-            if (actividad.getUrl() == null) {
+//            if (actividad.getUrl() == null) {
+            if (actividad.getFoto() == null) {
                 fotoActividad.setVisible(false);
             } else {
                 fotoActividad.setVisible(true);
