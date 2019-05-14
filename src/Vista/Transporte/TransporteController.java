@@ -77,9 +77,8 @@ public class TransporteController implements Initializable {
         try {
             listaTransporte = transDAO.listarTarjetas();
         } catch (SQLException ex) {
-           Notificacion.error("ERROR SQL", "Hay un problema al listar");
-        }
         
+        }
         System.out.println("Lista Transporte: " + listaTransporte);
     }
 
