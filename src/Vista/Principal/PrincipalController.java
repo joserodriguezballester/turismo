@@ -20,7 +20,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 /**
@@ -47,11 +49,25 @@ public class PrincipalController implements Initializable {
     private Button botonTransportes;
     private Usuario usuario;
     private Notificacion not;
+
   
     
+
+    @FXML
+    private Button botonLogo;
+    @FXML
+    private GridPane gridpane;
+
+    /**
+     * Initializes the controller class.
+     */
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
+        
+        gridpane.getStyleClass().add("menu");
+        botonLogo.getStyleClass().add("botonIcono");
         botonActividades.getStyleClass().add("botonMenu");
         botonExperiencias.getStyleClass().add("botonMenu");
         botonPerfil.getStyleClass().add("botonMenu");
