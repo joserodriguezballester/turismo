@@ -12,9 +12,7 @@ import Modelo.Experiencia;
 import Modelo.Notificacion;
 import Modelo.Usuario;
 import Vista.CrearExperiencia.CrearExperienciaController;
-import Vista.Principal.PrincipalController;
 import com.jfoenix.controls.JFXButton;
-import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -23,14 +21,11 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -48,7 +43,7 @@ public class ExperienciaController implements Initializable {
     /**
      * Initializes the controller class.
      */
-    private static GestionBD gestion;
+    private GestionBD gestion;
     private experienciasDAO gestionBDExperiencias;
     private Usuario usuario;
     private Stage escenario;
@@ -58,8 +53,9 @@ public class ExperienciaController implements Initializable {
     @FXML
     private JFXListView<Experiencia> listaVisualExperiencias;
 
-    public static void setGestion(GestionBD gestion) {
-        ExperienciaController.gestion = gestion;
+    public void setGestion(GestionBD gestion) {
+        this.gestion = gestion;
+        inicio();
     }
     @FXML
     private JFXButton botonCerrarInformacion;
@@ -87,6 +83,13 @@ public class ExperienciaController implements Initializable {
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    private void inicio() {
         gestionBDExperiencias = new experienciasDAO(gestion);
         try {
             for (Experiencia exp : gestionBDExperiencias.consultarTodasExperiencias()) {
@@ -96,6 +99,7 @@ public class ExperienciaController implements Initializable {
             e.printStackTrace();
             Notificacion.error("ERROR SQL EXCEPTION", "(initialize ExperienciaController");
         } catch (Exception es) {
+            es.printStackTrace();
             Notificacion.error("ERROR EXCEPTION (initialize ExperienciaController)",
                     "Revisa el código y vuelve a intentarlo");
         }
@@ -156,6 +160,7 @@ public class ExperienciaController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (Exception es) {
+            es.printStackTrace();
             Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
@@ -179,6 +184,7 @@ public class ExperienciaController implements Initializable {
         } catch (IOException ex) {
             ex.printStackTrace();
         } catch (Exception es) {
+            es.printStackTrace();
             Notificacion.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
