@@ -96,8 +96,15 @@ public class CrearExperienciaController implements Initializable {
     @FXML
     private JFXComboBox<Subtipo> comboBoxSubTipos;
 
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        botonActividades.getStyleClass().add("botonAnyadir");
+        botonEliminar.getStyleClass().add("botonEliminar");
+    }
+
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
+        actualizarTipos();
     }
 
     public void setUsuario(Usuario usuario) {
@@ -113,11 +120,6 @@ public class CrearExperienciaController implements Initializable {
         textNombreExperiencia.setText(experiencia.getNombre());
         cargarActividadesExperiencia();
         actualizarTipos();
-    }
-
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-
     }
 
     @FXML

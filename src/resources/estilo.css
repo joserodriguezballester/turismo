@@ -74,4 +74,20 @@ and open the template in the editor.
 .calendarioRegistrar:hover{
     -jfx-default-color: rgb(33,68,208);
 }
+.botonAnyadir{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 20;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(2,144,46);
+}
+.botonEliminar{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 20;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #ff0000
+}
 
