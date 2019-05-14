@@ -120,11 +120,11 @@ public class ActividadController implements Initializable {
                 paneListaBotones.getChildren().add(botonLista);
             }
         } catch (SQLException e) {
-            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+            Notificacion.error("ERROR SQL EXCEPTION", "Problemas con la DB"
                     + "(initialize ActividadController");
         } catch (Exception e) {
             e.printStackTrace();
-            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+            Notificacion.error("ERROR EXCEPTION", "Comprueba tu código"
                     + "(initialize ActividadController");
         }
 
@@ -139,10 +139,10 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException e) {
-            Notificacion.error("ERROR SQL EXCEPTION","Problemas con la DB"
+            Notificacion.error("ERROR SQL EXCEPTION", "Problemas con la DB"
                     + "(cargarActividades ActividadController");
         } catch (Exception e) {
-            Notificacion.error("ERROR EXCEPTION","Comprueba tu código"
+            Notificacion.error("ERROR EXCEPTION", "Comprueba tu código"
                     + "(cargarActividades ActividadController");
 
         }
@@ -183,7 +183,8 @@ public class ActividadController implements Initializable {
         descripcionActividad.setText(actividad.getDescripcion());
         descripcionActividad.getStyleClass().add("textoActividad");
         try {
-            if (actividad.getUrl() == null) {
+//            if (actividad.getUrl() == null) {
+            if (actividad.getFoto() == null) {
                 fotoActividad.setVisible(false);
             } else {
                 fotoActividad.setVisible(true);
@@ -194,7 +195,7 @@ public class ActividadController implements Initializable {
             }
         } catch (Exception e) {
             fotoActividad.setVisible(false);
-            Notificacion.error("ERROR EXCEPTION","la foto no ha podido cargarse"
+            Notificacion.error("ERROR EXCEPTION", "la foto no ha podido cargarse"
                     + "(cargarInformacionActividad ActividadController");
         }
 
