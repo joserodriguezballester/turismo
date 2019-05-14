@@ -69,7 +69,7 @@ public class ExperienciaAdminController implements Initializable {
     private static GestionBD gestion;
     private experienciasDAO experienDAO;
     private Experiencia experiencia;
-    
+    private Notificacion not;
     
     
     public void setGestion(GestionBD gestion){
@@ -103,14 +103,14 @@ public class ExperienciaAdminController implements Initializable {
         try {
             ok = experienDAO.insertarExperiencia(id, idUsuario, nombre, descripcion, fechaTope, foto);
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL", "Verifica el código");
+            not.error("ERROR SQL", "Verifica el código");
         }
         
         if(ok){
-            Notificacion.info("INSERTAR REGISTRO", "Operación realizada con exito");
+            not.info("INSERTAR REGISTRO", "Operación realizada con exito");
         }
         else{
-            Notificacion.error("ERRO AL INSERTAR REGISTRO", "Operación fallida");
+            not.error("ERRO AL INSERTAR REGISTRO", "Operación fallida");
         }
     }
 
@@ -135,14 +135,14 @@ public class ExperienciaAdminController implements Initializable {
             ok = experienDAO.modificarExperiencia(idUsuario,nombre,descripcion,fechaTope,foto,id);
             
         } catch(SQLException ex){
-            Notificacion.error("SQL ERROR", "Verifica tu código");
+            not.error("SQL ERROR", "Verifica tu código");
         }
         
         if(ok){
-            Notificacion.info("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
+            not.info("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
         }
         else {
-            Notificacion.error("ERROR AL MODIFICAR", "Ni se ha podido realizar la operación");
+            not.error("ERROR AL MODIFICAR", "Ni se ha podido realizar la operación");
         }
         
     }
@@ -159,14 +159,14 @@ public class ExperienciaAdminController implements Initializable {
         try {
             ok = experienDAO.borrarExperiencia(id);
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL", "No se puede realizar la operación");
+            not.error("ERROR SQL", "No se puede realizar la operación");
         }
         
         if(ok){
-            Notificacion.info("ELIMINAR TABLA EXPERIENCIAS", "Operación realizada con éxito");
+            not.info("ELIMINAR TABLA EXPERIENCIAS", "Operación realizada con éxito");
         }
         else{
-            Notificacion.alert("ELIMINACION FALLIDA", "No se ha podido eliminar el registro");
+            not.alert("ELIMINACION FALLIDA", "No se ha podido eliminar el registro");
         }
     }
     
@@ -239,7 +239,7 @@ public class ExperienciaAdminController implements Initializable {
             }
             
         } catch(Exception ex){
-            Notificacion.alert("ATENCION", "Problema al cargar la foto");
+            not.alert("ATENCION", "Problema al cargar la foto");
         }      
     }
     

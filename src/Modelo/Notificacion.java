@@ -12,7 +12,7 @@ import org.controlsfx.control.Notifications;
 
 public class Notificacion {
     
-    public static void info(String titulo, String mensaje){
+    public void info(String titulo, String mensaje){
         Notifications notification = Notifications.create()
         .title(titulo)
         .text(mensaje)
@@ -30,7 +30,7 @@ public class Notificacion {
         notification.showInformation();
     }
     
-    public static void confirm(String titulo, String mensaje){
+    public void confirm(String titulo, String mensaje){
         Notifications notification = Notifications.create()
         .title(titulo)
         .text(mensaje)
@@ -48,7 +48,7 @@ public class Notificacion {
         notification.showConfirm();
     }
     
-    public static void error(String titulo, String mensaje) {
+    public void error(String titulo, String mensaje) {
         Notifications notification = Notifications.create()
         .title(titulo)
         .text(mensaje)
@@ -66,7 +66,7 @@ public class Notificacion {
         notification.showError();
     }
     
-    public static void alert(String titulo, String mensaje) {
+    public void alert(String titulo, String mensaje) {
         Notifications notification = Notifications.create()
         .title(titulo)
         .text(mensaje)

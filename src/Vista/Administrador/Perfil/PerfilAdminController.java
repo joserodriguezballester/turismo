@@ -91,9 +91,10 @@ public class PerfilAdminController implements Initializable {
     @FXML
     private JFXComboBox<String> rolCB;
     private ObservableList<String> rolOL;
-
+private Notificacion not;
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
         usuarios = FXCollections.observableArrayList();
         usuariosTV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> cargarEtiquetas(newValue));
@@ -165,7 +166,7 @@ public class PerfilAdminController implements Initializable {
         try {
             usuarioDAO.modificarUsuario(DNI, nombre, apellidos, rol, nick, direccion, telefono, email, id);
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL ", "Ha ocurrido un grave problema");
+            not.error("ERROR SQL ", "Ha ocurrido un grave problema");
         }
 
     }
@@ -198,9 +199,9 @@ public class PerfilAdminController implements Initializable {
             cargarUsuarios(lista);
 
         } catch (SQLException ex) {
-            Notificacion.error("ERROR SQL ", "Ha ocurrido un grave problema");
+            not.error("ERROR SQL ", "Ha ocurrido un grave problema");
         } catch (Exception es) {
-            Notificacion.error("ERROR EXCEPTION ", "Ha ocurrido un grave problema");
+            not.error("ERROR EXCEPTION ", "Ha ocurrido un grave problema");
         }
 
     }
