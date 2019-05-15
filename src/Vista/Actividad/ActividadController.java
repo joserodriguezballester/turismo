@@ -92,7 +92,6 @@ public class ActividadController implements Initializable {
         imagev.setFitWidth(1300);
 
         this.Ventana.getChildren().add(imagev);
-        
 
         listaElementos.setVisible(false);
 
@@ -107,7 +106,8 @@ public class ActividadController implements Initializable {
 
         scrollTipoActividades.getStyleClass().add("scrollPaneActividades");
         paneListaBotones.getStyleClass().add("scrollPaneActividades");
-        
+
+        listaElementos.getStyleClass().add("listaActividades");
         scrollTipoActividades.toFront();
         listaElementos.toFront();
         paneInformacion.toFront();
@@ -156,8 +156,11 @@ public class ActividadController implements Initializable {
     }
 
     public void cargarActividades(Tipo tipo) {
+        FadeTransition ft = new FadeTransition(Duration.millis(1000), listaElementos);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
         listaElementos.setVisible(true);
-        paneInformacion.setVisible(false);
         listaDatosActividades.clear();
         try {
             for (Actividad actividad : gestionBDActividad.consultarActividadesPorTipo(tipo)) {

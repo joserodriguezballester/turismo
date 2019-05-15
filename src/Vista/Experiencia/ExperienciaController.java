@@ -27,6 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
@@ -79,7 +80,22 @@ public class ExperienciaController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+//        IMAGEN FONDO
+        Image img = new Image("Imagenes/fondoActividad.jpg");
+        ImageView imagev = new ImageView(img);
+
+        imagev.setFitHeight(730);
+        imagev.setFitWidth(1300);
+
+        this.Ventana.getChildren().add(imagev);
+        botonCrearExperiencia.toFront();
+        listaVisualExperiencias.toFront();
+        paneInformacion.toFront();
+
+//        NOTIFICACION
         not = new Notificacion();
+
+//        ESTILOS
         botonCrearExperiencia.getStyleClass().add("botonCrearExperiencia");
         botonModificarExperiencia.getStyleClass().add("botonCrearExperiencia");
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
@@ -99,7 +115,7 @@ public class ExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-             not.error("ERROR SQL EXCEPTION", "(initialize ExperienciaController");
+            not.error("ERROR SQL EXCEPTION", "(initialize ExperienciaController");
         } catch (Exception es) {
             es.printStackTrace();
             not.error("ERROR EXCEPTION (initialize ExperienciaController)",

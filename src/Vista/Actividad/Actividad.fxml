@@ -25,8 +25,8 @@
         </ScrollPane>
         <Pane fx:id="paneInformacion" layoutX="410.0" layoutY="10.0" prefHeight="710.0" prefWidth="880.0">
          <children>
-            <JFXButton fx:id="botonCerrarInformacion" layoutX="820.0" layoutY="14.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
-            <Label fx:id="etiquetaSubtipoTitulo" alignment="CENTER" layoutX="50.0" layoutY="6.0" prefHeight="41.0" prefWidth="800.0" text="Subtipo + Nombre">
+            <JFXButton fx:id="botonCerrarInformacion" layoutX="835.0" layoutY="14.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
+            <Label fx:id="etiquetaSubtipoTitulo" alignment="CENTER" layoutX="50.0" layoutY="6.0" prefHeight="41.0" prefWidth="765.0" text="Subtipo + Nombre">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font></Label>
