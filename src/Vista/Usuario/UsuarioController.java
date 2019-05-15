@@ -23,9 +23,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -49,6 +53,18 @@ public class UsuarioController implements Initializable {
     private usuariosDAO usuarioDAO;
     Usuario usuario;
     private Notificacion not;
+    @FXML
+    private AnchorPane fondoUsuario;
+    @FXML
+    private Pane paneInicio;
+    @FXML
+    private Label agencia;
+    @FXML
+    private Pane paneagencia;
+    @FXML
+    private Button botonLog;
+    @FXML
+    private Button botonReg;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -57,6 +73,22 @@ public class UsuarioController implements Initializable {
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
 
+        Image img = new Image("Imagenes/inicio.jpg");
+        ImageView imagev = new ImageView(img);
+
+        fondoUsuario.getChildren().add(imagev);
+        paneInicio.getStyleClass().add("paneinicio");
+        paneagencia.getStyleClass().add("paneAgencia");
+        
+        botonLog.getStyleClass().add("botoninicio");
+        botonReg.getStyleClass().add("botoninicio");
+        
+        imagev.setFitHeight(700);
+        imagev.setFitWidth(1300);
+        
+        paneInicio.toFront();
+        paneagencia.toFront();
+        
         // TODO
     }
 
