@@ -64,6 +64,7 @@ public class experienciasActividadesDAO {
                             actividadesDAO.consultarActividad(rs.getInt("idActividad")),
                             rs.getTimestamp("fechaInicio").toLocalDateTime(),
                             rs.getTimestamp("fechaFinal").toLocalDateTime(),
+                            
                             rs.getDouble("precio"),
                             rs.getInt("numPlazas")));
         }

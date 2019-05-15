@@ -74,6 +74,7 @@ public class experienciasDAO {
                         rs.getDate("fechaTopeValidez").toLocalDate(),
                         rs.getString("foto"),
                         experienciasActividadesdao.consultarActividadesDeExperiencia(rs.getInt("id"))));
+                        
             }
         }
         return listaExperiencias;
