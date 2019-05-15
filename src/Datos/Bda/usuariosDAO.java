@@ -65,25 +65,25 @@ public class usuariosDAO {
     
     
     //UPDATE
-    public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id) throws SQLException {
-        boolean insertado = false;
-        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ? WHERE ID = ?;";
-
-        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-        ps.setString(1, DNI);
-        ps.setString(2, nombre);
-        ps.setString(3, apellidos);
-        ps.setString(4, rol);
-        ps.setString(5, nick);
-        ps.setString(6, direccion);
-        ps.setString(7, telefono);
-        ps.setString(8, email);
-        ps.setInt(9, id);
-        ps.executeUpdate();
-        insertado = true;
-
-        return insertado;
-    }
+//    public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id) throws SQLException {
+//        boolean insertado = false;
+//        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ? WHERE ID = ?;";
+//
+//        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+//        ps.setString(1, DNI);
+//        ps.setString(2, nombre);
+//        ps.setString(3, apellidos);
+//        ps.setString(4, rol);
+//        ps.setString(5, nick);
+//        ps.setString(6, direccion);
+//        ps.setString(7, telefono);
+//        ps.setString(8, email);
+//        ps.setInt(9, id);
+//        ps.executeUpdate();
+//        insertado = true;
+//
+//        return insertado;
+//    }
 
     //DELETE
     public boolean borrarUsuario(int idUsuario) {
@@ -211,10 +211,36 @@ public class usuariosDAO {
 //        java.sql.Date fecNacaInsertar=Date.valueOf(fecNac);
         ps.setString(9, fecNac.toString());
         ps.setInt(10, id);
-        System.out.println("instruccion"+ps);
+//        System.out.println("instruccion"+ps);
         ps.executeUpdate();
         modificado = true;
 
         return modificado;
+    }
+
+    public void modificarUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
+      boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, DNI);
+        ps.setString(2, nombre);
+        ps.setString(3, apellidos);
+//        ps.setString(4, rol);
+        ps.setString(4, nick);
+        ps.setString(5, direccion);
+        ps.setString(6, telefono);
+        ps.setString(7, email);
+//        ps.setDate(9, fecNac);
+//        java.sql.Date fecNacaInsertar=Date.valueOf(fecNac);
+        ps.setString(8, fecNac.toString());
+        ps.setInt(10, id);
+//        System.out.println("instruccion"+ps);
+        ps.executeUpdate();
+        modificado = true;
+    
+    
+    
+    
+    
     }
 }

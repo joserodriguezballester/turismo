@@ -1,13 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista.Perfil;
 
-
+import Datos.Bda.GestionBD;
+import Datos.Bda.usuariosDAO;
+import Modelo.Notificacion;
 import Modelo.Usuario;
+import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +17,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
@@ -27,10 +29,6 @@ import javafx.scene.layout.AnchorPane;
  */
 public class PerfilController implements Initializable {
 
-    /**
-     * Initializes the controller class.
-     */
-//    private Connection conn;
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -41,8 +39,6 @@ public class PerfilController implements Initializable {
     private ToggleGroup rolUsuRB;
     @FXML
     private RadioButton AdminRB;
-    @FXML
-    private Button salirBT;
     @FXML
     private TextField nickTF;
     @FXML
@@ -58,23 +54,32 @@ public class PerfilController implements Initializable {
     @FXML
     private TextField emailTF;
     @FXML
-    private TextField fecNacTF;
+    private JFXDatePicker fecNacTF;
     private Usuario usuario;
     @FXML
     private Button modificarBT;
+    @FXML
+    private AnchorPane alFrenteAP;
+    private Notificacion not;
+    private GestionBD gestion;
+    private usuariosDAO usuarioDAO;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
+        usuarioDAO = new usuariosDAO(gestion);
+        Image img = new Image("Imagenes/inicio.jpg");
+        ImageView imagev = new ImageView(img);
+        Ventana.getChildren().add(imagev);
+        imagev.setFitHeight(700);
+        imagev.setFitWidth(1300);
+        Ventana.toBack();
+        alFrenteAP.toFront();
 
-        // comprobar  rol usuario para mostrar radioButton
+       
         // TODO
     }
-
-    @FXML
-    private void salir(ActionEvent event) {
-               
-    }
-
 
     public void setUsuario(Usuario usuario) {
 
@@ -90,26 +95,45 @@ public class PerfilController implements Initializable {
         telefonoTF.setText(usuario.getTelefono());
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
-        
-        fecNacTF.setText(usuario.getFecNac().toString());
-        
+        fecNacTF.setValue(usuario.getFecNac());
+//        fecNacTF.setText(usuario.getFecNac().toString());
+
 //        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
-
     }
-
-  
 
     @FXML
     private void modificar(ActionEvent event) {
-        
+
+        String nick = nickTF.getText();
+        String nombre = nombreTF.getText();
+        String apellidos = apellidosTF.getText();
+        String DNI = dniTF.getText();
+        LocalDate fecNac = fecNacTF.getValue();
+        String telefono = telefonoTF.getText();
+        String direccion = direccionTF.getText();
+        String email = emailTF.getText();
+        int id = usuario.getId();
+
+        try {
+            usuarioDAO.modificarUsuario(DNI, nombre, apellidos,  nick, direccion, telefono, email, id, fecNac);
+            // si ha modificado algo
+          
+            //asi hemos recargado la lista
+        } catch (SQLException ex) {
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " en modificar() --- PerfilAdminController");
+        }
+
     }
 
     @FXML
     private void mostrarBoton(MouseEvent event) {
-      
-            modificarBT.setDisable(false);      
+
+        modificarBT.setDisable(false);
     }
 
-  
+    public void setGestion(GestionBD gestion) {
+        this.gestion=gestion;
+    }
 
 }
