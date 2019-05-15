@@ -2,11 +2,10 @@ package Vista.Actividad;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.actividadesDAO;
+import Datos.Bda.subtiposDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
-import Vista.Principal.PrincipalController;
-//import static Vista.Principal.PrincipalController.panePerfil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
@@ -121,10 +120,6 @@ public class ActividadController implements Initializable {
 
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
-            System.out.println(lista.isEmpty());
-            for (Tipo tipo : lista) {
-                System.out.println(tipo);
-            }
             double posicionX = 5;
             double posicionY = 15;
             JFXButton boton;
@@ -200,7 +195,15 @@ public class ActividadController implements Initializable {
         ft.setToValue(1);
         ft.play();
         Actividad actividad = listaElementos.getSelectionModel().getSelectedItem();
-        etiquetaSubtipoTitulo.setText(actividad.getNombre());
+
+        subtiposDAO subDAO = new subtiposDAO(gestion);
+        String subtipo = "";
+        try {
+            subtipo = subDAO.consultarSubtipoActividad(actividad).getNombre();
+        } catch (SQLException e) {
+            not.error("Error", "No ha podido encontrar el subtipo");
+        }
+        etiquetaSubtipoTitulo.setText(subtipo + " - " + actividad.getNombre());
         etiquetaSubtipoTitulo.getStyleClass().add("tituloActividades");
 
         informacionDireccion.setText(actividad.getDireccion());

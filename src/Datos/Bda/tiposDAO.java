@@ -5,6 +5,7 @@
  */
 package Datos.Bda;
 
+import Modelo.Subtipo;
 import Modelo.Tipo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -36,5 +37,17 @@ public class tiposDAO {
             lista.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
         }
         return lista;
+    }
+
+    public Tipo consultarTipoDeUnSubtipo(int idSubtipo) throws SQLException {
+        Tipo tipo = null;
+        String consulta = "SELECT id, nombre FROM tipos WHERE id = ?;";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setInt(1, idSubtipo);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            tipo = new Tipo(rs.getInt("id"), rs.getString("nombre"));
+        }
+        return tipo;
     }
 }

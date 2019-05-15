@@ -38,7 +38,7 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <JFXTextField editable="false" layoutX="605.0" layoutY="517.0" />
+            <JFXTextField fx:id="salidaPrecio" layoutX="605.0" layoutY="517.0" />
             <Label fx:id="etiquetaListaActividades" layoutX="49.0" layoutY="374.0" text="Lista Actividades:">
                <font>
                   <Font name="System Bold" size="18.0" />

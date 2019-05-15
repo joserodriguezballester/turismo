@@ -5,6 +5,7 @@
  */
 package Datos.Bda;
 
+import Modelo.Actividad;
 import Modelo.Subtipo;
 import Modelo.Tipo;
 import java.sql.Connection;
@@ -38,5 +39,18 @@ public class subtiposDAO {
             lista.add(new Subtipo(rs.getInt("id"), tipo, rs.getString("nombre")));
         }
         return lista;
+    }
+
+    public Subtipo consultarSubtipoActividad(Actividad actividad) throws SQLException {
+        Subtipo subtipo = null;
+        String consulta = "SELECT id, idTipo, nombre FROM subtipos WHERE id = ?;";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setInt(1, actividad.getIdsubTipo());
+        ResultSet rs = ps.executeQuery();
+        tiposDAO tiposDAO = new tiposDAO(gestion);
+        if (rs.next()) {
+            subtipo = new Subtipo(rs.getInt("id"), tiposDAO.consultarTipoDeUnSubtipo(actividad.getIdsubTipo()), rs.getString("nombre"));
+        }
+        return subtipo;
     }
 }

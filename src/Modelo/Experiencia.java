@@ -1,4 +1,4 @@
- package Modelo;
+package Modelo;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -12,7 +12,7 @@ public class Experiencia {
     private String foto;
     private List<ActividadExperiencia> listaActividades;
 
-    public Experiencia(int id,int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String foto, List<ActividadExperiencia> listaActividades) {
+    public Experiencia(int id, int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String foto, List<ActividadExperiencia> listaActividades) {
         this.id = id;
         this.idUsuario = idUsuario;
         this.nombre = nombre;
@@ -80,6 +80,14 @@ public class Experiencia {
 
     public void setListaActividades(List<ActividadExperiencia> listaActividades) {
         this.listaActividades = listaActividades;
+    }
+
+    public double calcularPrecio() {
+        double precioTotal = 0;
+        for (ActividadExperiencia actExp : listaActividades) {
+            precioTotal += actExp.getActividad().getPrecio() * actExp.getNumPlazas();
+        }
+        return precioTotal;
     }
 
     @Override
