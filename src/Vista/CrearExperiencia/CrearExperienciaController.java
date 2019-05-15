@@ -89,16 +89,18 @@ public class CrearExperienciaController implements Initializable {
     private JFXTextField salidaPrecio;
     @FXML
     private JFXTextArea textDescripcion;
-
-    private GestionBD gestion;
-    private Usuario usuario;
-    private Experiencia experiencia;
+    @FXML
+    private JFXButton botonAñadirExperiencia;
     @FXML
     private AnchorPane Ventana;
     @FXML
     private JFXComboBox<Tipo> comboBoxTipos;
     @FXML
     private JFXComboBox<Subtipo> comboBoxSubTipos;
+
+    private GestionBD gestion;
+    private Usuario usuario;
+    private Experiencia experiencia;
     private Notificacion not = new Notificacion();
 
     @Override
@@ -106,6 +108,7 @@ public class CrearExperienciaController implements Initializable {
         not = new Notificacion();
         botonActividades.getStyleClass().add("botonAnyadir");
         botonEliminar.getStyleClass().add("botonEliminar");
+        botonAñadirExperiencia.getStyleClass().add("botonAnyadirExperiencia");
     }
 
     public void setGestion(GestionBD gestion) {
@@ -296,8 +299,8 @@ public class CrearExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            not.error("ERROR SQL", "" + e.getMessage() + 
-                    "en cargarTodasActividades --- CrearExperienciaController");
+            not.error("ERROR SQL", "" + e.getMessage()
+                    + "en cargarTodasActividades --- CrearExperienciaController");
         }
 
     }
@@ -326,8 +329,8 @@ public class CrearExperienciaController implements Initializable {
         } catch (SQLException e) {
 //            EXCEPCION SQL
             e.printStackTrace();
-            not.error("ERROR SQL", "" + e.getMessage() + 
-                    "en actualizarTipos --- CrearExperienciaController");
+            not.error("ERROR SQL", "" + e.getMessage()
+                    + "en actualizarTipos --- CrearExperienciaController");
         }
         cargarTodasActividades();
     }
@@ -345,8 +348,8 @@ public class CrearExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            not.error("ERROR SQL", "" + e.getMessage() + 
-                    "en actualizarSubtipos --- CrearExperienciaController");
+            not.error("ERROR SQL", "" + e.getMessage()
+                    + "en actualizarSubtipos --- CrearExperienciaController");
         }
         cargarTodasActividades();
     }
@@ -354,5 +357,16 @@ public class CrearExperienciaController implements Initializable {
     @FXML
     private void cargarActividades(ActionEvent event) {
         cargarTodasActividades();
+    }
+
+    @FXML
+    private void AñadirExperiencia(ActionEvent event) {
+        experienciasDAO expDAO = new experienciasDAO(gestion);
+        try {
+            expDAO.insertarExperiencia(experiencia);
+        } catch (Exception e) {
+            not.error("Error", "No ha podido insertarse la experiencia en la BD");
+        }
+
     }
 }

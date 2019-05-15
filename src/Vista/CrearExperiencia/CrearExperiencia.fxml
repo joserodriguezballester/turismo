@@ -42,41 +42,42 @@
       </Label>
       <JFXDatePicker fx:id="datePickerFechaInicio" layoutX="418.0" layoutY="170.0" />
       <JFXDatePicker fx:id="datePickerFechaFinal" layoutX="700.0" layoutY="170.0" />
-      <Label fx:id="etiquetaHoraInicio" layoutX="418.0" layoutY="270.0" text="Hora inicio:">
+      <Label fx:id="etiquetaHoraInicio" layoutX="418.0" layoutY="240.0" text="Hora inicio:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <Label fx:id="etiquetaHoraFinal" layoutX="703.0" layoutY="270.0" text="Hora Final:">
+      <Label fx:id="etiquetaHoraFinal" layoutX="703.0" layoutY="240.0" text="Hora Final:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTimePicker fx:id="timePickerHoraInicio" layoutX="418.0" layoutY="300.0" />
-      <JFXTimePicker fx:id="timePickerHoraFinal" layoutX="703.0" layoutY="300.0" />
-      <Label fx:id="etiquetaNumPlazas" layoutX="446.0" layoutY="390.0" text="Numero de plazas:">
+      <JFXTimePicker fx:id="timePickerHoraInicio" layoutX="418.0" layoutY="270.0" />
+      <JFXTimePicker fx:id="timePickerHoraFinal" layoutX="703.0" layoutY="270.0" />
+      <Label fx:id="etiquetaNumPlazas" layoutX="446.0" layoutY="340.0" text="Numero de plazas:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXTextField fx:id="textNumPlazas" layoutX="638.0" layoutY="390.0" />
+      <JFXTextField fx:id="textNumPlazas" layoutX="638.0" layoutY="340.0" />
       <JFXTextField fx:id="textNombreExperiencia" alignment="CENTER" layoutX="522.0" layoutY="39.0" promptText="Nombra tu experiencia...">
          <font>
             <Font size="24.0" />
          </font>
       </JFXTextField>
-      <Label fx:id="etiquetaPrecioTotal" layoutX="508.0" layoutY="630.0" text="Precio Total:">
+      <Label fx:id="etiquetaPrecioTotal" layoutX="508.0" layoutY="580.0" text="Precio Total:">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <JFXComboBox fx:id="comboBoxTipos" layoutX="50.0" layoutY="70.0" onAction="#actualizarSubtipos" prefHeight="30.0" prefWidth="150.0" />
-      <JFXTextField fx:id="salidaPrecio" editable="false" layoutX="636.0" layoutY="628.0" />
-      <JFXTextArea fx:id="textDescripcion" layoutX="418.0" layoutY="450.0" prefHeight="142.0" prefWidth="464.0" promptText="Introduce una descripción para tu experiencia...">
+      <JFXTextField fx:id="salidaPrecio" editable="false" layoutX="636.0" layoutY="580.0" />
+      <JFXTextArea fx:id="textDescripcion" layoutX="418.0" layoutY="400.0" prefHeight="142.0" prefWidth="464.0" promptText="Introduce una descripción para tu experiencia...">
          <font>
             <Font size="14.0" />
          </font>
       </JFXTextArea>
       <JFXComboBox fx:id="comboBoxSubTipos" layoutX="200.0" layoutY="70.0" onAction="#cargarActividades" prefHeight="30.0" prefWidth="150.0" />
+      <JFXButton fx:id="botonAñadirExperiencia" layoutX="444.0" layoutY="660.0" onAction="#AñadirExperiencia" prefHeight="58.0" prefWidth="426.0" text="Añadir Experiencia" />
    </children>
 </AnchorPane>
