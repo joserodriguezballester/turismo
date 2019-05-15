@@ -90,7 +90,7 @@ public class TransporteController implements Initializable {
         TreeItem<String> nodoSeleccionado = informacionTV.getSelectionModel().getSelectedItem();
         if (nodoSeleccionado != null) {
             String modulo = nodoSeleccionado.getValue();
-            seleccionado.setText(modulo);
+//            seleccionado.setText(modulo);
         }
 
     }
