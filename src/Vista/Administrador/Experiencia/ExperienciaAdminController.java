@@ -97,11 +97,12 @@ public class ExperienciaAdminController implements Initializable {
         fechaTope = LocalDate.parse(textFecha.getText());
         foto = textFoto.getText();
         
-        try {
-            ok = experienDAO.insertarExperiencia(id, idUsuario, nombre, descripcion, fechaTope, foto);
-        } catch (SQLException ex) {
-            not.error("ERROR SQL", "Verifica el código");
-        }
+//        try {
+//            Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto);
+//            ok = experienDAO.insertarExperiencia(nueva);
+//        } catch (SQLException ex) {
+//            not.error("ERROR SQL", "Verifica el código");
+//        }
         
         if(ok){
             not.info("INSERTAR REGISTRO", "Operación realizada con exito");

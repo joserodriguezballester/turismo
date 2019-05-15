@@ -104,8 +104,18 @@ and open the template in the editor.
 }
 
 .menu{
-    -fx-background-color:rgb(77,102,204);
-    
-    
+    -fx-background-color:#6600cc;
+}
+
+.botonIcono{
+    -fx-background-color:#fff952;
+}
+.botonAnyadirExperiencia{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 20;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #3366ff;
 }
 

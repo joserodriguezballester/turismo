@@ -22,7 +22,7 @@ import java.util.List;
  * @author Usuario
  */
 public class experienciasDAO {
-    
+
     private Notificacion not;
     private GestionBD gestion;
     private Connection conn;
@@ -34,32 +34,25 @@ public class experienciasDAO {
     }
 
     //CREATE
-    public boolean insertarExperiencia(int id,int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String rutaFoto) throws SQLException {
+    public boolean insertarExperiencia(Experiencia experiencia) throws SQLException {
         boolean insertado = false;
-        System.out.println("Dentro de insertar experiencia");
-        
-        if(conn != null){
-            System.out.println("Mas adentro de insertar experiencia");
-            
-          
-            
+
+        if (conn != null) {
             String consulta = "INSERT INTO EXPERIENCIAS (ID, IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = conn.prepareStatement(consulta);
-            ps.setInt(1, id);
-            ps.setInt(2, idUsuario);
-            ps.setString(3, nombre);
-            ps.setString(4, descripcion);
-            //ps.setString(5, (fechaTopeValidez.getYear() + "-" + fechaTopeValidez.getMonth() + "-" + fechaTopeValidez.getDayOfMonth()));
-            ps.setString(5, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            ps.setString(6, rutaFoto);
+            ps.setInt(1, experiencia.getId());
+            ps.setInt(2, experiencia.getIdUsuario());
+            ps.setString(3, experiencia.getNombre());
+            ps.setString(4, experiencia.getDescripcion());
+            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez()));
+//            ps.setString(5, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+            ps.setString(6, experiencia.getFoto());
             ps.executeUpdate();
             insertado = true;
-            
+
             System.out.println(" 1 Mas adentro de insertar experiencia");
         }
-        
-        
-        
+
         return insertado;
     }
 
@@ -67,7 +60,7 @@ public class experienciasDAO {
     public List<Experiencia> consultarTodasExperiencias() throws SQLException {
         System.out.println("Dentro de consultarTodaExperiencias experienciasDAO");
         List<Experiencia> listaExperiencias = new ArrayList<>();
-        if(conn != null){
+        if (conn != null) {
             String consulta = "SELECT id,idUsuario, nombre, descripcion, fechaTopeValidez, foto FROM experiencias;";
             PreparedStatement ps = conn.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
@@ -77,9 +70,9 @@ public class experienciasDAO {
                         rs.getInt("id"),
                         rs.getInt("idUsuario"),
                         rs.getString("nombre"),
-                        rs.getString("descripcion"), 
-                        rs.getDate("fechaTopeValidez").toLocalDate(), 
-                        rs.getString("foto"), 
+                        rs.getString("descripcion"),
+                        rs.getDate("fechaTopeValidez").toLocalDate(),
+                        rs.getString("foto"),
                         experienciasActividadesdao.consultarActividadesDeExperiencia(rs.getInt("id"))));
             }
         }
@@ -87,12 +80,12 @@ public class experienciasDAO {
     }
 
     //UPDATE
-    public boolean modificarExperiencia(int idUsuario,String nombre, String descripcion, LocalDate fechaTopeValidez, String rutaFoto, int id) throws SQLException {
+    public boolean modificarExperiencia(int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String rutaFoto, int id) throws SQLException {
         boolean insertado = false;
-        if(conn != null){
+        if (conn != null) {
 //            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 //            String fechaTope = fechaTopeValidez.format(dtf);
-            
+
             String consulta = "UPDATE EXPERIENCIAS SET IDUSUARIO = ?, NOMBRE = ?, DESCRIPCION = ?, FECHATOPEVALIDEZ = ?, FOTO = ? WHERE ID = ?;";
             PreparedStatement ps = conn.prepareStatement(consulta);
             ps.setInt(1, idUsuario);
