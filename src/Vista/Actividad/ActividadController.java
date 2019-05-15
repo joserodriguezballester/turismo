@@ -5,6 +5,8 @@ import Datos.Bda.actividadesDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
+import Vista.Principal.PrincipalController;
+//import static Vista.Principal.PrincipalController.panePerfil;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
@@ -111,6 +113,7 @@ public class ActividadController implements Initializable {
         scrollTipoActividades.toFront();
         listaElementos.toFront();
         paneInformacion.toFront();
+//        PrincipalController.panePerfilMenu.toFront();
     }
 
     private void inicio() {

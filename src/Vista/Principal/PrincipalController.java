@@ -10,6 +10,7 @@ import Vista.CrearExperiencia.CrearExperienciaController;
 import Vista.Perfil.PerfilController;
 
 import Vista.Experiencia.ExperienciaController;
+import com.jfoenix.controls.JFXButton;
 
 import java.io.IOException;
 import java.net.URL;
@@ -21,8 +22,10 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -54,15 +57,21 @@ public class PrincipalController implements Initializable {
     private Button botonLogo;
     @FXML
     private GridPane gridpane;
+    @FXML
+//    public static Pane panePerfil;
+    private Pane panePerfil;
+    @FXML
+    private JFXButton botnPerfil;
+    @FXML
+    private JFXButton botnSalir;
 
     /**
      * Initializes the controller class.
      */
-
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        
+
         gridpane.getStyleClass().add("menu");
         botonLogo.getStyleClass().add("botonMenu");
         botonActividades.getStyleClass().add("botonMenu");
@@ -70,6 +79,11 @@ public class PrincipalController implements Initializable {
         botonPerfil.getStyleClass().add("botonMenu");
         botonBuscar.getStyleClass().add("botonMenu");
         botonTransportes.getStyleClass().add("botonMenu");
+        botnPerfil.getStyleClass().add("botonMenu");
+        botnSalir.getStyleClass().add("botonMenu");
+
+        panePerfil.setVisible(false);
+
 //        gestion = new GestionBD();
 //        gestion.conectar();
         try {
@@ -81,10 +95,10 @@ public class PrincipalController implements Initializable {
             not.error("ERROR Exception",
                     "en initialize --- PrincipalController");
         }
-
+        panePerfil.toFront();
     }
 
-       @FXML
+    @FXML
     private void irInicio(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
@@ -107,11 +121,9 @@ public class PrincipalController implements Initializable {
             not.error("ERROR AL CARGAR VENTANA INICIO",
                     "Revisa el código y vuelve a intentarlo, (irInicio PrincipalController)");
         }
-        
+
     }
 
-    
-    
     @FXML
     private void irActividad(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
@@ -183,7 +195,7 @@ public class PrincipalController implements Initializable {
             Ventana.getChildren().add(root);
 
         } catch (IOException ex) {
-            
+
             ex.printStackTrace();
             not.error("ERROR IOException",
                     "en irPerfil --- PrincipalController");
@@ -205,7 +217,7 @@ public class PrincipalController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            
+
             ex.printStackTrace();
             not.error("ERROR IOException",
                     "en irBuscar --- PrincipalController");
@@ -235,7 +247,7 @@ public class PrincipalController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            
+
             ex.printStackTrace();
             not.error("ERROR IOException",
                     "en irTransporte --- PrincipalController");
@@ -251,5 +263,23 @@ public class PrincipalController implements Initializable {
         this.usuario = usuario;
     }
 
- 
+    @FXML
+    private void cerrarSesion(ActionEvent event) {
+    }
+
+    @FXML
+    private void ocultarPanePerfil(MouseEvent event) {
+        panePerfil.setVisible(false);
+    }
+
+    @FXML
+    private void mostrarPanePerfil(MouseEvent event) {
+        panePerfil.setVisible(true);
+        if (!Ventana.getChildren().contains(panePerfil)) {
+            Ventana.getChildren().add(panePerfil);
+        }
+
+        panePerfil.toFront();
+    }
+
 }

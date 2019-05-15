@@ -24,6 +24,7 @@ public class Turismo extends Application {
         stage.getIcons().add(new Image("/Imagenes/log.png"));
         stage.setTitle(" Amsterdam");   // o nombre agencia
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
