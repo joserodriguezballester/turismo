@@ -98,7 +98,6 @@ public class UsuarioController implements Initializable {
         logearseBueno();
 //             logearseComoCliente();
 //        logearseComoAdministrador();
-    }
 
     @FXML
     private void registrarse(ActionEvent event) throws IOException {

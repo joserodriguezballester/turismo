@@ -3,6 +3,7 @@ package Vista.Administrador.Experiencia;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.experienciasDAO;
+import Modelo.Actividad;
 import Modelo.Experiencia;
 import Modelo.Notificacion;
 import java.net.URL;
@@ -19,6 +20,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -58,7 +60,11 @@ public class ExperienciaAdminController implements Initializable {
     @FXML
     private TableColumn<Experiencia, Integer> tb_idUsuario;
     @FXML
+    private TextArea textArea;
+    @FXML
     private ImageView imageView;
+    @FXML
+    private TableView<?> tableListaExperiencias;
     
     
     private ObservableList<Experiencia> obExperiencias;
@@ -67,6 +73,8 @@ public class ExperienciaAdminController implements Initializable {
     private experienciasDAO experienDAO;
     private Experiencia experiencia;
     private Notificacion not;
+    
+   
     
     
     public void setGestion(GestionBD gestion){
@@ -88,6 +96,7 @@ public class ExperienciaAdminController implements Initializable {
         int id, idUsuario;
         String nombre,descripcion,foto;
         LocalDate fechaTope;
+        List<Actividad> lista;
         boolean ok = false;
         
         id = Integer.parseInt(textExperiencia.getText());
@@ -96,6 +105,7 @@ public class ExperienciaAdminController implements Initializable {
         descripcion = textDescripcion.getText();
         fechaTope = LocalDate.parse(textFecha.getText());
         foto = textFoto.getText();
+        //lista = textArea.getText().toString();
         
 //        try {
 //            Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto);

@@ -19,40 +19,18 @@ import java.util.List;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 
 
 public class TransporteController implements Initializable {
 
-    //Amsterdam Travel Ticket
-    //Amsterdam Travel Ticket
-    //Amsterdam Travel Ticket
-    //Day or multi-day Ticket
-    //Day or multi-day Ticket
-    //Day or multi-day Ticket
-    //Day or multi-day Ticket
-    //Day or multi-day Ticket
-    //I amsterdam city card
-    //I amsterdam city card
-    //I amsterdam city card
-    //I amsterdam city card
-    //I amsterdam city card
-    //Amsterdam & Region Travel Ticket
-    //Holland Travel Ticket
-    
-    @FXML
-    private TreeView<?> tarjetasTV;
     @FXML
     private ImageView imagTarj;
-    @FXML
-    private ImageView imagDescrip;
-    @FXML
-    private JFXTextArea descripTA;
-    @FXML
-    private JFXTextField DuracionTF;
-    @FXML
-    private JFXTextField precioTF;
     
     
     private static GestionBD gestion;
@@ -63,6 +41,8 @@ public class TransporteController implements Initializable {
     
     
     private List<Transporte> listaTransporte = new ArrayList<>();
+    @FXML
+    private TreeView<String> informacionTV;
     
 
     public void setConn(Connection conn) {
@@ -72,16 +52,54 @@ public class TransporteController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
        transDAO = new TransportesDAO(gestion);
+         //CREACION NODO DAW
+        TreeItem<String> mapasTreeItem = new TreeItem<>("Mapas");
+        mapasTreeItem.getChildren().add(new TreeItem<>("Autobuses"));
+        mapasTreeItem.getChildren().add(new TreeItem<>("Metro"));
+        mapasTreeItem.getChildren().add(new TreeItem<>("Ferry"));
+//        Node icono = new ImageView(new Image(getClass().getResourceAsStream("/imagenes/icono.png")));
+//        daw.setGraphic(icono);
+
+        //CREACION NODO ASIR
+        TreeItem<String> hotelTreeItem = new TreeItem<>("Hoteles");
+        hotelTreeItem.getChildren().add(new TreeItem<>("hotel1"));
+        hotelTreeItem.getChildren().add(new TreeItem<>("hotel2"));
+
+        //CREACION NODO SMR
+//        TreeItem<String> smr = new TreeItem<>("SMR");
+//        smr.getChildren().add(new TreeItem<>("Implantacion de aplicaciones web"));
+//        smr.getChildren().add(new TreeItem<>("ofimatica"));
+
+        //CREACION DEL TREEITEM INICIAL PARA RELLENAR EL TREEVIEW ciclos
+        TreeItem<String> informacionItem = new TreeItem<>("inicio arbol");
+        informacionTV.setRoot(informacionItem);
+//        ciclos.setShowRoot(false);  //OCULTAR EL ROOT
+
+//ASOCIAR AL NODO INFORMATICA LOS NODOS DE CADA CICLO
+        informacionItem.getChildren().addAll(mapasTreeItem, hotelTreeItem);
+//OTRA FORMA DE ASOCIAR AL NODO INFORMATICA LOS NODOS DE CADA CICLO
+//        informatica.getChildren().add(daw);
+//        informatica.getChildren().add(asir);
+//        informatica.getChildren().add(smr);
+
+    //LO MOSTRAMOS DEPLEGADO
+        informacionItem.setExpanded(true);
+//           imagTarj.setImage(new Image("Imagenes/fondoActividad.jpg" ));
     }
-    
-    private void listar(){      
-        try {
-            listaTransporte = transDAO.listarTarjetas();
-        } catch (SQLException ex) {
-            not.error("ERROR SQL",
-                    "en listar --- TransporteController");
+    @FXML
+    private void seleccionar(MouseEvent event) {
+        TreeItem<String> nodoSeleccionado = informacionTV.getSelectionModel().getSelectedItem();
+        if (nodoSeleccionado != null) {
+            String modulo = nodoSeleccionado.getValue();
+            if (modulo.equals("Autobuses")){
+//                 Image img = new Image("Imagenes/fondoActividad.jpg");
+                 imagTarj.setImage(new Image("Imagenes/fondoActividad.jpg" ));
+//        ImageView imagev = new ImageView(img);
+//               imagTarj.setImage(img);
+            }
         }
-        System.out.println("Lista Transporte: " + listaTransporte);
+
     }
+   
 
 }
