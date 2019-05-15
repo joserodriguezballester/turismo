@@ -35,7 +35,7 @@
                   <Button fx:id="botonExperiencias" mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="2" />
                   <Button fx:id="botonPerfil" mnemonicParsing="false" onMouseEntered="#mostrarPanePerfil" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Perfil" GridPane.columnIndex="7" />
                   <Button fx:id="botonBuscar" mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="300.0" text="Buscar" GridPane.columnIndex="6" />
-                  <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Transportes" GridPane.columnIndex="3" />
+                  <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Información" GridPane.columnIndex="3" />
                   <Button fx:id="botonLogo" mnemonicParsing="false" onAction="#irInicio" prefHeight="75.0" prefWidth="162.0" text="Inicio" />
                </children>
             </GridPane>

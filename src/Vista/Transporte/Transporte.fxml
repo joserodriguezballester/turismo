@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -11,8 +10,7 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="97.0" layoutY="81.0" text="Informacion" />
-      <TreeView fx:id="informacionTV" layoutX="97.0" layoutY="111.0" onMouseClicked="#seleccionar" prefHeight="200.0" prefWidth="200.0" />
-      <ImageView fx:id="imagTarj" fitHeight="541.0" fitWidth="618.0" layoutX="359.0" layoutY="111.0" pickOnBounds="true" preserveRatio="true" />
+      <TreeView fx:id="informacionTV" layoutX="40.0" layoutY="110.0" prefHeight="262.0" prefWidth="200.0" />
+      <ImageView fx:id="imagTarj" fitHeight="695.0" fitWidth="927.0" layoutX="358.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
