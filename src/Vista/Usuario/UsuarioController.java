@@ -53,7 +53,6 @@ public class UsuarioController implements Initializable {
     private usuariosDAO usuarioDAO;
     Usuario usuario;
     private Notificacion not;
-    
     @FXML
     private AnchorPane fondoUsuario;
     @FXML
@@ -97,8 +96,8 @@ public class UsuarioController implements Initializable {
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
 //        logearseBueno();
-       // logearseComoCliente();
-        logearseComoAdministrador();
+        logearseComoCliente();
+   //     logearseComoAdministrador();
     }
 
     @FXML
