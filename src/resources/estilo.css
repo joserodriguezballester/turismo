@@ -141,3 +141,7 @@ and open the template in the editor.
     -fx-border: solid;
     
 }
+.listaActividades{
+    -fx-background: rgba(255,0,0, 0.3);
+    -fx-background-color:transparent;
+}
