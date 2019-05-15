@@ -14,13 +14,18 @@ import com.jfoenix.controls.JFXButton;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -180,7 +185,7 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Perfil/Perfil.fxml";
-
+        PerfilController perfilController;    
 //        PerfilController perfilController=loader.getController();
 //        perfilController.setUsuario(usuario);
 //        perfilController.calcularnodos();
@@ -188,7 +193,7 @@ public class PrincipalController implements Initializable {
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
-            PerfilController perfilController = loader.getController();
+            perfilController = loader.getController();
             perfilController.setUsuario(usuario);
             perfilController.calcularnodos();
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
@@ -264,7 +269,37 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void cerrarSesion(ActionEvent event) {
+    private void cerrarSesion(ActionEvent event)  {
+       
+           
+        try {
+            usuario=null;
+            gestion.desconectar();
+            
+            Stage stage = (Stage) this.panePerfil.getParent().getScene().getWindow();
+            
+            
+            Parent root = FXMLLoader.load(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
+            
+            Scene scene = new Scene(root);
+            stage.getIcons().add(new Image("/Imagenes/log.png"));
+            stage.setTitle(" Amsterdam");   // o nombre agencia
+            stage.setScene(scene);
+            stage.setResizable(false);
+            stage.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+            
+       
+        
+        
+        
+        
+        
     }
 
     @FXML
