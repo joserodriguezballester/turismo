@@ -49,8 +49,6 @@ public class experienciasDAO {
             ps.setString(6, experiencia.getFoto());
             ps.executeUpdate();
             insertado = true;
-
-            System.out.println(" 1 Mas adentro de insertar experiencia");
         }
 
         return insertado;

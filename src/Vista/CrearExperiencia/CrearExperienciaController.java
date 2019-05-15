@@ -7,6 +7,7 @@ package Vista.CrearExperiencia;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.actividadesDAO;
+import Datos.Bda.experienciasActividadesDAO;
 import Datos.Bda.experienciasDAO;
 import Datos.Bda.subtiposDAO;
 import Datos.Bda.tiposDAO;
@@ -262,12 +263,20 @@ public class CrearExperienciaController implements Initializable {
             listaActividadesCarrito.getItems().add(nueva);
             calcularPrecio();
         }
+    }
 
+    private void actualizarOrden() {
+        int contador = 1;
+        for (ActividadExperiencia act : listaActividadesCarrito.getItems()) {
+            act.setOrden(contador);
+            contador++;
+        }
     }
 
     @FXML
     private void EliminarActividad(ActionEvent event) {
         listaActividadesCarrito.getItems().removeAll(listaActividadesCarrito.getSelectionModel().getSelectedItems());
+        actualizarOrden();
         calcularPrecio();
     }
 
@@ -362,8 +371,12 @@ public class CrearExperienciaController implements Initializable {
     @FXML
     private void AñadirExperiencia(ActionEvent event) {
         experienciasDAO expDAO = new experienciasDAO(gestion);
+        experienciasActividadesDAO actExpDAO = new experienciasActividadesDAO(gestion);
         try {
             expDAO.insertarExperiencia(experiencia);
+            for (ActividadExperiencia actExp : experiencia.getListaActividades()) {
+                actExpDAO.insertarActividadExperiencia(actExp);
+            }
         } catch (Exception e) {
             not.error("Error", "No ha podido insertarse la experiencia en la BD");
         }

@@ -53,6 +53,8 @@ public class ExperienciaController implements Initializable {
     private AnchorPane Ventana;
     @FXML
     private JFXListView<Experiencia> listaVisualExperiencias;
+    @FXML
+    private JFXTextField salidaPrecio;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -137,6 +139,7 @@ public class ExperienciaController implements Initializable {
         for (ActividadExperiencia actExp : experiencia.getListaActividades()) {
             listaActividades.getItems().add(actExp);
         }
+        salidaPrecio.setText(String.valueOf(experiencia.calcularPrecio()) + "€");
     }
 
     @FXML
