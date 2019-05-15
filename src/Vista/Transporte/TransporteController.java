@@ -25,6 +25,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 
 public class TransporteController implements Initializable {
 
@@ -40,6 +41,10 @@ public class TransporteController implements Initializable {
     private List<Transporte> listaTransporte = new ArrayList<>();
     @FXML
     private TreeView<String> informacionTV;
+    @FXML
+    private AnchorPane fondoUsuario;
+    @FXML
+    private AnchorPane frenteAP;
 
     public void setConn(Connection conn) {
         this.conn = conn;
@@ -47,6 +52,13 @@ public class TransporteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Image img = new Image("Imagenes/inicio.jpg");
+        ImageView imagev = new ImageView(img);
+        fondoUsuario.getChildren().add(imagev);
+        imagev.setFitHeight(700);
+        imagev.setFitWidth(1300);
+        fondoUsuario.toBack();
+         frenteAP.toFront();
         transDAO = new TransportesDAO(gestion);
         //CREACION NODO DAW
         TreeItem<String> mapasItem = new TreeItem<>("Mapas");
@@ -73,7 +85,7 @@ public class TransporteController implements Initializable {
         //CREACION DEL TREEITEM INICIAL PARA RELLENAR EL TREEVIEW ciclos
         TreeItem<String> informacionItem = new TreeItem<>("inicio arbol");
         informacionTV.setRoot(informacionItem);
-//        ciclos.setShowRoot(false);  //OCULTAR EL ROOT
+        informacionTV.setShowRoot(false);  //OCULTAR EL ROOT
 
 //ASOCIAR AL NODO INFORMATICA LOS NODOS DE CADA CICLO
         informacionItem.getChildren().addAll(mapasItem, hotelTreeItem);

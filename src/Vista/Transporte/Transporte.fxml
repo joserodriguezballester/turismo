@@ -5,12 +5,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Transporte.TransporteController">
+<AnchorPane id="AnchorPane" fx:id="fondoUsuario" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Transporte.TransporteController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <TreeView fx:id="informacionTV" layoutX="40.0" layoutY="110.0" prefHeight="262.0" prefWidth="200.0" />
-      <ImageView fx:id="imagTarj" fitHeight="695.0" fitWidth="927.0" layoutX="358.0" layoutY="24.0" pickOnBounds="true" preserveRatio="true" />
+      <AnchorPane fx:id="frenteAP" prefHeight="730.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <TreeView fx:id="informacionTV" opacity="0.5" prefHeight="260.0" prefWidth="200.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="80.0" />
+            <ImageView fx:id="imagTarj" fitHeight="570.0" fitWidth="927.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="80.0" />
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
