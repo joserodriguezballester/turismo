@@ -25,26 +25,26 @@
         </ScrollPane>
         <Pane fx:id="paneInformacion" layoutX="410.0" layoutY="10.0" prefHeight="710.0" prefWidth="880.0">
          <children>
-            <JFXButton fx:id="botonCerrarInformacion" layoutX="14.0" layoutY="14.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
+            <JFXButton fx:id="botonCerrarInformacion" layoutX="820.0" layoutY="14.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
             <Label fx:id="etiquetaSubtipoTitulo" alignment="CENTER" layoutX="50.0" layoutY="6.0" prefHeight="41.0" prefWidth="800.0" text="Subtipo + Nombre">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font></Label>
-            <Label fx:id="etiquetaHorario" layoutX="70.0" layoutY="120.0" text="Horario:">
+            <Label fx:id="etiquetaHorario" layoutX="70.0" layoutY="120.0" text="Horario:" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <Label fx:id="etiquetaDireccion" layoutX="70.0" layoutY="80.0" text="Direccion:">
+            <Label fx:id="etiquetaDireccion" layoutX="70.0" layoutY="80.0" text="Direccion:" textFill="WHITE">
                <font>
                   <Font size="24.0" />
                </font>
             </Label>
-            <JFXTextArea fx:id="descripcionActividad" layoutX="50.0" layoutY="480.0" prefHeight="185.0" prefWidth="800.0" />
+            <JFXTextArea fx:id="descripcionActividad" editable="false" layoutX="50.0" layoutY="480.0" prefHeight="185.0" prefWidth="800.0" />
             <ImageView fx:id="fotoActividad" fitHeight="330.0" fitWidth="330.0" layoutX="517.0" layoutY="130.0" pickOnBounds="true" preserveRatio="true" />
-            <JFXTextField fx:id="informacionDireccion" layoutX="188.0" layoutY="85.0" maxWidth="300.0" prefHeight="25.0" prefWidth="150.0" />
-            <JFXTextArea fx:id="informacionHorario" layoutX="165.0" layoutY="120.0" prefHeight="86.0" prefWidth="311.0" />
-            <JFXTextField fx:id="informacionPrecio" layoutX="605.0" layoutY="85.0" maxWidth="300.0" prefHeight="25.0" prefWidth="150.0" />
+            <JFXTextField fx:id="informacionDireccion" editable="false" layoutX="188.0" layoutY="85.0" maxWidth="300.0" prefHeight="25.0" prefWidth="150.0" />
+            <JFXTextArea fx:id="informacionHorario" editable="false" layoutX="165.0" layoutY="120.0" prefHeight="86.0" prefWidth="311.0" />
+            <JFXTextField fx:id="informacionPrecio" editable="false" layoutX="605.0" layoutY="85.0" maxWidth="300.0" prefHeight="25.0" prefWidth="150.0" />
             <Pane fx:id="paneWebView" layoutX="50.0" layoutY="220.0" prefHeight="240.0" prefWidth="426.0">
                <children>
                   <WebView fx:id="webViewActividad" prefHeight="240.0" prefWidth="426.0" />
