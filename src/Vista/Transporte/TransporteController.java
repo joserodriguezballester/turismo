@@ -84,13 +84,19 @@ public class TransporteController implements Initializable {
 
     //LO MOSTRAMOS DEPLEGADO
         informacionItem.setExpanded(true);
+//           imagTarj.setImage(new Image("Imagenes/fondoActividad.jpg" ));
     }
-     @FXML
+    @FXML
     private void seleccionar(MouseEvent event) {
         TreeItem<String> nodoSeleccionado = informacionTV.getSelectionModel().getSelectedItem();
         if (nodoSeleccionado != null) {
             String modulo = nodoSeleccionado.getValue();
-//            seleccionado.setText(modulo);
+            if (modulo.equals("Autobuses")){
+//                 Image img = new Image("Imagenes/fondoActividad.jpg");
+                 imagTarj.setImage(new Image("Imagenes/fondoActividad.jpg" ));
+//        ImageView imagev = new ImageView(img);
+//               imagTarj.setImage(img);
+            }
         }
 
     }
