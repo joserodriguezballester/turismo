@@ -84,6 +84,18 @@ public class ActividadController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        Image img = new Image("Imagenes/fondoActividad.jpg");
+        ImageView imagev = new ImageView(img);
+
+        imagev.setFitHeight(730);
+        imagev.setFitWidth(1300);
+
+        this.Ventana.getChildren().add(imagev);
+        
+
+        listaElementos.setVisible(false);
+
         not = new Notificacion();
         Ventana.setVisible(true);
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
@@ -92,10 +104,18 @@ public class ActividadController implements Initializable {
 
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+
+        scrollTipoActividades.getStyleClass().add("scrollPaneActividades");
+        paneListaBotones.getStyleClass().add("scrollPaneActividades");
+        
+        scrollTipoActividades.toFront();
+        listaElementos.toFront();
+        paneInformacion.toFront();
     }
 
     private void inicio() {
         gestionBDActividad = new actividadesDAO(gestion);
+
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
             System.out.println(lista.isEmpty());
@@ -125,16 +145,18 @@ public class ActividadController implements Initializable {
                 paneListaBotones.getChildren().add(botonLista);
             }
         } catch (SQLException ex) {
-             not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en inicio --- ActividadController");
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " en inicio --- ActividadController");
         } catch (Exception es) {
             es.printStackTrace();
-             not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    " en cargarActividades --- ActividadController");
+            not.error("ERROR EXCEPTION", "" + es.getMessage()
+                    + " en cargarActividades --- ActividadController");
         }
+
     }
 
     public void cargarActividades(Tipo tipo) {
+        listaElementos.setVisible(true);
         paneInformacion.setVisible(false);
         listaDatosActividades.clear();
         try {
@@ -143,11 +165,11 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException ex) {
-            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en cargarActividades --- ActividadController");
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " en cargarActividades --- ActividadController");
         } catch (Exception es) {
-            not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    " en cargarActividades --- ActividadController");
+            not.error("ERROR EXCEPTION", "" + es.getMessage()
+                    + " en cargarActividades --- ActividadController");
 
         }
     }
@@ -199,9 +221,9 @@ public class ActividadController implements Initializable {
             }
         } catch (Exception es) {
             fotoActividad.setVisible(false);
-            not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    " en cargarInformacionActividad --- ActividadController");
-            
+            not.error("ERROR EXCEPTION", "" + es.getMessage()
+                    + " en cargarInformacionActividad --- ActividadController");
+
         }
 
         if (actividad.getUrl() == null) {

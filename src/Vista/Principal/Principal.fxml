@@ -2,8 +2,6 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -36,15 +34,7 @@
                   <Button fx:id="botonPerfil" mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="300.0" text="Perfil" GridPane.columnIndex="7" />
                   <Button fx:id="botonBuscar" mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="300.0" text="Buscar" GridPane.columnIndex="6" />
                   <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Transportes" GridPane.columnIndex="3" />
-                  <Button fx:id="botonLogo" mnemonicParsing="false" prefHeight="75.0" prefWidth="162.0">
-                     <graphic>
-                        <ImageView fitHeight="53.0" fitWidth="134.0" pickOnBounds="true">
-                           <image>
-                              <Image url="@../../Imagenes/log1.png" />
-                           </image>
-                        </ImageView>
-                     </graphic>
-                  </Button>
+                  <Button fx:id="botonLogo" mnemonicParsing="false" onAction="#irInicio" prefHeight="75.0" prefWidth="162.0" text="Inicio" />
                </children>
             </GridPane>
          </children>

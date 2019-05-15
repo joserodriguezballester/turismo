@@ -64,7 +64,7 @@ public class PrincipalController implements Initializable {
         not = new Notificacion();
         
         gridpane.getStyleClass().add("menu");
-        botonLogo.getStyleClass().add("botonIcono");
+        botonLogo.getStyleClass().add("botonMenu");
         botonActividades.getStyleClass().add("botonMenu");
         botonExperiencias.getStyleClass().add("botonMenu");
         botonPerfil.getStyleClass().add("botonMenu");
@@ -84,6 +84,34 @@ public class PrincipalController implements Initializable {
 
     }
 
+       @FXML
+    private void irInicio(ActionEvent event) {
+        Ventana.getChildren().removeAll(Ventana.getChildren());
+        FXMLLoader loader = new FXMLLoader();
+
+        PrincipalController controlador;
+
+        loader.setLocation(getClass().getResource("/Vista/Principal/Principal.fxml"));
+        try {
+            Parent root = loader.load();
+
+            controlador = loader.getController();
+            controlador.setGestion(gestion);
+            Ventana.getChildren().add(root);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            not.error("ERROR IOException",
+                    "en irInicio --- PrincipalController");
+        } catch (Exception es) {
+            es.printStackTrace();
+            not.error("ERROR AL CARGAR VENTANA INICIO",
+                    "Revisa el código y vuelve a intentarlo, (irInicio PrincipalController)");
+        }
+        
+    }
+
+    
+    
     @FXML
     private void irActividad(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
@@ -223,4 +251,5 @@ public class PrincipalController implements Initializable {
         this.usuario = usuario;
     }
 
+ 
 }
