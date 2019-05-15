@@ -104,7 +104,7 @@ and open the template in the editor.
 }
 
 .menu{
-    -fx-background-color:#6600cc;
+    -fx-background-color: rgb(77,102,204);
 }
 
 .botonIcono{
@@ -119,3 +119,29 @@ and open the template in the editor.
     -fx-background-color: #3366ff;
 }
 
+.paneinicio{
+    /*-fx-background-color: rgba(247, 196, 255, 0.6);*/
+    -fx-background-color: rgba(255, 255, 255, 0.5);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.paneAgencia{
+    -fx-background-color: rgba(247, 196, 255, 0.6);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.botoninicio{
+    -fx-font-weight: bold;
+    -fx-text-fill: BLACK;
+
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(247, 196, 255);
+    -fx-border: solid;
+    
+}
+.listaActividades{
+    -fx-background: rgba(255,0,0, 0.3);
+    -fx-background-color:transparent;
+}

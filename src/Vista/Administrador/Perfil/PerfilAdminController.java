@@ -110,7 +110,7 @@ public class PerfilAdminController implements Initializable {
 
         usuariosTV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> cargarEtiquetas(newValue));
-//        asignarColumnas();
+
     }
 
     public void setGestion(GestionBD gestion) {
@@ -121,9 +121,9 @@ public class PerfilAdminController implements Initializable {
         usuarioDAO = new usuariosDAO(gestion);
         ObservableList<String> roleOL = FXCollections.observableArrayList();
         ObservableList<String> rolOL = FXCollections.observableArrayList();
-        roleOL.add("Clientes");
-        roleOL.add("Administradores");
-        roleOL.add("Todos");
+        roleOL.add("CLIENTE");
+        roleOL.add("ADMINISTRADOR");
+        roleOL.add("TODOS");
         rolOL.add("CLIENTE");
         rolOL.add("ADMINISTRADOR");
         tipoUsuario.setItems(roleOL);
@@ -152,8 +152,8 @@ public class PerfilAdminController implements Initializable {
             escena.setScene(new Scene(root));
             escena.showAndWait();
         } catch (IOException ex) {
-            not.error("ERROR IOException","" + ex.getMessage() + 
-                    " en anadir() --- PerfilAdminController");
+            not.error("ERROR IOException", "" + ex.getMessage()
+                    + " en anadir() --- PerfilAdminController");
         }
 
     }
@@ -169,16 +169,17 @@ public class PerfilAdminController implements Initializable {
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
-//       String rol = rolTF.getText();
-//        String rol = "CLIENTE"; // temporal
         String rol = rolCB.getValue();
         int id = Integer.parseInt(id_invisibleTF.getText());
 
         try {
             usuarioDAO.modificarUsuario(DNI, nombre, apellidos, rol, nick, direccion, telefono, email, id, fecNac);
+            // si ha modificado algo
+            cargarTabla(rolCB.getValue());
+            //asi hemos recargado la lista
         } catch (SQLException ex) {
-            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en modificar() --- PerfilAdminController");
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " en modificar() --- PerfilAdminController");
         }
 
     }
@@ -196,26 +197,29 @@ public class PerfilAdminController implements Initializable {
 //            String seleccion = tipoUsuario.getSelectionModel().getSelectedItem();
 
             switch (seleccion) {
-                case "Clientes":
+                case "CLIENTE":
 
                     lista = usuarioDAO.listarClientes();
 
                     break;
-                case "Administradores":
+                case "ADMINISTRADOR":
                     lista = usuarioDAO.listarAdministradores();
                     break;
-                case "Todos":
+                case "TODOS":
                     lista = usuarioDAO.listarClientes();
                     break;
+                default:
+                    lista = usuarioDAO.listarClientes();
+
             }
             cargarUsuarios(lista);
 
         } catch (SQLException ex) {
-            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en cargarTabla() --- PerfilAdminController");
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " en cargarTabla() --- PerfilAdminController");
         } catch (Exception es) {
-            not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    " en cargarTabla() --- PerfilAdminController");
+            not.error("ERROR EXCEPTION", "" + es.getMessage()
+                    + " en cargarTabla() --- PerfilAdminController");
         }
 
     }
@@ -229,7 +233,6 @@ public class PerfilAdminController implements Initializable {
 //    private void asignarColumnas() {
 //        usuariosTV.setItems(usuarios);
 //    }
-
     private void cargarEtiquetas(Usuario usuario) {
         id_invisibleTF.setText(Integer.toString(usuario.getId()));
 
@@ -242,7 +245,6 @@ public class PerfilAdminController implements Initializable {
         emailTF.setText(usuario.getEmail());
         fecNacDP.setValue(usuario.getFecNac());
         rolCB.setValue(usuario.getPerfilString());
-
 
 //        fecNacTF.setText(usuario.getFecNac().toString());
 //        rolTF.setText(usuario.getPerfilString());
