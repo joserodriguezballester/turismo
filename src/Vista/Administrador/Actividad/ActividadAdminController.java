@@ -3,6 +3,7 @@ package Vista.Administrador.Actividad;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.actividadesDAO;
+import Datos.Bda.tiposDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
@@ -95,7 +96,7 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private TextField textIdTipo;
     @FXML
-    private ComboBox<String> comboListarIdTipo = new ComboBox<String>();
+    private ComboBox<Tipo> comboListarIdTipo = new ComboBox<Tipo>();
     @FXML
     private ImageView imageView;
     
@@ -110,6 +111,7 @@ public class ActividadAdminController implements Initializable {
     private static GestionBD gestion;
 
     private actividadesDAO activiDAO;
+    private tiposDAO tipoDAO;
     private Notificacion not;
       
     public void setGestion(GestionBD gestion) {
@@ -118,9 +120,10 @@ public class ActividadAdminController implements Initializable {
     
     public void ejecutaAlPrincipio() throws SQLException{
         activiDAO=new actividadesDAO(gestion);
+        tipoDAO = new tiposDAO(gestion);
         
         try {
-            listaTipos = activiDAO.consultarTipoActividades();
+            listaTipos = tipoDAO.consultarTipos();
         } catch (SQLException ex) {
              not.error("ERROR SQL","" + ex.getMessage() + 
                     " en ejecutarAlPrincipio() --- ActividadAdminController"); 
@@ -140,14 +143,10 @@ public class ActividadAdminController implements Initializable {
 // ---------------------------- CARGAR COMBO TIPO ------------------------
     
     private void cargarCombo(){      
-        tipos = FXCollections.observableArrayList();
-        String id;                    
+                   
         for(Tipo valor: listaTipos){
-            id = String.valueOf(valor.getId());
-            tipos.add(id);
+            comboListarIdTipo.getItems().add(valor);
         }
-        
-        comboListarIdTipo.setItems(tipos);
     }
     
 // ----------------------------- LISTAR ------------------------------------
@@ -192,10 +191,8 @@ public class ActividadAdminController implements Initializable {
     private void cargarTablaPorTipo(){
         List<Actividad> listaPorTipo = new ArrayList<>();
         Tipo tipo;
-        int iden;      
-                   
-        iden = Integer.parseInt(comboListarIdTipo.getValue());
-        tipo = dameTipo(iden);
+
+        tipo = comboListarIdTipo.getValue();
 
         try{
            listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
@@ -208,11 +205,7 @@ public class ActividadAdminController implements Initializable {
         }
         cargarTabla(listaPorTipo);    
     }
-    
-    private Tipo dameTipo(int id){
-       Tipo t = listaTipos.get(id -1);
-       return t;
-    }
+
     
 // --------------------------- SELECCIONAR UN ITEM --------------------------
     
@@ -396,6 +389,7 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private void borrar(ActionEvent event) {
         eliminar();
+        listar();
     }
 
     private void listar(ActionEvent event) {      
