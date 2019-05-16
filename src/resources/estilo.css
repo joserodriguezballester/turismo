@@ -66,6 +66,14 @@ and open the template in the editor.
     -fx-font-weight: bold;
     -fx-background-color: rgb(2,144,46);
 }
+
+.botonCancelar{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 20;
+    -fx-font-size: 12px;
+    -fx-background-color: #ff0000
+}
 .botonCrearExperiencia{
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;

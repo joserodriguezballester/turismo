@@ -113,8 +113,9 @@ public class UsuarioController implements Initializable {
             RegistrarController registrarController = loader.getController();
             registrarController.setParametros(usuarioDAO);
             Stage escena = new Stage();                      //En Stage nuevo.
-            escena.setTitle("Registrarse");
+            escena.setTitle("Registro");
             escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+            escena.getIcons().add(new Image("/Imagenes/iconos/note.png"));
             escena.setScene(new Scene(root));
             escena.showAndWait();
         } catch (IOException ex) {
