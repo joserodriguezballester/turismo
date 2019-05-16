@@ -38,10 +38,14 @@ and open the template in the editor.
 
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-background-color: rgb(77,102,204);
+    /*-fx-background-color: rgb(77,102,204);*/
+    -fx-background-color:#EF3358;
     -fx-border: solid;
 }
-
+.menu{
+    /*    -fx-background-color: rgb(77,102,204);*/
+    -fx-background-color:#EF3358;
+}
 .botonMenu:hover{
     -fx-font-weight: bold;
     -fx-text-fill: #000000;
@@ -111,9 +115,7 @@ and open the template in the editor.
     -fx-background-color: #ff0000
 }
 
-.menu{
-    -fx-background-color: rgb(77,102,204);
-}
+
 
 .botonIcono{
     -fx-background-color:#fff952;
@@ -147,7 +149,7 @@ and open the template in the editor.
     -fx-font-weight: bold;
     -fx-background-color: rgb(247, 196, 255);
     -fx-border: solid;
-    
+
 }
 .listaActividades{
     -fx-background: rgba(255,0,0, 0.3);
