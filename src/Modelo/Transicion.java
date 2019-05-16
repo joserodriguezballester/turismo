@@ -35,7 +35,7 @@ public class Transicion {
             Image image = new Image(fichero.toUri().toString());
 
             ImageView imageview = new ImageView(image);
-            imageview.setFitHeight(700);
+            imageview.setFitHeight(730);
             imageview.setFitWidth(1300);
 
             slides.add(imageview);
@@ -62,12 +62,14 @@ public class Transicion {
 
             SequentialTransition sequentialTransition = new SequentialTransition();
 
+            
             FadeTransition fadeIn = getFadeTransition(slide, 0.0, 1.0, 1500);
             PauseTransition stayOn = new PauseTransition(Duration.millis(2500));
             FadeTransition fadeOut = getFadeTransition(slide, 1.0, 0.0, 0);
 
             sequentialTransition.getChildren().addAll(fadeIn, stayOn, fadeOut);
             slide.setOpacity(0);
+            
             this.root.getChildren().add(slide);
             slideshow.getChildren().add(sequentialTransition);
 
@@ -77,7 +79,7 @@ public class Transicion {
         slideshow.play();
     }
 
-    private FadeTransition getFadeTransition(ImageView imageView, double fromValue, double toValue, int durationInMilliseconds) {
+    private FadeTransition getFadeTransition(ImageView imageView, double fromValue, double toValue, double durationInMilliseconds) {
 
         FadeTransition ft = new FadeTransition(Duration.millis(durationInMilliseconds), imageView);
         ft.setFromValue(fromValue);

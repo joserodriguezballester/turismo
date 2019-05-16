@@ -173,6 +173,11 @@ public class ActividadController implements Initializable {
                     + " en cargarActividades --- ActividadController");
 
         }
+        
+        if(paneInformacion.isVisible()){
+            paneInformacion.setVisible(false); 
+        }
+        
     }
 
     private void cerrarInformacionEvent(ActionEvent event) {
