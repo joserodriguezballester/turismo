@@ -148,11 +148,14 @@ public class ExperienciaAdminController implements Initializable {
         foto = textFoto.getText();
         //lista = textArea.getText().toString();
         
+        Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto,lista);
         try {
-            Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto,lista);
+           
             ok = experienDAO.insertarExperiencia(nueva);
+            
         } catch (SQLException ex) {
             not.error("ERROR SQL", "Verifica el código");
+            ex.getStackTrace();
         }
         
         if(ok){
@@ -161,6 +164,49 @@ public class ExperienciaAdminController implements Initializable {
         else{
             not.error("ERRO AL INSERTAR REGISTRO", "Operación fallida");
         }
+    }
+    
+    private List<ActividadExperiencia> insertarActividadExperiencia(){
+        int numOrden, idExperiencia,numPlazas;
+        Actividad actividad = null;
+        String duracion;
+        LocalDateTime fechaIni, fechaFin;
+        double precio;
+        List<ActividadExperiencia> listaActividadExperiencia = new ArrayList<>();
+        ActividadExperiencia acEx;
+        
+        //actExperien = tableListaExperiencias.getSelectionModel().getSelectedItem();
+        
+        numOrden = Integer.parseInt(textOrden.getText());
+        idExperiencia = Integer.parseInt(textIdExperiencia.getText());
+        try {
+            actividad = activiDAO.consultarActividad(Integer.parseInt(textIdActividad.getText()));
+        } catch (SQLException ex) {
+            // ERROR SQL
+        }
+        fechaIni = LocalDateTime.parse(textFechaInicio.getText());
+        fechaFin = LocalDateTime.parse(textFechaFinal.getText());
+        duracion = textDuracion.getText();
+        precio = Double.parseDouble(textPrecio.getText());
+        numPlazas = Integer.parseInt(textNumPlazas.getText());
+//              
+//        for (ActividadExperiencia valor : experiencia.getListaActividades()) {
+//                eADAO.insertarActividadExperiencia(valor);
+//        }
+        
+        
+        acEx = new ActividadExperiencia(numOrden,idExperiencia,actividad,fechaIni,fechaFin,precio,numPlazas);
+        System.out.println("ANTES DEL TRY");
+        try {
+            System.out.println("DENTRO DEL TRY");
+            eaDAO.insertarActividadExperiencia(acEx);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+            not.error("ERROR SQL", "En insertarActividadExperiencia --- ExperienciaAdminController");
+        }
+        
+        listaActividadExperiencia.add(acEx);
+        return listaActividadExperiencia;
     }
 
 // ------------------------- MODIFICAR -------------------------------
@@ -295,12 +341,12 @@ public class ExperienciaAdminController implements Initializable {
             if(foto != null){
                 imageView.setVisible(true);
                 imageView.setImage(new Image("Imagenes/" + foto));
-                imageView.setFitWidth(200);
-                imageView.setFitHeight(200);
+                imageView.setFitWidth(275);
+                imageView.setFitHeight(250);
                 imageView.setPreserveRatio(false);
             }
             else {
-                imageView.setVisible(false);                
+                imageView.setVisible(true);                
             }
             
             listaDos = eaDAO.consultarActividadesDeExperiencia(id);
@@ -409,7 +455,7 @@ public class ExperienciaAdminController implements Initializable {
 
     @FXML
     private void añadirNueva(ActionEvent event) {
-        
+       insertarActividadExperiencia(); 
     }
 
     @FXML

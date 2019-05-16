@@ -35,7 +35,7 @@ public class experienciasActividadesDAO {
 
     public boolean insertarActividadExperiencia(ActividadExperiencia actExp) throws SQLException {
         boolean insertado = false;
-        String consulta = "INSERT INTO experiencia_actividad (orden, idexperiencia, idactividad, numPlazas, fechaInicio, fechaFinal, duracion, precio) VALUES(?, ?, ?, ?, ?, ?, ?);";
+        String consulta = "INSERT INTO experiencia_actividad (orden, idexperiencia, idactividad, numPlazas, fechaInicio, fechaFinal, duracion, precio) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ps.setInt(1, actExp.getOrden());
         ps.setInt(2, actExp.getIdExperiencia());

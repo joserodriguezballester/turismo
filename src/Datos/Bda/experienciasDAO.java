@@ -36,15 +36,19 @@ public class experienciasDAO {
     //CREATE
     public boolean insertarExperiencia(Experiencia experiencia) throws SQLException {
         boolean insertado = false;
+        
+        System.out.println("Dentro de insertarExperiencia ---------------");
         if (conn != null) {
-            String consulta = "INSERT INTO EXPERIENCIAS (IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?);";
+            System.out.println("Dentro de insertarExperiencia ---XXXXXXXX-----");
+            String consulta = "INSERT INTO EXPERIENCIAS (ID,IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = conn.prepareStatement(consulta);
-            ps.setInt(1, experiencia.getIdUsuario());
-            ps.setString(2, experiencia.getNombre());
-            ps.setString(3, experiencia.getDescripcion());
-            ps.setDate(4, Date.valueOf(experiencia.getFechaTopeValidez()));
+            ps.setInt(1, experiencia.getId());
+            ps.setInt(2, experiencia.getIdUsuario());
+            ps.setString(3, experiencia.getNombre());
+            ps.setString(4, experiencia.getDescripcion());
+            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez()));
 //            ps.setString(5, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            ps.setString(5, experiencia.getFoto());
+            ps.setString(6, experiencia.getFoto());
             ps.executeUpdate();
             insertado = true;
 
