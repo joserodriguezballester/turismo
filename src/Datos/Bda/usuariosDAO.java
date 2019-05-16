@@ -48,7 +48,6 @@ public class usuariosDAO {
             ps.setString(7, usuario.getTelefono());
             ps.setString(8, usuario.getDireccion());
             ps.setString(9, usuario.getEmail());
-
             ps.executeUpdate();
             insertado = true;
 
@@ -64,21 +63,13 @@ public class usuariosDAO {
      public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
          
         boolean modificado = false;
-        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
+        modificarUsuariodesdeUsuario(DNI,nombre,apellidos, nick, direccion,telefono,email, id, fecNac) ;         
+        String consulta = "UPDATE USUARIOS SET ROL = ? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-        ps.setString(1, DNI);
-        ps.setString(2, nombre);
-        ps.setString(3, apellidos);
-        ps.setString(4, rol);
-        ps.setString(5, nick);
-        ps.setString(6, direccion);
-        ps.setString(7, telefono);
-        ps.setString(8, email);
-        ps.setString(9, fecNac.toString());
-        ps.setInt(10, id);
+        ps.setString(1, rol);
+        ps.setInt(2, id);
         ps.executeUpdate();
         modificado = true;
-
         return modificado;
     }
      
@@ -99,9 +90,7 @@ public class usuariosDAO {
         ps.executeUpdate();
         modificado = true;
   }
-    
-    
-    
+            
 
     //DELETE
     public boolean borrarUsuario(int idUsuario) throws SQLException {
@@ -117,36 +106,50 @@ public class usuariosDAO {
     }
 
     //READ
-    
+    public List<Usuario> lista(String tabla) throws SQLException {
+        List<Usuario> listaUsuarios = null;
+        String consulta = "call listarUsuarios (?);";   
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, tabla);
+        ResultSet rs = ps.executeQuery();       
+        listaUsuarios = darValorRs(rs);
+        return listaUsuarios;
+    }
     
     public List<Usuario> listarClientes() throws SQLException {    
-        List<Usuario> listaUsuarios = null;
-        if (gestion.getConn() != null) {       
-            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
-            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();       
-            listaUsuarios = darValorRs(rs);
-        }
+        String tabla="CLIENTES";
+        List<Usuario> listaUsuarios = lista(tabla);
+//        List<Usuario> listaUsuarios = null;
+//        if (gestion.getConn() != null) {       
+//            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
+//            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+//            ResultSet rs = ps.executeQuery();       
+//            listaUsuarios = darValorRs(rs);
+//        }
         return listaUsuarios;
     }
 
     public List<Usuario> listarAdministradores() throws SQLException {
-        List<Usuario> listaUsuarios;
-        String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM administradores;";
-        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-        ResultSet rs = ps.executeQuery();
-        listaUsuarios = darValorRs(rs);
+        String tabla="ADMINISTRADOR";
+        List<Usuario> listaUsuarios=lista(tabla);
+        
+//        String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM administradores;";
+//        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+//        ResultSet rs = ps.executeQuery();
+//        listaUsuarios = darValorRs(rs);
         return listaUsuarios;
     }
 
     public List<Usuario> listarTodos() throws SQLException {
-        List<Usuario> listaUsuarios = null;
-        if (gestion.getConn() != null) {
-            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM usuarios;";
-            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();
-            listaUsuarios = darValorRs(rs);
-        }
+        String tabla="TODOS";
+        List<Usuario> listaUsuarios=lista(tabla);
+////        List<Usuario> listaUsuarios = null;
+//        if (gestion.getConn() != null) {
+//            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM usuarios;";
+//            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+//            ResultSet rs = ps.executeQuery();
+//            listaUsuarios = darValorRs(rs);
+//        }
         return listaUsuarios;
     }
     
