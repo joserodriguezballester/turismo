@@ -65,6 +65,8 @@ public class UsuarioController implements Initializable {
     private Button botonLog;
     @FXML
     private Button botonReg;
+    private String tituloAlertSQL="AlertaSQL";
+    private String mensajeSQL="error en la base de datos";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -215,7 +217,12 @@ public class UsuarioController implements Initializable {
         boolean checkPassword;
         //comprobar si existe usuario//
         String nick = nickTF.getText();
-        String contrasenaBD = usuarioDAO.obtenerContra(nick);
+        String contrasenaBD = null;
+        try {
+            contrasenaBD = usuarioDAO.obtenerContra(nick);
+        } catch (SQLException ex) {
+           not.alert(tituloAlertSQL, mensajeSQL);
+        }
         String contrasena = contraTF.getText();
         checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
 

@@ -56,7 +56,7 @@ public class Notificacion {
         .text(mensaje)
         .graphic(null)
         .hideAfter(Duration.seconds(25))
-        .position(Pos.CENTER_RIGHT)
+        .position(Pos.CENTER)
         .onAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {

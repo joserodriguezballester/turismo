@@ -13,8 +13,11 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -118,8 +121,12 @@ public class RegistrarController implements Initializable {
             //crear usuario//
             Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
           
-            //insertar usuario en BD//      
-            usuarioDAO.insertarUsuario(usuario);
+            try {
+                //insertar usuario en BD//
+                usuarioDAO.insertarUsuario(usuario);
+            } catch (SQLException ex) {
+              not.alert("Error","Hay un error de SQL");
+            }
 
             // aparte de lo que haga con los datos tiene que cerrarse la ventana
             //////// cerrar ventana ////
@@ -131,12 +138,12 @@ public class RegistrarController implements Initializable {
             not.error("ERROR contraseña distinta",
                     "en registrar --- RegistrarController");
         }
-        // ---- I SINO QUE?
+       
     }
 
     @FXML
     private void salir(ActionEvent event) {
-         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
+        Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
         stage.close();
     }
 

@@ -12,6 +12,9 @@ public class Experiencia {
     private String foto;
     private List<ActividadExperiencia> listaActividades;
 
+    public Experiencia() {
+    }
+
     public Experiencia(int id, int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String foto, List<ActividadExperiencia> listaActividades) {
         this.id = id;
         this.idUsuario = idUsuario;

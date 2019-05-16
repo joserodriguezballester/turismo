@@ -10,8 +10,11 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -91,7 +94,12 @@ public class RegistrarAdminController implements Initializable {
             //crear usuario//
             Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
             //insertar usuario en BD//
-            boolean insertado = usuarioDAO.insertarUsuario(usuario);
+            boolean insertado = false;
+            try {
+                insertado = usuarioDAO.insertarUsuario(usuario);
+            } catch (SQLException ex) {
+            not.alert("Error","Hay un error de SQL");
+            }
             if (insertado) {
                 not.info("INFORMACION", "Se ha insertado correctamente");
             } else {
