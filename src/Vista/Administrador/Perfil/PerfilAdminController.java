@@ -102,7 +102,6 @@ public class PerfilAdminController implements Initializable {
         nombreTC.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         apellidosTC.setCellValueFactory(new PropertyValueFactory<>("apellidos"));
         dniTC.setCellValueFactory(new PropertyValueFactory<>("dni"));
-
         telefonoTC.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         direccionTC.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         emailTC.setCellValueFactory(new PropertyValueFactory<>("email"));
@@ -110,7 +109,6 @@ public class PerfilAdminController implements Initializable {
 
         usuariosTV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> cargarEtiquetas(newValue));
-
     }
 
     public void setGestion(GestionBD gestion) {

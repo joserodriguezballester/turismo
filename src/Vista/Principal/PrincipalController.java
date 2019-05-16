@@ -195,6 +195,7 @@ public class PrincipalController implements Initializable {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
             perfilController = loader.getController();
             perfilController.setUsuario(usuario);
+            System.out.println("gestion PC "+gestion);
             perfilController.setGestion(gestion);
             perfilController.calcularnodos();
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));

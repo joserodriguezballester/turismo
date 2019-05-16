@@ -65,7 +65,7 @@ public class usuariosDAO {
     
     
     //UPDATE
-//    public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id) throws SQLException {
+//    public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id) throws SQLException {
 //        boolean insertado = false;
 //        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ? WHERE ID = ?;";
 //
@@ -218,9 +218,9 @@ public class usuariosDAO {
         return modificado;
     }
 
-    public void modificarUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
+    public void modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
       boolean modificado = false;
-        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?, ROL = ?, nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
+        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, DNI);
         ps.setString(2, nombre);
@@ -233,8 +233,8 @@ public class usuariosDAO {
 //        ps.setDate(9, fecNac);
 //        java.sql.Date fecNacaInsertar=Date.valueOf(fecNac);
         ps.setString(8, fecNac.toString());
-        ps.setInt(10, id);
-//        System.out.println("instruccion"+ps);
+        ps.setInt(9, id);
+      
         ps.executeUpdate();
         modificado = true;
     

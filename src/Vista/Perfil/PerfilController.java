@@ -68,7 +68,7 @@ public class PerfilController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        usuarioDAO = new usuariosDAO(gestion);
+       
         Image img = new Image("Imagenes/inicio.jpg");
         ImageView imagev = new ImageView(img);
         Ventana.getChildren().add(imagev);
@@ -82,12 +82,11 @@ public class PerfilController implements Initializable {
     }
 
     public void setUsuario(Usuario usuario) {
-
         this.usuario = usuario;
-
     }
 
     public void calcularnodos() {
+        usuarioDAO = new usuariosDAO(gestion);
         nickTF.setText(usuario.getNick());
         nombreTF.setText(usuario.getNombre());
         apellidosTF.setText(usuario.getApellidos());
@@ -96,6 +95,7 @@ public class PerfilController implements Initializable {
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
         fecNacTF.setValue(usuario.getFecNac());
+        
 //        fecNacTF.setText(usuario.getFecNac().toString());
 
 //        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
@@ -115,7 +115,7 @@ public class PerfilController implements Initializable {
         int id = usuario.getId();
 
         try {
-            usuarioDAO.modificarUsuario(DNI, nombre, apellidos,  nick, direccion, telefono, email, id, fecNac);
+            usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos,  nick, direccion, telefono, email, id, fecNac);
             // si ha modificado algo
           
             //asi hemos recargado la lista
