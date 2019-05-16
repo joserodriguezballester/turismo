@@ -75,6 +75,7 @@ public class PerfilController implements Initializable {
         imagev.setFitHeight(700);
         imagev.setFitWidth(1300);
         Ventana.toBack();
+       alFrenteAP.getStyleClass().add("paneinicio");
         alFrenteAP.toFront();
 
        
