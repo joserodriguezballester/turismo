@@ -88,6 +88,8 @@ public class PrincipalController implements Initializable {
         botnSalir.getStyleClass().add("botonMenu");
 
         panePerfil.setVisible(false);
+        
+        
 
 //        gestion = new GestionBD();
 //        gestion.conectar();
@@ -267,6 +269,7 @@ public class PrincipalController implements Initializable {
 
     public void setParametroUsuario(Usuario usuario) {
         this.usuario = usuario;
+        botonPerfil.setText(usuario.getNick().toUpperCase()); 
     }
 
     @FXML
