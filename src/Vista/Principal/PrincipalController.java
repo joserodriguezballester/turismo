@@ -5,6 +5,7 @@ import Modelo.Notificacion;
 import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
+import Vista.Buscador.BuscadorController;
 import Vista.CrearExperiencia.CrearExperienciaController;
 
 import Vista.Perfil.PerfilController;
@@ -170,23 +171,17 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Perfil/Perfil.fxml";
         PerfilController perfilController;
-//        PerfilController perfilController=loader.getController();
-//        perfilController.setUsuario(usuario);
-//        perfilController.calcularnodos();
-//        PerfilController.setGestion(gestion);
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
-            Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
+            Parent root = loader.load();    
             perfilController = loader.getController();
             perfilController.setUsuario(usuario);
             System.out.println("gestion PC " + gestion);
             perfilController.setGestion(gestion);
             perfilController.calcularnodos();
-//           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
 
         } catch (IOException ex) {
-
             ex.printStackTrace();
             not.error("ERROR IOException",
                     "en irPerfil --- PrincipalController");
@@ -202,21 +197,21 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Buscador/Buscador.fxml";
+        BuscadorController controlador;
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
-            Parent root = loader.load();    //para obtener el controlador ; se ejecuta inicialice
-//           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+            Parent root = loader.load();    
+            controlador = loader.getController();
+            controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-
             ex.printStackTrace();
             not.error("ERROR IOException",
-                    "en irBuscar --- PrincipalController");
+                    "en irPerfil --- PrincipalController");
         } catch (Exception es) {
-            not.error("ERROR AL CARGAR VENTANA BUSCADOR",
-                    "Revisa el código y vuelve a intentarlo, (irBuscar PrincipalController)");
+            not.error("ERROR AL CARGAR VENTANA PERFIL",
+                    "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
         }
-//        ActividadController actividadController=loader.getController(); por si hace falta
     }
 
 
