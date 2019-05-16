@@ -40,6 +40,9 @@ import javafx.stage.Stage;
  */
 public class PrincipalController implements Initializable {
 
+    private Usuario usuario;
+    private Notificacion not;
+
     @FXML
     private AnchorPane Menu;
     @FXML
@@ -55,15 +58,11 @@ public class PrincipalController implements Initializable {
     private Button botonBuscar;
     @FXML
     private Button botonTransportes;
-    private Usuario usuario;
-    private Notificacion not;
-
     @FXML
     private Button botonLogo;
     @FXML
     private GridPane gridpane;
     @FXML
-//    public static Pane panePerfil;
     private Pane panePerfil;
     @FXML
     private JFXButton botnPerfil;
@@ -77,31 +76,14 @@ public class PrincipalController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
 
-        gridpane.getStyleClass().add("menu");
-        botonLogo.getStyleClass().add("botonMenu");
-        botonActividades.getStyleClass().add("botonMenu");
-        botonExperiencias.getStyleClass().add("botonMenu");
-        botonPerfil.getStyleClass().add("botonMenu");
-        botonBuscar.getStyleClass().add("botonMenu");
-        botonTransportes.getStyleClass().add("botonMenu");
-        botnPerfil.getStyleClass().add("botonMenu");
-        botnSalir.getStyleClass().add("botonMenu");
+        efectos();
 
         panePerfil.setVisible(false);
-        
-        
 
 //        gestion = new GestionBD();
 //        gestion.conectar();
-        try {
-            Transicion tr = new Transicion();
-            tr.setRoot(Ventana);
-            tr.start();
-        } catch (Exception e) {
-            System.out.println("ha petao");
-            not.error("ERROR Exception",
-                    "en initialize --- PrincipalController");
-        }
+        efectoTransicion();
+
         panePerfil.toFront();
     }
 
@@ -187,7 +169,7 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Perfil/Perfil.fxml";
-        PerfilController perfilController;    
+        PerfilController perfilController;
 //        PerfilController perfilController=loader.getController();
 //        perfilController.setUsuario(usuario);
 //        perfilController.calcularnodos();
@@ -197,7 +179,7 @@ public class PrincipalController implements Initializable {
             Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
             perfilController = loader.getController();
             perfilController.setUsuario(usuario);
-            System.out.println("gestion PC "+gestion);
+            System.out.println("gestion PC " + gestion);
             perfilController.setGestion(gestion);
             perfilController.calcularnodos();
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
@@ -237,9 +219,7 @@ public class PrincipalController implements Initializable {
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
 
-    public void setParametros(Stage escenario) {
 
-    }
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -270,22 +250,20 @@ public class PrincipalController implements Initializable {
 
     public void setParametroUsuario(Usuario usuario) {
         this.usuario = usuario;
-        botonPerfil.setText(usuario.getNick().toUpperCase()); 
+        botonPerfil.setText(usuario.getNick().toUpperCase());
     }
 
     @FXML
-    private void cerrarSesion(ActionEvent event)  {
-       
-           
+    private void cerrarSesion(ActionEvent event) {
+
         try {
-            usuario=null;
+            usuario = null;
             gestion.desconectar();
-            
+
             Stage stage = (Stage) this.panePerfil.getParent().getScene().getWindow();
-            
-            
+
             Parent root = FXMLLoader.load(getClass().getResource("/Vista/Usuario/Usuario.fxml"));
-            
+
             Scene scene = new Scene(root);
             stage.getIcons().add(new Image("/Imagenes/log.png"));
             stage.setTitle(" Amsterdam");   // o nombre agencia
@@ -297,14 +275,7 @@ public class PrincipalController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
-            
-            
-       
-        
-        
-        
-        
-        
+
     }
 
     @FXML
@@ -322,4 +293,27 @@ public class PrincipalController implements Initializable {
         panePerfil.toFront();
     }
 
+    private void efectos() {
+        gridpane.getStyleClass().add("menu");
+        botonLogo.getStyleClass().add("botonMenu");
+        botonActividades.getStyleClass().add("botonMenu");
+        botonExperiencias.getStyleClass().add("botonMenu");
+        botonPerfil.getStyleClass().add("botonMenu");
+        botonBuscar.getStyleClass().add("botonMenu");
+        botonTransportes.getStyleClass().add("botonMenu");
+        botnPerfil.getStyleClass().add("botonMenu");
+        botnSalir.getStyleClass().add("botonMenu");
+    }
+
+    private void efectoTransicion() {
+        try {
+            Transicion tr = new Transicion();
+            tr.setRoot(Ventana);
+            tr.start();
+        } catch (Exception e) {
+            System.out.println("ha petao");
+            not.error("ERROR Exception",
+                    "en initialize --- PrincipalController");
+        }
+    }
 }
