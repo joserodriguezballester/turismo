@@ -41,7 +41,7 @@
             <Button mnemonicParsing="false" onAction="#ver" prefHeight="39.0" prefWidth="100.0" text="Listar" GridPane.columnIndex="3" />
          </children>
       </GridPane>
-      <TableView fx:id="tableView" layoutX="40.0" layoutY="60.0" onMousePressed="#mostrar" prefHeight="207.0" prefWidth="535.0">
+      <TableView fx:id="tableView" layoutX="40.0" layoutY="60.0" onMousePressed="#mostrar" prefHeight="210.0" prefWidth="550.0">
         <columns>
           <TableColumn fx:id="tb_idExperiencia" prefWidth="55.999969482421875" text="idExperiencia" />
           <TableColumn fx:id="tb_nombre" prefWidth="74.99996948242188" text="nombre" />
@@ -76,38 +76,92 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="textExperiencia" layoutX="365.0" layoutY="325.0" />
-      <TextField fx:id="textNombre" layoutX="365.0" layoutY="365.0" />
-      <TextField fx:id="textDescripcion" layoutX="365.0" layoutY="405.0" />
-      <TextField fx:id="textFecha" layoutX="365.0" layoutY="445.0" />
-      <TextField fx:id="textFoto" layoutX="365.0" layoutY="485.0" />
-      <Button layoutX="650.0" layoutY="650.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="31.0" prefWidth="100.0" text="Limpiar" />
+      <TextField fx:id="textExperiencia" layoutX="325.0" layoutY="325.0" />
+      <TextField fx:id="textNombre" layoutX="325.0" layoutY="365.0" />
+      <TextField fx:id="textDescripcion" layoutX="325.0" layoutY="405.0" />
+      <TextField fx:id="textFecha" layoutX="325.0" layoutY="445.0" />
+      <TextField fx:id="textFoto" layoutX="325.0" layoutY="485.0" />
+      <Button layoutX="600.0" layoutY="650.0" mnemonicParsing="false" onAction="#limpiar" prefHeight="31.0" prefWidth="100.0" text="Limpiar" />
       <Label layoutX="70.0" layoutY="525.0" text="IDUSUARIO">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="textUsuario" layoutX="365.0" layoutY="525.0" />
-      <ImageView fx:id="imageView" fitHeight="250.0" fitWidth="250.0" layoutX="570.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true" />
-      <Line endX="134.0" layoutX="689.0" layoutY="325.0" startX="-120.0" />
-      <Line endX="140.0" layoutX="686.0" layoutY="610.0" startX="-118.0" />
-      <TextArea fx:id="textArea" layoutX="261.0" layoutY="564.0" prefHeight="52.0" prefWidth="251.0" />
+      <TextField fx:id="textUsuario" layoutX="325.0" layoutY="525.0" />
+      <ImageView fx:id="imageView" fitHeight="250.0" fitWidth="275.0" layoutX="515.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true" />
+      <Line endX="157.0" layoutX="635.0" layoutY="325.0" startX="-120.0" />
+      <Line endX="104.66668701171875" layoutX="686.0" layoutY="610.0" startX="-172.66668701171875" />
+      <TextArea fx:id="textArea" layoutX="235.0" layoutY="564.0" prefHeight="52.0" prefWidth="243.0" />
       <Label layoutX="70.0" layoutY="573.0" text="LISTA ACTIVIDADES">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <TableView fx:id="tableListaExperiencias" layoutX="600.0" layoutY="60.0" prefHeight="207.0" prefWidth="400.0">
+      <TableView fx:id="tableListaExperiencias" layoutX="706.0" layoutY="60.0" prefHeight="210.0" prefWidth="550.0">
         <columns>
-          <TableColumn prefWidth="43.0" text="ordenExperiencia" />
-          <TableColumn prefWidth="59.0" text="idExperiencia" />
-            <TableColumn prefWidth="55.0" text="idActualidad" />
-            <TableColumn prefWidth="59.0" text="fechaInicio" />
-            <TableColumn prefWidth="61.0" text="fechaFinal" />
-            <TableColumn prefWidth="30.0" text="duracion" />
-            <TableColumn prefWidth="40.0" text="precio" />
-            <TableColumn prefWidth="40.0" text="numPlazas" />
+          <TableColumn fx:id="tb_orden" prefWidth="69.66668701171875" text="ordenExperiencia" />
+          <TableColumn fx:id="tb_idExperi" prefWidth="67.33331298828125" text="idExperiencia" />
+            <TableColumn fx:id="tb_idActividad" prefWidth="68.3333740234375" text="idActividad" />
+            <TableColumn fx:id="tb_fechaInicio" prefWidth="74.0" text="fechaInicio" />
+            <TableColumn fx:id="tb_fechaFinal" prefWidth="70.33331298828125" text="fechaFinal" />
+            <TableColumn fx:id="tb_duracion" prefWidth="64.00006103515625" text="duracion" />
+            <TableColumn fx:id="tb_precio" prefWidth="74.66668701171875" text="precio" />
+            <TableColumn fx:id="tb_numPlazas" prefWidth="62.0" text="numPlazas" />
         </columns>
       </TableView>
+      <Label layoutX="705.0" layoutY="20.0" text="ActividadExperiencia">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <Label layoutX="835.0" layoutY="320.0" text="NUMORDEN">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Button layoutX="830.0" layoutY="650.0" mnemonicParsing="false" onAction="#añadirNueva" prefHeight="31.0" prefWidth="100.0" text="Añadir" />
+      <Button layoutX="930.0" layoutY="650.0" mnemonicParsing="false" onAction="#modificarNueva" prefHeight="31.0" prefWidth="100.0" text="Modificar" />
+      <Button layoutX="1030.0" layoutY="650.0" mnemonicParsing="false" onAction="#borrarNueva" prefHeight="31.0" prefWidth="100.0" text="Borrar" />
+      <Label layoutX="834.0" layoutY="360.0" text="IDEXPERIENCIA">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="834.0" layoutY="400.0" text="IDACTIVIDAD">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="834.0" layoutY="440.0" text="FECHAINICIO">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="834.0" layoutY="480.0" text="FECHAFINAL">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="834.0" layoutY="520.0" text="DURACION">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="834.0" layoutY="565.0" text="PRECIO">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="834.0" layoutY="600.0" text="NUMPLAZAS">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="textOrden" layoutX="1050.0" layoutY="320.0" />
+      <TextField fx:id="textIdExperiencia" layoutX="1050.0" layoutY="360.0" />
+      <TextField fx:id="textIdActividad" layoutX="1050.0" layoutY="400.0" />
+      <TextField fx:id="textFechaInicio" layoutX="1050.0" layoutY="440.0" />
+      <TextField fx:id="textFechaFinal" layoutX="1050.0" layoutY="480.0" />
+      <TextField fx:id="textDuracion" layoutX="1050.0" layoutY="520.0" />
+      <TextField fx:id="textPrecio" layoutX="1050.0" layoutY="560.0" />
+      <TextField fx:id="textNumPlazas" layoutX="1050.0" layoutY="600.0" />
    </children>
 </AnchorPane>

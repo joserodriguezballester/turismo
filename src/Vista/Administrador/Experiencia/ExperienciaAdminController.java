@@ -4,6 +4,7 @@ package Vista.Administrador.Experiencia;
 import Datos.Bda.GestionBD;
 import Datos.Bda.experienciasDAO;
 import Modelo.Actividad;
+import Modelo.ActividadExperiencia;
 import Modelo.Experiencia;
 import Modelo.Notificacion;
 import java.net.URL;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -27,6 +29,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.util.Duration;
 
 
 public class ExperienciaAdminController implements Initializable {
@@ -64,7 +67,39 @@ public class ExperienciaAdminController implements Initializable {
     @FXML
     private ImageView imageView;
     @FXML
-    private TableView<?> tableListaExperiencias;
+    private TableView<ActividadExperiencia> tableListaExperiencias;
+    @FXML
+    private TableColumn<ActividadExperiencia, Integer> tb_orden;
+    @FXML
+    private TableColumn<ActividadExperiencia, Integer> tb_idExperi;
+    @FXML
+    private TableColumn<ActividadExperiencia, Integer> tb_idActividad;
+    @FXML
+    private TableColumn<ActividadExperiencia, LocalDateTime> tb_fechaInicio;
+    @FXML
+    private TableColumn<ActividadExperiencia, LocalDateTime> tb_fechaFinal;
+    @FXML
+    private TableColumn<ActividadExperiencia, Duration> tb_duracion;
+    @FXML
+    private TableColumn<ActividadExperiencia, Double> tb_precio;
+    @FXML
+    private TableColumn<ActividadExperiencia, Integer> tb_numPlazas;
+    @FXML
+    private TextField textOrden;
+    @FXML
+    private TextField textIdExperiencia;
+    @FXML
+    private TextField textIdActividad;
+    @FXML
+    private TextField textFechaInicio;
+    @FXML
+    private TextField textFechaFinal;
+    @FXML
+    private TextField textDuracion;
+    @FXML
+    private TextField textPrecio;
+    @FXML
+    private TextField textNumPlazas;
     
     
     private ObservableList<Experiencia> obExperiencias;
@@ -74,9 +109,7 @@ public class ExperienciaAdminController implements Initializable {
     private Experiencia experiencia;
     private Notificacion not;
     
-   
-    
-    
+      
     public void setGestion(GestionBD gestion){
         ExperienciaAdminController.gestion = gestion;
     }
@@ -294,6 +327,18 @@ public class ExperienciaAdminController implements Initializable {
 
     private void limpiar(ActionEvent event) {
         limpiar();
+    }
+
+    @FXML
+    private void añadirNueva(ActionEvent event) {
+    }
+
+    @FXML
+    private void modificarNueva(ActionEvent event) {
+    }
+
+    @FXML
+    private void borrarNueva(ActionEvent event) {
     }
     
 }
