@@ -10,6 +10,7 @@ import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.SQLException;
@@ -24,7 +25,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -57,7 +62,7 @@ public class RegistrarController implements Initializable {
     @FXML
     private TextField emailTF;
     @FXML
-    private JFXTextField repContraPF;
+    private JFXPasswordField repContraPF;
     @FXML
     private JFXDatePicker fecNacTF;
     @FXML
@@ -65,19 +70,33 @@ public class RegistrarController implements Initializable {
     @FXML
     private ToggleGroup rolUsuRB;
     @FXML
-    private RadioButton AdminRB;
-    @FXML
     private Button salirBT;
     @FXML
     private JFXTextField rolTF;
     
     private usuariosDAO usuarioDAO;
     private Notificacion not;
+    @FXML
+    private Pane panePerfil;
+    @FXML
+    private GridPane gridpane;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         aceptarBT.getStyleClass().add("botonAceptarRegistro");
+        salirBT.getStyleClass().add("botonEliminar");
         fecNacTF.getStyleClass().add("calendarioRegistrar");
+        
+        Image img = new Image("Imagenes/fondoRegistrarse.jpg");
+        ImageView imagev = new ImageView(img);
+
+        Ventana1.getChildren().add(imagev);
+        imagev.setFitHeight(730);
+        imagev.setFitWidth(1300);
+        panePerfil.getStyleClass().add("paneinicio");
+        panePerfil.toFront(); 
+        gridpane.setOpacity(1);
+//        paneagencia.getStyleClass().add("paneAgencia");
     }
 
     @FXML
