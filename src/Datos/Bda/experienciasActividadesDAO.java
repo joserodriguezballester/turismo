@@ -5,17 +5,12 @@
  */
 package Datos.Bda;
 
-import Modelo.Actividad;
 import Modelo.ActividadExperiencia;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
-import java.time.Duration;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,7 +29,7 @@ public class experienciasActividadesDAO {
     }
 
     public boolean insertarActividadExperiencia(ActividadExperiencia actExp) throws SQLException {
-        boolean insertado = false;
+        boolean insertado;
         String consulta = "INSERT INTO experiencia_actividad (orden, idexperiencia, idactividad, numPlazas, fechaInicio, fechaFinal, duracion, precio) VALUES(?, ?, ?, ?, ?, ?, ?, ?);";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ps.setInt(1, actExp.getOrden());

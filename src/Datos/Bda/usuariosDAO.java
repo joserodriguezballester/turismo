@@ -5,10 +5,9 @@
  */
 package Datos.Bda;
 
-import Modelo.Actividad;
+
 import Modelo.Notificacion;
 import Modelo.Usuario;
-import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,8 +15,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 /**
  *
@@ -54,11 +52,7 @@ public class usuariosDAO {
         return insertado;
     }
 
-   
-    
-    
-    
-    
+      
     //UPDATE
      public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
          
