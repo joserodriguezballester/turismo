@@ -1,7 +1,9 @@
 
 package Vista.Administrador.Experiencia;
 
+import Datos.Bda.actividadesDAO;
 import Datos.Bda.GestionBD;
+import Datos.Bda.experienciasActividadesDAO;
 import Datos.Bda.experienciasDAO;
 import Modelo.Actividad;
 import Modelo.ActividadExperiencia;
@@ -15,6 +17,7 @@ import java.util.ResourceBundle;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.Duration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -29,7 +32,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.util.Duration;
+
 
 
 public class ExperienciaAdminController implements Initializable {
@@ -62,8 +65,6 @@ public class ExperienciaAdminController implements Initializable {
     private TableColumn<Experiencia, String> tb_foto;
     @FXML
     private TableColumn<Experiencia, Integer> tb_idUsuario;
-    @FXML
-    private TextArea textArea;
     @FXML
     private ImageView imageView;
     @FXML
@@ -103,11 +104,15 @@ public class ExperienciaAdminController implements Initializable {
     
     
     private ObservableList<Experiencia> obExperiencias;
+    private ObservableList<ActividadExperiencia> obActiviEncias;
     
     private static GestionBD gestion;
     private experienciasDAO experienDAO;
+    private experienciasActividadesDAO eaDAO;
     private Experiencia experiencia;
-    private Notificacion not;
+    private Notificacion not = new Notificacion();
+    private ActividadExperiencia actExperiencia;
+    private actividadesDAO activiDAO;
     
       
     public void setGestion(GestionBD gestion){
@@ -116,11 +121,14 @@ public class ExperienciaAdminController implements Initializable {
     
     public void ejecutaAlPrincipio(){
         experienDAO = new experienciasDAO(gestion);
+        activiDAO = new actividadesDAO(gestion);
+        eaDAO = new experienciasActividadesDAO(gestion);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         obExperiencias = FXCollections.observableArrayList();
+        obActiviEncias = FXCollections.observableArrayList();
     }
     
 // -------------------------- INSERTAR ----------------------------------
@@ -129,7 +137,7 @@ public class ExperienciaAdminController implements Initializable {
         int id, idUsuario;
         String nombre,descripcion,foto;
         LocalDate fechaTope;
-        List<Actividad> lista;
+        List<ActividadExperiencia> lista = null;
         boolean ok = false;
         
         id = Integer.parseInt(textExperiencia.getText());
@@ -140,12 +148,12 @@ public class ExperienciaAdminController implements Initializable {
         foto = textFoto.getText();
         //lista = textArea.getText().toString();
         
-//        try {
-//            Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto);
-//            ok = experienDAO.insertarExperiencia(nueva);
-//        } catch (SQLException ex) {
-//            not.error("ERROR SQL", "Verifica el código");
-//        }
+        try {
+            Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto,lista);
+            ok = experienDAO.insertarExperiencia(nueva);
+        } catch (SQLException ex) {
+            not.error("ERROR SQL", "Verifica el código");
+        }
         
         if(ok){
             not.info("INSERTAR REGISTRO", "Operación realizada con exito");
@@ -239,6 +247,23 @@ public class ExperienciaAdminController implements Initializable {
         }
     }
     
+    private void listarActividadExperiencia(List<ActividadExperiencia> listaDos){
+        obActiviEncias.clear();
+        obActiviEncias.addAll(listaDos);
+        tableListaExperiencias.setItems(obActiviEncias);
+
+        tb_orden.setCellValueFactory(new PropertyValueFactory<>("orden"));
+        tb_idExperi.setCellValueFactory(new PropertyValueFactory<>("idExperiencia"));
+        tb_idActividad.setCellValueFactory(new PropertyValueFactory<>("actividad"));
+        tb_fechaInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
+        tb_fechaFinal.setCellValueFactory(new PropertyValueFactory<>("fechaFinal"));
+        tb_duracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
+        tb_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
+        tb_numPlazas.setCellValueFactory(new PropertyValueFactory<>("numPlazas"));
+        
+        
+    }
+    
     
 // -------------------------- SELECCIONAR ITEM -----------------------------
 
@@ -247,7 +272,9 @@ public class ExperienciaAdminController implements Initializable {
         int id, idUsuario;
         String nombre,descripcion,foto;
         LocalDate fechaTope;
-               
+        List<ActividadExperiencia> listaDos = new ArrayList<>();
+        
+        
         experiencia = tableView.getSelectionModel().getSelectedItem();
         
         id = experiencia.getId();
@@ -276,11 +303,47 @@ public class ExperienciaAdminController implements Initializable {
                 imageView.setVisible(false);                
             }
             
+            listaDos = eaDAO.consultarActividadesDeExperiencia(id);
+            
         } catch(Exception ex){
             not.error("ERROR EXCEPTION","" + ex.getMessage() + 
                     " en seleccionarItem() --- ExperienciaAdminController");
-        }      
+        } 
+        System.out.println("listaDOs: " + listaDos);
+        listarActividadExperiencia(listaDos);
     }
+    
+    private void seleccionarItemActividaExperiencia(){
+        int numOrden, idExperienciaLista,numPlazas;
+        double precio;
+        Actividad actividad;
+        LocalDateTime fechaIni, fechaFin ;
+        Duration duracion;
+              
+        actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
+        
+        numOrden = actExperiencia.getOrden();
+        idExperienciaLista = actExperiencia.getIdExperiencia();
+        actividad = actExperiencia.getActividad();
+        fechaIni = actExperiencia.getFechaInicio();
+        fechaFin = actExperiencia.getFechaFinal();
+        duracion = actExperiencia.getDuracion();
+        precio = actExperiencia.getPrecio();
+        numPlazas = actExperiencia.getNumPlazas();
+        
+        
+        actExperiencia = new ActividadExperiencia(numOrden,idExperienciaLista,actividad,fechaIni,fechaFin,precio,numPlazas);
+        
+        textOrden.setText(String.valueOf(numOrden));
+        textIdExperiencia.setText(String.valueOf(idExperienciaLista));
+        textIdActividad.setText(String.valueOf(actividad));
+        textFechaInicio.setText(fechaIni.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss")));
+        textFechaFinal.setText(fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss")));       
+        textDuracion.setText(String.valueOf(duracion.toHours() + " Horas"));
+        textPrecio.setText(String.valueOf(precio) + "€");
+        textNumPlazas.setText(String.valueOf(numPlazas));
+    }
+
     
 // ------------------------- LIMPIAR ------------------------------------   
     
@@ -292,6 +355,15 @@ public class ExperienciaAdminController implements Initializable {
         textFecha.clear();
         textFoto.clear();
         textUsuario.clear();
+        
+        textOrden.clear();
+        textIdExperiencia.clear();
+        textIdActividad.clear();
+        textFechaInicio.clear();
+        textFechaFinal.clear();
+        textDuracion.clear();
+        textPrecio.clear();
+        textNumPlazas.clear();
         
         imageView.setVisible(false);
     }
@@ -324,6 +396,12 @@ public class ExperienciaAdminController implements Initializable {
     private void mostrar(MouseEvent event) {
         seleccionarItem();
     }
+    
+    @FXML
+    private void mostrarActividadExperiencia(MouseEvent event) {
+        seleccionarItemActividaExperiencia();
+    }
+    
 
     private void limpiar(ActionEvent event) {
         limpiar();
@@ -331,14 +409,18 @@ public class ExperienciaAdminController implements Initializable {
 
     @FXML
     private void añadirNueva(ActionEvent event) {
+        
     }
 
     @FXML
     private void modificarNueva(ActionEvent event) {
+        
     }
 
     @FXML
     private void borrarNueva(ActionEvent event) {
+        
     }
+
     
 }

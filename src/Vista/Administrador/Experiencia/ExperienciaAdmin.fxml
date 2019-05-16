@@ -5,7 +5,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -91,13 +90,7 @@
       <ImageView fx:id="imageView" fitHeight="250.0" fitWidth="275.0" layoutX="515.0" layoutY="342.0" pickOnBounds="true" preserveRatio="true" />
       <Line endX="157.0" layoutX="635.0" layoutY="325.0" startX="-120.0" />
       <Line endX="104.66668701171875" layoutX="686.0" layoutY="610.0" startX="-172.66668701171875" />
-      <TextArea fx:id="textArea" layoutX="235.0" layoutY="564.0" prefHeight="52.0" prefWidth="243.0" />
-      <Label layoutX="70.0" layoutY="573.0" text="LISTA ACTIVIDADES">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
-      <TableView fx:id="tableListaExperiencias" layoutX="706.0" layoutY="60.0" prefHeight="210.0" prefWidth="550.0">
+      <TableView fx:id="tableListaExperiencias" layoutX="706.0" layoutY="60.0" onMousePressed="#mostrarActividadExperiencia" prefHeight="210.0" prefWidth="550.0">
         <columns>
           <TableColumn fx:id="tb_orden" prefWidth="69.66668701171875" text="ordenExperiencia" />
           <TableColumn fx:id="tb_idExperi" prefWidth="67.33331298828125" text="idExperiencia" />
