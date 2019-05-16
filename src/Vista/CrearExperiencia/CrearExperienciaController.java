@@ -30,6 +30,7 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Month;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -107,6 +108,7 @@ public class CrearExperienciaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
+        experiencia = new Experiencia();
         botonActividades.getStyleClass().add("botonAnyadir");
         botonEliminar.getStyleClass().add("botonEliminar");
         botonAñadirExperiencia.getStyleClass().add("botonAnyadirExperiencia");
@@ -120,7 +122,8 @@ public class CrearExperienciaController implements Initializable {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
         if (experiencia == null) {
-            experiencia = new Experiencia(usuario.getId());
+            experiencia.setIdUsuario(usuario.getId());
+            System.out.println(experiencia);
         }
     }
 
@@ -234,6 +237,7 @@ public class CrearExperienciaController implements Initializable {
 //        COMPROBAR PRECIO
             try {
                 precioActividad = actividad.getPrecio();
+                System.out.println(actividad.getPrecio());
                 actividadValida = true;
             } catch (Exception e) {
                 actividadValida = false;
@@ -263,13 +267,17 @@ public class CrearExperienciaController implements Initializable {
             listaActividadesCarrito.getItems().add(nueva);
             calcularPrecio();
         }
+        actualizarOrden();
     }
 
     private void actualizarOrden() {
-        int contador = 1;
-        for (ActividadExperiencia act : listaActividadesCarrito.getItems()) {
-            act.setOrden(contador);
-            contador++;
+        if (!listaActividadesCarrito.getItems().isEmpty()) {
+            int contador = 1;
+            for (ActividadExperiencia act : listaActividadesCarrito.getItems()) {
+                act.setOrden(contador);
+                contador++;
+            }
+            cargarActividadesExperiencia();
         }
     }
 
@@ -281,10 +289,12 @@ public class CrearExperienciaController implements Initializable {
     }
 
     private void cargarActividadesExperiencia() {
-        for (ActividadExperiencia act : experiencia.getListaActividades()) {
-            listaActividadesCarrito.getItems().add(act);
+        if (!experiencia.getListaActividades().isEmpty()) {
+            for (ActividadExperiencia act : experiencia.getListaActividades()) {
+                listaActividadesCarrito.getItems().add(act);
+            }
+            calcularPrecio();
         }
-        calcularPrecio();
     }
 
     private void cargarTodasActividades() {
@@ -327,9 +337,19 @@ public class CrearExperienciaController implements Initializable {
         ActividadExperiencia actExp = listaActividadesCarrito.getSelectionModel().getSelectedItem();
         textNumPlazas.setText(String.valueOf(actExp.getNumPlazas()));
         textDescripcion.setText(actExp.getActividad().getDescripcion());
+//        ACTUALIZAR FECHA INICIO
+        datePickerFechaInicio.setValue(actExp.getFechaInicio().toLocalDate());
+        timePickerHoraInicio.setValue(actExp.getFechaInicio().toLocalTime());
+//        ACTUALIZAR FECHA FINAL
+        datePickerFechaFinal.setValue(actExp.getFechaFinal().toLocalDate());
+        timePickerHoraFinal.setValue(actExp.getFechaFinal().toLocalTime());
     }
 
     private void actualizarTipos() {
+        if (!comboBoxSubTipos.getSelectionModel().isEmpty()) {
+            comboBoxSubTipos.getItems().clear();
+        }
+
         tiposDAO tiposDAO = new tiposDAO(gestion);
         try {
             for (Tipo tipo : tiposDAO.consultarTipos()) {
@@ -347,6 +367,9 @@ public class CrearExperienciaController implements Initializable {
     @FXML
     private void actualizarSubtipos(ActionEvent event) {
         if (!comboBoxSubTipos.getSelectionModel().isEmpty()) {
+            comboBoxSubTipos.getItems().clear();
+        }
+        if (!comboBoxTipos.getSelectionModel().isEmpty()) {
             comboBoxSubTipos.getItems().clear();
         }
 
@@ -370,6 +393,7 @@ public class CrearExperienciaController implements Initializable {
 
     @FXML
     private void AñadirExperiencia(ActionEvent event) {
+        experiencia.setFechaTopeValidez(LocalDate.now().plusYears(1));
         experienciasDAO expDAO = new experienciasDAO(gestion);
         experienciasActividadesDAO actExpDAO = new experienciasActividadesDAO(gestion);
         try {
@@ -378,6 +402,7 @@ public class CrearExperienciaController implements Initializable {
                 actExpDAO.insertarActividadExperiencia(actExp);
             }
         } catch (Exception e) {
+            e.printStackTrace();
             not.error("Error", "No ha podido insertarse la experiencia en la BD");
         }
 

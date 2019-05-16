@@ -36,19 +36,25 @@ public class experienciasDAO {
     //CREATE
     public boolean insertarExperiencia(Experiencia experiencia) throws SQLException {
         boolean insertado = false;
-
         if (conn != null) {
-            String consulta = "INSERT INTO EXPERIENCIAS (ID, IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?, ?);";
+            String consulta = "INSERT INTO EXPERIENCIAS (IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?);";
             PreparedStatement ps = conn.prepareStatement(consulta);
-            ps.setInt(1, experiencia.getId());
-            ps.setInt(2, experiencia.getIdUsuario());
-            ps.setString(3, experiencia.getNombre());
-            ps.setString(4, experiencia.getDescripcion());
-            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez()));
+            ps.setInt(1, experiencia.getIdUsuario());
+            ps.setString(2, experiencia.getNombre());
+            ps.setString(3, experiencia.getDescripcion());
+            ps.setDate(4, Date.valueOf(experiencia.getFechaTopeValidez()));
 //            ps.setString(5, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            ps.setString(6, experiencia.getFoto());
+            ps.setString(5, experiencia.getFoto());
             ps.executeUpdate();
             insertado = true;
+
+            consulta = "select id from experiencias order by id desc limit 1;";
+            ps = conn.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                experiencia.setId(rs.getInt("id"));
+            }
+
         }
 
         return insertado;
@@ -72,7 +78,7 @@ public class experienciasDAO {
                         rs.getDate("fechaTopeValidez").toLocalDate(),
                         rs.getString("foto"),
                         experienciasActividadesdao.consultarActividadesDeExperiencia(rs.getInt("id"))));
-                        
+
             }
         }
         return listaExperiencias;
