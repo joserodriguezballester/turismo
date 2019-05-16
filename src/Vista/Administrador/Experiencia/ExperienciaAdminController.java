@@ -14,15 +14,18 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.Duration;
+//import javafx.util.Duration;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
@@ -32,6 +35,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import org.controlsfx.control.Notifications;
 
 
 
@@ -196,13 +200,13 @@ public class ExperienciaAdminController implements Initializable {
         
         
         acEx = new ActividadExperiencia(numOrden,idExperiencia,actividad,fechaIni,fechaFin,precio,numPlazas);
-        System.out.println("ANTES DEL TRY");
+        
         try {
-            System.out.println("DENTRO DEL TRY");
+            
             eaDAO.insertarActividadExperiencia(acEx);
         } catch (SQLException ex) {
             ex.printStackTrace();
-            not.error("ERROR SQL", "En insertarActividadExperiencia --- ExperienciaAdminController");
+            not.error("ERROR SQL", "Error al insertar un registro en la tabla ActividadExperiencia");
         }
         
         listaActividadExperiencia.add(acEx);
@@ -230,14 +234,14 @@ public class ExperienciaAdminController implements Initializable {
             ok = experienDAO.modificarExperiencia(idUsuario,nombre,descripcion,fechaTope,foto,id);
             
         } catch(SQLException ex){
-            not.error("SQL ERROR", "Verifica tu código");
+            not.error("SQL ERROR", "Error al modificar en tabla Experiencias, Verifica tu código");
         }
         
         if(ok){
             not.info("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
         }
         else {
-            not.error("ERROR AL MODIFICAR", "Ni se ha podido realizar la operación");
+            not.error("ERROR AL MODIFICAR", "No se ha podido realizar la operación");
         }
         
     }
@@ -252,10 +256,11 @@ public class ExperienciaAdminController implements Initializable {
         id = experiencia.getId();
         
         try {
-            ok = experienDAO.borrarExperiencia(id);
+            experienDAO.borrarExperiencia(id);
         } catch (SQLException ex) {
             not.error("ERROR SQL", "No se puede realizar la operación");
         }
+        
         
         if(ok){
             not.info("ELIMINAR TABLA EXPERIENCIAS", "Operación realizada con éxito");
@@ -271,11 +276,11 @@ public class ExperienciaAdminController implements Initializable {
     
     private void listar(){
         List<Experiencia> lista = new ArrayList<>();
-        System.out.println("dentro de listar expeController");
+        
         try{
-            System.out.println("    DENTRO DE LISTAR");
+            
             lista = experienDAO.consultarTodasExperiencias();
-            System.out.println("   MAS ADENTRO DE LISTAR");
+            
             obExperiencias.clear();
             obExperiencias.addAll(lista);
             tableView.setItems(obExperiencias);
@@ -289,7 +294,7 @@ public class ExperienciaAdminController implements Initializable {
             
         } catch(SQLException es){
             not.error("ERROR SQL","" + es.getMessage() + 
-                    " en listar() --- ExperienciaAdminController");
+                    "Error al listar informacion de experiencias");
         }
     }
     
@@ -353,9 +358,9 @@ public class ExperienciaAdminController implements Initializable {
             
         } catch(Exception ex){
             not.error("ERROR EXCEPTION","" + ex.getMessage() + 
-                    " en seleccionarItem() --- ExperienciaAdminController");
+                    "Error no encuentra la ruta de las imagenes");
         } 
-        System.out.println("listaDOs: " + listaDos);
+        
         listarActividadExperiencia(listaDos);
     }
     

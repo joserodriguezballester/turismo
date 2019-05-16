@@ -15,8 +15,10 @@ import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -29,6 +31,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.util.Duration;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -126,7 +130,7 @@ public class ActividadAdminController implements Initializable {
             listaTipos = tipoDAO.consultarTipos();
         } catch (SQLException ex) {
              not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en ejecutarAlPrincipio() --- ActividadAdminController"); 
+                    " Error al consultar la DB turismo"); 
         }
         
         cargarCombo();
@@ -159,10 +163,10 @@ public class ActividadAdminController implements Initializable {
           
         } catch (SQLException ex) {
             not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en listar() --- ActividadAdminController"); 
+                    " Error al consultar la DB turismo"); 
         } catch (Exception es){
             not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    " en listar() --- ActividadAdminController");
+                    " Error al mostrar la información");
         }
         cargarTabla(lista);
     }
@@ -198,10 +202,10 @@ public class ActividadAdminController implements Initializable {
            listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
         }catch (SQLException ex){
            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en cargarTablaPorTipo() --- ActividadAdminController");  
+                    " Error al consultar la DB turismo");  
         }catch (Exception es){
            not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    " en cargarTablaPorTipo() --- ActividadAdminController"); 
+                    "Error al mostrar la información"); 
         }
         cargarTabla(listaPorTipo);    
     }
@@ -251,7 +255,7 @@ public class ActividadAdminController implements Initializable {
             }
         } catch (Exception ex){
             not.error("ERROR EXCEPTION","" + ex.getMessage() + 
-                    " en seleccionarItem() --- ActividadAdminController");
+                    " Error al no encontrar la ruta de las imagenes");
         }          
     }
     
@@ -278,15 +282,15 @@ public class ActividadAdminController implements Initializable {
                          descripcion, url, direccion, telefono, foto, idsubTipo);
         } catch (SQLException ex) {
             not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en insertar() --- ActividadAdminController");
+                    " Error al insertar un registro en DB turismo");
         }
         if(ok == true){
             not.info("INSERTAR CON EXITO EN TABLA ACTIVIDADES", 
-                    " en insertar() --- ActividadAdminController");
+                    " La operación se ha realizado con éxito");
         }
         else {
             not.info("INSERTAR SIN EXITO EN TABLA ACTIVIDADES", 
-                    " en insertar() --- ActividadAdminController");
+                    " No se ha insertado el registro");
         }
     }
   
@@ -315,42 +319,56 @@ public class ActividadAdminController implements Initializable {
                                       url,direccion,telefono,foto,idsubTipo);
         } catch (SQLException ex) {
             not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en actualizar() --- ActividadAdminController");
+                    " Error al modificar la actividad en DB turismo");
         }if(ok){
             not.info("ACTUALIZAR CON EXITO EN TABLA ACTIVIDADES", 
-                    " en actualizar() --- ActividadAdminController");
+                    " Operación realizada con éxito");
         }
         else {
             not.info("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES", 
-                    " en actualizar() --- ActividadAdminController");
+                    " No se ha modificado el registro");
         }
     }
  
 // -------------------------------- ELIMINAR ----------------------------
     
     private void eliminar(){
-        boolean ok = false;
+        boolean ok;
         int id;
               
         actividad = tableview.getSelectionModel().getSelectedItem();
         System.out.println("ACTIVIDAD: " + actividad);        
         id = actividad.getId();
-               
-        try {
-            ok = activiDAO.borrarActividad(id);
-        } catch (SQLException ex) {
-            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " en actualizar() --- ActividadAdminController");
-        }
         
-        if(ok){
-            not.info("ELIMINAR CON EXITO EN TABLA ACTIVIDADES", 
-                    " en eliminar() --- ActividadAdminController");
-        }
-        else {
-            not.info("ELIMINAR SIN EXITO EN TABLA ACTIVIDADES", 
-                    " en eliminar() --- ActividadAdminController");
-        }
+        Notifications notification = Notifications.create()
+        .title("ESTAS SEGURO DE ELIMINAR LA ACTIVIDAD " + id)
+        .text("Comfirma haciendo click sobre la ventana")
+        .graphic(null)
+        .hideAfter(Duration.seconds(25))
+        .position(Pos.TOP_LEFT)
+        .onAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+
+                try {
+                    activiDAO.borrarActividad(id);
+                } catch (SQLException ex) {
+                    not.error("ERROR SQL", "" + ex.getMessage()
+                            + "Error al eliminar un registro de DB turismo");
+                }
+            }
+        });
+        
+        notification.showWarning();  
+              
+//        if(ok){
+//            not.info("ELIMINAR CON EXITO EN TABLA ACTIVIDADES", 
+//                    " Operación realizada con éxito");
+//        }
+//        else {
+//            not.info("ELIMINAR SIN EXITO EN TABLA ACTIVIDADES", 
+//                    " No se pudo eliminar el registro");
+//        }
     }
     
     
