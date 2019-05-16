@@ -14,6 +14,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -185,7 +187,11 @@ public class PerfilAdminController implements Initializable {
     @FXML
     private void borrar(ActionEvent event) {
         int id = Integer.valueOf(id_invisibleTF.getText());
-        usuarioDAO.borrarUsuario(id);
+        try {
+            usuarioDAO.borrarUsuario(id);
+        } catch (SQLException ex) {
+           not.alert("Error SQL", "Error al borrar");
+        }
     }
 
     private void cargarTabla(String seleccion) {
