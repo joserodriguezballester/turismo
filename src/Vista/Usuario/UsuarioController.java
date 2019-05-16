@@ -85,7 +85,7 @@ public class UsuarioController implements Initializable {
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
         
-        imagev.setFitHeight(700);
+        imagev.setFitHeight(800);
         imagev.setFitWidth(1300);
         
         paneInicio.toFront();
@@ -140,7 +140,6 @@ public class UsuarioController implements Initializable {
             root = loader.load(); // el metodo initialize() se ejecuta
             principalController = loader.getController();
 //Pasamos informacion a la clase siguiente
-            principalController.setParametros(escenario);
             principalController.setGestion(gestion);
             principalController.setParametroUsuario(usuario);
 //                 principalController.setParametros(usuario, bda, cambiador);
