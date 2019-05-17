@@ -15,10 +15,14 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,6 +37,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -45,6 +50,8 @@ public class UsuarioController implements Initializable {
     private Label label;
     private Label nombreET;
     private Stage escenario;
+    private TranslateTransition translatePrincipal;
+    private TranslateTransition translateAgencia;
 
     @FXML
     private PasswordField contraTF;
@@ -59,8 +66,6 @@ public class UsuarioController implements Initializable {
     @FXML
     private AnchorPane fondoUsuario;
     @FXML
-    private Pane paneInicio;
-    @FXML
     private Label agencia;
     @FXML
     private Pane paneagencia;
@@ -70,6 +75,12 @@ public class UsuarioController implements Initializable {
     private Button botonReg;
     private String tituloAlertSQL = "AlertaSQL";
     private String mensajeSQL = "error en la base de datos";
+    @FXML
+    private Polygon triangle;
+    @FXML
+    private Pane paneInicio;
+    @FXML
+    private Pane paneCapaTriangulo;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,37 +89,35 @@ public class UsuarioController implements Initializable {
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
 
-        Image img = new Image("Imagenes/inicio.jpg");
+        Image img = new Image("Imagenes/inicioprueba.jpg");
         ImageView imagev = new ImageView(img);
 
         fondoUsuario.getChildren().add(imagev);
-        paneInicio.getStyleClass().add("paneinicio");
+//        paneInicio.getStyleClass().add("paneinicio");
         paneagencia.getStyleClass().add("paneAgencia");
-        
-imagev.setFitHeight(800);
+
+        imagev.setFitHeight(800);
         imagev.setFitWidth(1300);
-        
+
+        triangle.toFront();
+        triangle.setOpacity(0.85);
         paneInicio.toFront();
         paneagencia.toFront();
-        
+        paneCapaTriangulo.toFront();
+
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
-
-        
-
-        
 
         // TODO
     }
 
     @FXML
-    private void logearse(ActionEvent event) {
+    private void logearse(ActionEvent event) throws InterruptedException {
         // Utilizar uno de estos tres metodos
 
         logearseBueno();
 //                    logearseComoCliente();
         //      logearseComoAdministrador();
-
 
     }
 
@@ -238,7 +247,7 @@ imagev.setFitHeight(800);
         return checkPassword;
     }
 
-    private void logearseBueno() {
+    private void logearseBueno() throws InterruptedException {
         boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
         //      boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
         if (logeado) {
@@ -248,7 +257,11 @@ imagev.setFitHeight(800);
 /// segun el roll ejecutará uno de los dos metodos
                 if ("CLIENTE".equalsIgnoreCase(usuario.getPerfilString())) {
 //                    if ("CLIENTE".equalsIgnoreCase(usuario.getRol2())) {
-                    cargarVentanaPrincipal();    // usuario cliente
+                    transicionPrincipal();
+
+//                    TimeUnit.SECONDS.sleep(5);
+
+//                    cargarVentanaPrincipal();    // usuario cliente
                 } else {
 //                   if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getRol2())) {
                     if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
@@ -290,4 +303,28 @@ imagev.setFitHeight(800);
         }
     }
 
+    private void transicionPrincipal() {
+
+        translatePrincipal = new TranslateTransition(Duration.seconds(1), paneCapaTriangulo);
+        translateAgencia = new TranslateTransition(Duration.seconds(1), paneagencia);
+        
+        translateAgencia.setFromX(0);
+        translateAgencia.setToX(600);
+        
+        translatePrincipal.setFromX(0);
+        translatePrincipal.setToX(-1350);
+        translatePrincipal.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                cargarVentanaPrincipal();
+            }
+        });
+        translatePrincipal.setInterpolator(Interpolator.LINEAR);
+
+        translatePrincipal.play();
+        
+        translateAgencia.setInterpolator(Interpolator.LINEAR);
+        translateAgencia.play();
+
+    }
 }

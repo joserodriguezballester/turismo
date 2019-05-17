@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="fondoUsuario" prefHeight="800.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Usuario.UsuarioController">
@@ -14,25 +15,32 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
     <children>
-        <Pane fx:id="paneInicio" layoutX="301.0" layoutY="263.0" prefHeight="400.0" prefWidth="698.0">
-            <children>
-                <Label layoutX="159.0" layoutY="73.0" prefHeight="17.0" prefWidth="74.0" text="USUARIO">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font></Label>
-                <Label layoutX="159.0" layoutY="165.0" prefHeight="25.0" prefWidth="126.0" text="CONTRASEÑA">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font></Label>
-            <JFXButton fx:id="botonLog" disable="true" layoutX="273.0" layoutY="289.0" onAction="#logearse" prefHeight="61.0" prefWidth="119.0" text="Logearse" />
-            <JFXButton fx:id="botonReg" layoutX="420.0" layoutY="289.0" onAction="#registrarse" prefHeight="61.0" prefWidth="119.0" text="Registrarse" />
-            <JFXTextField fx:id="nickTF" layoutX="341.0" layoutY="73.0" onMouseClicked="#habilitarBT" prefHeight="25.0" prefWidth="162.0" />
-            <JFXPasswordField fx:id="contraTF" layoutX="339.0" layoutY="165.0" onMouseClicked="#habilitarBT" prefHeight="25.0" prefWidth="163.0" />
-            </children>
-        </Pane>
-      <Pane fx:id="paneagencia" layoutX="438.0" layoutY="125.0" prefHeight="75.0" prefWidth="425.0">
+      <Pane fx:id="paneCapaTriangulo" layoutY="-1.0" prefHeight="802.0" prefWidth="1302.0">
          <children>
-            <Label fx:id="agencia" alignment="CENTER" layoutX="15.0" layoutY="3.0" prefHeight="61.0" prefWidth="395.0" text="nombre">
+            <Polygon fx:id="triangle" fill="WHITE" layoutX="458.0" layoutY="290.0" points="844.0, 512.0, -458.0, 512.0, -458.0, -290.0" stroke="BLACK" strokeType="INSIDE" />
+            <Pane fx:id="paneInicio" layoutX="78.0" layoutY="316.0" prefHeight="400.0" prefWidth="454.0">
+               <children>
+                      <Label layoutX="42.0" layoutY="72.0" prefHeight="17.0" prefWidth="74.0" text="USUARIO">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                      <Label layoutX="42.0" layoutY="164.0" prefHeight="25.0" prefWidth="126.0" text="CONTRASEÑA">
+                     <font>
+                        <Font name="System Bold" size="16.0" />
+                     </font>
+                  </Label>
+                  <JFXButton fx:id="botonLog" disable="true" layoutX="156.0" layoutY="288.0" onAction="#logearse" prefHeight="61.0" prefWidth="119.0" text="Logearse" />
+                  <JFXButton fx:id="botonReg" layoutX="303.0" layoutY="288.0" onAction="#registrarse" prefHeight="61.0" prefWidth="119.0" text="Registrarse" />
+                  <JFXTextField fx:id="nickTF" layoutX="224.0" layoutY="72.0" onMouseClicked="#habilitarBT" prefHeight="25.0" prefWidth="162.0" />
+                  <JFXPasswordField fx:id="contraTF" layoutX="222.0" layoutY="164.0" onMouseClicked="#habilitarBT" prefHeight="25.0" prefWidth="163.0" />
+               </children>
+            </Pane>
+         </children>
+      </Pane>
+      <Pane fx:id="paneagencia" layoutX="762.0" layoutY="63.0" prefHeight="75.0" prefWidth="425.0">
+         <children>
+            <Label fx:id="agencia" alignment="CENTER" prefHeight="61.0" prefWidth="395.0" text="nombre">
                <font>
                   <Font name="MV Boli" size="40.0" />
                </font>

@@ -114,8 +114,8 @@ public class ActividadController implements Initializable {
         paneListaBotones.getStyleClass().add("scrollPaneActividades");
 
         listaElementos.getStyleClass().add("listaActividades");
-        scrollTipoActividades.toFront();
         listaElementos.toFront();
+        scrollTipoActividades.toFront();
         paneInformacion.toFront();
 //        PrincipalController.panePerfilMenu.toFront();
     }
@@ -187,14 +187,14 @@ public class ActividadController implements Initializable {
         
         
         
-        translate = new TranslateTransition(Duration.seconds(2), listaElementos);
+        translate = new TranslateTransition(Duration.seconds(1), listaElementos);
         translate.setFromX(0);
-        translate.setToX(50);
+        translate.setToX(200);
         translate.setInterpolator(Interpolator.LINEAR);
 //        listaElementos.setLayoutX(listaElementos.getLayoutX() + 50);
         translate.play();
 
-        FadeTransition ft = new FadeTransition(Duration.millis(3000), listaElementos);
+        FadeTransition ft = new FadeTransition(Duration.millis(1500), listaElementos);
         ft.setFromValue(0);
         ft.setToValue(1);
         ft.play();

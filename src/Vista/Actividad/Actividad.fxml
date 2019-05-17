@@ -55,6 +55,6 @@
                </font>
             </Label>
          </children></Pane>
-        <JFXListView fx:id="listaElementos" layoutX="150.0" layoutY="2.0" maxWidth="250.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="730.0" prefWidth="200.0" />
+        <JFXListView fx:id="listaElementos" maxWidth="250.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="730.0" prefWidth="200.0" />
     </children>
 </AnchorPane>

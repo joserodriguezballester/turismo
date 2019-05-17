@@ -35,7 +35,7 @@ public class Transicion {
             Image image = new Image(fichero.toUri().toString());
 
             ImageView imageview = new ImageView(image);
-            imageview.setFitHeight(730);
+            imageview.setFitHeight(800);
             imageview.setFitWidth(1300);
 
             slides.add(imageview);
