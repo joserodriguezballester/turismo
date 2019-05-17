@@ -106,7 +106,7 @@ imagev.setFitHeight(800);
         // Utilizar uno de estos tres metodos
 
         logearseBueno();
-        //            logearseComoCliente();
+//                    logearseComoCliente();
         //      logearseComoAdministrador();
 
 
