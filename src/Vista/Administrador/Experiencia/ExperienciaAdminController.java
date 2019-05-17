@@ -84,8 +84,6 @@ public class ExperienciaAdminController implements Initializable {
     @FXML
     private TableColumn<ActividadExperiencia, LocalDateTime> tb_fechaFinal;
     @FXML
-    private TableColumn<ActividadExperiencia, Duration> tb_duracion;
-    @FXML
     private TableColumn<ActividadExperiencia, Double> tb_precio;
     @FXML
     private TableColumn<ActividadExperiencia, Integer> tb_numPlazas;
@@ -99,8 +97,6 @@ public class ExperienciaAdminController implements Initializable {
     private TextField textFechaInicio;
     @FXML
     private TextField textFechaFinal;
-    @FXML
-    private TextField textDuracion;
     @FXML
     private TextField textPrecio;
     @FXML
@@ -144,22 +140,25 @@ public class ExperienciaAdminController implements Initializable {
         List<ActividadExperiencia> lista = null;
         boolean ok = false;
         
-        id = Integer.parseInt(textExperiencia.getText());
-        idUsuario = Integer.parseInt(textUsuario.getText());
-        nombre = textNombre.getText();
-        descripcion = textDescripcion.getText();
-        fechaTope = LocalDate.parse(textFecha.getText());
-        foto = textFoto.getText();
-        //lista = textArea.getText().toString();
-        
-        Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto,lista);
         try {
+            id = Integer.parseInt(textExperiencia.getText());
+            idUsuario = Integer.parseInt(textUsuario.getText());
+            nombre = textNombre.getText();
+            descripcion = textDescripcion.getText();
+            fechaTope = LocalDate.parse(textFecha.getText());
+            foto = textFoto.getText();
+            //lista = textArea.getText().toString();
+
+            Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto,lista);
+
            
             ok = experienDAO.insertarExperiencia(nueva);
             
         } catch (SQLException ex) {
             not.error("ERROR SQL", "Verifica el código");
             ex.getStackTrace();
+        } catch (java.time.DateTimeException dt){
+            not.error("ERROR EN FECHA TOPE", "Formato de fecha invalido");
         }
         
         if(ok){
@@ -173,7 +172,6 @@ public class ExperienciaAdminController implements Initializable {
     private List<ActividadExperiencia> insertarActividadExperiencia(){
         int numOrden, idExperiencia,numPlazas;
         Actividad actividad = null;
-        String duracion;
         LocalDateTime fechaIni, fechaFin;
         double precio;
         List<ActividadExperiencia> listaActividadExperiencia = new ArrayList<>();
@@ -190,14 +188,9 @@ public class ExperienciaAdminController implements Initializable {
         }
         fechaIni = LocalDateTime.parse(textFechaInicio.getText());
         fechaFin = LocalDateTime.parse(textFechaFinal.getText());
-        duracion = textDuracion.getText();
         precio = Double.parseDouble(textPrecio.getText());
         numPlazas = Integer.parseInt(textNumPlazas.getText());
-//              
-//        for (ActividadExperiencia valor : experiencia.getListaActividades()) {
-//                eADAO.insertarActividadExperiencia(valor);
-//        }
-        
+     
         
         acEx = new ActividadExperiencia(numOrden,idExperiencia,actividad,fechaIni,fechaFin,precio,numPlazas);
         
@@ -217,33 +210,47 @@ public class ExperienciaAdminController implements Initializable {
     
     private void actualizar(){
         int id,idUsuario;
-        String nombre,descripcion,foto,fechaAux;
+        String nombre,descripcion,foto;
         LocalDate fechaTope;
         boolean ok = false;
         
         experiencia = tableView.getSelectionModel().getSelectedItem();
-        
-        idUsuario = Integer.parseInt(textUsuario.getText());
-        nombre = textNombre.getText();
-        descripcion = textDescripcion.getText();
-        fechaTope = LocalDate.parse(textFecha.getText());
-        foto = textFoto.getText();
-        id = Integer.parseInt(textExperiencia.getText());
-        
         try {
+            idUsuario = Integer.parseInt(textUsuario.getText());
+            nombre = textNombre.getText();
+            descripcion = textDescripcion.getText();
+            fechaTope = LocalDate.parse(textFecha.getText());
+            foto = textFoto.getText();
+            id = Integer.parseInt(textExperiencia.getText());
+
+        
             ok = experienDAO.modificarExperiencia(idUsuario,nombre,descripcion,fechaTope,foto,id);
             
         } catch(SQLException ex){
             not.error("SQL ERROR", "Error al modificar en tabla Experiencias, Verifica tu código");
+        } catch(java.time.format.DateTimeParseException dt){
+            String valor = "Text '' could not be parsed at index 0";
+            if(dt.equals(valor)){
+                not.info("FORMATO FECHA INVALIDO", "Debes introducir un formato como este yyyy-MM-dd");
+            }
         }
         
         if(ok){
             not.info("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
         }
         else {
-            not.error("ERROR AL MODIFICAR", "No se ha podido realizar la operación");
+            not.error("FORMATO FECHA INVALIDO", "Debes introducir un formato de fecha \ncomo este --> yyyy-MM-dd");
         }
         
+    }
+    
+    private void modificarActividadExperiencia(){
+        int orden, idExperiencia,numPlazas;
+        double precio;
+        LocalDateTime fechaInicio,fechaFinal;
+        Actividad idActividad;
+        
+        actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
     }
  
 // ---------------------------- BORRAR --------------------------------    
@@ -308,10 +315,8 @@ public class ExperienciaAdminController implements Initializable {
         tb_idActividad.setCellValueFactory(new PropertyValueFactory<>("actividad"));
         tb_fechaInicio.setCellValueFactory(new PropertyValueFactory<>("fechaInicio"));
         tb_fechaFinal.setCellValueFactory(new PropertyValueFactory<>("fechaFinal"));
-        tb_duracion.setCellValueFactory(new PropertyValueFactory<>("duracion"));
         tb_precio.setCellValueFactory(new PropertyValueFactory<>("precio"));
-        tb_numPlazas.setCellValueFactory(new PropertyValueFactory<>("numPlazas"));
-        
+        tb_numPlazas.setCellValueFactory(new PropertyValueFactory<>("numPlazas"));        
         
     }
     
@@ -369,7 +374,6 @@ public class ExperienciaAdminController implements Initializable {
         double precio;
         Actividad actividad;
         LocalDateTime fechaIni, fechaFin ;
-        Duration duracion;
               
         actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
         
@@ -378,7 +382,6 @@ public class ExperienciaAdminController implements Initializable {
         actividad = actExperiencia.getActividad();
         fechaIni = actExperiencia.getFechaInicio();
         fechaFin = actExperiencia.getFechaFinal();
-        duracion = actExperiencia.getDuracion();
         precio = actExperiencia.getPrecio();
         numPlazas = actExperiencia.getNumPlazas();
         
@@ -390,7 +393,6 @@ public class ExperienciaAdminController implements Initializable {
         textIdActividad.setText(String.valueOf(actividad));
         textFechaInicio.setText(fechaIni.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss")));
         textFechaFinal.setText(fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss")));       
-        textDuracion.setText(String.valueOf(duracion.toHours() + " Horas"));
         textPrecio.setText(String.valueOf(precio) + "€");
         textNumPlazas.setText(String.valueOf(numPlazas));
     }
@@ -412,7 +414,6 @@ public class ExperienciaAdminController implements Initializable {
         textIdActividad.clear();
         textFechaInicio.clear();
         textFechaFinal.clear();
-        textDuracion.clear();
         textPrecio.clear();
         textNumPlazas.clear();
         

@@ -20,7 +20,7 @@ public class ActividadExperiencia {
     private Actividad actividad;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinal;
-    private Duration duracion;
+//    private Duration duracion;
     private double precio;
     private int numPlazas;
 
@@ -32,16 +32,16 @@ public class ActividadExperiencia {
         this.fechaFinal = fechaFinal;
         this.precio = precio;
         this.numPlazas = numPlazas;
-        this.duracion = Duration.between(fechaInicio, fechaFinal);
+//        this.duracion = Duration.between(fechaInicio, fechaFinal);
     }
 
-    public Duration getDuracion() {
-        return duracion;
-    }
-
-    public void setDuracion(Duration duracion) {
-        this.duracion = duracion;
-    }
+//    public Duration getDuracion() {
+//        return duracion;
+//    }
+//
+//    public void setDuracion(Duration duracion) {
+//        this.duracion = duracion;
+//    }
 
     public double getPrecio() {
         return precio;

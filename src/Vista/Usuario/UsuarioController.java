@@ -105,9 +105,9 @@ imagev.setFitHeight(800);
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
 
-        logearseBueno();
+//        logearseBueno();
         //            logearseComoCliente();
-        //      logearseComoAdministrador();
+        logearseComoAdministrador();
 
 
     }
