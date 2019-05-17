@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -56,6 +57,10 @@ public class ActividadController implements Initializable {
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
     private actividadesDAO gestionBDActividad;
+    private TranslateTransition translate;
+    @FXML
+    private Label etiquetaPrecio;
+    private double posicionlista;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -154,12 +159,12 @@ public class ActividadController implements Initializable {
     }
 
     public void cargarActividades(Tipo tipo) {
-        FadeTransition ft = new FadeTransition(Duration.millis(1000), listaElementos);
-        ft.setFromValue(0);
-        ft.setToValue(1);
-        ft.play();
-        listaElementos.setVisible(true);
-        listaDatosActividades.clear();
+        
+        posicionlista = listaElementos.getLayoutX();
+        
+        transicionCargarActividades();
+        
+       
         try {
             for (Actividad actividad : gestionBDActividad.consultarActividadesPorTipo(tipo)) {
                 listaDatosActividades.add(actividad);
@@ -177,6 +182,25 @@ public class ActividadController implements Initializable {
         if(paneInformacion.isVisible()){
             paneInformacion.setVisible(false); 
         }
+        
+    }
+    
+    private void transicionCargarActividades(){
+        
+        listaElementos.setLayoutX(posicionlista);
+                
+        translate = new TranslateTransition(Duration.seconds(2), listaElementos);
+        translate.setToX(50);
+        translate.play();
+
+        System.out.println(listaElementos.getLayoutX());
+        
+        FadeTransition ft = new FadeTransition(Duration.millis(3000), listaElementos);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
+        listaElementos.setVisible(true);
+        listaDatosActividades.clear();
         
     }
 
@@ -229,7 +253,7 @@ public class ActividadController implements Initializable {
             } else {
                 fotoActividad.setVisible(true);
                 fotoActividad.setImage(new Image("Imagenes/" + actividad.getFoto()));
-                fotoActividad.setFitHeight(330);
+                fotoActividad.setFitHeight(337);
                 fotoActividad.setFitWidth(330);
                 fotoActividad.setPreserveRatio(false);
             }
@@ -253,4 +277,7 @@ public class ActividadController implements Initializable {
             webViewActividad.getEngine().load(actividad.getUrl());
         }
     }
+    
+    
+
 }

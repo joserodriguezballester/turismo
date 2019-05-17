@@ -12,7 +12,7 @@
    <children>
       <AnchorPane fx:id="frenteAP" prefHeight="730.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <TreeView fx:id="informacionTV" opacity="0.5" prefHeight="260.0" prefWidth="200.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="80.0" />
+            <TreeView fx:id="informacionTV" prefHeight="260.0" prefWidth="200.0" AnchorPane.leftAnchor="80.0" AnchorPane.topAnchor="80.0" />
             <ImageView fx:id="imagTarj" fitHeight="570.0" fitWidth="927.0" pickOnBounds="true" preserveRatio="true" AnchorPane.rightAnchor="80.0" AnchorPane.topAnchor="80.0" />
          </children>
       </AnchorPane>

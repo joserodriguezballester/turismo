@@ -173,7 +173,7 @@ public class PrincipalController implements Initializable {
         PerfilController perfilController;
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
-            Parent root = loader.load();    
+            Parent root = loader.load();
             perfilController = loader.getController();
             perfilController.setUsuario(usuario);
             System.out.println("gestion PC " + gestion);
@@ -200,7 +200,7 @@ public class PrincipalController implements Initializable {
         BuscadorController controlador;
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
-            Parent root = loader.load();    
+            Parent root = loader.load();
             controlador = loader.getController();
             controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
@@ -213,8 +213,6 @@ public class PrincipalController implements Initializable {
                     "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
         }
     }
-
-
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -245,7 +243,9 @@ public class PrincipalController implements Initializable {
 
     public void setParametroUsuario(Usuario usuario) {
         this.usuario = usuario;
-        botonPerfil.setText(usuario.getNick().toUpperCase());
+        if (usuario != null) {
+            botonPerfil.setText(usuario.getNick().toUpperCase());
+        }
     }
 
     @FXML

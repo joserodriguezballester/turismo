@@ -93,7 +93,7 @@ public class RegistrarController implements Initializable {
         Ventana1.getChildren().add(imagev);
         imagev.setFitHeight(730);
         imagev.setFitWidth(1300);
-        panePerfil.getStyleClass().add("paneinicio");
+        panePerfil.getStyleClass().add("panePerfil");
         panePerfil.toFront(); 
         gridpane.setOpacity(1);
 //        paneagencia.getStyleClass().add("paneAgencia");

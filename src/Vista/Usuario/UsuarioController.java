@@ -17,6 +17,7 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,10 +30,12 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import org.controlsfx.dialog.LoginDialog;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
@@ -42,13 +45,13 @@ public class UsuarioController implements Initializable {
     private Label label;
     private Label nombreET;
     private Stage escenario;
-    
+
     @FXML
     private PasswordField contraTF;
     @FXML
     private TextField nickTF;
     private Pane Ventana;
-    
+
     private GestionBD gestion;
     private usuariosDAO usuarioDAO;
     Usuario usuario;
@@ -65,8 +68,8 @@ public class UsuarioController implements Initializable {
     private Button botonLog;
     @FXML
     private Button botonReg;
-    private String tituloAlertSQL="AlertaSQL";
-    private String mensajeSQL="error en la base de datos";
+    private String tituloAlertSQL = "AlertaSQL";
+    private String mensajeSQL = "error en la base de datos";
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -82,26 +85,30 @@ public class UsuarioController implements Initializable {
         paneInicio.getStyleClass().add("paneinicio");
         paneagencia.getStyleClass().add("paneAgencia");
         
-        botonLog.getStyleClass().add("botoninicio");
-        botonReg.getStyleClass().add("botoninicio");
-        
-        imagev.setFitHeight(800);
+imagev.setFitHeight(800);
         imagev.setFitWidth(1300);
         
         paneInicio.toFront();
         paneagencia.toFront();
         
+        botonLog.getStyleClass().add("botoninicio");
+        botonReg.getStyleClass().add("botoninicio");
+
+        
+
+        
+
         // TODO
     }
 
     @FXML
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
- //       logearseBueno();
-             logearseComoCliente();
- //      logearseComoAdministrador();
+        logearseBueno();
+        //            logearseComoCliente();
+        //      logearseComoAdministrador();
     }
-    
+
     @FXML
     private void registrarse(ActionEvent event) throws IOException {
         Parent root;
@@ -128,7 +135,6 @@ public class UsuarioController implements Initializable {
 
     public void cargarVentanaPrincipal() {
 
-       
         escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
 
         String nombrefichero = "/Vista/Principal/Principal.fxml";
@@ -221,7 +227,7 @@ public class UsuarioController implements Initializable {
         try {
             contrasenaBD = usuarioDAO.obtenerContra(nick);
         } catch (SQLException ex) {
-           not.alert(tituloAlertSQL, mensajeSQL);
+            not.alert(tituloAlertSQL, mensajeSQL);
         }
         String contrasena = contraTF.getText();
         checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
@@ -246,12 +252,12 @@ public class UsuarioController implements Initializable {
                         cargarVentanaPrincipalAdmin();  //usuario administrador
                     } else {
                         not.error("Segun lorenzo soy tonto",
-                            "en logearseBueno() --- UsuarioController");
+                                "en logearseBueno() --- UsuarioController");
                     }
                 }
             } catch (SQLException ex) {
                 not.error("ERROR SQL",
-                    "en logearseBueno() --- UsuarioController");
+                        "en logearseBueno() --- UsuarioController");
             }
         } else {
 //             mostrar ventana que no existe o contraseña erronea
@@ -266,6 +272,19 @@ public class UsuarioController implements Initializable {
 
     private void logearseComoAdministrador() {
         cargarVentanaPrincipalAdmin();
+    }
+
+    @FXML
+    private void habilitarBT(MouseEvent event) {
+
+        if (botonLog.isDisable()) {
+            FadeTransition ft = new FadeTransition(Duration.millis(500), botonLog);
+            ft.setFromValue(0.6);
+            ft.setToValue(1);
+            ft.play();
+
+            botonLog.setDisable(false);
+        }
     }
 
 }

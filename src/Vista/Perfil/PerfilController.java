@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextField;
@@ -63,6 +64,8 @@ public class PerfilController implements Initializable {
     private Notificacion not;
     private GestionBD gestion;
     private usuariosDAO usuarioDAO;
+    @FXML
+    private Label labelUser;
     
 
     @Override
@@ -72,11 +75,13 @@ public class PerfilController implements Initializable {
         Image img = new Image("Imagenes/fondoPerfil.jpg");
         ImageView imagev = new ImageView(img);
         Ventana.getChildren().add(imagev);
-        imagev.setFitHeight(800);
+        imagev.setFitHeight(730);
         imagev.setFitWidth(1300);
         Ventana.toBack();
-       alFrenteAP.getStyleClass().add("paneinicio");
+        alFrenteAP.getStyleClass().add("panePerfil");
         alFrenteAP.toFront();
+        
+        
 
        
         // TODO
@@ -84,6 +89,7 @@ public class PerfilController implements Initializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+        labelUser.setText(usuario.getNick().toUpperCase());
     }
 
     public void calcularnodos() {

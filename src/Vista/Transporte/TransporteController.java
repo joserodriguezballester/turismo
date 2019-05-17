@@ -52,13 +52,14 @@ public class TransporteController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image img = new Image("Imagenes/inicio.jpg");
+        Image img = new Image("Imagenes/fondoInformacion.jpg");
         ImageView imagev = new ImageView(img);
         fondoUsuario.getChildren().add(imagev);
-        imagev.setFitHeight(700);
+        imagev.setFitHeight(730);
         imagev.setFitWidth(1300);
+        imagev.setOpacity(0.8); 
         fondoUsuario.toBack();
-         frenteAP.toFront();
+        frenteAP.toFront();
         transDAO = new TransportesDAO(gestion);
         //CREACION NODO DAW
         TreeItem<String> mapasItem = new TreeItem<>("Mapas");
@@ -101,6 +102,11 @@ informacionTV.getSelectionModel().selectedItemProperty().addListener((v, oldValu
 // Body would go here
 seleccionar();
 });
+
+    imagTarj.setFitWidth(927);
+    imagTarj.setFitHeight(570);
+   
+    
     }
 
     private void seleccionar() {
