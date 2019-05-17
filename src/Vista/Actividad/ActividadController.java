@@ -15,6 +15,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
 import javafx.animation.TranslateTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -60,7 +61,6 @@ public class ActividadController implements Initializable {
     private TranslateTransition translate;
     @FXML
     private Label etiquetaPrecio;
-    private double posicionlista;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -159,13 +159,11 @@ public class ActividadController implements Initializable {
     }
 
     public void cargarActividades(Tipo tipo) {
-        
-        posicionlista = listaElementos.getLayoutX();
-        
+
         transicionCargarActividades();
-        
-       
+
         try {
+
             for (Actividad actividad : gestionBDActividad.consultarActividadesPorTipo(tipo)) {
                 listaDatosActividades.add(actividad);
             }
@@ -178,30 +176,31 @@ public class ActividadController implements Initializable {
                     + " Error al cargar la información en el panel de información");
 
         }
-        
-        if(paneInformacion.isVisible()){
-            paneInformacion.setVisible(false); 
+
+        if (paneInformacion.isVisible()) {
+            paneInformacion.setVisible(false);
         }
-        
+
     }
-    
-    private void transicionCargarActividades(){
+
+    private void transicionCargarActividades() {
         
-        listaElementos.setLayoutX(posicionlista);
-                
+        
+        
         translate = new TranslateTransition(Duration.seconds(2), listaElementos);
+        translate.setFromX(0);
         translate.setToX(50);
+        translate.setInterpolator(Interpolator.LINEAR);
+//        listaElementos.setLayoutX(listaElementos.getLayoutX() + 50);
         translate.play();
 
-        System.out.println(listaElementos.getLayoutX());
-        
         FadeTransition ft = new FadeTransition(Duration.millis(3000), listaElementos);
         ft.setFromValue(0);
         ft.setToValue(1);
         ft.play();
         listaElementos.setVisible(true);
         listaDatosActividades.clear();
-        
+
     }
 
     private void cerrarInformacionEvent(ActionEvent event) {
@@ -267,7 +266,7 @@ public class ActividadController implements Initializable {
         if (actividad.getUrl() == null) {
             paneWebView.setVisible(false);
             webViewActividad.setVisible(false);
-            
+
         } else {
             paneWebView.setVisible(true);
             webViewActividad.setVisible(true);
@@ -277,7 +276,5 @@ public class ActividadController implements Initializable {
             webViewActividad.getEngine().load(actividad.getUrl());
         }
     }
-    
-    
 
 }
