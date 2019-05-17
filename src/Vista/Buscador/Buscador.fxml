@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
-<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" fx:id="Ventana" prefHeight="730.0" prefWidth="1000.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Buscador.BuscadorController">
+<AnchorPane id="AnchorPane" fx:id="Ventana" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Buscador.BuscadorController">
    <stylesheets>
       <URL value="@/resources/estilo.css" />
    </stylesheets>
    <children>
-      <Label layoutX="124.0" layoutY="86.0" prefHeight="17.0" prefWidth="407.0" text="Ventana buscador no hay que poner el menu. Tamaño ya puesto" />
+      <ScrollPane fx:id="scrollPaneActividadesBuscador" layoutX="175.0" layoutY="70.0" prefHeight="660.0" prefWidth="950.0">
+         <content>
+            <Pane fx:id="paneActividadesBuscador" />
+         </content>
+      </ScrollPane>
+      <JFXTextField layoutX="450.0" layoutY="25.0" prefWidth="400.0" promptText="Buscar..." />
    </children>
 </AnchorPane>

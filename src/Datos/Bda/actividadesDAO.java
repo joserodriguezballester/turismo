@@ -22,7 +22,7 @@ import java.util.List;
  * @author Usuario
  */
 public class actividadesDAO {
-    
+
     private Notificacion not;
     private GestionBD gestion;
     private Connection conn;
@@ -87,7 +87,7 @@ public class actividadesDAO {
             insertado = true;
         } else {
             System.out.println("Conexion insertar es null");
-            
+
         }
 
         return insertado;
@@ -180,7 +180,7 @@ public class actividadesDAO {
             while (rs.next()) {
                 listaTiposActividades.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
             }
-            
+
         }
         return listaTiposActividades;
     }
