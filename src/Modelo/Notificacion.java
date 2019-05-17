@@ -4,8 +4,6 @@ package Modelo;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
@@ -22,7 +20,7 @@ public class Notificacion {
         .onAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                System.out.println("Not supported yet.");
+//                System.out.println("Not supported yet.");
             }
 
         });
@@ -42,7 +40,7 @@ public class Notificacion {
         .onAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                System.out.println("Not supported yet.");
+//                System.out.println("Not supported yet.");
             }
 
         });
@@ -60,7 +58,7 @@ public class Notificacion {
         .onAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                System.out.println("Not supported yet.");
+//                System.out.println("Not supported yet.");
             }
 
         });
@@ -78,7 +76,7 @@ public class Notificacion {
         .onAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent arg0) {
-                System.out.println("Not supported yet.");
+//                System.out.println("Not supported yet.");
             }
 
         });

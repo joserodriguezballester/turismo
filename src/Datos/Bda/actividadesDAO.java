@@ -61,7 +61,7 @@ public class actividadesDAO {
 
         } catch (SQLException ex) {
             System.out.println("error sql");
-            not.error("SQL ERROR", "" + ex.getMessage() + " en cargaUsuario()--- actividadesDAO");
+            not.error("SQL ERROR", "" + ex.getMessage() + " Hay un problema al cargar el Usuario");
         }
         return usuario;
     }
@@ -180,7 +180,7 @@ public class actividadesDAO {
             while (rs.next()) {
                 listaTiposActividades.add(new Tipo(rs.getInt("id"), rs.getString("nombre")));
             }
-            System.out.println("ESTOY DENTRO DE CONSULTARTIPOACTIVIDADES");
+            
         }
         return listaTiposActividades;
     }

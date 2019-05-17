@@ -21,7 +21,7 @@ public class GestionBD {
     private String informacion;  //mensajes de resultado de conexion o desconexion
     private boolean conectado;
     private PreparedStatement ps;
-    private Notificacion not;
+    private Notificacion not = new Notificacion();
 
     public Connection getConn() {
         return conn;
@@ -61,7 +61,7 @@ public class GestionBD {
                     + nombre
                     + "\n URL utilizada "
                     + url + "\n ERROR: " + ex.getMessage();
-            not.error("ERROR SQL", "" + ex.getMessage() + " en conectar()--- GestionBD");
+            not.error("ERROR SQL", "Hubo un problema al intentar conectarse con la base de datos");
         } catch (Exception es) {
             throw es;
             

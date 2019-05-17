@@ -149,11 +149,11 @@ public class ActividadController implements Initializable {
             }
         } catch (SQLException ex) {
             not.error("ERROR SQL", "" + ex.getMessage()
-                    + " en inicio --- ActividadController");
+                    + "Error al consultar la DB turismo");
         } catch (Exception es) {
             es.printStackTrace();
             not.error("ERROR EXCEPTION", "" + es.getMessage()
-                    + " en cargarActividades --- ActividadController");
+                    + " Error al crear las actividades");
         }
 
     }
@@ -172,10 +172,10 @@ public class ActividadController implements Initializable {
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException ex) {
             not.error("ERROR SQL", "" + ex.getMessage()
-                    + " en cargarActividades --- ActividadController");
+                    + " Error al consultar la DB turismo");
         } catch (Exception es) {
             not.error("ERROR EXCEPTION", "" + es.getMessage()
-                    + " en cargarActividades --- ActividadController");
+                    + " Error al cargar la información en el panel de información");
 
         }
         
@@ -260,14 +260,14 @@ public class ActividadController implements Initializable {
         } catch (Exception es) {
             fotoActividad.setVisible(false);
             not.error("ERROR EXCEPTION", "" + es.getMessage()
-                    + " en cargarInformacionActividad --- ActividadController");
+                    + "Error al recuperar la ruta de las imagenes, imagen no encontrada");
 
         }
 
         if (actividad.getUrl() == null) {
             paneWebView.setVisible(false);
             webViewActividad.setVisible(false);
-            System.out.println("no tiene");
+            
         } else {
             paneWebView.setVisible(true);
             webViewActividad.setVisible(true);

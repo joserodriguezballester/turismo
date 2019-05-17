@@ -104,9 +104,12 @@ imagev.setFitHeight(800);
     @FXML
     private void logearse(ActionEvent event) {
         // Utilizar uno de estos tres metodos
+
         logearseBueno();
         //            logearseComoCliente();
         //      logearseComoAdministrador();
+
+
     }
 
     @FXML

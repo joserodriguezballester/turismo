@@ -36,15 +36,17 @@ public class experienciasDAO {
     //CREATE
     public boolean insertarExperiencia(Experiencia experiencia) throws SQLException {
         boolean insertado = false;
+
         if (conn != null) {
-            String consulta = "INSERT INTO EXPERIENCIAS (IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?);";
+            String consulta = "INSERT INTO EXPERIENCIAS (ID,IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = conn.prepareStatement(consulta);
-            ps.setInt(1, experiencia.getIdUsuario());
-            ps.setString(2, experiencia.getNombre());
-            ps.setString(3, experiencia.getDescripcion());
-            ps.setDate(4, Date.valueOf(experiencia.getFechaTopeValidez()));
+            ps.setInt(1, experiencia.getId());
+            ps.setInt(2, experiencia.getIdUsuario());
+            ps.setString(3, experiencia.getNombre());
+            ps.setString(4, experiencia.getDescripcion());
+            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez()));
 //            ps.setString(5, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-            ps.setString(5, experiencia.getFoto());
+            ps.setString(6, experiencia.getFoto());
             ps.executeUpdate();
             insertado = true;
 
@@ -54,15 +56,13 @@ public class experienciasDAO {
             while (rs.next()) {
                 experiencia.setId(rs.getInt("id"));
             }
-
         }
-
         return insertado;
     }
 
     //READ
     public List<Experiencia> consultarTodasExperiencias() throws SQLException {
-        System.out.println("Dentro de consultarTodaExperiencias experienciasDAO");
+
         List<Experiencia> listaExperiencias = new ArrayList<>();
         if (conn != null) {
             String consulta = "SELECT id,idUsuario, nombre, descripcion, fechaTopeValidez, foto FROM experiencias;";
@@ -88,15 +88,12 @@ public class experienciasDAO {
     public boolean modificarExperiencia(int idUsuario, String nombre, String descripcion, LocalDate fechaTopeValidez, String rutaFoto, int id) throws SQLException {
         boolean insertado = false;
         if (conn != null) {
-//            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//            String fechaTope = fechaTopeValidez.format(dtf);
 
             String consulta = "UPDATE EXPERIENCIAS SET IDUSUARIO = ?, NOMBRE = ?, DESCRIPCION = ?, FECHATOPEVALIDEZ = ?, FOTO = ? WHERE ID = ?;";
             PreparedStatement ps = conn.prepareStatement(consulta);
             ps.setInt(1, idUsuario);
             ps.setString(2, nombre);
             ps.setString(3, descripcion);
-            //ps.setString(4, (fechaTopeValidez.getYear() + "-" + fechaTopeValidez.getMonth() + "-" + fechaTopeValidez.getDayOfMonth()));
             ps.setString(4, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             ps.setString(5, rutaFoto);
             ps.setInt(6, id);
@@ -117,9 +114,8 @@ public class experienciasDAO {
             ps.executeUpdate();
             borrado = true;
         } catch (SQLException ex) {
-            not.error("SQL ERROR", "" + ex.getMessage() + " en borrarExperiencia() --- experienciasDAO");
+            not.error("SQL ERROR", "" + ex.getMessage() + "No se ha eliminado la experiencia");
         }
-
         return borrado;
     }
 }
