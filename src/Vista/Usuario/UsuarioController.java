@@ -81,6 +81,8 @@ public class UsuarioController implements Initializable {
     private Pane paneInicio;
     @FXML
     private Pane paneCapaTriangulo;
+    @FXML
+    private Label olvidar;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -326,5 +328,11 @@ public class UsuarioController implements Initializable {
         translateAgencia.setInterpolator(Interpolator.LINEAR);
         translateAgencia.play();
 
+    }
+
+    @FXML
+    private void recordarPass(MouseEvent event) {
+        
+        
     }
 }

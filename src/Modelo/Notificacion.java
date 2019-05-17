@@ -83,23 +83,5 @@ public class Notificacion {
         
         notification.showWarning();   
     }
-       
-//    public static void errorDB(String titulo, String mensaje) {
-//        Image img = new Image("/Imagenes/iconos/botonError1.jpg");
-//        Notifications notification = Notifications.create()
-//        .title(titulo)
-//        .text(mensaje)
-//        .graphic(new ImageView(img))
-//        .hideAfter(Duration.seconds(25))
-//        .position(Pos.BOTTOM_RIGHT)
-//        .onAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent arg0) {
-//                System.out.println("Not supported yet.");
-//            }
-//
-//        });
-//        
-//        notification.showError();   
-//    }
+    
 }

@@ -1,10 +1,8 @@
 package Modelo;
 
 import java.time.LocalDate;
-import org.jasypt.encryption.pbe.StandardPBEStringEncryptor;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
-import org.jasypt.util.text.BasicTextEncryptor;
 
 public class Usuario implements Comparable<Usuario> {
 
@@ -19,9 +17,24 @@ public class Usuario implements Comparable<Usuario> {
     private String nick;
     private LocalDate fecNac;
     private rol perfil;
+    private String foto;
+
+    public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac, String foto) {
+        this.dni = DNI;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        String passwordEncriptado = encriptar(contrasena);
+        this.password = passwordEncriptado;
+        this.direccion = direccion;
+        this.telefono = telefono;
+        this.email = email;
+        this.nick = nick;
+        this.fecNac = fecNac;
+        this.foto = foto;
+    }
 
     private enum rol {
-        CLIENTE, ADMINISTRADOR
+        CLIENTE, ADMINISTRADOR, EMPRESA
     }
 
     public rol getPerfil() {
@@ -47,8 +60,6 @@ public class Usuario implements Comparable<Usuario> {
         this.dni = dni;
     }
 
- 
-
     public String getNick() {
         return nick;
     }
@@ -68,18 +79,18 @@ public class Usuario implements Comparable<Usuario> {
     public Usuario() {
     }
 
-    public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac) {
-        this.dni = DNI;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        String passwordEncriptado = encriptar(contrasena);
-        this.password = passwordEncriptado;
-        this.direccion = direccion;
-        this.telefono = telefono;
-        this.email = email;
-        this.nick = nick;
-        this.fecNac = fecNac;
-    }
+//    public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac) {
+//        this.dni = DNI;
+//        this.nombre = nombre;
+//        this.apellidos = apellidos;
+//        String passwordEncriptado = encriptar(contrasena);
+//        this.password = passwordEncriptado;
+//        this.direccion = direccion;
+//        this.telefono = telefono;
+//        this.email = email;
+//        this.nick = nick;
+//        this.fecNac = fecNac;
+//    }
 
     public int getId() {
         return id;
@@ -135,6 +146,14 @@ public class Usuario implements Comparable<Usuario> {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getFoto() {
+        return foto;
+    }
+
+    public void setFoto(String foto) {
+        this.foto = foto;
     }
 
     @Override

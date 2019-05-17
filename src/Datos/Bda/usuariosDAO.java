@@ -33,7 +33,7 @@ public class usuariosDAO {
     //CREATE PASANDO USUARIO
     public boolean insertarUsuario(Usuario usuario) throws SQLException {
         boolean insertado = false;
-        String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email)"
+        String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,avatar)"
                 + " VALUES(?, ?, ?, ?, ?,?,?,?,?);";
     
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
@@ -46,6 +46,7 @@ public class usuariosDAO {
             ps.setString(7, usuario.getTelefono());
             ps.setString(8, usuario.getDireccion());
             ps.setString(9, usuario.getEmail());
+            ps.setString(10, usuario.getFoto());
             ps.executeUpdate();
             insertado = true;
 
