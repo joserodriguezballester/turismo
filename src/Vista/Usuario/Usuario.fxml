@@ -32,7 +32,7 @@
         </Pane>
       <Pane fx:id="paneagencia" layoutX="438.0" layoutY="125.0" prefHeight="75.0" prefWidth="425.0">
          <children>
-            <Label fx:id="agencia" alignment="CENTER" layoutX="15.0" layoutY="3.0" prefHeight="61.0" prefWidth="395.0" text="TravellingEurope">
+            <Label fx:id="agencia" alignment="CENTER" layoutX="15.0" layoutY="3.0" prefHeight="61.0" prefWidth="395.0" text="nombre">
                <font>
                   <Font name="MV Boli" size="40.0" />
                </font>

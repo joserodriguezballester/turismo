@@ -20,7 +20,7 @@ and open the template in the editor.
     -fx-font-size: 14px;
     -jfx-button-type: RAISED;
     /*-fx-background-color: rgb(77,102,204);*/
-    -fx-background-color: #EF3358;
+    -fx-background-color: rgb(226, 207, 181);
     -fx-text-fill: WHITE;
 }
 .paneInformacionActividades{
@@ -40,12 +40,12 @@ and open the template in the editor.
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     /*-fx-background-color: rgb(77,102,204);*/
-    -fx-background-color:#EF3358;
+    -fx-background-color:rgb(226, 207, 181);
     -fx-border: solid;
 }
 .menu{
     /*    -fx-background-color: rgb(77,102,204);*/
-    -fx-background-color:#EF3358;
+    -fx-background-color:rgb(226, 207, 181);
 }
 .botonMenu:hover{
     -fx-font-weight: bold;
@@ -90,9 +90,8 @@ and open the template in the editor.
 }
 .scrollPaneActividades{
     /*-fx-background: rgba(255,0,0, 0.3);*/
-    
-        -fx-background: rgba(247, 196, 255, 0.3);
-    
+    -fx-background: rgba(247, 196, 255, 0.3);
+    -fx-background: rgba(0, 0, 0, 0);
     -fx-background-color:transparent;
 }
 .calendarioRegistrar{
@@ -136,10 +135,8 @@ and open the template in the editor.
 }
 
 .paneinicio{
-/*    -fx-background-color: rgba(247, 196, 255, 0.6);*/
-    -fx-background-color: rgba(255, 73, 140, 0.7);
     /*-fx-background-color: rgba(255, 76, 110,0.6);*/
-    /*-fx-background-color: rgba(219, 210, 210, 0.6);*/
+    -fx-background-color: rgba(219, 210, 210, 0.6);
     -fx-background-radius: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
@@ -162,7 +159,7 @@ and open the template in the editor.
     -fx-font-weight: bold;
     -fx-text-fill: BLACK;
 
-    
+
     -fx-background-color: #EF3358;
     -jfx-button-type: RAISED;
     -fx-padding: 0.7em 0.57em;
@@ -172,4 +169,9 @@ and open the template in the editor.
 .listaActividades{
     -fx-background: rgba(255,0,0, 0.3);
     -fx-background-color:transparent;
+}
+
+.paneActividadBuscador{
+    -fx-background-color: rgba(175, 175, 175, 0.8);
+    -fx-background-radius: 20;
 }
