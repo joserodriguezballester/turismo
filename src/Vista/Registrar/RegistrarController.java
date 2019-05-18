@@ -15,6 +15,7 @@ import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -34,10 +35,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javax.imageio.ImageIO;
@@ -113,9 +116,12 @@ public class RegistrarController implements Initializable {
     private Label repContraL;
     @FXML
     private Label fecNacL;
+    private String aviso = " -fx-text-fill:grey";
+    File fotoFile;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
         aceptarBT.getStyleClass().add("botonAceptarRegistro");
         salirBT.getStyleClass().add("botonEliminar");
         fecNacTF.getStyleClass().add("calendarioRegistrar");
@@ -128,15 +134,24 @@ public class RegistrarController implements Initializable {
         panePerfil.getStyleClass().add("panePerfil");
         panePerfil.toFront();
         gridpane.setOpacity(1);
+
         avatarIV.setOnMouseClicked(event -> cargarfoto());
+        nickTF.setOnMouseClicked(event -> usuL.setStyle(aviso));
+        contraPF.setOnMouseClicked(event -> ContraL.setStyle(aviso));
+        nombreTF.setOnMouseClicked(event -> nombreL.setStyle(aviso));
+        apellidosTF.setOnMouseClicked(event -> apelliL.setStyle(aviso));
+        telefonoTF.setOnMouseClicked(event -> telefL.setStyle(aviso));
+        emailTF.setOnMouseClicked(event -> emailL.setStyle(aviso));
+        fecNacTF.setOnMouseClicked(event -> fecNacL.setStyle(aviso));
 
     }
 
     @FXML
-    private void registrar(ActionEvent event) {
+    private void registrar(ActionEvent event) throws SQLException {
+        boolean registrado = false;
         String nick = nickTF.getText();
         String contrasena = contraPF.getText();
-        String contraCopia = repContraPF.getText();
+//        String contraCopia = repContraPF.getText();
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String dni = dniTF.getText();
@@ -144,77 +159,52 @@ public class RegistrarController implements Initializable {
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
-        String foto = avatarIV.getImage().toString();
-        //Control de nulos//
-        String EstiloVacio = " -fx-background-color: rgb(238,32,32)";
-        if (nick == null) {
-            nickTF.setStyle(EstiloVacio);
+        if (fotoFile == null) {
+            foto = "avatar.png";
         } else {
-            if (contrasena == null) {
-                contraPF.setStyle(EstiloVacio);
-            } else if (contraCopia == null) {
-                repContraPF.setStyle(EstiloVacio);
-            } else if (nombre == null) {
-                nombreL.setStyle(EstiloVacio);
-            } else if (apellidos == null) {
-                apelliL.setStyle(EstiloVacio);
-            } else if (dni == null) {
-                ///dni
-            } else if (fecNac == null) {
-                // fecNacL
-            } else if (telefono == null) {
-                telefL.setText(EstiloVacio);
-            } else if (email == null) {
-                emailL.setText(EstiloVacio);
-            } else if (direccion == null) {
-                //direccion
-            } else if (!contrasena.equals(contraCopia)) {
 
-                not.error("AVISO.-" + "Contraseña distinta");
-            }
-
+            foto =nick;
         }
+//       avatarIV.getImage().getUrl();
 
-        if (contrasena.equals(contraCopia)) {
-            //crear usuario//
-            Usuario usuario = new Usuario(
-                    dni,
-                    nombre,
-                    apellidos,
-                    contrasena,
-                    direccion,
-                    telefono,
-                    email,
-                    nick,
-                    fecNac,
-                    foto);
+        //Control de entradas nulas//
+        boolean noInsertar = camposVacios();
+        //crear usuario//
+        if (!noInsertar) {
+            Usuario usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
+            try {
+                //insertar usuario en BD//
+                registrado = usuarioDAO.insertarUsuario(usuario);
+                if (registrado) {
 
-            try {  //insertar usuario en BD//
-                boolean registrado = usuarioDAO.insertarUsuario(usuario);
+                    //////// cerrar ventana ////
+                    Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
+                    stage.close();
+                    //////// fin cerrar ventana //// 
+                     FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
+                    //informar esta registrado//
+                    not.alert("Registrarse", "Ya te has registrado");
+                } else {
+                    not.confirm("Registrarse", "No te has registrado");
+                }
 
             } catch (SQLException ex) {
-                not.alert("Error", "Hay un error de SQL");
-
+                if (ex.getErrorCode() == 1062) {
+                    not.alert("Registrase", "Usuario Repetido");
+                    usuL.setStyle(aviso);
+                } else {
+                    not.alert("SQL", "Error en la BD");
+                }
+            } catch (IOException ex) {
+               not.alert("Imagen","Tu imagen no ha podido ser guardada");
             }
-
-            // aparte de lo que haga con los datos tiene que cerrarse la ventana
-            //////// cerrar ventana ////
-            Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
-            stage.close();
-            //////// fin cerrar ventana ////
-
-        } else {
-            System.out.println("contraseña distinta");
-            not.error("ERROR contraseña distinta",
-                    "en registrar --- RegistrarController");
-
         }
-
     }
 
     @FXML
     private void salir(ActionEvent event) {
-        Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
+        //Identificamos la ventana (Stage) 
+        Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();
         stage.close();
 
     }
@@ -226,55 +216,31 @@ public class RegistrarController implements Initializable {
     private void cargarfoto() {
         Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-
         // Agregar filtros para facilitar la busqueda
-        fileChooser
-                .getExtensionFilters().addAll(
-                        new FileChooser.ExtensionFilter("All Images", "*.*"),
-                        new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                        new FileChooser.ExtensionFilter("PNG", "*.png")
-                );
-
-        File fotoFile = fileChooser.showOpenDialog(stage);
-
+        fileChooser.getExtensionFilters().addAll(
+                //                new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        fotoFile = fileChooser.showOpenDialog(stage);
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
-        } else {
-            ///////////seleccionar archivo
+           
+               
+            
+           
         }
+        
     }
 
-    @FXML
-    private void comprobar(String estilo) {
-        System.out.print("comprueba");
-        estilo=camposVacios();
-         nickTF.setStyle(estilo);
-          contraPF.setStyle(estilo);
-          nombreL.setStyle(estilo);
-          
-//        String nick = nickTF.getText();
-//        String estilo = " -fx-background-color: rgb(238,32,32)";
-//        if (nick == null) {
-//            nickTF.setStyle(estilo);
-//        }
-    }
+    private boolean camposVacios() {   //   devuelve false si no hay ningun campo "necesario" nulo 
 
-//    @FXML
-//    private void descomprobar(MouseEvent event) {
-//        System.out.print("descomprueba");
-//        camposVacios();
-////        String estiloAviso = " -fx-background-color: rgb(238,32,32)";
-//    }
-
-    private String camposVacios() {
-        boolean vacio;
-        String estilo;
-        String aviso=" -fx-background-color: rgb(238,32,32)";
-        String normal="-fx-background-color:transparent";
+        boolean vacio = false;
+        String estilo = null;
+        String aviso = " -fx-text-fill: rgb(238,32,32)"; //rojo
         String nick = nickTF.getText();
         String contrasena = contraPF.getText();
-//        String contraCopia = repContraPF.getText();
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String dni = dniTF.getText();
@@ -283,57 +249,55 @@ public class RegistrarController implements Initializable {
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
         String foto = avatarIV.getImage().toString();
-
-        if (nick == null) {
+/////comprobar si los campos estan vacios y pone el label en rojo
+        if ("".equals(nick)) {
             vacio = true;
-            estilo=aviso;           
-        }else{
-            estilo=normal;  
+            usuL.setStyle(aviso);
         }
-        if (contraPF == null) {
+        if ("".equals(contrasena)) {
             vacio = true;
-             estilo=aviso;
-             estilo=" -fx-background-color: rgb(238,132,132)";
-             
+            ContraL.setStyle(aviso);
         }
-        if (nombre == null) {
+        if ("".equals(nombre)) {
             vacio = true;
-             estilo=aviso;
+            nombreL.setStyle(aviso);
         }
-        if (apellidos == null) {
+        if ("".equals(apellidos)) {
             vacio = true;
-             estilo=aviso;
+            apelliL.setStyle(aviso);
         }
-        if (dni == null) {
-            
-            vacio = true;
-             estilo=aviso;
-        }
-        if (fecNac == null) {
+        ////     lo  comentado xq permite null en BD
+//        if ("".equals(dni)) {
 //            vacio = true;
-//             estilo=aviso;
-        }
-        if (telefono == null) {
+//            dniL.setStyle(aviso);
+//        }
+
+        if (fecNac == null) {
             vacio = true;
-             estilo=aviso;
+            fecNacL.setStyle(aviso);
         }
-        if (direccion == null) {
+        if ("".equals(telefono)) {
             vacio = true;
-             estilo=aviso;
+            telefL.setStyle(aviso);
         }
-        if (email == null) {
+//        if ("".equals(telefono)) {
+//            vacio = true;
+//            telefL.setStyle(aviso);
+//        }       
+//        if ("".equals(direccion)) {
+//            vacio = true;
+//            DirecL.setStyle(aviso);
+//        }
+        if ("".equals(email)) {
             vacio = true;
-             estilo=aviso;
+            emailL.setStyle(aviso);
         }
-        if (foto == null) {
-            vacio = true;
-             estilo=aviso;
-        }
-        
-        
-        
-      return estilo;
-        
-        
+        return vacio;
     }
+
+    @FXML
+    private void comprobar(MouseEvent event) {
+        camposVacios();
+    }
+
 }
