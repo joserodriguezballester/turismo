@@ -50,30 +50,33 @@ public class Transicion {
     public void setRoot(AnchorPane root) {
         this.root = root;
     }
-    
-    
 
 //         The method I am running in my class
     public void start() {
 
         SequentialTransition slideshow = new SequentialTransition();
 
-        for (ImageView slide : slides) {
-
+//        for (ImageView slide : slides) {
+        for (int i = 0; i < slides.size(); i++) {
+            double duracionFadeIn;
+            if (i == 0) {
+                duracionFadeIn = 0;
+            } else {
+                duracionFadeIn = 1500;
+            }
             SequentialTransition sequentialTransition = new SequentialTransition();
 
-            
-            FadeTransition fadeIn = getFadeTransition(slide, 0.0, 1.0, 1500);
+            FadeTransition fadeIn = getFadeTransition(slides.get(i), 0.0, 1.0, duracionFadeIn);
             PauseTransition stayOn = new PauseTransition(Duration.millis(2500));
-            FadeTransition fadeOut = getFadeTransition(slide, 1.0, 0.0, 0);
+            FadeTransition fadeOut = getFadeTransition(slides.get(i), 1.0, 0.0, 0);
 
             sequentialTransition.getChildren().addAll(fadeIn, stayOn, fadeOut);
-            slide.setOpacity(0);
-            
-            this.root.getChildren().add(slide);
-            slideshow.getChildren().add(sequentialTransition);
+            slides.get(i).setOpacity(0);
 
+            this.root.getChildren().add(slides.get(i));
+            slideshow.getChildren().add(sequentialTransition);
         }
+//        }
 
         slideshow.setCycleCount(SequentialTransition.INDEFINITE);
         slideshow.play();

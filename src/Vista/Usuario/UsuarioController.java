@@ -115,9 +115,9 @@ public class UsuarioController implements Initializable {
     private void logearse(ActionEvent event) throws InterruptedException {
         // Utilizar uno de estos tres metodos
 
-//        logearseBueno();
+        logearseBueno();
         //            logearseComoCliente();
-        logearseComoAdministrador();
+//        logearseComoAdministrador();
 
     }
 

@@ -19,6 +19,7 @@ import java.sql.SQLException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -289,6 +291,10 @@ public class PrincipalController implements Initializable {
     }
 
     private void efectos() {
+        FadeTransition ft = new FadeTransition(Duration.millis(1500), gridpane);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
         gridpane.getStyleClass().add("menu");
         botonLogo.getStyleClass().add("botonMenu");
         botonActividades.getStyleClass().add("botonMenu");
@@ -304,6 +310,7 @@ public class PrincipalController implements Initializable {
         try {
             Transicion tr = new Transicion();
             tr.setRoot(Ventana);
+            Ventana.toBack();
             tr.start();
         } catch (Exception e) {
             System.out.println("ha petao");
