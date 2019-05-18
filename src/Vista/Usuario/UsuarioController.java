@@ -2,6 +2,7 @@ package Vista.Usuario;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
+import Modelo.Correo;
 import Modelo.Notificacion;
 import Modelo.Transicion;
 import Modelo.Usuario;
@@ -10,6 +11,7 @@ import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
 import com.sun.security.auth.PrincipalComparator;
 import java.io.IOException;
+import static java.lang.Math.random;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,6 +43,8 @@ import javafx.scene.shape.Polygon;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import javafx.util.Pair;
+import javax.mail.MessagingException;
 import org.controlsfx.dialog.LoginDialog;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
@@ -117,9 +121,9 @@ public class UsuarioController implements Initializable {
     private void logearse(ActionEvent event) throws InterruptedException {
         // Utilizar uno de estos tres metodos
 
-//        logearseBueno();
+        logearseBueno();
         //            logearseComoCliente();
-        logearseComoAdministrador();
+//        logearseComoAdministrador();
 
     }
 
@@ -262,7 +266,6 @@ public class UsuarioController implements Initializable {
                     transicionPrincipal();
 
 //                    TimeUnit.SECONDS.sleep(5);
-
 //                    cargarVentanaPrincipal();    // usuario cliente
                 } else {
 //                   if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getRol2())) {
@@ -309,10 +312,10 @@ public class UsuarioController implements Initializable {
 
         translatePrincipal = new TranslateTransition(Duration.seconds(1), paneCapaTriangulo);
         translateAgencia = new TranslateTransition(Duration.seconds(1), paneagencia);
-        
+
         translateAgencia.setFromX(0);
         translateAgencia.setToX(600);
-        
+
         translatePrincipal.setFromX(0);
         translatePrincipal.setToX(-1350);
         translatePrincipal.setOnFinished(new EventHandler<ActionEvent>() {
@@ -324,15 +327,28 @@ public class UsuarioController implements Initializable {
         translatePrincipal.setInterpolator(Interpolator.LINEAR);
 
         translatePrincipal.play();
-        
+
         translateAgencia.setInterpolator(Interpolator.LINEAR);
         translateAgencia.play();
 
     }
 
     @FXML
-    private void recordarPass(MouseEvent event) {
-        
-        
+    private void recordarPass(MouseEvent event) throws SQLException, MessagingException {
+        not = new Notificacion();
+        Pair<String, String> pareja = not.recordar();
+        String email = usuarioDAO.DarCorreo(pareja.getKey());
+        if (email.equals(pareja.getValue())) {
+            String numero = (int) (Math.random() * 1000) + "";
+            String contra = usuario.encriptar(numero);
+            usuarioDAO.introducirContra(contra,pareja.getKey());
+            Correo correo = new Correo();
+            correo.setparametros(pareja, numero,correo);
+            correo.mandarcorreo();
+            not.info("Correo","revisa tu correo");
+        } else {
+            not.alert("Email", "No coincide con el correo que tenemos de ti");
+        }
+
     }
 }

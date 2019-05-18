@@ -5,10 +5,12 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.util.Pair;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -19,17 +21,24 @@ import javax.mail.internet.MimeMessage;
 public class Correo {
 
     private final Properties properties = new Properties();
-    private String password = "contraseña gmail";
+
     private Session session;
-    
-    private void mandarcorreo() {
+    private Pair<String, String> pareja;
+    private String numero;
+    private Correo correo;
+   
+    private final String password = "pedir a jose";
 
-        Correo correo = new Correo();
-        correo.sendEmail();
-
+    public Correo() {
+        
     }
 
-    private void init(String emisor) {      
+    public void mandarcorreo() throws MessagingException {
+      
+        correo.sendEmail();
+    }
+
+    private void init(String emisor) {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.starttls.enable", "true");
         properties.put("mail.smtp.port", 587);
@@ -39,32 +48,32 @@ public class Correo {
         session = Session.getDefaultInstance(properties);
     }
 
-    public void sendEmail() {
-        String emisor = "emisor@gmail.com";
-        int contraseña = 0;    /////ojo cuando pasemos contraseña
-        String receptor = "j_r_ballester@hotmail.com";    /// pasar correo del usuario
+    public void sendEmail() throws AddressException, MessagingException {
+        String emisor = "joserodriguezballester@gmail.com";  //correo de la agencia
+//        System.out.println("pareja "+pareja);
+        
+        String receptor=pareja.getValue(); ;    /// pasar correo del usuario
+        
+        int contraseña = 0;    /////ojo cuando pasemos contraseña por parametro
+
         init(emisor);
+       
+        MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
+        message.setSubject("Agencia Turistica Pepita");
+        message.setText("Hola " + pareja.getKey() + " Sentimos mucho tu Alzheimer; tu nueva contraseña es " + numero + " te recomendamos la cambies nada mas entrar en la aplicacion");
+        Transport t = session.getTransport("smtp");
+        t.connect((String) properties.get("mail.smtp.user"), password);
+        t.sendMessage(message, message.getAllRecipients());
+        t.close();
+//        System.out.println("mensaje mandado");
 
-        try {
-            MimeMessage message = new MimeMessage(session);
-            message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
-            message.setSubject("Agencia Turistica Pepita");
-            message.setText("Sentimos tu Alzheimer tu nueva contraseña es "+contraseña+" te recomendamos la cambies nada mas entrar en la aplicacion");
-            Transport t = session.getTransport("smtp");
-            t.connect((String) properties.get("mail.smtp.user"), password);
-            t.sendMessage(message, message.getAllRecipients());
-            t.close();
-            System.out.println("mensaje mandado");
-        } catch (MessagingException me) {
-            me.printStackTrace();
+    }
 
-            System.out.println("error");
-            //Aqui se deberia o mostrar un mensaje de error o en lugar
-            //de no hacer nada con la excepcion, lanzarla para que el modulo
-            //superior la capture y avise al usuario con un popup, por ejemplo.
-
-        }
-
+    public void setparametros(Pair<String, String> pareja, String numero,Correo correo) {
+        this.pareja = pareja;
+        this.numero = numero;
+        this.correo=correo;
     }
 }

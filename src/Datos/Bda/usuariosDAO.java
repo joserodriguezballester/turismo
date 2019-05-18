@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Datos.Bda;
 
 import Modelo.Notificacion;
@@ -33,30 +28,27 @@ public class usuariosDAO {
     //CREATE PASANDO USUARIO
     public boolean insertarUsuario(Usuario usuario) throws SQLException {
         boolean insertado = false;
- 
+        String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,foto)"
+                + " VALUES(?, ?, ?, ?, ?,?,?,?,?,?);";
 
-            String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,foto)"
-                    + " VALUES(?, ?, ?, ?, ?,?,?,?,?,?);";
-
-            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ps.setString(1, usuario.getNick());
-            ps.setString(2, usuario.getPassword());
-            ps.setString(3, usuario.getFecNac().toString());
-            ps.setString(4, usuario.getNombre());
-            ps.setString(5, usuario.getApellidos());
-            ps.setString(6, usuario.getDni());
-            ps.setString(7, usuario.getTelefono());
-            ps.setString(8, usuario.getDireccion());
-            ps.setString(9, usuario.getEmail());       
-            ps.setString(10, usuario.getFoto());
-               ps.executeUpdate();
-            insertado = true;
-     return insertado;
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, usuario.getNick());
+        ps.setString(2, usuario.getPassword());
+        ps.setString(3, usuario.getFecNac().toString());
+        ps.setString(4, usuario.getNombre());
+        ps.setString(5, usuario.getApellidos());
+        ps.setString(6, usuario.getDni());
+        ps.setString(7, usuario.getTelefono());
+        ps.setString(8, usuario.getDireccion());
+        ps.setString(9, usuario.getEmail());
+        ps.setString(10, usuario.getFoto());
+        ps.executeUpdate();
+        insertado = true;
+        return insertado;
     }
 
     //UPDATE
     public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
-
         boolean modificado = false;
         modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, id, fecNac);
         String consulta = "UPDATE USUARIOS SET ROL = ? WHERE ID = ?;";
@@ -86,6 +78,19 @@ public class usuariosDAO {
         modificado = true;
     }
 
+   
+        public void introducirContra(String contra, String key) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET contraseña=? WHERE nick = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, contra);
+        ps.setString(2, key);
+        ps.executeUpdate();
+        modificado = true;
+         
+         
+         
+    }
     //DELETE
     public boolean borrarUsuario(int idUsuario) throws SQLException {
         boolean borrado = false;
@@ -151,18 +156,16 @@ public class usuariosDAO {
     public String obtenerContra(String nick) throws SQLException {
         String contrasena = null;
         String sql = "SELECT Contraseña FROM USUARIOS WHERE nick=?;";
-
         PreparedStatement ps = gestion.getConn().prepareStatement(sql);
         ps.setString(1, nick);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             contrasena = rs.getString("Contraseña");
         }
-
         return contrasena;
     }
+    
 // Obtener un Todos los campos de un Usuario 
-
     public Usuario cargarUsuario(String nick) throws SQLException {
         Usuario usuario = new Usuario();
         java.sql.Date fechabda;
@@ -174,10 +177,8 @@ public class usuariosDAO {
         while (rs.next()) {
             usuario.setId(rs.getInt("id"));
             usuario.setPassword(rs.getString("contraseña"));
-
             fechabda = rs.getDate("fecNac");
             usuario.setFecNac(fechabda.toLocalDate());
-
             usuario.setNombre(rs.getString("nombre"));
             usuario.setApellidos(rs.getString("apellidos"));
             usuario.setDni(rs.getString("dni"));
@@ -212,4 +213,23 @@ public class usuariosDAO {
         return listaUsuarios;
     }
 
-}
+ //obtener el correo
+    public String DarCorreo(String nick) throws SQLException{
+        String correo = null;
+        String consulta = "select dimecorreo (?);";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, nick);
+        ResultSet rs = ps.executeQuery();
+         while (rs.next()) {
+            correo = rs.getString(1);
+        }        
+        return correo;
+    }
+
+    
+    }
+
+   
+    
+    
+
