@@ -83,5 +83,8 @@ public class Notificacion {
         
         notification.showWarning();   
     }
+
+    public void error(String string) {
+    }
     
 }

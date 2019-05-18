@@ -89,22 +89,23 @@ public class RegistrarAdminController implements Initializable {
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
-        //Encriptar contraseña //////
+        String foto=""; 
+//////////        Encriptar contraseña //////
         if (contrasena.equals(ContrasenaCopia)) {
-            //crear usuario//
-            Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
-            //insertar usuario en BD//
+//            crear usuario//
+//cambiar            Usuario usuario = new Usuario(DNI, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac);
+////////////////            insertar usuario en BD//
             boolean insertado = false;
-            try {
-                insertado = usuarioDAO.insertarUsuario(usuario);
-            } catch (SQLException ex) {
-            not.alert("Error","Hay un error de SQL");
-            }
-            if (insertado) {
-                not.info("INFORMACION", "Se ha insertado correctamente");
-            } else {
-                not.info("INFORMACION", "No se ha insertado");
-            }
+////            try {
+////                insertado = usuarioDAO.insertarUsuario(usuario);
+////            } catch (SQLException ex) {
+////            not.alert("Error","Hay un error de SQL");
+//           }
+//            if (insertado) {
+//                not.info("INFORMACION", "Se ha insertado correctamente");
+//            } else {
+//                not.info("INFORMACION", "No se ha insertado");
+//            }
 
             //////// cerrar ventana ////
             Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
