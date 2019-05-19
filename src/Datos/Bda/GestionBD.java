@@ -37,7 +37,7 @@ public class GestionBD {
 
     public boolean conectar() {     //Establecer conexion con la base de datos  lanza trow
         conectado = false;
-        String nombre = "turismo"; //nombre de la base de datos
+        String nombre = "turismoamsterdam"; //nombre de la base de datos
         String usuario = "root";   //Usuario de la base de datos, Distinto del usuario de la aplicacion
         String pwd = "root";     //Contraseña de la base de datos, Distinto de la aplicacion
         String url = "jdbc:mysql://localhost:3306/" + nombre + "?serverTimezone=UTC";

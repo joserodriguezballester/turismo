@@ -73,7 +73,6 @@ public class PrincipalAdminController implements Initializable {
             
              ActividadAdminController actividadAdminController=loader.getController();
              actividadAdminController.setGestion(gestion);
-             System.out.println("pricicipal gestion: "+ gestion.isConectado());
              actividadAdminController.ejecutaAlPrincipio();
         
              
@@ -100,7 +99,6 @@ public class PrincipalAdminController implements Initializable {
             
             ExperienciaAdminController experienciaAdminController=loader.getController();
             experienciaAdminController.setGestion(gestion);
-            System.out.println("pricicipal gestion: "+ gestion.isConectado());
             experienciaAdminController.ejecutaAlPrincipio();
             
             

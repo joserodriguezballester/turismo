@@ -123,9 +123,19 @@ public class actividadesDAO {
         String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo FROM actividades WHERE id = ?;";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ps.setInt(1, idActividad);
-        ResultSet rs = ps.executeQuery();
+        rs = ps.executeQuery();
         while (rs.next()) {
-            actividad = new Actividad(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("horario"), rs.getString("descripcion"), rs.getString("url"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("foto"), rs.getInt("idSubtipo"));
+            actividad = new Actividad(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getDouble("precio"), 
+                    rs.getString("horario"), 
+                    rs.getString("descripcion"), 
+                    rs.getString("url"),
+                    rs.getString("direccion"), 
+                    rs.getString("telefono"),
+                    rs.getString("foto"), 
+                    rs.getInt("idSubtipo"));
         }
         return actividad;
     }
