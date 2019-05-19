@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
+/** NUEVO  CAMPO FOTO ver update,listar...
  *
- * @author Usuario
+ * 
  */
 public class usuariosDAO {
 
@@ -169,7 +169,7 @@ public class usuariosDAO {
     public Usuario cargarUsuario(String nick) throws SQLException {
         Usuario usuario = new Usuario();
         java.sql.Date fechabda;
-        String sql = "SELECT id,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM USUARIOS WHERE nick=?;";
+        String sql = "SELECT id,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol,foto FROM USUARIOS WHERE nick=?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(sql);
         ps.setString(1, nick);
         ResultSet rs = ps.executeQuery();
@@ -184,8 +184,9 @@ public class usuariosDAO {
             usuario.setDni(rs.getString("dni"));
             usuario.setTelefono(rs.getString("telefono"));
             usuario.setDireccion(rs.getString("direccion"));
-            usuario.setEmail(rs.getString("email"));
+            usuario.setEmail(rs.getString("email"));        
             usuario.setPerfil(rs.getString("rol").toUpperCase());
+            usuario.setFoto(rs.getString("foto"));
         }
         return usuario;
     }

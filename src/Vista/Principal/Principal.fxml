@@ -48,6 +48,7 @@
                         </ImageView>
                      </graphic>
                   </Button>
+                  <ImageView fx:id="caraIV" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" />
                </children>
             </GridPane>
          </children>

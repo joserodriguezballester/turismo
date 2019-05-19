@@ -69,10 +69,11 @@ public class PrincipalController implements Initializable {
     private JFXButton botnPerfil;
     @FXML
     private JFXButton botnSalir;
+    @FXML
+    private ImageView caraIV;
 
-    /**
-     * Initializes the controller class.
-     */
+    
+   
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
@@ -243,9 +244,18 @@ public class PrincipalController implements Initializable {
 
     public void setParametroUsuario(Usuario usuario) {
         this.usuario = usuario;
+        cargaNickFoto();      //seria mejor llamarlo desde el otro controlador pero...  
+    }
+    public void cargaNickFoto(){
         if (usuario != null) {
             botonPerfil.setText(usuario.getNick().toUpperCase());
-        }
+//            System.out.println("Imagenes/usuarios/" + usuario.getFoto()+".jpg");
+            try {
+                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()+".jpg"));
+            } catch (Exception e) {
+                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+            }
+    }
     }
 
     @FXML

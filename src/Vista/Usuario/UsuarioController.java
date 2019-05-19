@@ -121,9 +121,9 @@ public class UsuarioController implements Initializable {
     private void logearse(ActionEvent event) throws InterruptedException {
         // Utilizar uno de estos tres metodos
 
- //       logearseBueno();
-        //            logearseComoCliente();
-        logearseComoAdministrador();
+        logearseBueno();
+ //                   logearseComoCliente();
+//        logearseComoAdministrador();
 
     }
 
@@ -220,6 +220,7 @@ public class UsuarioController implements Initializable {
             principalAdminController = loader.getController();
 //Pasamos informacion a la clase siguiente
             principalAdminController.setGestion(gestion);
+            principalAdminController.setParametroUsuario(usuario);
 //                 principalController.setParametros(usuario, bda, cambiador);
 //Damos valores a los nodos antes de mostrarlos
             //        principalController.calcularnodos();

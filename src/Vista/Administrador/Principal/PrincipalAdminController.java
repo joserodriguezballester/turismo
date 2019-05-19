@@ -8,6 +8,7 @@ package Vista.Administrador.Principal;
 import Datos.Bda.GestionBD;
 import Modelo.Notificacion;
 import Modelo.Transicion;
+import Modelo.Usuario;
 import Vista.Administrador.Actividad.ActividadAdminController;
 import Vista.Administrador.Experiencia.ExperienciaAdminController;
 import Vista.Administrador.Perfil.PerfilAdminController;
@@ -21,6 +22,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -40,10 +43,13 @@ public class PrincipalAdminController implements Initializable {
     private GestionBD gestion;
     @FXML
     private Button transportesBT;
+    private Usuario usuario;
+    @FXML
+    private Button usuarioBT;
+//    private ImageView caraIV;
+    @FXML
+    private ImageView cara1;
 
-    /**
-     * Initializes the controller class.
-     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
@@ -161,8 +167,25 @@ public class PrincipalAdminController implements Initializable {
             not.error("ERROR AL CARGAR TRNSPORTE ADMIN", "Verifica tu código,"
         + "(irTransporteAdmin PrincipalAdminController)");
         
-        }
-        
+        }       
     }
 
+      public void setParametroUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        cargaNickFoto();      //seria mejor llamarlo desde el otro controlador pero...  
+    }
+    public void cargaNickFoto(){
+        if (usuario != null) {
+            usuarioBT.setText(usuario.getNick().toUpperCase());
+//            cara1.setImage(new Image("Imagenes/usuarios/raquel.jpg"));
+            try {
+                cara1.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()+".jpg"));
+            } catch (Exception e) {
+                cara1.setImage(new Image("Imagenes/usuarios/avatar.png"));
+            }
+    }
+    }
+    
+    
+    
 }
