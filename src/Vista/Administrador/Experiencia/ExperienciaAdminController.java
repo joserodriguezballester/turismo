@@ -14,11 +14,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-//import javafx.util.Duration;
+import java.time.format.DateTimeParseException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -28,7 +27,6 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
@@ -110,11 +108,23 @@ public class ExperienciaAdminController implements Initializable {
     private experienciasDAO experienDAO;
     private experienciasActividadesDAO eaDAO;
     private Experiencia experiencia;
-    private Notificacion not = new Notificacion();
+    private Notificacion not;
     private ActividadExperiencia actExperiencia;
     private actividadesDAO activiDAO;
     
-      
+    boolean delete;
+    
+   
+    
+    @Override
+    public void initialize(URL url, ResourceBundle rb) {
+        obExperiencias = FXCollections.observableArrayList();
+        obActiviEncias = FXCollections.observableArrayList();
+        
+        not = new Notificacion();
+    }
+    
+       
     public void setGestion(GestionBD gestion){
         ExperienciaAdminController.gestion = gestion;
     }
@@ -123,12 +133,9 @@ public class ExperienciaAdminController implements Initializable {
         experienDAO = new experienciasDAO(gestion);
         activiDAO = new actividadesDAO(gestion);
         eaDAO = new experienciasActividadesDAO(gestion);
-    }
-    
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        obExperiencias = FXCollections.observableArrayList();
-        obActiviEncias = FXCollections.observableArrayList();
+        
+        listar();
+       
     }
     
 // -------------------------- INSERTAR ----------------------------------
@@ -147,11 +154,9 @@ public class ExperienciaAdminController implements Initializable {
             descripcion = textDescripcion.getText();
             fechaTope = LocalDate.parse(textFecha.getText());
             foto = textFoto.getText();
-            //lista = textArea.getText().toString();
 
             Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto,lista);
-
-           
+          
             ok = experienDAO.insertarExperiencia(nueva);
             
         } catch (SQLException ex) {
@@ -169,6 +174,7 @@ public class ExperienciaAdminController implements Initializable {
         }
     }
     
+    
     private List<ActividadExperiencia> insertarActividadExperiencia(){
         int numOrden, idExperiencia,numPlazas;
         Actividad actividad = null;
@@ -176,33 +182,56 @@ public class ExperienciaAdminController implements Initializable {
         double precio;
         List<ActividadExperiencia> listaActividadExperiencia = new ArrayList<>();
         ActividadExperiencia acEx;
+        boolean ok = false;
         
-        //actExperien = tableListaExperiencias.getSelectionModel().getSelectedItem();
-        
-        numOrden = Integer.parseInt(textOrden.getText());
-        idExperiencia = Integer.parseInt(textIdExperiencia.getText());
+        actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
         try {
+            numOrden = Integer.parseInt(textOrden.getText());
+            idExperiencia = Integer.parseInt(textIdExperiencia.getText());
             actividad = activiDAO.consultarActividad(Integer.parseInt(textIdActividad.getText()));
-        } catch (SQLException ex) {
-            // ERROR SQL
-        }
-        fechaIni = LocalDateTime.parse(textFechaInicio.getText());
-        fechaFin = LocalDateTime.parse(textFechaFinal.getText());
-        precio = Double.parseDouble(textPrecio.getText());
-        numPlazas = Integer.parseInt(textNumPlazas.getText());
-     
-        
-        acEx = new ActividadExperiencia(numOrden,idExperiencia,actividad,fechaIni,fechaFin,precio,numPlazas);
-        
-        try {
+            fechaIni = LocalDateTime.parse(textFechaInicio.getText());
+            fechaFin = LocalDateTime.parse(textFechaFinal.getText());
+            precio = Double.parseDouble(textPrecio.getText());
+            numPlazas = Integer.parseInt(textNumPlazas.getText());
             
-            eaDAO.insertarActividadExperiencia(acEx);
+            acEx = new ActividadExperiencia(numOrden,idExperiencia,actividad,fechaIni,fechaFin,precio,numPlazas);
+            listaActividadExperiencia.add(acEx);
+            ok = eaDAO.insertarActividadExperiencia(acEx);
+                
         } catch (SQLException ex) {
-            ex.printStackTrace();
             not.error("ERROR SQL", "Error al insertar un registro en la tabla ActividadExperiencia");
+        } catch (java.time.format.DateTimeParseException dt){           
+            not.error("ERROR EN EL FORMATO FECHA", "El formato de fecha no es correcto\n"
+                    + " debe se asi --->  yyyy-MM-ddTHH:mm:ss  ");
+        } catch (NumberFormatException nf) { 
+            if(nf.getCause() == null && (nf.getMessage().equals("empty String") ||
+                    (nf.getMessage().equals("For input string: \" \"")) ||
+                    (nf.getMessage().equals("For input string: \"\"")))){
+                not.error("ERROR CAMPO DE TEXTO VACIO","Verifica los campos de texto"
+                      + " \n no pueden estar vacios");
+                              
+            }    
+            else if((nf.getMessage().equals("For input string: \""+ textOrden.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textIdExperiencia.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textIdActividad.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textPrecio.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textNumPlazas.getText() +"\""))){
+                        not.error("ERROR FORMATO NUMERICO", "No introducir texto en los siguientes "
+                       + "campos\n: Orden, idExperiencia, idActividad, precio, numPlazas"); 
+            }
+            else{
+                
+                    not.error("ERROR DE OTRO TIPO","Verifica los campos de texto"
+                      + " \n algo raro ha ocurrido");
+            }     
+        }   
+       
+        if(ok){
+            not.info("INSERTAR DB TURISMO","Operación realizada con éxito");
         }
-        
-        listaActividadExperiencia.add(acEx);
+        else {
+            not.info("INSERTAR DB TURISMO", "No se pudo insertar el registro");
+        }
         return listaActividadExperiencia;
     }
 
@@ -222,19 +251,17 @@ public class ExperienciaAdminController implements Initializable {
             fechaTope = LocalDate.parse(textFecha.getText());
             foto = textFoto.getText();
             id = Integer.parseInt(textExperiencia.getText());
-
         
             ok = experienDAO.modificarExperiencia(idUsuario,nombre,descripcion,fechaTope,foto,id);
             
         } catch(SQLException ex){
             not.error("SQL ERROR", "Error al modificar en tabla Experiencias, Verifica tu código");
-        } catch(java.time.format.DateTimeParseException dt){
+        } catch(DateTimeParseException dt){
             String valor = "Text '' could not be parsed at index 0";
             if(dt.equals(valor)){
                 not.info("FORMATO FECHA INVALIDO", "Debes introducir un formato como este yyyy-MM-dd");
             }
-        }
-        
+        }        
         if(ok){
             not.info("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
         }
@@ -249,8 +276,55 @@ public class ExperienciaAdminController implements Initializable {
         double precio;
         LocalDateTime fechaInicio,fechaFinal;
         Actividad idActividad;
+        boolean ok = false;
         
         actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
+        
+        try {
+            orden = Integer.parseInt(textOrden.getText());
+            idExperiencia = Integer.parseInt(textIdExperiencia.getText());
+            idActividad = activiDAO.consultarActividad(Integer.parseInt(textIdActividad.getText()));
+            fechaInicio = LocalDateTime.parse(textFechaInicio.getText());
+            fechaFinal = LocalDateTime.parse(textFechaFinal.getText());
+            precio = Double.parseDouble(textPrecio.getText());
+            numPlazas = Integer.parseInt(textNumPlazas.getText());
+            
+            
+            ok = eaDAO.modificarActividadExperiencia(orden, idExperiencia, idActividad, fechaInicio, fechaFinal, precio, numPlazas);
+        } catch (SQLException ex) {
+            not.error("ERROR SQL", "Error al modificar un registro en la tabla ActividadExperiencia");
+        } catch (java.time.format.DateTimeParseException dt){           
+            not.error("ERROR EN EL FORMATO FECHA", "El formato de fecha no es correcto\n"
+                    + " debe se asi --->  yyyy-MM-ddTHH:mm:ss  ");
+        } catch (NumberFormatException nf) { 
+            if(nf.getCause() == null && (nf.getMessage().equals("empty String") ||
+                    (nf.getMessage().equals("For input string: \" \"")) ||
+                    (nf.getMessage().equals("For input string: \"\"")))){
+                not.error("ERROR CAMPO DE TEXTO VACIO","Verifica los campos de texto"
+                      + " \n no pueden estar vacios");
+                              
+            }    
+            else if((nf.getMessage().equals("For input string: \""+ textOrden.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textIdExperiencia.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textIdActividad.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textPrecio.getText() +"\"")) ||
+                    (nf.getMessage().equals("For input string: \""+ textNumPlazas.getText() +"\""))){
+                        not.error("ERROR FORMATO NUMERICO", "No introducir texto en los siguientes "
+                       + "campos\n: Orden, idExperiencia, idActividad, precio, numPlazas"); 
+            }
+            else{
+                
+                    not.error("ERROR DE OTRO TIPO","Verifica los campos de texto"
+                      + " \n algo raro ha ocurrido");
+            }     
+        }   
+       
+        if(ok){
+            not.info("MODIFICAR DB TURISMO","Operación realizada con éxito");
+        }
+        else {
+            not.info("MODIFICAR DB TURISMO", "No se pudo insertar el registro");
+        }      
     }
  
 // ---------------------------- BORRAR --------------------------------    
@@ -262,19 +336,97 @@ public class ExperienciaAdminController implements Initializable {
         experiencia = tableView.getSelectionModel().getSelectedItem();
         id = experiencia.getId();
         
-        try {
-            experienDAO.borrarExperiencia(id);
-        } catch (SQLException ex) {
-            not.error("ERROR SQL", "No se puede realizar la operación");
-        }
+        Notifications notification = Notifications.create()
+        .title("ESTAS SEGURO DE ELIMINAR LA EXPERIENCIA  " + id)
+        .text("El proceso no tiene vuelta atras")
+        .graphic(null)
+        .hideAfter(javafx.util.Duration.seconds(40))
+        .position(Pos.TOP_LEFT)
+        .onAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+
+                Notifications notification = Notifications.create()
+                .title("ELIMINAR REGISTRO EXPERIENCIA  " + id + " \nEN TABLA EXPERIENCIA ACTIVIDAD")
+                .text("Comfirma haciendo click sobre la ventana")
+                .graphic(null)
+                .hideAfter(javafx.util.Duration.seconds(40))
+                .position(Pos.TOP_LEFT)
+                .onAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent arg0) {
+                        try {
+                            experienDAO.borrarExperiencia(id);
+                        } catch(SQLException ex){
+                            not.error("ERROR AL ELIMINAR EL REGISTRO \nEN TABLA EXPERIENCIAS", "No es posible realizar la operación");
+                        }
+                        
+                        if(delete){
+                            not.info("REGISTRO ELIMINADO EN TABLA EXPERIENCIAS", "Operación realizada con éxito");
+                        }
+                        else{
+                            not.info("ELIMINACION FALLIDA EN TABLA EXPERIENCIAS", "No se ha podido eliminar el registro");
+                        }
+                    }
+                });
         
+                notification.showConfirm();
+                                    
+            }
+        });
         
-        if(ok){
-            not.info("ELIMINAR TABLA EXPERIENCIAS", "Operación realizada con éxito");
-        }
-        else{
-            not.alert("ELIMINACION FALLIDA", "No se ha podido eliminar el registro");
-        }
+        notification.showWarning();
+
+    }
+    
+    private void eliminarActividadExperiencia(){
+        int id, orden;
+        
+        actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
+        id = actExperiencia.getIdExperiencia();
+        orden = actExperiencia.getOrden();
+
+        Notifications notification = Notifications.create()
+        .title("ESTAS SEGURO DE ELIMINAR \nLA EXPERIENCIA CON NUMERO DE ORDEN " + orden)
+        .text("El proceso no tiene vuelta atras")
+        .graphic(null)
+        .hideAfter(javafx.util.Duration.seconds(40))
+        .position(Pos.TOP_LEFT)
+        .onAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent arg0) {
+
+                Notifications notification = Notifications.create()
+                .title("ELIMINAR REGISTRO EXPERIENCIA CON NUMERO DE ORDEN " + orden + " \nEN TABLA EXPERIENCIA ACTIVIDAD")
+                .text("Comfirma haciendo click sobre la ventana")
+                .graphic(null)
+                .hideAfter(javafx.util.Duration.seconds(40))
+                .position(Pos.TOP_LEFT)
+                .onAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent arg0) {
+                        try {
+                            delete = eaDAO.eliminarActividadExperiencia(orden, id);
+                        } catch(SQLException ex){
+                            not.error("ERROR AL ELIMINAR EL REGISTRO \nEN TABLA EXPERIENCIA ACTIVIDAD", "No es posible realizar la operación");
+                        }
+                        
+                        if(delete){
+                            not.info("REGISTRO ELIMINADO EN TABLA EXPERIENCIA ACTIVIDAD", "Operación realizada con éxito");
+                        }
+                        else{
+                            not.info("ELIMINACION FALLIDA EN TABLA EXPERIENCIA ACTIVIDAD", "No se ha podido eliminar el registro");
+                        }
+                    }
+                });
+        
+                notification.showConfirm();
+                                    
+            }
+        });
+        
+        notification.showWarning();
+        
     }
     
     
@@ -343,7 +495,7 @@ public class ExperienciaAdminController implements Initializable {
         textExperiencia.setText(String.valueOf(id));
         textNombre.setText(nombre);
         textDescripcion.setText(descripcion);
-        textFecha.setText(fechaTope.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+        textFecha.setText(fechaTope.format(DateTimeFormatter.ofPattern("yyyy-LL-dd")));
         textFoto.setText(foto);
         textUsuario.setText(String.valueOf(idUsuario));
         
@@ -391,9 +543,9 @@ public class ExperienciaAdminController implements Initializable {
         textOrden.setText(String.valueOf(numOrden));
         textIdExperiencia.setText(String.valueOf(idExperienciaLista));
         textIdActividad.setText(String.valueOf(actividad));
-        textFechaInicio.setText(fechaIni.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss")));
-        textFechaFinal.setText(fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss")));       
-        textPrecio.setText(String.valueOf(precio) + "€");
+        textFechaInicio.setText(fechaIni.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        textFechaFinal.setText(fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));       
+        textPrecio.setText(String.valueOf(precio));
         textNumPlazas.setText(String.valueOf(numPlazas));
     }
 
@@ -461,17 +613,21 @@ public class ExperienciaAdminController implements Initializable {
 
     @FXML
     private void añadirNueva(ActionEvent event) {
-       insertarActividadExperiencia(); 
+        insertarActividadExperiencia();
+        seleccionarItem();
+
     }
 
     @FXML
     private void modificarNueva(ActionEvent event) {
-        
+        modificarActividadExperiencia();
+        seleccionarItem();
     }
 
     @FXML
     private void borrarNueva(ActionEvent event) {
-        
+        eliminarActividadExperiencia();
+        seleccionarItem();
     }
 
     

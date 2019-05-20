@@ -174,8 +174,20 @@ public class RegistrarController implements Initializable {
             Usuario usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
             try {
                 //insertar usuario en BD//
+
                 registrado = usuarioDAO.insertarUsuario(usuario);
                 if (registrado) {
+
+                usuarioDAO.insertarUsuario(usuario);
+                
+//                String titulo = "Bienvenido " + usuario.getNick();
+//                String mensaje = "Disfruta de tu viaje a Amsterdam";
+//                not.ventanaInfo(titulo, mensaje);
+//            }
+//            }catch (SQLException ex) {
+//              not.alert("Error","Hay un error de SQL");
+//            }
+
 
                     //////// cerrar ventana ////
                     Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 

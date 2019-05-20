@@ -19,7 +19,7 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <Label layoutX="40.0" layoutY="20.0" text="ExperienciaAdmin">
+      <Label layoutX="40.0" layoutY="20.0" text="Experiencia">
          <font>
             <Font size="20.0" />
          </font></Label>
@@ -95,9 +95,9 @@
           <TableColumn fx:id="tb_orden" prefWidth="69.66668701171875" text="ordenExperiencia" />
           <TableColumn fx:id="tb_idExperi" prefWidth="67.33331298828125" text="idExperiencia" />
             <TableColumn fx:id="tb_idActividad" prefWidth="53.0" text="idActividad" />
-            <TableColumn fx:id="tb_fechaInicio" prefWidth="110.66668701171875" text="fechaInicio" />
-            <TableColumn fx:id="tb_fechaFinal" prefWidth="108.33331298828125" text="fechaFinal" />
-            <TableColumn fx:id="tb_precio" prefWidth="81.6666259765625" text="precio" />
+            <TableColumn fx:id="tb_fechaInicio" prefWidth="124.33331298828125" text="fechaInicio" />
+            <TableColumn fx:id="tb_fechaFinal" prefWidth="122.66668701171875" text="fechaFinal" />
+            <TableColumn fx:id="tb_precio" prefWidth="55.333251953125" text="precio" />
             <TableColumn fx:id="tb_numPlazas" prefWidth="62.3333740234375" text="numPlazas" />
         </columns>
       </TableView>

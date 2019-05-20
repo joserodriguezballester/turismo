@@ -97,7 +97,7 @@ public class actividadesDAO {
     public List<Actividad> listarActividad() throws SQLException {
         List<Actividad> listaTodasActividades = new ArrayList<>();
         if (gestion.getConn() != null) {
-            String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades;";
+            String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades ORDER BY nombre;";
             PreparedStatement ps = conn.prepareStatement(consulta);
             rs = ps.executeQuery();
             while (rs.next()) {
@@ -120,12 +120,22 @@ public class actividadesDAO {
 
     public Actividad consultarActividad(int idActividad) throws SQLException {
         Actividad actividad = null;
-        String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo FROM actividades WHERE id = ?;";
+        String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo FROM actividades WHERE id = ? ORDER BY nombre;";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ps.setInt(1, idActividad);
-        ResultSet rs = ps.executeQuery();
+        rs = ps.executeQuery();
         while (rs.next()) {
-            actividad = new Actividad(rs.getInt("id"), rs.getString("nombre"), rs.getDouble("precio"), rs.getString("horario"), rs.getString("descripcion"), rs.getString("url"), rs.getString("direccion"), rs.getString("telefono"), rs.getString("foto"), rs.getInt("idSubtipo"));
+            actividad = new Actividad(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getDouble("precio"),
+                    rs.getString("horario"),
+                    rs.getString("descripcion"),
+                    rs.getString("url"),
+                    rs.getString("direccion"),
+                    rs.getString("telefono"),
+                    rs.getString("foto"),
+                    rs.getInt("idSubtipo"));
         }
         return actividad;
     }
@@ -136,7 +146,7 @@ public class actividadesDAO {
 
         if (gestion.getConn() != null) {
 
-            String consulta = "UPDATE ACTIVIDADES SET NOMBRE = ?, PRECIO = ?, HORARIO = ?, DESCRIPCION = ?, URL = ?, DIRECCION = ?, TELEFONO = ?, FOTO = ?, IDSUBTIPO = ? WHERE ID = ?;";
+            String consulta = "UPDATE ACTIVIDADES SET NOMBRE = ?, PRECIO = ?, HORARIO = ?, DESCRIPCION = ?, URL = ?, DIRECCION = ?, TELEFONO = ?, FOTO = ?, IDSUBTIPO = ? WHERE ID = ? ORDER BY nombre;";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
             ps.setString(1, nombre);
             ps.setDouble(2, precio);
@@ -190,7 +200,7 @@ public class actividadesDAO {
 
         if (gestion.getConn() != null) {
 
-            String sql = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ?);";
+            String sql = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ? ORDER BY nombre);";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ps.setInt(1, tipo.getId());
             ResultSet rs = ps.executeQuery();
@@ -211,13 +221,13 @@ public class actividadesDAO {
         return listaActividades;
     }
 
-    public List<Actividad> consultarActividadesPorTipoYSubTipo(Tipo tipo, Subtipo subtipo) throws SQLException {
+    public List<Actividad> consultarActividadesPorTipoYSubTipo(Subtipo subtipo) throws SQLException {
         List<Actividad> listaActividades = new ArrayList<>();
 
         if (gestion.getConn() != null) {
             String sql = "SELECT * FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ? AND idsubtipo = ?);"; //falta la consulta
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setInt(1, tipo.getId());
+            ps.setInt(1, subtipo.getTipo().getId());
             ps.setInt(2, subtipo.getId());
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

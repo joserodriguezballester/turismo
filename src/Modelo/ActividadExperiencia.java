@@ -24,14 +24,16 @@ public class ActividadExperiencia {
     private double precio;
     private int numPlazas;
 
-    public ActividadExperiencia(int orden, int idExperiencia, Actividad actividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal, double precio, int numPlazas) {
+    public ActividadExperiencia(int orden, int idExperiencia, Actividad actividad,  LocalDateTime fechaInicio, LocalDateTime fechaFinal, double precio, int numPlazas) {
         this.orden = orden;
         this.idExperiencia = idExperiencia;
         this.actividad = actividad;
+        
         this.fechaInicio = fechaInicio;
         this.fechaFinal = fechaFinal;
         this.precio = precio;
         this.numPlazas = numPlazas;
+        
 //        this.duracion = Duration.between(fechaInicio, fechaFinal);
     }
 

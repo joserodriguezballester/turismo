@@ -70,14 +70,14 @@
             <Font size="18.0" />
          </font>
       </Label>
-      <JFXComboBox fx:id="comboBoxTipos" layoutX="50.0" layoutY="70.0" onAction="#actualizarSubtipos" prefHeight="30.0" prefWidth="150.0" />
+      <JFXComboBox fx:id="comboBoxTipos" layoutX="50.0" layoutY="70.0" onAction="#actualizarSubtipos" prefHeight="30.0" prefWidth="150.0" promptText="Tipos" />
       <JFXTextField fx:id="salidaPrecio" editable="false" layoutX="636.0" layoutY="580.0" />
       <JFXTextArea fx:id="textDescripcion" layoutX="418.0" layoutY="400.0" prefHeight="142.0" prefWidth="464.0" promptText="Introduce una descripción para tu experiencia...">
          <font>
             <Font size="14.0" />
          </font>
       </JFXTextArea>
-      <JFXComboBox fx:id="comboBoxSubTipos" layoutX="200.0" layoutY="70.0" onAction="#cargarActividades" prefHeight="30.0" prefWidth="150.0" />
+      <JFXComboBox fx:id="comboBoxSubTipos" layoutX="200.0" layoutY="70.0" onAction="#cargarActividades" prefHeight="30.0" prefWidth="150.0" promptText="Subtipos" />
       <JFXButton fx:id="botonAñadirExperiencia" layoutX="444.0" layoutY="660.0" onAction="#AñadirExperiencia" prefHeight="58.0" prefWidth="426.0" text="Añadir Experiencia" />
    </children>
 </AnchorPane>

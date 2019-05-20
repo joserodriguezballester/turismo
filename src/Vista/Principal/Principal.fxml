@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 
 <AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Principal.PrincipalController">
@@ -34,12 +33,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button fx:id="botonActividades" mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="300.0" text="Actividades" GridPane.columnIndex="1" />
-                  <Button fx:id="botonExperiencias" mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="2" />
-                  <Button fx:id="botonPerfil" mnemonicParsing="false" onMouseEntered="#mostrarPanePerfil" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="174.0" text="Perfil" GridPane.columnIndex="8" />
-                  <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Información" GridPane.columnIndex="3" />
-                  <Button fx:id="botonLogo" mnemonicParsing="false" onAction="#irInicio" prefHeight="75.0" prefWidth="162.0" text="Inicio" />
-                  <Button fx:id="botonBuscar" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#irBuscar" prefHeight="70.0" prefWidth="162.0" GridPane.columnIndex="7">
+                  <Button fx:id="botonActividades" mnemonicParsing="false" onAction="#irActividad" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Actividades" GridPane.columnIndex="1" />
+                  <Button fx:id="botonExperiencias" mnemonicParsing="false" onAction="#irExperiencia" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="2" />
+                  <Button fx:id="botonPerfil" mnemonicParsing="false" onMouseEntered="#mostrarPanePerfil" prefHeight="70.0" prefWidth="174.0" text="Perfil" GridPane.columnIndex="8" />
+                  <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Información" GridPane.columnIndex="3" />
+                  <Button fx:id="botonLogo" mnemonicParsing="false" onAction="#irInicio" onMouseExited="#ocultarPanePerfil" prefHeight="75.0" prefWidth="162.0" text="Inicio" />
+                  <Button fx:id="botonBuscar" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#irBuscar" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="162.0" GridPane.columnIndex="7">
                      <graphic>
                         <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true">
                            <image>
@@ -55,12 +54,19 @@
       </AnchorPane>
       <AnchorPane fx:id="Ventana" layoutY="70.0" prefHeight="730.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <Pane fx:id="panePerfil" layoutX="1100.0" onMouseEntered="#mostrarPanePerfil" onMouseExited="#ocultarPanePerfil" prefHeight="125.0" prefWidth="200.0">
+            <GridPane fx:id="panePerfil" layoutX="1149.0" layoutY="76.0" onMouseEntered="#mostrarPanePerfil" onMouseExited="#ocultarPanePerfil" prefHeight="114.0" prefWidth="145.0" vgap="5.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
                <children>
                   <JFXButton fx:id="botnPerfil" onAction="#IrPerfil" prefHeight="62.0" prefWidth="200.0" text="Mi Perfil" />
-                  <JFXButton fx:id="botnSalir" layoutY="62.0" onAction="#cerrarSesion" prefHeight="62.0" prefWidth="200.0" text="Cerrar Sesión" />
+                  <JFXButton fx:id="botnSalir" onAction="#cerrarSesion" prefHeight="89.0" prefWidth="158.0" text="Cerrar Sesión" GridPane.rowIndex="1" />
                </children>
-            </Pane>
+            </GridPane>
          </children></AnchorPane>
    </children>
 </AnchorPane>

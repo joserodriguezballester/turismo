@@ -5,8 +5,10 @@ import Datos.Bda.actividadesDAO;
 import Datos.Bda.subtiposDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
+import Modelo.Subtipo;
 import Modelo.Tipo;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
@@ -58,9 +60,12 @@ public class ActividadController implements Initializable {
     private ObservableList<Button> botones = FXCollections.observableArrayList();
     private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
     private actividadesDAO gestionBDActividad;
+    private subtiposDAO gestionSubtipos;
     private TranslateTransition translate;
     @FXML
     private Label etiquetaPrecio;
+    @FXML
+    private JFXComboBox<Subtipo> selectorSubtipos;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -122,18 +127,20 @@ public class ActividadController implements Initializable {
 
     private void inicio() {
         gestionBDActividad = new actividadesDAO(gestion);
-
+        gestionSubtipos = new subtiposDAO(gestion);
+        selectorSubtipos.toFront();
+        selectorSubtipos.setVisible(false);
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
             double posicionX = 5;
-            double posicionY = 15;
+            double posicionY = 5;
             JFXButton boton;
             for (Tipo tipo : lista) {
                 boton = new JFXButton(tipo.getNombre());
                 boton.setLayoutX(posicionX);
                 boton.setLayoutY(posicionY);
-                posicionY += 130;
-                boton.setMinSize(186, 100);
+                posicionY += 75;
+                boton.setMinSize(186, 70);
                 boton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent me) {
@@ -159,11 +166,13 @@ public class ActividadController implements Initializable {
     }
 
     public void cargarActividades(Tipo tipo) {
-
         transicionCargarActividades();
-
+        selectorSubtipos.setVisible(true);
         try {
-
+            selectorSubtipos.getItems().clear();
+            for (Subtipo subtipo : gestionSubtipos.consultarSubtiposporTipo(tipo)) {
+                selectorSubtipos.getItems().add(subtipo);
+            }
             for (Actividad actividad : gestionBDActividad.consultarActividadesPorTipo(tipo)) {
                 listaDatosActividades.add(actividad);
             }
@@ -184,9 +193,6 @@ public class ActividadController implements Initializable {
     }
 
     private void transicionCargarActividades() {
-        
-        
-        
         translate = new TranslateTransition(Duration.seconds(1), listaElementos);
         translate.setFromX(0);
         translate.setToX(200);
@@ -277,4 +283,21 @@ public class ActividadController implements Initializable {
         }
     }
 
+    @FXML
+    private void cargarActividades(ActionEvent event) {
+        cargarActividades(selectorSubtipos.getSelectionModel().getSelectedItem());
+    }
+
+    public void cargarActividades(Subtipo subtipo) {
+        try {
+            listaDatosActividades.clear();
+            for (Actividad actividad : gestionBDActividad.consultarActividadesPorTipoYSubTipo(subtipo)) {
+                listaDatosActividades.add(actividad);
+            }
+            listaElementos.setItems(listaDatosActividades);
+        } catch (SQLException e) {
+//            EXCEPCION SQL
+        }
+
+    }
 }

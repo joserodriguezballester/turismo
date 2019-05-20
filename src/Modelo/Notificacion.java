@@ -1,17 +1,27 @@
 package Modelo;
 
+
 import java.util.Optional;
 import javafx.application.Platform;
+
+import com.jfoenix.controls.JFXDialog;
+import com.jfoenix.controls.JFXDialogLayout;
+
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+
 import javafx.scene.Node;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
+
+import javafx.scene.control.Label;
+import javafx.scene.text.Text;
+
 import javafx.util.Duration;
 import javafx.util.Pair;
 import org.controlsfx.control.Notifications;
@@ -92,6 +102,7 @@ public class Notificacion {
         notification.showWarning();
     }
 
+
     public void error(String string) {
     }
 
@@ -143,6 +154,22 @@ public class Notificacion {
         });
 dialog.showAndWait();
 //        Optional<Pair<String, String>> result = dialog.showAndWait();
+
+   
+//    public static void errorDB(String titulo, String mensaje) {
+//        Image img = new Image("/Imagenes/iconos/botonError1.jpg");
+//        Notifications notification = Notifications.create()
+//        .title(titulo)
+//        .text(mensaje)
+//        .graphic(new ImageView(img))
+//        .hideAfter(Duration.seconds(25))
+//        .position(Pos.BOTTOM_RIGHT)
+//        .onAction(new EventHandler<ActionEvent>() {
+//            @Override
+//            public void handle(ActionEvent arg0) {
+//                System.out.println("Not supported yet.");
+//            }
+
 //
 //        result.ifPresent(usernamePassword -> {
 //            System.out.println("hola");
@@ -151,5 +178,17 @@ dialog.showAndWait();
         
        
         return new Pair<>(nick.getText(), correo.getText());
+    }
+     public void ventanaInfo(String titulo, String mensaje) {
+        JFXDialogLayout content = new JFXDialogLayout();
+        content.setHeading(new Text(titulo));
+        content.setBody(new Text(mensaje));
+        
+        JFXDialog dialog = new JFXDialog();
+        dialog.setContent(content);
+
+        dialog.setAlignment(Pos.CENTER);
+        
+        dialog.show();
     }
 }
