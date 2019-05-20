@@ -311,7 +311,7 @@ public class CrearExperienciaController implements Initializable {
                 }
             }
             if (subtipo != null) {
-                lista = actividadesDAO.consultarActividadesPorTipoYSubTipo(tipo, subtipo);
+                lista = actividadesDAO.consultarActividadesPorTipoYSubTipo(subtipo);
                 for (Actividad act : lista) {
                     listaActividadesElegir.getItems().add(act);
                 }
