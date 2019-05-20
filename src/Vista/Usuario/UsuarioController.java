@@ -338,18 +338,20 @@ public class UsuarioController implements Initializable {
         Pair<String, String> pareja = not.recordar();
         if ((!"".equals(pareja.getKey()))) {//por si damos a cancelar 
             String email = usuarioDAO.DarCorreo(pareja.getKey());
-            if (email.equals(pareja.getValue())) {
-                String numero = (int) (Math.random() * 1000) + "";
-                String contra = usuario.encriptar(numero);
-                usuarioDAO.introducirContra(contra, pareja.getKey());
-                Correo correo = new Correo();
-                correo.setparametros(pareja, numero, correo);
-                correo.mandarcorreo();
-                not.info("Email", "Revisa tu correo, te hemos enviado un mensaje");
-            } else {
-                not.alert("Email", "No coincide con el correo que tenemos de ti");
+            if (email != null) {
+
+                if (email.equals(pareja.getValue())) {
+                    String numero = (int) (Math.random() * 1000) + "";
+                    String contra = usuario.encriptar(numero);
+                    usuarioDAO.introducirContra(contra, pareja.getKey());
+                    Correo correo = new Correo();
+                    correo.setparametros(pareja, numero, correo);
+                    correo.mandarcorreo();
+                    not.info("Email", "Revisa tu correo, te hemos enviado un mensaje");
+                } else {
+                    not.alert("Email", "No coincide con el correo que tenemos de ti");
+                }
             }
         }
-
     }
 }
