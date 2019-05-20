@@ -116,16 +116,4 @@ public class Actividad {
         return nombre;
 
     }
-//
-//    @Override
-//    public String toString() {
-//        return nombre;  
-//                
-//    }
-
-//    @Override
-//    public String toString() {
-//        return "Actividad{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", horario=" + horario + ", descripcion=" + descripcion + ", url=" + url + ", direccion=" + direccion + ", telefono=" + telefono + ", foto=" + foto + ", idsubTipo=" + idsubTipo + ", mapFotos=" + mapFotos + '}';
-//    }
-//    
 }

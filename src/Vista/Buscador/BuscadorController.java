@@ -21,17 +21,14 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
-import javafx.scene.text.Text;
+import javafx.scene.paint.Paint;
 
 /**
  * FXML Controller class
@@ -47,7 +44,7 @@ public class BuscadorController implements Initializable {
     private Connection conn;
     ObservableList<Pane> listaPaneActividades = FXCollections.observableArrayList();
     ObservableList<Actividad> listaActividades = FXCollections.observableArrayList();
-    JFXHighlighter highlighter;
+    JFXHighlighter high = new JFXHighlighter();
 
     actividadesDAO actDAO;
     @FXML
@@ -114,6 +111,7 @@ public class BuscadorController implements Initializable {
                 img.setFitHeight(160);
                 img.setFitWidth(180);
                 img.setPreserveRatio(false);
+
 //                    TITULO
                 titulo.setLayoutX(240);
                 titulo.setLayoutY(20);
@@ -126,11 +124,9 @@ public class BuscadorController implements Initializable {
                 descripcion.setEditable(false);
                 descripcion.setWrapText(true);
                 descripcion.setText(act.getDescripcion());
+
                 if (!entradaBusqueda.getText().isEmpty()) {
-                    JFXHighlighter high = new JFXHighlighter();
-                    high.highlight(titulo, entradaBusqueda.getText());
-                    high.highlight(descripcion, entradaBusqueda.getText());
-                    System.out.println("entra en highlight");
+                    high.highlight(pane, entradaBusqueda.getText());
                 }
                 pane.getChildren().addAll(img, titulo, descripcion);
                 listaPaneActividades.add(pane);
@@ -152,16 +148,19 @@ public class BuscadorController implements Initializable {
 
     private List<Actividad> buscarActividades(List<Actividad> lista) {
         List<Actividad> encontrados = new ArrayList<>();
-
+        String descripcion;
+        String nombre;
+        String busqueda = entradaBusqueda.getText().toLowerCase();
         for (Actividad act : lista) {
             try {
-                if (!entradaBusqueda.getText().isEmpty()) {
-                    if (act.getDescripcion().contains(entradaBusqueda.getText()) || act.getNombre().contains(entradaBusqueda.getText())) {
+                descripcion = act.getDescripcion().toLowerCase();
+                nombre = act.getNombre().toLowerCase();
+                if (!busqueda.isEmpty()) {
+                    if (descripcion.contains(busqueda) || nombre.contains(busqueda)) {
                         encontrados.add(act);
                     }
                 }
             } catch (Exception e) {
-                System.out.println("error busqueda");
             }
         }
         return encontrados;

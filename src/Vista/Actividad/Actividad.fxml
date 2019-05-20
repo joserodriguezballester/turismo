@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXListView?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
@@ -18,6 +19,7 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
     <children>
+      <JFXComboBox fx:id="selectorSubtipos" layoutX="200.0" maxWidth="200.0" onAction="#cargarActividades" prefHeight="30.0" prefWidth="200.0" promptText="Subtipo" />
         <ScrollPane fx:id="scrollTipoActividades" prefHeight="730.0" prefWidth="200.0">
             <content>
                 <Pane fx:id="paneListaBotones" />
@@ -26,7 +28,7 @@
         <Pane fx:id="paneInformacion" layoutX="410.0" layoutY="10.0" prefHeight="710.0" prefWidth="880.0">
          <children>
             <JFXButton fx:id="botonCerrarInformacion" layoutX="835.0" layoutY="14.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
-            <Label fx:id="etiquetaSubtipoTitulo" alignment="CENTER" layoutX="50.0" layoutY="7.0" prefHeight="41.0" prefWidth="765.0" text="Subtipo + Nombre">
+            <Label fx:id="etiquetaSubtipoTitulo" alignment="CENTER" layoutX="50.0" layoutY="7.0" prefHeight="41.0" prefWidth="765.0">
                <font>
                   <Font name="System Bold Italic" size="24.0" />
                </font></Label>
@@ -55,6 +57,6 @@
                </font>
             </Label>
          </children></Pane>
-        <JFXListView fx:id="listaElementos" maxWidth="250.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="730.0" prefWidth="200.0" />
+        <JFXListView fx:id="listaElementos" layoutY="30.0" maxWidth="250.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="700.0" prefWidth="200.0" />
     </children>
 </AnchorPane>
