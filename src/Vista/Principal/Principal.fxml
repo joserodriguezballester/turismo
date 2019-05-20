@@ -17,7 +17,7 @@
    <children>
       <AnchorPane fx:id="Menu" prefHeight="70.0" prefWidth="1300.0" AnchorPane.bottomAnchor="710.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane fx:id="gridpane" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane fx:id="gridpane" alignment="CENTER_RIGHT" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -38,9 +38,9 @@
                   <Button fx:id="botonPerfil" mnemonicParsing="false" onMouseEntered="#mostrarPanePerfil" prefHeight="70.0" prefWidth="174.0" text="Perfil" GridPane.columnIndex="8" />
                   <Button fx:id="botonTransportes" mnemonicParsing="false" onAction="#irTransporte" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Información" GridPane.columnIndex="3" />
                   <Button fx:id="botonLogo" mnemonicParsing="false" onAction="#irInicio" onMouseExited="#ocultarPanePerfil" prefHeight="75.0" prefWidth="162.0" text="Inicio" />
-                  <Button fx:id="botonBuscar" alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#irBuscar" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="162.0" GridPane.columnIndex="7">
+                  <Button fx:id="botonBuscar" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#irBuscar" onMouseEntered="#cambiarLupa" onMouseExited="#lupaNormal" prefHeight="70.0" prefWidth="57.0" GridPane.columnIndex="7">
                      <graphic>
-                        <ImageView fitHeight="36.0" fitWidth="36.0" pickOnBounds="true">
+                        <ImageView fx:id="imgLupa" fitHeight="36.0" fitWidth="36.0" pickOnBounds="true">
                            <image>
                               <Image url="@../../Imagenes/iconos/loupe1.png" />
                            </image>

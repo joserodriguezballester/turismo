@@ -24,6 +24,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -71,6 +72,8 @@ public class PrincipalController implements Initializable {
     private JFXButton botnPerfil;
     @FXML
     private JFXButton botnSalir;
+    @FXML
+    private ImageView imgLupa;
 
     /**
      * Initializes the controller class.
@@ -88,6 +91,7 @@ public class PrincipalController implements Initializable {
         efectoTransicion();
 
         panePerfil.toFront();
+        GridPane.setHalignment(botonBuscar, HPos.RIGHT);
     }
 
     @FXML
@@ -285,18 +289,16 @@ public class PrincipalController implements Initializable {
         panePerfil.toFront();
         panePerfil.setVisible(true);
         if (!Ventana.getChildren().contains(panePerfil)) {
-           
+
             Ventana.getChildren().add(panePerfil);
-            if(Ventana.getHeight() ==  800){
-            panePerfil.setLayoutY(74);
-            }else{
-            panePerfil.setLayoutY(4);
+            if (Ventana.getHeight() == 800) {
+                panePerfil.setLayoutY(74);
+            } else {
+                panePerfil.setLayoutY(4);
             }
-            
-             
+
         }
 
-        
     }
 
     private void efectos() {
@@ -326,5 +328,19 @@ public class PrincipalController implements Initializable {
             not.error("ERROR Exception",
                     "en initialize --- PrincipalController");
         }
+    }
+
+    @FXML
+    private void lupaNormal(MouseEvent event) {
+        Image imagen = new Image("Imagenes/iconos/loupe1.png");
+        imgLupa.setImage(imagen);
+
+    }
+
+    @FXML
+    private void cambiarLupa(MouseEvent event) {
+        Image imagen = new Image("Imagenes/iconos/loupe.png");
+        imgLupa.setImage(imagen);
+        panePerfil.setVisible(false);
     }
 }
