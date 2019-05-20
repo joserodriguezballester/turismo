@@ -282,12 +282,21 @@ public class PrincipalController implements Initializable {
 
     @FXML
     private void mostrarPanePerfil(MouseEvent event) {
+        panePerfil.toFront();
         panePerfil.setVisible(true);
         if (!Ventana.getChildren().contains(panePerfil)) {
+           
             Ventana.getChildren().add(panePerfil);
+            if(Ventana.getHeight() ==  800){
+            panePerfil.setLayoutY(74);
+            }else{
+            panePerfil.setLayoutY(4);
+            }
+            
+             
         }
 
-        panePerfil.toFront();
+        
     }
 
     private void efectos() {

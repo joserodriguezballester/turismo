@@ -124,6 +124,10 @@ public class RegistrarController implements Initializable {
             try {
                 //insertar usuario en BD//
                 usuarioDAO.insertarUsuario(usuario);
+                
+//                String titulo = "Bienvenido " + usuario.getNick();
+//                String mensaje = "Disfruta de tu viaje a Amsterdam";
+//                not.ventanaInfo(titulo, mensaje);
             } catch (SQLException ex) {
               not.alert("Error","Hay un error de SQL");
             }
