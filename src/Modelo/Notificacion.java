@@ -1,6 +1,5 @@
 package Modelo;
 
-
 import java.util.Optional;
 import javafx.application.Platform;
 
@@ -102,18 +101,18 @@ public class Notificacion {
         notification.showWarning();
     }
 
-
     public void error(String string) {
     }
 
     public Pair<String, String> recordar() {
-     
+
         Dialog<Pair<String, String>> dialog = new Dialog<>();
         dialog.setTitle("Alzheimer");
         dialog.setHeaderText("Te mandamos la contraseña al correo");
 
         ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);
-        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType, ButtonType.CANCEL);
+//        ButtonType cancelButtonType = new ButtonType("Cancelar", ButtonBar.ButtonData.CANCEL_CLOSE);
+        dialog.getDialogPane().getButtonTypes().addAll(loginButtonType,ButtonType.CANCEL);
 
         GridPane grid = new GridPane();
         grid.setHgap(10);
@@ -132,63 +131,52 @@ public class Notificacion {
 
 // Enable/Disable login button depending on whether a username was entered.
         Node loginButton = dialog.getDialogPane().lookupButton(loginButtonType);
+
         loginButton.setDisable(true);
 
 // Do some validation (using the Java 8 lambda syntax).
         nick.textProperty().addListener((observable, oldValue, newValue) -> {
-            loginButton.setDisable(newValue.trim().isEmpty());
+            if (!"".equals(correo.getText())) {
+                loginButton.setDisable(false);
+            }
+
+        });
+        correo.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!"".equals(nick.getText())) {
+                loginButton.setDisable(false);
+            }
+
         });
 
         dialog.getDialogPane().setContent(grid);
 
 // Request focus on the username field by default.
-        Platform.runLater(() -> nick.requestFocus());
+//        Platform.runLater(() ->  nick.requestFocus());
+        Platform.runLater(() ->  loginButton.requestFocus());
+        
 
 // Convert the result to a username-password-pair when the login button is clicked.
         dialog.setResultConverter((ButtonType dialogButton) -> {
             if (dialogButton == loginButtonType) {
-              Pair<String, String>    resultado = new Pair<>(nick.getText(), correo.getText());
-           return resultado;
+                Pair<String, String> resultado = new Pair<>(nick.getText(), correo.getText());
+                return resultado;
             }
             return null;
         });
-dialog.showAndWait();
-//        Optional<Pair<String, String>> result = dialog.showAndWait();
-
-   
-//    public static void errorDB(String titulo, String mensaje) {
-//        Image img = new Image("/Imagenes/iconos/botonError1.jpg");
-//        Notifications notification = Notifications.create()
-//        .title(titulo)
-//        .text(mensaje)
-//        .graphic(new ImageView(img))
-//        .hideAfter(Duration.seconds(25))
-//        .position(Pos.BOTTOM_RIGHT)
-//        .onAction(new EventHandler<ActionEvent>() {
-//            @Override
-//            public void handle(ActionEvent arg0) {
-//                System.out.println("Not supported yet.");
-//            }
-
-//
-//        result.ifPresent(usernamePassword -> {
-//            System.out.println("hola");
-//            System.out.println("Username=" + usernamePassword.getKey() + ", Password=" + usernamePassword.getValue());
-//        });
-        
-       
+        dialog.showAndWait();
         return new Pair<>(nick.getText(), correo.getText());
     }
-     public void ventanaInfo(String titulo, String mensaje) {
+
+    public void ventanaInfo(String titulo, String mensaje) {
         JFXDialogLayout content = new JFXDialogLayout();
         content.setHeading(new Text(titulo));
         content.setBody(new Text(mensaje));
-        
+
         JFXDialog dialog = new JFXDialog();
         dialog.setContent(content);
 
         dialog.setAlignment(Pos.CENTER);
-        
+
         dialog.show();
     }
 }

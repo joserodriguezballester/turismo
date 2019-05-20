@@ -24,10 +24,10 @@ public class Correo {
 
     private Session session;
     private Pair<String, String> pareja;
-    private String numero;
+    private String numero; //por si variamos el metodo send email
     private Correo correo;
    
-    private final String password = "pedir a jose";
+    private final String password = "dawGIAT4";
 
     public Correo() {
         
@@ -49,19 +49,19 @@ public class Correo {
     }
 
     public void sendEmail() throws AddressException, MessagingException {
-        String emisor = "joserodriguezballester@gmail.com";  //correo de la agencia
+        String emisor = "grupo4amsterdam@gmail.com";  //correo de la agencia
 //        System.out.println("pareja "+pareja);
         
-        String receptor=pareja.getValue(); ;    /// pasar correo del usuario
+        String receptor=pareja.getValue();    /// pasar correo del usuario
         
-        int contraseña = 0;    /////ojo cuando pasemos contraseña por parametro
+//        int contraseña = 0;    /////ojo cuando pasemos contraseña por parametro
 
         init(emisor);
        
         MimeMessage message = new MimeMessage(session);
         message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
         message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
-        message.setSubject("Agencia Turistica Pepita");
+        message.setSubject("Agencia Turistica GRUPO4 AMSTERDAM");
         message.setText("Hola " + pareja.getKey() + " Sentimos mucho tu Alzheimer; tu nueva contraseña es " + numero + " te recomendamos la cambies nada mas entrar en la aplicacion");
         Transport t = session.getTransport("smtp");
         t.connect((String) properties.get("mail.smtp.user"), password);

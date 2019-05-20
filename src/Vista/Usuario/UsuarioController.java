@@ -326,9 +326,7 @@ public class UsuarioController implements Initializable {
             }
         });
         translatePrincipal.setInterpolator(Interpolator.LINEAR);
-
         translatePrincipal.play();
-
         translateAgencia.setInterpolator(Interpolator.LINEAR);
         translateAgencia.play();
 
@@ -338,17 +336,19 @@ public class UsuarioController implements Initializable {
     private void recordarPass(MouseEvent event) throws SQLException, MessagingException {
         not = new Notificacion();
         Pair<String, String> pareja = not.recordar();
-        String email = usuarioDAO.DarCorreo(pareja.getKey());
-        if (email.equals(pareja.getValue())) {
-            String numero = (int) (Math.random() * 1000) + "";
-            String contra = usuario.encriptar(numero);
-            usuarioDAO.introducirContra(contra,pareja.getKey());
-            Correo correo = new Correo();
-            correo.setparametros(pareja, numero,correo);
-            correo.mandarcorreo();
-            not.info("Correo","revisa tu correo");
-        } else {
-            not.alert("Email", "No coincide con el correo que tenemos de ti");
+        if ((!"".equals(pareja.getKey()))) {//por si damos a cancelar 
+            String email = usuarioDAO.DarCorreo(pareja.getKey());
+            if (email.equals(pareja.getValue())) {
+                String numero = (int) (Math.random() * 1000) + "";
+                String contra = usuario.encriptar(numero);
+                usuarioDAO.introducirContra(contra, pareja.getKey());
+                Correo correo = new Correo();
+                correo.setparametros(pareja, numero, correo);
+                correo.mandarcorreo();
+                not.info("Email", "Revisa tu correo, te hemos enviado un mensaje");
+            } else {
+                not.alert("Email", "No coincide con el correo que tenemos de ti");
+            }
         }
 
     }
