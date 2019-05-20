@@ -110,12 +110,11 @@ public class Actividad {
     public void setIdsubTipo(int idsubTipo) {
         this.idsubTipo = idsubTipo;
     }
-    
-    
+
     @Override
     public String toString() {
-        return id + "";  
-                
+        return nombre;
+
     }
 //
 //    @Override
@@ -129,6 +128,4 @@ public class Actividad {
 //        return "Actividad{" + "id=" + id + ", nombre=" + nombre + ", precio=" + precio + ", horario=" + horario + ", descripcion=" + descripcion + ", url=" + url + ", direccion=" + direccion + ", telefono=" + telefono + ", foto=" + foto + ", idsubTipo=" + idsubTipo + ", mapFotos=" + mapFotos + '}';
 //    }
 //    
-    
-
 }

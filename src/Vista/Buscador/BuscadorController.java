@@ -8,18 +8,27 @@ package Vista.Buscador;
 import Datos.Bda.GestionBD;
 import Datos.Bda.actividadesDAO;
 import Modelo.Actividad;
+import com.jfoenix.controls.JFXTextField;
+import com.jfoenix.utils.JFXHighlighter;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
@@ -36,6 +45,10 @@ public class BuscadorController implements Initializable {
      */
     private GestionBD gestion;
     private Connection conn;
+    ObservableList<Pane> listaPaneActividades = FXCollections.observableArrayList();
+    ObservableList<Actividad> listaActividades = FXCollections.observableArrayList();
+    JFXHighlighter highlighter;
+
     actividadesDAO actDAO;
     @FXML
     private AnchorPane Ventana;
@@ -43,6 +56,8 @@ public class BuscadorController implements Initializable {
     private ScrollPane scrollPaneActividadesBuscador;
     @FXML
     private Pane paneActividadesBuscador;
+    @FXML
+    private JFXTextField entradaBusqueda;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -57,6 +72,11 @@ public class BuscadorController implements Initializable {
 
     public void inicio() {
         actDAO = new actividadesDAO(gestion);
+        cargarActividades();
+    }
+
+    private void cargarActividades() {
+        paneActividadesBuscador.getChildren().clear();
         Pane pane;
         ImageView img;
         Label titulo;
@@ -64,7 +84,11 @@ public class BuscadorController implements Initializable {
         int posicionX = 25;
         int posicionY = 10;
         try {
-            for (Actividad act : actDAO.listarActividad()) {
+            List<Actividad> lista = actDAO.listarActividad();
+            if (!entradaBusqueda.getText().isEmpty()) {
+                lista = buscarActividades(lista);
+            }
+            for (Actividad act : lista) {
                 img = new ImageView();
                 titulo = new Label();
                 descripcion = new TextArea();
@@ -72,42 +96,45 @@ public class BuscadorController implements Initializable {
                 pane.getStyleClass().add("paneActividadBuscador");
                 pane.setLayoutX(posicionX);
                 pane.setLayoutY(posicionY);
-                posicionY += 250;
+                posicionY += 210;
                 pane.setPrefSize(900, 200);
 
-//                FOTOS
+//                IMAGEN
                 String foto = act.getFoto();
                 if (foto == null) {
-                    System.out.println("sin foto");
-                } else {
-                    try {
-                        img.setImage(new Image("Imagenes/" + act.getFoto()));
-                    } catch (Exception e) {
-                        System.out.println("sin foto");
-                    }
-
-                    img.setLayoutX(20);
-                    img.setLayoutY(20);
-                    img.setFitHeight(160);
-                    img.setFitWidth(180);
-                    img.setPreserveRatio(false);
-
+                    foto = "iconos/sinFoto.png";
+                }
+                try {
+                    img.setImage(new Image("Imagenes/" + foto));
+                } catch (Exception e) {
+                    img.setImage(new Image("Imagenes/iconos/sinFoto.png"));
+                }
+                img.setLayoutX(20);
+                img.setLayoutY(20);
+                img.setFitHeight(160);
+                img.setFitWidth(180);
+                img.setPreserveRatio(false);
 //                    TITULO
-                    titulo.setLayoutX(240);
-                    titulo.setLayoutY(20);
-                    titulo.setText(act.getNombre());
+                titulo.setLayoutX(240);
+                titulo.setLayoutY(20);
+                titulo.setText(act.getNombre());
 
 //                    DESCRIPCION
-                    descripcion.setLayoutX(240);
-                    descripcion.setLayoutY(60);
-                    descripcion.setPrefSize(630, 120);
-                    descripcion.setEditable(false);
-                    descripcion.setWrapText(true);
-                    descripcion.setText(act.getDescripcion());
-                    pane.getChildren().addAll(img, titulo, descripcion);
-                    paneActividadesBuscador.getChildren().add(pane);
+                descripcion.setLayoutX(240);
+                descripcion.setLayoutY(60);
+                descripcion.setPrefSize(630, 120);
+                descripcion.setEditable(false);
+                descripcion.setWrapText(true);
+                descripcion.setText(act.getDescripcion());
+                if (!entradaBusqueda.getText().isEmpty()) {
+                    JFXHighlighter high = new JFXHighlighter();
+                    high.highlight(titulo, entradaBusqueda.getText());
+                    high.highlight(descripcion, entradaBusqueda.getText());
+                    System.out.println("entra en highlight");
                 }
-
+                pane.getChildren().addAll(img, titulo, descripcion);
+                listaPaneActividades.add(pane);
+                paneActividadesBuscador.getChildren().add(pane);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -115,6 +142,28 @@ public class BuscadorController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    @FXML
+    private void buscar(ActionEvent event) {
+        cargarActividades();
+
+    }
+
+    private List<Actividad> buscarActividades(List<Actividad> lista) {
+        List<Actividad> encontrados = new ArrayList<>();
+
+        for (Actividad act : lista) {
+            try {
+                if (!entradaBusqueda.getText().isEmpty()) {
+                    if (act.getDescripcion().contains(entradaBusqueda.getText()) || act.getNombre().contains(entradaBusqueda.getText())) {
+                        encontrados.add(act);
+                    }
+                }
+            } catch (Exception e) {
+                System.out.println("error busqueda");
+            }
+        }
+        return encontrados;
     }
 }

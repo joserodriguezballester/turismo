@@ -126,14 +126,14 @@ public class ActividadController implements Initializable {
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
             double posicionX = 5;
-            double posicionY = 15;
+            double posicionY = 5;
             JFXButton boton;
             for (Tipo tipo : lista) {
                 boton = new JFXButton(tipo.getNombre());
                 boton.setLayoutX(posicionX);
                 boton.setLayoutY(posicionY);
-                posicionY += 130;
-                boton.setMinSize(186, 100);
+                posicionY += 75;
+                boton.setMinSize(186, 70);
                 boton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent me) {
