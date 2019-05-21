@@ -190,7 +190,7 @@ public class RegistrarController implements Initializable {
                 if (registrado) {
         if (fotoFile != null) {
         from = Paths.get(fotoFile.toURI());
-        to = Paths.get("src/imagenes/usuarios/" + "."+foto);
+        to = Paths.get("src/imagenes/usuarios/" +foto);
             try {
                 //        Files.copy(from.toFile(), to.toFile());
                 Files.copy(from.toAbsolutePath(), to.toAbsolutePath());

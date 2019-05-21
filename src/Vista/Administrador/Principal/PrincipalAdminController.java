@@ -175,9 +175,10 @@ public class PrincipalAdminController implements Initializable {
     public void cargaNickFoto(){
         if (usuario != null) {
             usuarioBT.setText(usuario.getNick().toUpperCase());
+            System.out.println("Imagenes/usuarios/" + usuario.getFoto());
 //            cara1.setImage(new Image("Imagenes/usuarios/raquel.jpg"));
             try {
-                cara1.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()+".jpg"));
+                cara1.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));               
             } catch (Exception e) {
                 cara1.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
