@@ -56,17 +56,19 @@ public class UsuarioController implements Initializable {
     private Stage escenario;
     private TranslateTransition translatePrincipal;
     private TranslateTransition translateAgencia;
+    private String tituloAlertSQL = "AlertaSQL";
+    private String mensajeSQL = "error en la base de datos";
+    private GestionBD gestion;
+    private usuariosDAO usuarioDAO;
+    private Notificacion not;
+    Usuario usuario;
 
     @FXML
     private PasswordField contraTF;
     @FXML
     private TextField nickTF;
+    @FXML
     private Pane Ventana;
-
-    private GestionBD gestion;
-    private usuariosDAO usuarioDAO;
-    Usuario usuario;
-    private Notificacion not;
     @FXML
     private AnchorPane fondoUsuario;
     @FXML
@@ -77,8 +79,6 @@ public class UsuarioController implements Initializable {
     private Button botonLog;
     @FXML
     private Button botonReg;
-    private String tituloAlertSQL = "AlertaSQL";
-    private String mensajeSQL = "error en la base de datos";
     @FXML
     private Polygon triangle;
     @FXML
@@ -88,6 +88,7 @@ public class UsuarioController implements Initializable {
     @FXML
     private Label olvidar;
 
+    //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gestion = new GestionBD();
@@ -95,105 +96,150 @@ public class UsuarioController implements Initializable {
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
 
+        styleInicio();
+    }
+
+    private void styleInicio() {
+
+        //Imagen fondo
         Image img = new Image("Imagenes/inicioprueba.jpg");
         ImageView imagev = new ImageView(img);
-
         fondoUsuario.getChildren().add(imagev);
-//        paneInicio.getStyleClass().add("paneinicio");
-        paneagencia.getStyleClass().add("paneAgencia");
-
         imagev.setFitHeight(800);
         imagev.setFitWidth(1300);
 
+        //panes
         triangle.toFront();
         triangle.setOpacity(0.85);
         paneInicio.toFront();
         paneagencia.toFront();
         paneCapaTriangulo.toFront();
 
+        //Estilos
+        paneagencia.getStyleClass().add("paneAgencia");
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
-        olvidar.getStyleClass().add("recordarpassword"); 
-
-        // TODO
+        olvidar.getStyleClass().add("recordarpassword");
     }
 
+    //ACCIONES------------------------------------------------------------------
     @FXML
     private void logearse(ActionEvent event) throws InterruptedException {
         // Utilizar uno de estos tres metodos
 
         logearseBueno();
-//        logearseComoCliente();
-//        logearseComoAdministrador();
+        //logearseComoCliente();
+        //logearseComoAdministrador();
 
     }
 
     @FXML
     private void registrarse(ActionEvent event) throws IOException {
         Parent root;
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
-            root = loader.load(); // el meotodo initialize() se ejecuta
+            root = loader.load();  // el meotodo initialize() se ejecuta
+
             //OBTENER EL CONTROLADOR DE LA VENTANA
             RegistrarController registrarController = loader.getController();
             registrarController.setParametros(usuarioDAO);
-            Stage escena = new Stage();                      //En Stage nuevo.
+
+            Stage escena = new Stage();    //En Stage nuevo.                  
             escena.setTitle("Registro");
-            escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+
+            // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+            escena.initModality(Modality.APPLICATION_MODAL);
             escena.getIcons().add(new Image("/Imagenes/iconos/note.png"));
             escena.setScene(new Scene(root));
             escena.showAndWait();
         } catch (IOException ex) {
             not.error("ERROR IOException",
                     "en Registrarse() --- UsuarioController");
-
         }
-
     }
 
+    //VENTANAS------------------------------------------------------------------
     public void cargarVentanaPrincipal() {
 
         escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
 
         String nombrefichero = "/Vista/Principal/Principal.fxml";
         PrincipalController principalController;
-
         Parent root;
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource(nombrefichero));
             root = loader.load(); // el metodo initialize() se ejecuta
             principalController = loader.getController();
-//Pasamos informacion a la clase siguiente
+
+            //Pasamos informacion a la clase siguiente
             principalController.setGestion(gestion);
             principalController.setParametroUsuario(usuario);
-//                 principalController.setParametros(usuario, bda, cambiador);
-//Damos valores a los nodos antes de mostrarlos
-            //        principalController.calcularnodos();
 
+            //principalController.setParametros(usuario, bda, cambiador);
+            //Damos valores a los nodos antes de mostrarlos
+            //principalController.calcularnodos();
             escenario.setScene(new Scene(root));
             escenario.show();
 
         } catch (IOException ex) {
             not.error("ERROR IOException",
                     "en cargarVentanaPrincipal() --- UsuarioController");
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            //aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            System.err.println("error");  ////mostrar en ventana
+        }
+    }
+
+    private void cargarVentanaPrincipalAdmin() {
+
+        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
+
+        String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
+        PrincipalAdminController principalAdminController;
+        Parent root;
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource(nombrefichero));
+            root = loader.load(); // el metodo initialize() se ejecuta
+            principalAdminController = loader.getController();
+
+            //Pasamos informacion a la clase siguiente
+            principalAdminController.setGestion(gestion);
+            principalAdminController.setParametroUsuario(usuario);
+
+            //principalController.setParametros(usuario, bda, cambiador);
+            //Damos valores a los nodos antes de mostrarlos
+            //principalController.calcularnodos();
+            escenario.setScene(new Scene(root));
+            escenario.show();
+
+        } catch (IOException ex) {
+            not.error("ERROR IOException",
+                    "en cargarVentanaPrincipalAdmin() --- UsuarioController");
+            //aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
             System.err.println("error");  ////mostrar en ventana
         }
     }
 
     private void cargarVentanaRegistrarse() {
+
         Parent root;
+
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
             root = loader.load(); // el metodo initialize() se ejecuta
             //OBTENER EL CONTROLADOR DE LA VENTANA     UsuarioController usuarioControlador = loader.getController();
 
-            Stage escena = new Stage();                      //En Stage nuevo.
+            Stage escena = new Stage();     //En Stage nuevo.
             escena.setTitle("Registrarse");
-            escena.initModality(Modality.APPLICATION_MODAL);  // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+
+            // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+            escena.initModality(Modality.APPLICATION_MODAL);
             escena.setScene(new Scene(root));
             escena.showAndWait();
             //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
@@ -201,78 +247,53 @@ public class UsuarioController implements Initializable {
         } catch (IOException ex) {
             not.error("ERROR IOException",
                     "en cargarVentanaRegistrarse() --- UsuarioController");
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
-//       mostrar error
+            //aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            //mostrar error
 
         }
     }
 
-    private void cargarVentanaPrincipalAdmin() {
-
-        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
-        String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
-        PrincipalAdminController principalAdminController;
-
-        Parent root;
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource(nombrefichero));
-            root = loader.load(); // el metodo initialize() se ejecuta
-            principalAdminController = loader.getController();
-//Pasamos informacion a la clase siguiente
-            principalAdminController.setGestion(gestion);
-            principalAdminController.setParametroUsuario(usuario);
-//                 principalController.setParametros(usuario, bda, cambiador);
-//Damos valores a los nodos antes de mostrarlos
-            //        principalController.calcularnodos();
-
-            escenario.setScene(new Scene(root));
-            escenario.show();
-
-        } catch (IOException ex) {
-            not.error("ERROR IOException",
-                    "en cargarVentanaPrincipalAdmin() --- UsuarioController");
-//            aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
-            System.err.println("error");  ////mostrar en ventana
-        }
-    }
-
+    //CONTROL-------------------------------------------------------------------
     public boolean verificaUsuario() {
-        boolean existe = false;
+
         PasswordEncryptor encryptor = new BasicPasswordEncryptor();
+        boolean existe = false;
         boolean checkPassword;
-        //comprobar si existe usuario//
+
         String nick = nickTF.getText();
+        String contrasena = contraTF.getText();
+
         String contrasenaBD = null;
+
         try {
             contrasenaBD = usuarioDAO.obtenerContra(nick);
         } catch (SQLException ex) {
             not.alert(tituloAlertSQL, mensajeSQL);
         }
-        String contrasena = contraTF.getText();
+
         checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
 
         return checkPassword;
     }
 
     private void logearseBueno() throws InterruptedException {
-        boolean logeado = verificaUsuario();                  //Verifica que existe y contraseña correcta
-        //      boolean logeado=true;                   ///// Puesto para saltarse poner nick y contraseña
+        boolean logeado = verificaUsuario();        //Verifica que existe y contraseña correcta
+
         if (logeado) {
             try {
                 usuario = usuarioDAO.cargarUsuario(nickTF.getText());
 
-/// segun el roll ejecutará uno de los dos metodos
+                // segun el roll ejecutará uno de los dos metodos
                 if ("CLIENTE".equalsIgnoreCase(usuario.getPerfilString())) {
-//                    if ("CLIENTE".equalsIgnoreCase(usuario.getRol2())) {
-                    transicionPrincipal();
+                    
+                    String rol = "cliente";
+                    transicionPrincipal(rol);
 
-//                    TimeUnit.SECONDS.sleep(5);
-//                    cargarVentanaPrincipal();    // usuario cliente
                 } else {
-//                   if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getRol2())) {
+                
                     if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
-                        cargarVentanaPrincipalAdmin();  //usuario administrador
+                        String rol = "admin";
+                        transicionPrincipal(rol);  
                     } else {
                         not.error("Segun lorenzo soy tonto",
                                 "en logearseBueno() --- UsuarioController");
@@ -283,23 +304,15 @@ public class UsuarioController implements Initializable {
                         "en logearseBueno() --- UsuarioController");
             }
         } else {
-//             mostrar ventana que no existe o contraseña erronea
+            //mostrar ventana que no existe o contraseña erronea
             nickTF.setText("");
             contraTF.setText("");
         }
     }
 
-    private void logearseComoCliente() {
-        cargarVentanaPrincipal();
-    }
-
-    private void logearseComoAdministrador() {
-        cargarVentanaPrincipalAdmin();
-    }
-
     @FXML
     private void habilitarBT(MouseEvent event) {
-
+        //Hasta que pulsas para escribir los campos no se habilita el boton de login
         if (botonLog.isDisable()) {
             FadeTransition ft = new FadeTransition(Duration.millis(500), botonLog);
             ft.setFromValue(0.6);
@@ -310,7 +323,7 @@ public class UsuarioController implements Initializable {
         }
     }
 
-    private void transicionPrincipal() {
+    private void transicionPrincipal(String rol) {
 
         translatePrincipal = new TranslateTransition(Duration.seconds(1), paneCapaTriangulo);
         translateAgencia = new TranslateTransition(Duration.seconds(1), paneagencia);
@@ -320,21 +333,29 @@ public class UsuarioController implements Initializable {
 
         translatePrincipal.setFromX(0);
         translatePrincipal.setToX(-1350);
-        translatePrincipal.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                cargarVentanaPrincipal();
-            }
-        });
+        
         translatePrincipal.setInterpolator(Interpolator.LINEAR);
         translatePrincipal.play();
         translateAgencia.setInterpolator(Interpolator.LINEAR);
         translateAgencia.play();
+        
+        translatePrincipal.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if(rol.equalsIgnoreCase("cliente")){
+                    cargarVentanaPrincipal();
+                }else if(rol.equalsIgnoreCase("admin")){
+                    cargarVentanaPrincipalAdmin();
+                }
+            }
+        });
 
     }
 
     @FXML
     private void recordarPass(MouseEvent event) throws SQLException, MessagingException {
+        
+        //Enviar un correo con una nueva contraseña
         not = new Notificacion();
         Pair<String, String> pareja = not.recordar();
         if ((!"".equals(pareja.getKey()))) {//por si damos a cancelar 
@@ -354,5 +375,14 @@ public class UsuarioController implements Initializable {
                 }
             }
         }
+    }
+
+    //ATAJOS DE PROGRAMADOR-----------------------------------------------------
+    private void logearseComoCliente() {
+        cargarVentanaPrincipal();
+    }
+
+    private void logearseComoAdministrador() {
+        cargarVentanaPrincipalAdmin();
     }
 }

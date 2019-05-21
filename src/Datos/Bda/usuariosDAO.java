@@ -12,9 +12,10 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/** NUEVO  CAMPO FOTO ver update,listar...
+/**
+ * NUEVO CAMPO FOTO ver update,listar...
  *
- * 
+ *
  */
 public class usuariosDAO {
 
@@ -79,8 +80,7 @@ public class usuariosDAO {
         return modificado;
     }
 
-   
-        public void introducirContra(String contra, String key) throws SQLException {
+    public void introducirContra(String contra, String key) throws SQLException {
         boolean modificado = false;
         String consulta = "UPDATE USUARIOS SET contraseña=? WHERE nick = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
@@ -88,10 +88,9 @@ public class usuariosDAO {
         ps.setString(2, key);
         ps.executeUpdate();
         modificado = true;
-         
-         
-         
+
     }
+
     //DELETE
     public boolean borrarUsuario(int idUsuario) throws SQLException {
         boolean borrado = false;
@@ -165,7 +164,7 @@ public class usuariosDAO {
         }
         return contrasena;
     }
-    
+
 // Obtener un Todos los campos de un Usuario 
     public Usuario cargarUsuario(String nick) throws SQLException {
         Usuario usuario = new Usuario();
@@ -185,7 +184,7 @@ public class usuariosDAO {
             usuario.setDni(rs.getString("dni"));
             usuario.setTelefono(rs.getString("telefono"));
             usuario.setDireccion(rs.getString("direccion"));
-            usuario.setEmail(rs.getString("email"));        
+            usuario.setEmail(rs.getString("email"));
             usuario.setPerfil(rs.getString("rol").toUpperCase());
             usuario.setFoto(rs.getString("foto"));
         }
@@ -215,23 +214,17 @@ public class usuariosDAO {
         return listaUsuarios;
     }
 
- //obtener el correo
-    public String DarCorreo(String nick) throws SQLException{
+    //obtener el correo
+    public String DarCorreo(String nick) throws SQLException {
         String correo = null;
         String consulta = "select dimecorreo (?);";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, nick);
         ResultSet rs = ps.executeQuery();
-         while (rs.next()) {
+        while (rs.next()) {
             correo = rs.getString(1);
-        }        
+        }
         return correo;
     }
 
-    
-    }
-
-   
-    
-    
-
+}
