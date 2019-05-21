@@ -90,12 +90,12 @@
                </children>
             </GridPane>
             <Button fx:id="modificarBT" disable="true" layoutX="230.0" layoutY="472.0" mnemonicParsing="false" onAction="#modificar" prefHeight="68.0" prefWidth="100.0" text="Modificar" />
-            <Label layoutX="48.0" layoutY="39.0" prefHeight="57.0" prefWidth="104.0" text="PERFIL">
+            <Label layoutX="48.0" layoutY="39.0" prefHeight="57.0" prefWidth="153.0" text="Bienvenido">
                <font>
                   <Font name="Agency FB Bold" size="35.0" />
                </font>
             </Label>
-            <Label fx:id="labelUser" layoutX="184.0" layoutY="43.0" prefHeight="49.0" prefWidth="278.0">
+            <Label fx:id="labelUser" layoutX="230.0" layoutY="43.0" prefHeight="49.0" prefWidth="278.0">
                <font>
                   <Font name="Agency FB Bold" size="35.0" />
                </font>

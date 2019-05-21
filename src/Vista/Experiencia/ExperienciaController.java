@@ -83,7 +83,7 @@ public class ExperienciaController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        IMAGEN FONDO
-        Image img = new Image("Imagenes/fondoActividad.jpg");
+        Image img = new Image("Imagenes/fondoExperienc3.jpg");
         ImageView imagev = new ImageView(img);
 
         imagev.setFitHeight(730);
@@ -103,6 +103,11 @@ public class ExperienciaController implements Initializable {
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
+        
+        textAreaDescripcion.getStyleClass().add("textoActividad");
+        textFieldFechaValidez.getStyleClass().add("textoActividad");
+        listaActividades.getStyleClass().add("textoActividad");
+        salidaPrecio.getStyleClass().add("textoActividad");
     }
 
     public void setUsuario(Usuario usuario) {

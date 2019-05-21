@@ -19,7 +19,7 @@
       <JFXListView fx:id="listaVisualExperiencias" onMouseClicked="#cargarExperiencia" prefHeight="645.0" prefWidth="300.0" />
       <Pane fx:id="paneInformacion" layoutX="325.0" layoutY="25.0" prefHeight="680.0" prefWidth="950.0">
          <children>
-            <JFXButton fx:id="botonCerrarInformacion" layoutX="10.0" layoutY="11.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
+            <JFXButton fx:id="botonCerrarInformacion" layoutX="898.0" layoutY="11.0" onAction="#cerrarInformacion" prefHeight="23.0" prefWidth="23.0" text="X" />
             <JFXTextArea fx:id="textAreaDescripcion" editable="false" layoutX="49.0" layoutY="55.0" />
             <Label layoutX="49.0" layoutY="27.0" text="Descripción:">
                <font>
@@ -27,18 +27,18 @@
                </font>
             </Label>
             <ImageView fx:id="imagenExperiencia" fitHeight="346.0" fitWidth="346.0" layoutX="567.0" layoutY="55.0" pickOnBounds="true" preserveRatio="true" />
-            <Label layoutX="131.0" layoutY="270.0" text="Fecha validez:">
+            <Label layoutX="49.0" layoutY="286.0" text="Fecha validez:">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="textFieldFechaValidez" editable="false" layoutX="258.0" layoutY="271.0" />
-            <Label layoutX="546.0" layoutY="521.0" text="Precio:">
+            <JFXTextField fx:id="textFieldFechaValidez" editable="false" layoutX="176.0" layoutY="287.0" />
+            <Label layoutX="566.0" layoutY="490.0" text="Precio:">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="salidaPrecio" layoutX="605.0" layoutY="517.0" />
+            <JFXTextField fx:id="salidaPrecio" layoutX="625.0" layoutY="486.0" />
             <Label fx:id="etiquetaListaActividades" layoutX="49.0" layoutY="374.0" text="Lista Actividades:">
                <font>
                   <Font name="System Bold" size="18.0" />

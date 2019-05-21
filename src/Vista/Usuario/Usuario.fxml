@@ -34,7 +34,7 @@
                   <JFXButton fx:id="botonReg" layoutX="267.0" layoutY="258.0" onAction="#registrarse" prefHeight="61.0" prefWidth="119.0" text="Registrarse" />
                   <JFXTextField fx:id="nickTF" layoutX="224.0" layoutY="72.0" onMouseClicked="#habilitarBT" prefHeight="25.0" prefWidth="162.0" />
                   <JFXPasswordField fx:id="contraTF" layoutX="222.0" layoutY="164.0" onMouseClicked="#habilitarBT" prefHeight="25.0" prefWidth="163.0" />
-                  <Label fx:id="olvidar" layoutX="116.0" layoutY="338.0" onMouseClicked="#recordarPass" text="Has olvidado tu contraseña?" />
+                  <Label fx:id="olvidar" layoutX="222.0" layoutY="197.0" onMouseClicked="#recordarPass" prefHeight="17.0" prefWidth="156.0" text="¿Has olvidado tu contraseña?" />
                </children>
             </Pane>
          </children>

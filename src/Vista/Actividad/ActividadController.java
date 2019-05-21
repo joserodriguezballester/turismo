@@ -140,7 +140,7 @@ public class ActividadController implements Initializable {
                 boton.setLayoutX(posicionX);
                 boton.setLayoutY(posicionY);
                 posicionY += 75;
-                boton.setMinSize(186, 70);
+                boton.setMinSize(145, 70);
                 boton.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent me) {
@@ -195,7 +195,7 @@ public class ActividadController implements Initializable {
     private void transicionCargarActividades() {
         translate = new TranslateTransition(Duration.seconds(1), listaElementos);
         translate.setFromX(0);
-        translate.setToX(200);
+        translate.setToX(170);
         translate.setInterpolator(Interpolator.LINEAR);
 //        listaElementos.setLayoutX(listaElementos.getLayoutX() + 50);
         translate.play();

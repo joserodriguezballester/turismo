@@ -38,8 +38,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 
 /**
  * FXML Controller class
@@ -104,14 +107,37 @@ public class CrearExperienciaController implements Initializable {
     private Usuario usuario;
     private Experiencia experiencia;
     private Notificacion not = new Notificacion();
+    @FXML
+    private Pane paneExperiencia;
+    @FXML
+    private Pane paneTituloExperiencia;
+    @FXML
+    private Pane paneTituloExperiencia1;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        Image img = new Image("Imagenes/fondoExperiencia.jpg");
+        ImageView imagev = new ImageView(img);
+
+        imagev.setFitHeight(730);
+        imagev.setFitWidth(1300);
+
+        this.Ventana.getChildren().add(imagev);
+        imagev.toBack();
+        
         not = new Notificacion();
         experiencia = new Experiencia();
         botonActividades.getStyleClass().add("botonAnyadir");
         botonEliminar.getStyleClass().add("botonEliminar");
         botonAñadirExperiencia.getStyleClass().add("botonAnyadirExperiencia");
+        paneExperiencia.getStyleClass().add("paneexperiencia");
+        paneTituloExperiencia.getStyleClass().add("paneExperienciaTitulo");
+        paneTituloExperiencia1.getStyleClass().add("paneExperienciaTitulo");
+        comboBoxTipos.getStyleClass().add("combo");
+        comboBoxSubTipos.getStyleClass().add("combo");
+        
+        listaActividadesCarrito.setOpacity(0.9);
+        listaActividadesElegir.setOpacity(0.9); 
     }
 
     public void setGestion(GestionBD gestion) {
@@ -292,6 +318,7 @@ public class CrearExperienciaController implements Initializable {
         if (!experiencia.getListaActividades().isEmpty()) {
             for (ActividadExperiencia act : experiencia.getListaActividades()) {
                 listaActividadesCarrito.getItems().add(act);
+                
             }
             calcularPrecio();
         }

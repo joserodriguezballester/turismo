@@ -113,6 +113,7 @@ public class UsuarioController implements Initializable {
 
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
+        olvidar.getStyleClass().add("recordarpassword"); 
 
         // TODO
     }

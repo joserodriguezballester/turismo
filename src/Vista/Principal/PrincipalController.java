@@ -91,8 +91,9 @@ public class PrincipalController implements Initializable {
 //        gestion.conectar();
         efectoTransicion();
 
+        
+        GridPane.setHalignment(caraIV, HPos.RIGHT);
         panePerfil.toFront();
-        GridPane.setHalignment(botonBuscar, HPos.RIGHT);
     }
 
     @FXML
