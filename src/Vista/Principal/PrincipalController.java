@@ -258,7 +258,10 @@ public class PrincipalController implements Initializable {
             botonPerfil.setText(usuario.getNick().toUpperCase());
 //            System.out.println("Imagenes/usuarios/" + usuario.getFoto()+".jpg");
             try {
-                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()+".jpg"));
+                
+                
+                
+                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
             } catch (Exception e) {
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
