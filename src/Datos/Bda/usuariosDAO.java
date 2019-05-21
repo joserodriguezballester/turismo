@@ -60,7 +60,7 @@ public class usuariosDAO {
         return modificado;
     }
 
-    public void modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
+    public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
         boolean modificado = false;
         String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
@@ -76,6 +76,7 @@ public class usuariosDAO {
 
         ps.executeUpdate();
         modificado = true;
+        return modificado;
     }
 
    

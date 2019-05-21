@@ -100,13 +100,10 @@ public class PrincipalController implements Initializable {
     private void irInicio(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-
         PrincipalController controlador;
-
         loader.setLocation(getClass().getResource("/Vista/Principal/Principal.fxml"));
         try {
             Parent root = loader.load();
-
             controlador = loader.getController();
             controlador.setGestion(gestion);
             Ventana.getChildren().add(root);

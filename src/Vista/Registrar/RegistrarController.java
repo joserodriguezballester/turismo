@@ -258,12 +258,7 @@ public class RegistrarController implements Initializable {
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
-           
-               
-            
-           
-        }
-        
+        }       
     }
 
     private boolean camposVacios() {   //   devuelve false si no hay ningun campo "necesario" nulo 
