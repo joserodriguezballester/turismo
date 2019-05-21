@@ -27,7 +27,7 @@ and open the template in the editor.
 .botoninicio{
     -fx-font-weight: bold;
     -fx-text-fill: BLACK;
- 
+
     -fx-background-color: rgb(161, 131, 89); 
     -jfx-button-type: RAISED;
     -fx-padding: 0.7em 0.57em;
@@ -134,7 +134,7 @@ and open the template in the editor.
     -fx-font-size: 14px;
     -jfx-button-type: RAISED;
     -fx-background-color: rgb(161, 131, 89); 
-/*    -fx-background-color: rgb(226, 207, 181);*/
+    /*    -fx-background-color: rgb(226, 207, 181);*/
     -fx-text-fill:BLACK;
 }
 
@@ -209,26 +209,60 @@ and open the template in the editor.
 }
 
 .combo{
-     -fx-background-color: white; 
+    -fx-background-color: white; 
 }
 
 
 /*ESTILOS_VISTA.BUSCADOR------------------------------------------------------*/
 
 .paneActividadBuscador{
-    -fx-background-color: rgb(175, 175, 175);
+    -fx-background-color: rgba(192, 166, 131,1); 
     -fx-background-radius: 20;
+    
 }
 
-.scrollActividad{
-    -fx-background-color:rgba(255,255,255, 0.7);
+.paneBuscador{
+
+    -fx-background: rgba(255, 255, 255, 0.6);
+    -fx-background-color:transparent;
+    -fx-background-radius: 15;
 }
 
 .buscador{
-    -fx-background-color: white;
+    -fx-background-color: #cccccc;
+}
+
+.tituloBusc{
+    -fx-font-weight: bold;
+    -fx-text-fill: BLACK;
+}
+
+.descripcionBusc{
+    -fx-background-color: rgba(255, 244, 229,1);
+}
+
+/*ESTILOS_VISTA.INFORMACION---------------------------------------------------*/
+
+.imgInfor{
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+    -fx-border-color: black;
+    -fx-border-style: solid;
+    -fx-border-width: 5;
+    -fx-background-color: rgb(165, 147, 122);
+    -fx-background-radius: 5;
 }
 
 /*----------------------------------------------------------------------------*/
+
+
+
+
+
+
+
+
+
+
 
 /*.botonCancelar{
     -fx-font-weight: bold;

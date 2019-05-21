@@ -59,18 +59,18 @@ public class Transicion {
 //        for (ImageView slide : slides) {
         for (int i = 0; i < slides.size(); i++) {
             double duracionFadeIn;
-            double duracionFadeOut;
+            double duracionFadeOut = 0;
             if (i == 0) {
                 duracionFadeIn = 0;
             } else {
                 duracionFadeIn = 1500;
             }
             
-            if ((i == (slides.size())) || (i == (slides.size()-1)) || (i == 0)){
-                duracionFadeOut = 0.1;
-            } else{
-                duracionFadeOut = 0;
-            }
+//            if ((i == (slides.size())) || (i == (slides.size()-1)) || (i == 0)){
+//                duracionFadeOut = 0.1;
+//            } else{
+//                duracionFadeOut = 0;
+//            }
             
             
             SequentialTransition sequentialTransition = new SequentialTransition();

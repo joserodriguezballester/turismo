@@ -26,6 +26,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.HBox;
 
 public class TransporteController implements Initializable {
 
@@ -58,6 +59,7 @@ public class TransporteController implements Initializable {
         imagev.setFitHeight(730);
         imagev.setFitWidth(1300);
         imagev.setOpacity(0.8); 
+       
         fondoUsuario.toBack();
         frenteAP.toFront();
         transDAO = new TransportesDAO(gestion);
@@ -105,7 +107,9 @@ seleccionar();
 
     imagTarj.setFitWidth(927);
     imagTarj.setFitHeight(570);
-   
+    imagTarj.getStyleClass().add("imgInfor");
+    imagTarj.toFront();
+
     
     }
 

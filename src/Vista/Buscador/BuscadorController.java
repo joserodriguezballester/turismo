@@ -77,9 +77,13 @@ public class BuscadorController implements Initializable {
     public void inicio() {
         actDAO = new actividadesDAO(gestion);
         cargarActividades();
-        
-        scrollPaneActividadesBuscador.getStyleClass().add("scrollActividad");
+
+        scrollPaneActividadesBuscador.getStyleClass().add("paneBuscador");
         entradaBusqueda.getStyleClass().add("buscador");
+        
+//        scrollPaneActividadesBuscador.setOpacity(0.4);
+        
+        
     }
 
     private void cargarActividades() {
@@ -126,6 +130,7 @@ public class BuscadorController implements Initializable {
                 titulo.setLayoutX(240);
                 titulo.setLayoutY(20);
                 titulo.setText(act.getNombre());
+                titulo.getStyleClass().add("tituloBusc");
 
 //                    DESCRIPCION
                 descripcion.setLayoutX(240);
@@ -134,6 +139,7 @@ public class BuscadorController implements Initializable {
                 descripcion.setEditable(false);
                 descripcion.setWrapText(true);
                 descripcion.setText(act.getDescripcion());
+                descripcion.getStyleClass().add("descripcionBusc");
 
                 if (!entradaBusqueda.getText().isEmpty()) {
                     high.highlight(pane, entradaBusqueda.getText());
