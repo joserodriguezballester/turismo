@@ -64,12 +64,22 @@ public class BuscadorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Image img = new Image("Imagenes/fondoBuscar.jpg");
+        ImageView imagev = new ImageView(img);
+
+        imagev.setFitHeight(730);
+        imagev.setFitWidth(1300);
+
+        this.Ventana.getChildren().add(imagev);
+        imagev.toBack();
     }
 
     public void inicio() {
         actDAO = new actividadesDAO(gestion);
         cargarActividades();
+        
+        scrollPaneActividadesBuscador.getStyleClass().add("scrollActividad");
+        entradaBusqueda.getStyleClass().add("buscador");
     }
 
     private void cargarActividades() {

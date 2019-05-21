@@ -8,13 +8,127 @@ and open the template in the editor.
     Author     : joser
 */
 
-.botonCerrarInformacion{
-    -fx-padding: 0.7em 0.57em;
-    -fx-font-size: 10px;
-    -jfx-button-type: RAISED;
-    -fx-background-color: rgb(238,32,32);
-    -fx-text-fill: WHITE;
+/*ESTILOS_VISTA.USUARIO-------------------------------------------------------*/
+
+.paneinicio{
+    /*-fx-background-color: rgba(255, 76, 110,0.6);*/
+    -fx-background-color: rgba(219, 210, 210, 0.6);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
+
+.paneAgencia{
+    -fx-background-color: rgba(255, 255, 255, 0.7);
+    /*-fx-background-color: rgba(247, 196, 255, 0.6);*/
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
+.botoninicio{
+    -fx-font-weight: bold;
+    -fx-text-fill: BLACK;
+ 
+    -fx-background-color: rgb(161, 131, 89); 
+    -jfx-button-type: RAISED;
+    -fx-padding: 0.7em 0.57em;
+    -fx-border: solid;
+}
+
+.recordarpassword{
+    -fx-text-fill:#3333ff;
+}
+
+.recordarpassword:hover{
+    -fx-text-fill:#000099;
+}
+
+
+/*ESTILOS_VISTA.REGISTRO------------------------------------------------------*/
+
+.panePerfil{
+    /*-fx-background-color: rgba(237, 21, 63, 0.6);*/
+    -fx-background-color: rgba(255, 255, 255,0.6);
+    /*-fx-background-color: rgba(247, 196, 255, 0.6);*/
+    -fx-background-radius: 20;
+}
+
+.calendarioRegistrar{
+    -jfx-default-color: rgb(77,102,204);
+    -fx-control-inner-background: rgb(240, 240, 240);
+    -fx-pref-width: 220.0;
+    -fx-pref-height: 180.0;
+}
+
+.calendarioRegistrar:hover{
+    -jfx-default-color: rgb(33,68,208);
+}
+
+.botonAceptarRegistro{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 20;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(2,144,46);
+}
+
+.botonEliminar{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 20;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: #ff0000
+}
+
+
+/*ESTILOS_VISTA.PRINCIPAL-----------------------------------------------------*/
+
+.menu{
+    /*    -fx-background-color: rgb(77,102,204);*/
+    -fx-background-color:rgb(226, 207, 181);
+}
+
+.botonMenu{
+    -fx-font-weight: bold;
+    -fx-text-fill: #666666;
+
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    /*-fx-background-color: rgb(77,102,204);*/
+    -fx-background-color:rgb(226, 207, 181);
+    -fx-border: solid;
+}
+
+.botonMenu:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-color:#ffffff;
+}
+
+/*ESTILOS_VISTA.ACTIVIDADES---------------------------------------------------*/
+
+.listaActividades{
+    -fx-background: rgba(255,0,0, 0.3);
+    -fx-background-color:transparent;
+}
+
+.scrollPaneActividades{
+    /*-fx-background: rgba(255,0,0, 0.3);*/
+    -fx-background: rgba(247, 196, 255, 0.3);
+    -fx-background: rgba(0, 0, 0, 0);
+    -fx-background-color:transparent;
+}
+
+.paneInformacionActividades{
+    -fx-background-color: rgba(175, 175, 175, 0.8);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+}
+
 .botonActividad{
     -fx-padding: 0.7em 0.57em;
     -fx-font-size: 14px;
@@ -33,38 +147,18 @@ and open the template in the editor.
     -fx-background-color:#ffffff;
 }
 
-.paneInformacionActividades{
-    -fx-background-color: rgba(175, 175, 175, 0.8);
-    -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+.botonCerrarInformacion{
+    -fx-padding: 0.7em 0.57em;
+    -fx-font-size: 10px;
+    -jfx-button-type: RAISED;
+    -fx-background-color: rgb(238,32,32);
+    -fx-text-fill: WHITE;
 }
+
 .tituloActividades {
     -fx-font-size: 24px;
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
-}
-.botonMenu{
-    -fx-font-weight: bold;
-    -fx-text-fill: #666666;
-
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    /*-fx-background-color: rgb(77,102,204);*/
-    -fx-background-color:rgb(226, 207, 181);
-    -fx-border: solid;
-}
-.menu{
-    /*    -fx-background-color: rgb(77,102,204);*/
-    -fx-background-color:rgb(226, 207, 181);
-}
-.botonMenu:hover{
-    -fx-font-weight: bold;
-    -fx-text-fill: #000000;
-
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-    -fx-background-color:#ffffff;
-
 }
 
 .textoActividad{
@@ -72,25 +166,11 @@ and open the template in the editor.
     -fx-font-size: 14px;
     /*-fx-background-color: rgb(77,102,204);*/
     -fx-background-color:rgb(226, 207, 181);
-
 }
 
-.botonAceptarRegistro{
-    -fx-font-weight: bold;
-    -fx-text-fill: WHITE;
-    -fx-background-radius: 20;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-background-color: rgb(2,144,46);
-}
 
-.botonCancelar{
-    -fx-font-weight: bold;
-    -fx-text-fill: WHITE;
-    -fx-background-radius: 20;
-    -fx-font-size: 12px;
-    -fx-background-color: #ff0000
-}
+/*ESTILOS_VISTA.EXPERIENCIAS--------------------------------------------------*/
+
 .botonCrearExperiencia{
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
@@ -98,21 +178,7 @@ and open the template in the editor.
     -fx-font-weight: bold;
     -fx-background-color: rgb(2,144,46);
 }
-.scrollPaneActividades{
-    /*-fx-background: rgba(255,0,0, 0.3);*/
-    -fx-background: rgba(247, 196, 255, 0.3);
-    -fx-background: rgba(0, 0, 0, 0);
-    -fx-background-color:transparent;
-}
-.calendarioRegistrar{
-    -jfx-default-color: rgb(77,102,204);
-    -fx-control-inner-background: rgb(240, 240, 240);
-    -fx-pref-width: 220.0;
-    -fx-pref-height: 180.0;
-}
-.calendarioRegistrar:hover{
-    -jfx-default-color: rgb(33,68,208);
-}
+
 .botonAnyadir{
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
@@ -121,21 +187,7 @@ and open the template in the editor.
     -fx-font-weight: bold;
     -fx-background-color: rgb(2,144,46);
 }
-.botonEliminar{
-    -fx-font-weight: bold;
-    -fx-text-fill: WHITE;
-    -fx-background-radius: 20;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-background-color: #ff0000
-}
 
-
-
-.botonIcono{
-    -fx-background-color:#fff952;
-    
-}
 .botonAnyadirExperiencia{
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
@@ -145,71 +197,48 @@ and open the template in the editor.
     -fx-background-color: #3366ff;
 }
 
-.paneinicio{
-    /*-fx-background-color: rgba(255, 76, 110,0.6);*/
-    -fx-background-color: rgba(219, 210, 210, 0.6);
-    -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.paneAgencia{
-    -fx-background-color: rgba(255, 255, 255, 0.7);
-    /*-fx-background-color: rgba(247, 196, 255, 0.6);*/
-    -fx-background-radius: 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-.panePerfil{
-    /*-fx-background-color: rgba(237, 21, 63, 0.6);*/
-    -fx-background-color: rgba(255, 255, 255,0.6);
-    /*-fx-background-color: rgba(247, 196, 255, 0.6);*/
-    -fx-background-radius: 20;
-}
-
-.botoninicio{
-    -fx-font-weight: bold;
-    -fx-text-fill: BLACK;
- 
-
-    -fx-background-color: rgb(161, 131, 89); 
-    -jfx-button-type: RAISED;
-    -fx-padding: 0.7em 0.57em;
-    -fx-border: solid;
-
-}
-.listaActividades{
-    -fx-background: rgba(255,0,0, 0.3);
-    -fx-background-color:transparent;
-}
-
-.paneActividadBuscador{
-    -fx-background-color: rgba(175, 175, 175, 0.8);
-    -fx-background-radius: 20;
-}
-
-
-.recordarpassword{
-    -fx-text-fill:#3333ff;
-    
-}
-.recordarpassword:hover{
-    -fx-text-fill:#000099;
-    
+.paneexperiencia{
+    -fx-background-color: rgba(226, 207, 181, 0.9);
 }
 
 .paneExperienciaTitulo{
- 
     /*-fx-background-color: rgba (165, 147, 122, 0.8);*/  
     -fx-background-color: rgba(165, 147, 122, 0.8);
     -fx-background-radius: 20;
     -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
 }
 
-.paneexperiencia{
-     -fx-background-color: rgba(226, 207, 181, 0.9);
-    
-}
 .combo{
-     -fx-background-color: white;
-    
+     -fx-background-color: white; 
 }
+
+
+/*ESTILOS_VISTA.BUSCADOR------------------------------------------------------*/
+
+.paneActividadBuscador{
+    -fx-background-color: rgb(175, 175, 175);
+    -fx-background-radius: 20;
+}
+
+.scrollActividad{
+    -fx-background-color:rgba(255,255,255, 0.7);
+}
+
+.buscador{
+    -fx-background-color: white;
+}
+
+/*----------------------------------------------------------------------------*/
+
+/*.botonCancelar{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-background-radius: 20;
+    -fx-font-size: 12px;
+    -fx-background-color: #ff0000
+}
+
+/*.botonIcono{
+    -fx-background-color:#fff952;
+}*/
+

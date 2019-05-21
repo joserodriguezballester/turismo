@@ -59,16 +59,25 @@ public class Transicion {
 //        for (ImageView slide : slides) {
         for (int i = 0; i < slides.size(); i++) {
             double duracionFadeIn;
+            double duracionFadeOut;
             if (i == 0) {
                 duracionFadeIn = 0;
             } else {
                 duracionFadeIn = 1500;
             }
+            
+            if ((i == (slides.size())) || (i == (slides.size()-1)) || (i == 0)){
+                duracionFadeOut = 0.1;
+            } else{
+                duracionFadeOut = 0;
+            }
+            
+            
             SequentialTransition sequentialTransition = new SequentialTransition();
 
             FadeTransition fadeIn = getFadeTransition(slides.get(i), 0.0, 1.0, duracionFadeIn);
             PauseTransition stayOn = new PauseTransition(Duration.millis(2500));
-            FadeTransition fadeOut = getFadeTransition(slides.get(i), 1.0, 0.0, 0);
+            FadeTransition fadeOut = getFadeTransition(slides.get(i), 1.0, 0.0, duracionFadeOut);
 
             sequentialTransition.getChildren().addAll(fadeIn, stayOn, fadeOut);
             slides.get(i).setOpacity(0);
