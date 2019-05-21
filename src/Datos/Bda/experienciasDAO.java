@@ -38,9 +38,12 @@ public class experienciasDAO {
         boolean insertado = false;
 
         if (conn != null) {
+            System.out.println("usuario");
+            System.out.println(experiencia.getIdUsuario());
+            System.out.println("--------------");
             String consulta = "INSERT INTO EXPERIENCIAS (ID,IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = conn.prepareStatement(consulta);
-            ps.setInt(1, experiencia.getId());
+            ps.setObject(1, null);
             ps.setInt(2, experiencia.getIdUsuario());
             ps.setString(3, experiencia.getNombre());
             ps.setString(4, experiencia.getDescripcion());
@@ -49,13 +52,6 @@ public class experienciasDAO {
             ps.setString(6, experiencia.getFoto());
             ps.executeUpdate();
             insertado = true;
-
-            consulta = "select id from experiencias order by id desc limit 1;";
-            ps = conn.prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                experiencia.setId(rs.getInt("id"));
-            }
         }
         return insertado;
     }
@@ -117,5 +113,16 @@ public class experienciasDAO {
             not.error("SQL ERROR", "" + ex.getMessage() + "No se ha eliminado la experiencia");
         }
         return borrado;
+    }
+
+    public int idExperienciaSiguiente() throws SQLException {
+        int id = 0;
+        String consulta = "select id from experiencias order by id desc limit 1;";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            id = rs.getInt("id") + 1;
+        }
+        return id;
     }
 }

@@ -6,7 +6,6 @@ import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
 import Vista.Buscador.BuscadorController;
-import Vista.CrearExperiencia.CrearExperienciaController;
 
 import Vista.Perfil.PerfilController;
 

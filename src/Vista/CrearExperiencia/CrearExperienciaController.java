@@ -107,6 +107,8 @@ public class CrearExperienciaController implements Initializable {
     private Usuario usuario;
     private Experiencia experiencia;
     private Notificacion not = new Notificacion();
+    private experienciasDAO expDAO;
+    private experienciasActividadesDAO expActDAO;
     @FXML
     private Pane paneExperiencia;
     @FXML
@@ -124,9 +126,9 @@ public class CrearExperienciaController implements Initializable {
 
         this.Ventana.getChildren().add(imagev);
         imagev.toBack();
-        
+
         not = new Notificacion();
-        experiencia = new Experiencia();
+
         botonActividades.getStyleClass().add("botonAnyadir");
         botonEliminar.getStyleClass().add("botonEliminar");
         botonAñadirExperiencia.getStyleClass().add("botonAnyadirExperiencia");
@@ -135,22 +137,22 @@ public class CrearExperienciaController implements Initializable {
         paneTituloExperiencia1.getStyleClass().add("paneExperienciaTitulo");
         comboBoxTipos.getStyleClass().add("combo");
         comboBoxSubTipos.getStyleClass().add("combo");
-        
+
         listaActividadesCarrito.setOpacity(0.9);
-        listaActividadesElegir.setOpacity(0.9); 
+        listaActividadesElegir.setOpacity(0.9);
     }
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
+        expDAO = new experienciasDAO(gestion);
+        expActDAO = new experienciasActividadesDAO(gestion);
         actualizarTipos();
     }
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-        if (experiencia == null) {
-            experiencia.setIdUsuario(usuario.getId());
-            System.out.println(experiencia);
-        }
+        experiencia = new Experiencia();
+        experiencia.setIdUsuario(usuario.getId());
     }
 
     public void setExperiencia(Experiencia experiencia) {
@@ -263,7 +265,6 @@ public class CrearExperienciaController implements Initializable {
 //        COMPROBAR PRECIO
             try {
                 precioActividad = actividad.getPrecio();
-                System.out.println(actividad.getPrecio());
                 actividadValida = true;
             } catch (Exception e) {
                 actividadValida = false;
@@ -275,6 +276,7 @@ public class CrearExperienciaController implements Initializable {
             try {
                 numPlazas = Integer.parseInt(textNumPlazas.getText());
             } catch (Exception e) {
+                actividadValida = false;
                 throw new Exception();
             }
         } catch (Exception e) {
@@ -291,6 +293,7 @@ public class CrearExperienciaController implements Initializable {
                     precioActividad,
                     numPlazas);
             listaActividadesCarrito.getItems().add(nueva);
+            experiencia.getListaActividades().add(nueva);
             calcularPrecio();
         }
         actualizarOrden();
@@ -310,18 +313,17 @@ public class CrearExperienciaController implements Initializable {
     @FXML
     private void EliminarActividad(ActionEvent event) {
         listaActividadesCarrito.getItems().removeAll(listaActividadesCarrito.getSelectionModel().getSelectedItems());
+        experiencia.getListaActividades().removeAll(listaActividadesCarrito.getSelectionModel().getSelectedItems());
         actualizarOrden();
         calcularPrecio();
     }
 
     private void cargarActividadesExperiencia() {
-        if (!experiencia.getListaActividades().isEmpty()) {
-            for (ActividadExperiencia act : experiencia.getListaActividades()) {
-                listaActividadesCarrito.getItems().add(act);
-                
-            }
-            calcularPrecio();
+        listaActividadesCarrito.getItems().clear();
+        for (ActividadExperiencia act : experiencia.getListaActividades()) {
+            listaActividadesCarrito.getItems().add(act);
         }
+        calcularPrecio();
     }
 
     private void cargarTodasActividades() {
@@ -363,7 +365,6 @@ public class CrearExperienciaController implements Initializable {
     private void ActualizarDatosActividad(MouseEvent event) {
         ActividadExperiencia actExp = listaActividadesCarrito.getSelectionModel().getSelectedItem();
         textNumPlazas.setText(String.valueOf(actExp.getNumPlazas()));
-        textDescripcion.setText(actExp.getActividad().getDescripcion());
 //        ACTUALIZAR FECHA INICIO
         datePickerFechaInicio.setValue(actExp.getFechaInicio().toLocalDate());
         timePickerHoraInicio.setValue(actExp.getFechaInicio().toLocalTime());
@@ -420,18 +421,33 @@ public class CrearExperienciaController implements Initializable {
 
     @FXML
     private void AñadirExperiencia(ActionEvent event) {
+        experiencia.setIdUsuario(usuario.getId());
         experiencia.setFechaTopeValidez(LocalDate.now().plusYears(1));
-        experienciasDAO expDAO = new experienciasDAO(gestion);
-        experienciasActividadesDAO actExpDAO = new experienciasActividadesDAO(gestion);
+        experiencia.setNombre(textNombreExperiencia.getText());
+        experiencia.setDescripcion(textDescripcion.getText());
         try {
+            experiencia.setId(expDAO.idExperienciaSiguiente());
             expDAO.insertarExperiencia(experiencia);
             for (ActividadExperiencia actExp : experiencia.getListaActividades()) {
-                actExpDAO.insertarActividadExperiencia(actExp);
+                try {
+                    actExp.setIdExperiencia(experiencia.getId());
+                    expActDAO.insertarActividadExperiencia(actExp);
+                } catch (Exception e) {
+//            ERROR CONSIGUIENDO EL SIGUIENTE ID
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
             not.error("Error", "No ha podido insertarse la experiencia en la BD");
         }
 
+    }
+
+    private void limpiar() {
+        datePickerFechaFinal.setValue(null);
+        datePickerFechaInicio.setValue(null);
+        timePickerHoraFinal.setValue(null);
+        timePickerHoraInicio.setValue(null);
+        etiquetaNumPlazas.setText("");
     }
 }
