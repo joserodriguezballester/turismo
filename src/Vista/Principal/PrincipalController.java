@@ -6,7 +6,6 @@ import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
 import Vista.Buscador.BuscadorController;
-import Vista.CrearExperiencia.CrearExperienciaController;
 
 import Vista.Perfil.PerfilController;
 
@@ -100,13 +99,10 @@ public class PrincipalController implements Initializable {
     private void irInicio(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-
         PrincipalController controlador;
-
         loader.setLocation(getClass().getResource("/Vista/Principal/Principal.fxml"));
         try {
             Parent root = loader.load();
-
             controlador = loader.getController();
             controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
@@ -258,7 +254,8 @@ public class PrincipalController implements Initializable {
             botonPerfil.setText(usuario.getNick().toUpperCase());
 //            System.out.println("Imagenes/usuarios/" + usuario.getFoto()+".jpg");
             try {
-                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()+".jpg"));
+    
+                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
             } catch (Exception e) {
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }

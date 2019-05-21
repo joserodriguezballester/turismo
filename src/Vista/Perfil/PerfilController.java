@@ -5,6 +5,7 @@ import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXDatePicker;
+import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -22,6 +23,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -66,12 +69,13 @@ public class PerfilController implements Initializable {
     private usuariosDAO usuarioDAO;
     @FXML
     private Label labelUser;
+    @FXML
+    private ImageView caraIV;
     
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        not = new Notificacion();
-       
+        not = new Notificacion();      
         Image img = new Image("Imagenes/fondoPerfil.jpg");
         ImageView imagev = new ImageView(img);
         Ventana.getChildren().add(imagev);
@@ -80,11 +84,7 @@ public class PerfilController implements Initializable {
         Ventana.toBack();
         alFrenteAP.getStyleClass().add("panePerfil");
         alFrenteAP.toFront();
-        
-        
-
-       
-        // TODO
+        caraIV.setOnMouseClicked(event -> cargarfoto());
     }
 
     public void setUsuario(Usuario usuario) {
@@ -102,6 +102,7 @@ public class PerfilController implements Initializable {
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
         fecNacTF.setValue(usuario.getFecNac());
+        caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
         
 //        fecNacTF.setText(usuario.getFecNac().toString());
 
@@ -120,11 +121,16 @@ public class PerfilController implements Initializable {
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
         int id = usuario.getId();
+     
 
         try {
-            usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos,  nick, direccion, telefono, email, id, fecNac);
+            boolean modificado =usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos,  nick, direccion, telefono, email, id, fecNac);
             // si ha modificado algo
-          
+            if (modificado) {
+               not.info("Modificar", "Ha sido modificado con exito");
+              
+            }
+ 
             //asi hemos recargado la lista
         } catch (SQLException ex) {
             not.error("ERROR SQL", "" + ex.getMessage()
@@ -142,5 +148,22 @@ public class PerfilController implements Initializable {
     public void setGestion(GestionBD gestion) {
         this.gestion=gestion;
     }
-
+ private void cargarfoto() {
+        Stage stage = (Stage) this.caraIV.getParent().getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        // Agregar filtros para facilitar la busqueda
+        fileChooser.getExtensionFilters().addAll(
+                // new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+        File fotoFile = fileChooser.showOpenDialog(stage);
+        if (fotoFile != null) {
+            Image image = new Image(fotoFile.toURI().toString());
+           caraIV.setImage(image);
+            
+        }  
+         modificarBT.setDisable(false);
+    }
+ 
 }

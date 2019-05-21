@@ -159,7 +159,6 @@ public class BuscadorController implements Initializable {
     @FXML
     private void buscar(ActionEvent event) {
         cargarActividades();
-
     }
 
     private List<Actividad> buscarActividades(List<Actividad> lista) {

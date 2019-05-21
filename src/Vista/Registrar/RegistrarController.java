@@ -18,6 +18,9 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -147,8 +150,10 @@ public class RegistrarController implements Initializable {
     }
 
     @FXML
-    private void registrar(ActionEvent event) throws SQLException {
+    private void registrar(ActionEvent event)  {
         boolean registrado = false;
+        Path to;
+        Path from;
         String nick = nickTF.getText();
         String contrasena = contraPF.getText();
 //        String contraCopia = repContraPF.getText();
@@ -162,8 +167,9 @@ public class RegistrarController implements Initializable {
         if (fotoFile == null) {
             foto = "avatar.png";
         } else {
-
-            foto =nick;
+        String nombreString = fotoFile.getName();      
+        String[] extensionStrings = nombreString.split("\\.");   
+        foto =nick+"."+(extensionStrings[extensionStrings.length-1]);
         }
 //       avatarIV.getImage().getUrl();
 
@@ -172,44 +178,58 @@ public class RegistrarController implements Initializable {
         //crear usuario//
         if (!noInsertar) {
             Usuario usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
+          
             try {
                 //insertar usuario en BD//
 
                 registrado = usuarioDAO.insertarUsuario(usuario);
+            } catch (SQLException ex) {
+                not.alert("Error","Hay un error de SQL");
+                
+            }
                 if (registrado) {
-
-                usuarioDAO.insertarUsuario(usuario);
+        if (fotoFile != null) {
+        from = Paths.get(fotoFile.toURI());
+        to = Paths.get("src/imagenes/usuarios/" +foto);
+            try {
+                //        Files.copy(from.toFile(), to.toFile());
+                Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
+//    
                 
 //                String titulo = "Bienvenido " + usuario.getNick();
 //                String mensaje = "Disfruta de tu viaje a Amsterdam";
 //                not.ventanaInfo(titulo, mensaje);
 //            }
 //            }catch (SQLException ex) {
-//              not.alert("Error","Hay un error de SQL");
+//             
 //            }
+            } catch (IOException ex) {
+                not.alert("Error","Hay un error de fichero");
+            }
 
 
                     //////// cerrar ventana ////
                     Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();   //Identificamos la ventana (Stage) 
                     stage.close();
                     //////// fin cerrar ventana //// 
-                     FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
+                    
+//                    FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
                     //informar esta registrado//
                     not.alert("Registrarse", "Ya te has registrado");
                 } else {
                     not.confirm("Registrarse", "No te has registrado");
                 }
 
-            } catch (SQLException ex) {
-                if (ex.getErrorCode() == 1062) {
-                    not.alert("Registrase", "Usuario Repetido");
-                    usuL.setStyle(aviso);
-                } else {
-                    not.alert("SQL", "Error en la BD");
-                }
-            } catch (IOException ex) {
-               not.alert("Imagen","Tu imagen no ha podido ser guardada");
-            }
+//            } catch (SQLException ex) {
+//                if (ex.getErrorCode() == 1062) {
+//                    not.alert("Registrase", "Usuario Repetido");
+//                    usuL.setStyle(aviso);
+//                } else {
+//                    not.alert("SQL", "Error en la BD");
+//                }
+//            } catch (IOException ex) {
+//               not.alert("Imagen","Tu imagen no ha podido ser guardada");
+           }
         }
     }
 
@@ -238,12 +258,7 @@ public class RegistrarController implements Initializable {
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
-           
-               
-            
-           
-        }
-        
+        }       
     }
 
     private boolean camposVacios() {   //   devuelve false si no hay ningun campo "necesario" nulo 
