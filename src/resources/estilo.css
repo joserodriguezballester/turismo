@@ -107,6 +107,7 @@ and open the template in the editor.
     -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-background-color:#ffffff;
+    -fx-cursor:hand;
 }
 
 /*ESTILOS_VISTA.ACTIVIDADES---------------------------------------------------*/
@@ -145,6 +146,7 @@ and open the template in the editor.
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-background-color:#ffffff;
+    -fx-cursor:hand;
 }
 
 .botonCerrarInformacion{
@@ -199,6 +201,7 @@ and open the template in the editor.
 
 .paneexperiencia{
     -fx-background-color: rgba(226, 207, 181, 0.9);
+     -fx-background-radius: 8;
 }
 
 .paneExperienciaTitulo{
@@ -225,7 +228,11 @@ and open the template in the editor.
 
     -fx-background: rgba(255, 255, 255, 0.6);
     -fx-background-color:transparent;
-    -fx-background-radius: 15;
+    -fx-background-radius: 20;
+}
+
+.scroll-bar:vertical{
+    -fx-background-color: transparent;
 }
 
 .buscador{
@@ -235,10 +242,15 @@ and open the template in the editor.
 .tituloBusc{
     -fx-font-weight: bold;
     -fx-text-fill: BLACK;
+    -fx-font-size: 16px;
 }
 
 .descripcionBusc{
-    -fx-background-color: rgba(255, 244, 229,1);
+    text-area-background:rgb(226, 207, 181);
+}
+
+.descripcionBusc .content{
+    -fx-background-color: text-area-background;
 }
 
 /*ESTILOS_VISTA.INFORMACION---------------------------------------------------*/

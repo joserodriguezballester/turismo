@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -80,10 +81,8 @@ public class BuscadorController implements Initializable {
 
         scrollPaneActividadesBuscador.getStyleClass().add("paneBuscador");
         entradaBusqueda.getStyleClass().add("buscador");
-        
+
 //        scrollPaneActividadesBuscador.setOpacity(0.4);
-        
-        
     }
 
     private void cargarActividades() {
@@ -139,6 +138,7 @@ public class BuscadorController implements Initializable {
                 descripcion.setEditable(false);
                 descripcion.setWrapText(true);
                 descripcion.setText(act.getDescripcion());
+//                descripcion.setStyle("-fx-background-color: rgb(255, 244, 229)");
                 descripcion.getStyleClass().add("descripcionBusc");
 
                 if (!entradaBusqueda.getText().isEmpty()) {

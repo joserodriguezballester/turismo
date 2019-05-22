@@ -39,7 +39,7 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author joser
+ * @author Grupo4
  */
 public class PrincipalController implements Initializable {
 
@@ -73,28 +73,80 @@ public class PrincipalController implements Initializable {
     private JFXButton botnSalir;
     @FXML
     private ImageView caraIV;
-     @FXML
+    @FXML
     private ImageView imgLupa;
 
-    
-   
+    //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
 
-        efectos();
-
-        panePerfil.setVisible(false);
-
-//        gestion = new GestionBD();
-//        gestion.conectar();
+        styleInicio();
+        //gestion = new GestionBD();
+        //gestion.conectar();
         efectoTransicion();
-
-        
-        GridPane.setHalignment(caraIV, HPos.RIGHT);
-        panePerfil.toFront();
     }
 
+    public void setGestion(GestionBD gestion) {
+        this.gestion = gestion;
+    }
+
+    public void setParametroUsuario(Usuario usuario) {
+        this.usuario = usuario;
+        cargaNickFoto();      //seria mejor llamarlo desde el otro controlador pero...  
+    }
+
+    public void cargaNickFoto() {
+        if (usuario != null) {
+            botonPerfil.setText(usuario.getNick().toUpperCase());
+            //System.out.println("Imagenes/usuarios/" + usuario.getFoto()+".jpg");
+            try {
+                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+            } catch (Exception e) {
+                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+            }
+        }
+    }
+    
+    private void styleInicio() {
+
+        //Transicion
+        FadeTransition ft = new FadeTransition(Duration.millis(1500), gridpane);
+        ft.setFromValue(0);
+        ft.setToValue(1);
+        ft.play();
+
+        //Panes
+        panePerfil.setVisible(false);
+        GridPane.setHalignment(caraIV, HPos.RIGHT);
+        panePerfil.toFront();
+
+        //Estilos
+        gridpane.getStyleClass().add("menu");
+        botonLogo.getStyleClass().add("botonMenu");
+        botonActividades.getStyleClass().add("botonMenu");
+        botonExperiencias.getStyleClass().add("botonMenu");
+        botonPerfil.getStyleClass().add("botonMenu");
+        botonBuscar.getStyleClass().add("botonMenu");
+        botonTransportes.getStyleClass().add("botonMenu");
+        botnPerfil.getStyleClass().add("botonMenu");
+        botnSalir.getStyleClass().add("botonMenu");
+    }
+
+    private void efectoTransicion() {
+        try {
+            Transicion tr = new Transicion();
+            tr.setRoot(Ventana);
+            Ventana.toBack();
+            tr.start();
+        } catch (Exception e) {
+            System.out.println("ha petao");
+            not.error("ERROR Exception",
+                    "en initialize --- PrincipalController");
+        }
+    }
+
+    //ACCIONES------------------------------------------------------------------
     @FXML
     private void irInicio(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
@@ -169,13 +221,16 @@ public class PrincipalController implements Initializable {
         }
     }
 
+    
+
     @FXML
     private void IrPerfil(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-        String nombrefichero = "/Vista/Perfil/Perfil.fxml";
+
         PerfilController perfilController;
-        loader.setLocation(getClass().getResource(nombrefichero));
+
+        loader.setLocation(getClass().getResource("/Vista/Perfil/Perfil.fxml"));
         try {
             Parent root = loader.load();
             perfilController = loader.getController();
@@ -190,6 +245,7 @@ public class PrincipalController implements Initializable {
             not.error("ERROR IOException",
                     "en irPerfil --- PrincipalController");
         } catch (Exception es) {
+            es.printStackTrace();
             not.error("ERROR AL CARGAR VENTANA PERFIL",
                     "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
         }
@@ -218,10 +274,6 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    public void setGestion(GestionBD gestion) {
-        this.gestion = gestion;
-    }
-
     @FXML
     private void irTransporte(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
@@ -230,7 +282,7 @@ public class PrincipalController implements Initializable {
         loader.setLocation(getClass().getResource(nombrefichero));
         try {
             Parent root = loader.load();    //para obtener el controlador ; se ejecuta inicialice
-//           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+            //anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
 
@@ -241,25 +293,7 @@ public class PrincipalController implements Initializable {
             not.error("ERROR AL CARGAR VENTANA TRANSPORTE",
                     "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");
         }
-//        ActividadController actividadController=loader.getController(); por si hace falta
-
-    }
-
-    public void setParametroUsuario(Usuario usuario) {
-        this.usuario = usuario;
-        cargaNickFoto();      //seria mejor llamarlo desde el otro controlador pero...  
-    }
-    public void cargaNickFoto(){
-        if (usuario != null) {
-            botonPerfil.setText(usuario.getNick().toUpperCase());
-//            System.out.println("Imagenes/usuarios/" + usuario.getFoto()+".jpg");
-            try {
-    
-                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
-            } catch (Exception e) {
-                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
-            }
-    }
+        //ActividadController actividadController=loader.getController(); por si hace falta
     }
 
     @FXML
@@ -279,6 +313,7 @@ public class PrincipalController implements Initializable {
             stage.setScene(scene);
             stage.setResizable(false);
             stage.show();
+
         } catch (SQLException ex) {
             Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -287,6 +322,7 @@ public class PrincipalController implements Initializable {
 
     }
 
+    //CODIGOS AL PASAR EL RATON POR ENCIMA--------------------------------------
     @FXML
     private void ocultarPanePerfil(MouseEvent event) {
         panePerfil.setVisible(false);
@@ -309,40 +345,10 @@ public class PrincipalController implements Initializable {
 
     }
 
-    private void efectos() {
-        FadeTransition ft = new FadeTransition(Duration.millis(1500), gridpane);
-        ft.setFromValue(0);
-        ft.setToValue(1);
-        ft.play();
-        gridpane.getStyleClass().add("menu");
-        botonLogo.getStyleClass().add("botonMenu");
-        botonActividades.getStyleClass().add("botonMenu");
-        botonExperiencias.getStyleClass().add("botonMenu");
-        botonPerfil.getStyleClass().add("botonMenu");
-        botonBuscar.getStyleClass().add("botonMenu");
-        botonTransportes.getStyleClass().add("botonMenu");
-        botnPerfil.getStyleClass().add("botonMenu");
-        botnSalir.getStyleClass().add("botonMenu");
-    }
-
-    private void efectoTransicion() {
-        try {
-            Transicion tr = new Transicion();
-            tr.setRoot(Ventana);
-            Ventana.toBack();
-            tr.start();
-        } catch (Exception e) {
-            System.out.println("ha petao");
-            not.error("ERROR Exception",
-                    "en initialize --- PrincipalController");
-        }
-    }
-
     @FXML
     private void lupaNormal(MouseEvent event) {
         Image imagen = new Image("Imagenes/iconos/loupe1.png");
         imgLupa.setImage(imagen);
-
     }
 
     @FXML
@@ -351,4 +357,5 @@ public class PrincipalController implements Initializable {
         imgLupa.setImage(imagen);
         panePerfil.setVisible(false);
     }
+
 }

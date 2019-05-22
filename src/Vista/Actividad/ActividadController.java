@@ -39,10 +39,18 @@ import javafx.util.Duration;
 /**
  * FXML Controller class
  *
- * @author joser
+ * @author Grupo4
  */
 public class ActividadController implements Initializable {
 
+    private GestionBD gestion;
+    private ObservableList<Button> botones = FXCollections.observableArrayList();
+    private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
+    private actividadesDAO gestionBDActividad;
+    private subtiposDAO gestionSubtipos;
+    private TranslateTransition translate;
+    private Notificacion not;
+    
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -55,22 +63,10 @@ public class ActividadController implements Initializable {
     private JFXListView<Actividad> listaElementos = new JFXListView<Actividad>();
     @FXML
     private JFXButton botonCerrarInformacion;
-
-    private GestionBD gestion;
-    private ObservableList<Button> botones = FXCollections.observableArrayList();
-    private ObservableList<Actividad> listaDatosActividades = FXCollections.observableArrayList();
-    private actividadesDAO gestionBDActividad;
-    private subtiposDAO gestionSubtipos;
-    private TranslateTransition translate;
     @FXML
     private Label etiquetaPrecio;
     @FXML
     private JFXComboBox<Subtipo> selectorSubtipos;
-
-    public void setGestion(GestionBD gestion) {
-        this.gestion = gestion;
-        inicio();
-    }
     @FXML
     private Label etiquetaSubtipoTitulo;
     @FXML
@@ -91,41 +87,24 @@ public class ActividadController implements Initializable {
     private JFXTextField informacionPrecio;
     @FXML
     private Pane paneWebView;
-    private Notificacion not;
+    
+    
+    public void setGestion(GestionBD gestion) {
+        this.gestion = gestion;
+        inicio();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        Image img = new Image("Imagenes/fondoActividad.jpg");
-        ImageView imagev = new ImageView(img);
-
-        imagev.setFitHeight(730);
-        imagev.setFitWidth(1300);
-
-        this.Ventana.getChildren().add(imagev);
-
-        listaElementos.setVisible(false);
-
         not = new Notificacion();
-        Ventana.setVisible(true);
-        botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
-        paneInformacion.setVisible(false);
-        paneInformacion.getStyleClass().add("paneInformacionActividades");
-
-        scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-
-        scrollTipoActividades.getStyleClass().add("scrollPaneActividades");
-        paneListaBotones.getStyleClass().add("scrollPaneActividades");
-
-        listaElementos.getStyleClass().add("listaActividades");
-        listaElementos.toFront();
-        scrollTipoActividades.toFront();
-        paneInformacion.toFront();
-//        PrincipalController.panePerfilMenu.toFront();
+        
+        styleInicio();
     }
+    
 
     private void inicio() {
+        
         gestionBDActividad = new actividadesDAO(gestion);
         gestionSubtipos = new subtiposDAO(gestion);
         selectorSubtipos.toFront();
@@ -162,6 +141,39 @@ public class ActividadController implements Initializable {
             not.error("ERROR EXCEPTION", "" + es.getMessage()
                     + " Error al crear las actividades");
         }
+
+    }
+    
+    private void styleInicio() {
+
+        //Imagen fondo
+        Image img = new Image("Imagenes/fondoActividad.jpg");
+        ImageView imagev = new ImageView(img);
+
+        imagev.setFitHeight(730);
+        imagev.setFitWidth(1300);
+
+        this.Ventana.getChildren().add(imagev);
+
+        //Panes
+        listaElementos.setVisible(false);
+        Ventana.setVisible(true);
+        paneInformacion.setVisible(false);
+        
+        scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+        
+        listaElementos.toFront();
+        scrollTipoActividades.toFront();
+        paneInformacion.toFront();
+
+        //Estilos
+        botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
+        paneInformacion.getStyleClass().add("paneInformacionActividades");
+        scrollTipoActividades.getStyleClass().add("scrollPaneActividades");
+        paneListaBotones.getStyleClass().add("scrollPaneActividades");
+        listaElementos.getStyleClass().add("listaActividades");
+        selectorSubtipos.getStyleClass().add("combo");
 
     }
 

@@ -57,9 +57,10 @@ public class RegistrarController implements Initializable {
 
     private usuariosDAO usuarioDAO;
     private Notificacion not;
-    private String foto = "avatar.png";
+    public String foto = "avatar.png";
     private String aviso = " -fx-text-fill:grey";
     File fotoFile;
+     
 
     @FXML
     private AnchorPane Ventana;
@@ -133,10 +134,7 @@ public class RegistrarController implements Initializable {
 
     }
 
-    public void setParametros(usuariosDAO usuarioDAO) {
-        this.usuarioDAO = usuarioDAO;
-    }
-
+  
     private void styleInicio() {
 
         //Imagen fondo
@@ -162,6 +160,7 @@ public class RegistrarController implements Initializable {
         avatarIV.setOnMouseClicked(event -> cargarfoto());
         nickTF.setOnMouseClicked(event -> usuL.setStyle(aviso));
         contraPF.setOnMouseClicked(event -> ContraL.setStyle(aviso));
+        repContraPF.setOnMouseClicked(event -> repContraL.setStyle(aviso)); 
         nombreTF.setOnMouseClicked(event -> nombreL.setStyle(aviso));
         apellidosTF.setOnMouseClicked(event -> apelliL.setStyle(aviso));
         telefonoTF.setOnMouseClicked(event -> telefL.setStyle(aviso));
@@ -184,6 +183,10 @@ public class RegistrarController implements Initializable {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
         }
+    }
+    
+    public void setParametros(usuariosDAO usuarioDAO) {
+        this.usuarioDAO = usuarioDAO;
     }
 
     //ACCIONES------------------------------------------------------------------
@@ -213,7 +216,7 @@ public class RegistrarController implements Initializable {
             String[] extensionStrings = nombreString.split("\\.");
             foto = nick + "." + (extensionStrings[extensionStrings.length - 1]);
         }
-//       avatarIV.getImage().getUrl();
+        //avatarIV.getImage().getUrl();
 
         //Control de entradas nulas//
         boolean noInsertar = camposVacios();
@@ -345,6 +348,7 @@ public class RegistrarController implements Initializable {
         //  vacio = true;
         //  DirecL.setStyle(aviso);
         //}
-
     }
+    
+    
 }

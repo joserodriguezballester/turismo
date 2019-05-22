@@ -71,11 +71,10 @@ public class PerfilController implements Initializable {
     private Label labelUser;
     @FXML
     private ImageView caraIV;
-    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        not = new Notificacion();      
+        not = new Notificacion();
         Image img = new Image("Imagenes/fondoPerfil.jpg");
         ImageView imagev = new ImageView(img);
         Ventana.getChildren().add(imagev);
@@ -102,8 +101,11 @@ public class PerfilController implements Initializable {
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
         fecNacTF.setValue(usuario.getFecNac());
-        caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
-        
+        try {
+                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+            } catch (Exception e) {
+                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+            }
 //        fecNacTF.setText(usuario.getFecNac().toString());
 
 //        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
@@ -121,16 +123,15 @@ public class PerfilController implements Initializable {
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
         int id = usuario.getId();
-     
 
         try {
-            boolean modificado =usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos,  nick, direccion, telefono, email, id, fecNac);
+            boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, id, fecNac);
             // si ha modificado algo
             if (modificado) {
-               not.info("Modificar", "Ha sido modificado con exito");
-              
+                not.info("Modificar", "Ha sido modificado con exito");
+
             }
- 
+
             //asi hemos recargado la lista
         } catch (SQLException ex) {
             not.error("ERROR SQL", "" + ex.getMessage()
@@ -146,9 +147,10 @@ public class PerfilController implements Initializable {
     }
 
     public void setGestion(GestionBD gestion) {
-        this.gestion=gestion;
+        this.gestion = gestion;
     }
- private void cargarfoto() {
+
+    private void cargarfoto() {
         Stage stage = (Stage) this.caraIV.getParent().getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
         // Agregar filtros para facilitar la busqueda
@@ -160,10 +162,10 @@ public class PerfilController implements Initializable {
         File fotoFile = fileChooser.showOpenDialog(stage);
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
-           caraIV.setImage(image);
-            
-        }  
-         modificarBT.setDisable(false);
+            caraIV.setImage(image);
+
+        }
+        modificarBT.setDisable(false);
     }
- 
+
 }

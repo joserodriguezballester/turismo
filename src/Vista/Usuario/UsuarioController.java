@@ -49,6 +49,12 @@ import org.controlsfx.dialog.LoginDialog;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 
+/**
+ * FXML Controller class
+ *
+ * @author Grupo4
+ */
+
 public class UsuarioController implements Initializable {
 
     private Label label;
