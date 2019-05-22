@@ -11,99 +11,106 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="Ventana" prefHeight="730.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Perfil.PerfilController">
    <children>
-      <AnchorPane fx:id="alFrenteAP" layoutX="242.0" layoutY="44.0" prefHeight="601.0" prefWidth="600.0" AnchorPane.leftAnchor="350.0" AnchorPane.topAnchor="44.0">
+      <Pane fx:id="alFrenteAP" layoutX="116.0" layoutY="40.0" prefHeight="254.0" prefWidth="203.0">
          <children>
-            <GridPane layoutX="56.0" layoutY="89.0" prefHeight="407.0" prefWidth="500.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="56.0" AnchorPane.rightAnchor="44.0">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="160.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="189.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="222.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="28.33331298828125" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
-                  <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Nombre" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
-                  <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Apellidos" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
-                  <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Direccion" GridPane.rowIndex="9">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
-                  <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Telefono" GridPane.rowIndex="8">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
-                  <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="DNI.-" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
-                  <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="email" GridPane.rowIndex="10">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
-                  <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Usuario" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="System Bold" size="16.0" />
-                     </font></Label>
-                  <JFXTextField fx:id="nickTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                 
-                  <JFXTextField fx:id="nombreTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                  <JFXTextField fx:id="apellidosTF" onMouseClicked="#mostrarBoton" prefHeight="32.0" prefWidth="388.0" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="4" />
-                  <JFXTextField fx:id="dniTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                  <JFXTextField fx:id="telefonoTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                  <JFXTextField fx:id="direccionTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="9" />
-                  <JFXTextField fx:id="emailTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.rowIndex="10" />
-                  <Label prefHeight="42.0" prefWidth="145.0" text="Repetir Contraseña" visible="false" />
-                  <PasswordField fx:id="repContraPF" prefHeight="31.0" prefWidth="213.0" visible="false" GridPane.columnIndex="1" />
-                  <Label prefHeight="33.0" prefWidth="131.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Fecha Nacimiento" GridPane.rowIndex="6">
-                     <font>
-                        <Font name="System Bold" size="15.0" />
-                     </font></Label>
-                  <RadioButton fx:id="clienteRB" mnemonicParsing="false" prefHeight="27.0" prefWidth="129.0" selected="true" text="Cliente" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="12">
-                     <toggleGroup>
-                        <ToggleGroup fx:id="rolUsuRB" />
-                     </toggleGroup>
-                  </RadioButton>
-                  <RadioButton fx:id="AdminRB" mnemonicParsing="false" prefHeight="27.0" prefWidth="129.0" text="Administrador" toggleGroup="$rolUsuRB" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="12" />
-                  <JFXDatePicker fx:id="fecNacTF" onMouseClicked="#mostrarBoton" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-               </children>
-            </GridPane>
-            <Button fx:id="modificarBT" disable="true" layoutX="230.0" layoutY="519.0" mnemonicParsing="false" onAction="#modificar" prefHeight="68.0" prefWidth="100.0" text="Modificar" AnchorPane.leftAnchor="240.0" AnchorPane.rightAnchor="240.0" />
-            <Label layoutX="48.0" layoutY="39.0" prefHeight="57.0" prefWidth="185.0" text="Bienvenido">
-               <font>
-                  <Font name="Agency FB Bold" size="35.0" />
-               </font>
-            </Label>
-            <Label fx:id="labelUser" layoutX="230.0" layoutY="43.0" prefHeight="49.0" prefWidth="278.0">
-               <font>
-                  <Font name="Agency FB Bold" size="35.0" />
-               </font>
-            </Label>
-            <ImageView fx:id="caraIV" fitHeight="150.0" fitWidth="200.0" layoutX="477.0" layoutY="39.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="caraIV" fitHeight="240.0" fitWidth="192.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
          </children>
-      </AnchorPane>
+      </Pane>
+      <Button fx:id="modificarBT" disable="true" layoutX="135.0" layoutY="314.0" mnemonicParsing="false" onAction="#modificar" prefHeight="51.0" prefWidth="165.0" text="Modificar" AnchorPane.leftAnchor="135.0" AnchorPane.rightAnchor="1000.0" />
+      <GridPane layoutX="388.0" layoutY="288.0" prefHeight="407.0" prefWidth="525.0" AnchorPane.bottomAnchor="35.0" AnchorPane.leftAnchor="388.0" AnchorPane.rightAnchor="387.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="208.0" minWidth="10.0" prefWidth="160.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="316.0" minWidth="10.0" prefWidth="189.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="28.33331298828125" minHeight="10.0" prefHeight="23.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Nombre" GridPane.rowIndex="3">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Apellidos" GridPane.rowIndex="4">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Direccion" GridPane.rowIndex="9">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Telefono" GridPane.rowIndex="8">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="DNI.-" GridPane.rowIndex="5">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="email" GridPane.rowIndex="10">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Usuario" GridPane.rowIndex="1">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <JFXTextField fx:id="nickTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+           
+                              <JFXTextField fx:id="nombreTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <JFXTextField fx:id="apellidosTF" onMouseClicked="#mostrarBoton" prefHeight="32.0" prefWidth="388.0" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXTextField fx:id="dniTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <JFXTextField fx:id="telefonoTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <JFXTextField fx:id="direccionTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <JFXTextField fx:id="emailTF" onMouseClicked="#mostrarBoton" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Label prefHeight="42.0" prefWidth="145.0" text="Repetir Contraseña" visible="false" />
+            <PasswordField fx:id="repContraPF" prefHeight="31.0" prefWidth="213.0" visible="false" GridPane.columnIndex="1" />
+            <Label prefHeight="33.0" prefWidth="131.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Fecha Nacimiento" GridPane.rowIndex="6">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Label>
+            <RadioButton fx:id="clienteRB" mnemonicParsing="false" prefHeight="27.0" prefWidth="129.0" selected="true" text="Cliente" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="12">
+               <toggleGroup>
+                  <ToggleGroup fx:id="rolUsuRB" />
+               </toggleGroup>
+            </RadioButton>
+            <JFXDatePicker fx:id="fecNacTF" onMouseClicked="#mostrarBoton" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+         </children>
+      </GridPane>
+      <Label layoutX="388.0" layoutY="231.0" prefHeight="57.0" prefWidth="185.0" text="Bienvenido">
+         <font>
+            <Font name="Agency FB Bold" size="35.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelUser" layoutX="590.0" layoutY="234.0" prefHeight="49.0" prefWidth="278.0">
+         <font>
+            <Font name="Agency FB Bold" size="35.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

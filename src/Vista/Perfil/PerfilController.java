@@ -23,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -42,8 +43,6 @@ public class PerfilController implements Initializable {
     @FXML
     private ToggleGroup rolUsuRB;
     @FXML
-    private RadioButton AdminRB;
-    @FXML
     private TextField nickTF;
     @FXML
     private TextField nombreTF;
@@ -62,8 +61,7 @@ public class PerfilController implements Initializable {
     private Usuario usuario;
     @FXML
     private Button modificarBT;
-    @FXML
-    private AnchorPane alFrenteAP;
+
     private Notificacion not;
     private GestionBD gestion;
     private usuariosDAO usuarioDAO;
@@ -71,6 +69,8 @@ public class PerfilController implements Initializable {
     private Label labelUser;
     @FXML
     private ImageView caraIV;
+    @FXML
+    private Pane alFrenteAP;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -78,10 +78,10 @@ public class PerfilController implements Initializable {
         Image img = new Image("Imagenes/fondoPerfil.jpg");
         ImageView imagev = new ImageView(img);
         Ventana.getChildren().add(imagev);
-        imagev.setFitHeight(730);
+        imagev.setFitHeight(230);
         imagev.setFitWidth(1300);
         Ventana.toBack();
-        alFrenteAP.getStyleClass().add("panePerfil");
+        alFrenteAP.getStyleClass().add("panePerfilPersonal");
         alFrenteAP.toFront();
         caraIV.setOnMouseClicked(event -> cargarfoto());
     }

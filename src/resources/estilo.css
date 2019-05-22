@@ -274,9 +274,14 @@ and open the template in the editor.
     -fx-background-radius: 5;
 }
 
-/*----------------------------------------------------------------------------*/
+/*ESTILOS_VISTA.PERFIL--------------------------------------------------------*/
 
-
+.panePerfilPersonal{
+    -fx-background-color: rgb(217, 219, 221);
+    -fx-background-radius: 10;
+    -fx-border-color: rgb(161, 131, 89);
+    -fx-border-width: 5 ; 
+}
 
 
 
