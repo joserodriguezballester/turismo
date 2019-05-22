@@ -16,6 +16,6 @@
             <Pane fx:id="paneActividadesBuscador" />
          </content>
       </ScrollPane>
-      <JFXTextField fx:id="entradaBusqueda" layoutX="450.0" layoutY="25.0" onAction="#buscar" prefWidth="400.0" promptText="Buscar..." />
+      <JFXTextField fx:id="entradaBusqueda" layoutX="450.0" layoutY="25.0" onKeyTyped="#buscar" prefWidth="400.0" promptText="Buscar..." />
    </children>
 </AnchorPane>

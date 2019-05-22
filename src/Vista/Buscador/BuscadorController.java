@@ -27,6 +27,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
@@ -156,11 +157,6 @@ public class BuscadorController implements Initializable {
         }
     }
 
-    @FXML
-    private void buscar(ActionEvent event) {
-        cargarActividades();
-    }
-
     private List<Actividad> buscarActividades(List<Actividad> lista) {
         List<Actividad> encontrados = new ArrayList<>();
         String descripcion;
@@ -179,5 +175,10 @@ public class BuscadorController implements Initializable {
             }
         }
         return encontrados;
+    }
+
+    @FXML
+    private void buscar(KeyEvent event) {
+        cargarActividades();
     }
 }

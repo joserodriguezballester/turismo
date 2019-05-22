@@ -21,6 +21,8 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -48,6 +50,7 @@ public class ExperienciaController implements Initializable {
     private experienciasDAO gestionBDExperiencias;
     private Usuario usuario;
     private Stage escenario;
+    private ObservableList<Experiencia> listaExperiencias = FXCollections.observableArrayList();
 
     @FXML
     private AnchorPane Ventana;
@@ -55,11 +58,6 @@ public class ExperienciaController implements Initializable {
     private JFXListView<Experiencia> listaVisualExperiencias;
     @FXML
     private JFXTextField salidaPrecio;
-
-    public void setGestion(GestionBD gestion) {
-        this.gestion = gestion;
-        inicio();
-    }
     @FXML
     private JFXButton botonCerrarInformacion;
     @FXML
@@ -79,6 +77,19 @@ public class ExperienciaController implements Initializable {
     @FXML
     private JFXButton botonModificarExperiencia;
     private Notificacion not;
+
+    public void setGestion(GestionBD gestion) {
+        this.gestion = gestion;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setListaExperiencias(ObservableList<Experiencia> listaExperienciasSeleccionadas) {
+        listaExperiencias = listaExperienciasSeleccionadas;
+        inicio();
+    }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -103,26 +114,19 @@ public class ExperienciaController implements Initializable {
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
-        
+
         textAreaDescripcion.getStyleClass().add("textoActividad");
         textFieldFechaValidez.getStyleClass().add("textoActividad");
         listaActividades.getStyleClass().add("textoActividad");
         salidaPrecio.getStyleClass().add("textoActividad");
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
-
     private void inicio() {
         gestionBDExperiencias = new experienciasDAO(gestion);
         try {
-            for (Experiencia exp : gestionBDExperiencias.consultarTodasExperiencias()) {
+            for (Experiencia exp : listaExperiencias) {
                 listaVisualExperiencias.getItems().add(exp);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
-            not.error("ERROR SQL EXCEPTION", "(initialize ExperienciaController");
         } catch (Exception es) {
             es.printStackTrace();
             not.error("ERROR EXCEPTION (initialize ExperienciaController)",
@@ -219,4 +223,5 @@ public class ExperienciaController implements Initializable {
                     "en CargarVentanaCrear(param) --- ExperienciaController");
         }
     }
+
 }

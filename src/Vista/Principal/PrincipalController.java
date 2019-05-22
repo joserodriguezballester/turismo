@@ -10,6 +10,7 @@ import Vista.Buscador.BuscadorController;
 import Vista.Perfil.PerfilController;
 
 import Vista.Experiencia.ExperienciaController;
+import Vista.ListaExperiencias.ListaExperienciasController;
 import com.jfoenix.controls.JFXButton;
 
 import java.io.IOException;
@@ -107,7 +108,7 @@ public class PrincipalController implements Initializable {
             }
         }
     }
-    
+
     private void styleInicio() {
 
         //Transicion
@@ -200,15 +201,15 @@ public class PrincipalController implements Initializable {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
 
-        ExperienciaController controlador;
+        ListaExperienciasController controlador;
 
-        loader.setLocation(getClass().getResource("/Vista/Experiencia/Experiencia.fxml"));
+        loader.setLocation(getClass().getResource("/Vista/ListaExperiencias/ListaExperiencias.fxml"));
         try {
             Parent root = loader.load();
 
             controlador = loader.getController();
-            controlador.setGestion(gestion);
             controlador.setUsuario(usuario);
+            controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -220,8 +221,6 @@ public class PrincipalController implements Initializable {
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
     }
-
-    
 
     @FXML
     private void IrPerfil(ActionEvent event) {
