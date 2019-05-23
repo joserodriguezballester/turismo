@@ -283,6 +283,11 @@ and open the template in the editor.
     -fx-border-width: 5 ; 
 }
 
+/* ESTILOS_EXPERIENCIAS_ADMIN_CONTROLLER ------------------------------------*/
+.fondoExperienciaAdmin {
+    -fx-background-color: rgb(217, 219, 221);
+}
+
 
 
 
