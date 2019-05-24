@@ -62,7 +62,7 @@ public class usuariosDAO {
     }
 
     public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
-        boolean modificado = false;
+        boolean modificado = false; /////contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol,foto 
         String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, DNI);
