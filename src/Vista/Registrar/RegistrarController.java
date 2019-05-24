@@ -227,15 +227,7 @@ public class RegistrarController implements Initializable {
                         from = Paths.get(fotoFile.toURI());
                         to = Paths.get("src/imagenes/usuarios/" + foto);
                         try {
-                            //Files.copy(from.toFile(), to.toFile());
                             Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
-
-                            //String titulo = "Bienvenido " + usuario.getNick();
-                            //String mensaje = "Disfruta de tu viaje a Amsterdam";
-                            //not.ventanaInfo(titulo, mensaje);
-                            //}
-                            //}catch (SQLException ex) {             
-                            //}
                         } catch (IOException ex) {
                             not.alert("Error", "Hay un error de fichero");
                         }
@@ -251,32 +243,8 @@ public class RegistrarController implements Initializable {
                 } else {
                     not.confirm("Registrarse", "No te has registrado");
                 }
-
-                //} catch (SQLException ex) {
-                //  if (ex.getErrorCode() == 1062) {
-                //     not.alert("Registrase", "Usuario Repetido");
-                //     usuL.setStyle(aviso);
-                //} else {
-                //     not.alert("SQL", "Error en la BD");
-                //}
-                //} catch (IOException ex) {
-                //               not.alert("Imagen","Tu imagen no ha podido ser guardada");
             }
         }
-
-    }
-
-    private void recogerDatos() {
-        nick = nickTF.getText();
-        contrasena = contraPF.getText();
-        nombre = nombreTF.getText();
-        apellidos = apellidosTF.getText();
-        dni = dniTF.getText();
-        telefono = telefonoTF.getText();
-        direccion = direccionTF.getText();
-        email = emailTF.getText();
-
-        fecNac = fecNacTF.getValue();
     }
 
     @FXML
@@ -290,66 +258,6 @@ public class RegistrarController implements Initializable {
     @FXML
     private void comprobar(MouseEvent event) {
         camposVacios();
-    }
-
-    private boolean camposVacios() {   //   devuelve true si hay algun campo "necesario" nulo 
-
-        boolean vacio = false;
-
-        String estilo = null;
-
-        //String foto = avatarIV.getImage().toString();
-        recogerDatos();
-
-        //Comprobar si los campos estan vacios y pone el label en rojo
-        if ("".equals(nick)) {
-            vacio = true;
-            nickL.setStyle(mal);
-            nickTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
-        }
-        if ("".equals(contrasena)) {
-            vacio = true;
-            contraL.setStyle(mal);
-            contraPF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
-        }
-        if ("".equals(nombre)) {
-            vacio = true;
-            nombreL.setStyle(mal);
-            nombreTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
-        }
-        if ("".equals(apellidos)) {
-            vacio = true;
-            apelliL.setStyle(mal);
-            apellidosTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
-        }
-        if (fecNac == null) {
-            vacio = true;
-            fecNacL.setStyle(mal);
-            fecNacTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
-        }
-        if ("".equals(telefono)) {
-            vacio = true;
-            telefL.setStyle(mal);
-            telefonoTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
-        }
-        if ("".equals(email)) {
-            vacio = true;
-            emailL.setStyle(mal);
-            emailTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
-        }
-        return vacio;
-    }
-
-    public void limpiarRegistros() {
-        nickTF.setText("");
-        contraPF.setText("");
-        nombreTF.setText("");
-        apellidosTF.setText("");
-        dniTF.setText("");
-        telefonoTF.setText("");
-        direccionTF.setText("");
-        emailTF.setText("");
-
     }
 
     //CONTROL DE DATOS----------------------------------------------------------
@@ -427,7 +335,79 @@ public class RegistrarController implements Initializable {
             emailCorrecto = false;
         }
         return emailCorrecto;
+    }
 
+    private boolean camposVacios() {   //   devuelve true si hay algun campo "necesario" nulo 
+
+        boolean vacio = false;
+
+        String estilo = null;
+
+        //String foto = avatarIV.getImage().toString();
+        recogerDatos();
+
+        //Comprobar si los campos estan vacios y pone el label en rojo
+        if ("".equals(nick)) {
+            vacio = true;
+            nickL.setStyle(mal);
+            nickTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        }
+        if ("".equals(contrasena)) {
+            vacio = true;
+            contraL.setStyle(mal);
+            contraPF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        }
+        if ("".equals(nombre)) {
+            vacio = true;
+            nombreL.setStyle(mal);
+            nombreTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        }
+        if ("".equals(apellidos)) {
+            vacio = true;
+            apelliL.setStyle(mal);
+            apellidosTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        }
+        if (fecNac == null) {
+            vacio = true;
+            fecNacL.setStyle(mal);
+            fecNacTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        }
+        if ("".equals(telefono)) {
+            vacio = true;
+            telefL.setStyle(mal);
+            telefonoTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        }
+        if ("".equals(email)) {
+            vacio = true;
+            emailL.setStyle(mal);
+            emailTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        }
+        return vacio;
+    }
+
+    //METODOS UTILES------------------------------------------------------------
+    private void recogerDatos() {
+        nick = nickTF.getText();
+        contrasena = contraPF.getText();
+        nombre = nombreTF.getText();
+        apellidos = apellidosTF.getText();
+        dni = dniTF.getText();
+        telefono = telefonoTF.getText();
+        direccion = direccionTF.getText();
+        email = emailTF.getText();
+
+        fecNac = fecNacTF.getValue();
+    }
+
+    public void limpiarRegistros() {
+        nickTF.setText("");
+        contraPF.setText("");
+        nombreTF.setText("");
+        apellidosTF.setText("");
+        dniTF.setText("");
+        telefonoTF.setText("");
+        direccionTF.setText("");
+        emailTF.setText("");
     }
 
 }
