@@ -94,7 +94,7 @@ public class ListaExperienciasController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+
         Image img = new Image("Imagenes/fondoexperiencialista1.jpg");
         ImageView imagev = new ImageView(img);
 
@@ -102,7 +102,6 @@ public class ListaExperienciasController implements Initializable {
         imagev.setFitWidth(1300);
 
 //        imagev.setOpacity(0.8); 
-        
         this.Ventana.getChildren().add(imagev);
         imagev.toBack();
     }
@@ -269,11 +268,9 @@ public class ListaExperienciasController implements Initializable {
             controlador.setListaExperiencias(listaExperienciasSeleccionadas);
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            ex.printStackTrace();
             not.error("ERROR IOException",
                     "en irActividad --- PrincipalController");
         } catch (Exception es) {
-            es.printStackTrace();
             not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
                     "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
         }
@@ -323,8 +320,8 @@ public class ListaExperienciasController implements Initializable {
                 bw.newLine();
             }
         } catch (IOException ex) {
-            System.out.println("IOException : " + ex.getMessage());
-            System.out.println("IOException2 : " + ex.getStackTrace());
+            not.error("ERROR AL GENERAR TICKET",
+                    "Ha habido un error al exportar las experiencias");
         }
     }
 }
