@@ -9,6 +9,10 @@ import Modelo.Actividad;
 import Modelo.ActividadExperiencia;
 import Modelo.Experiencia;
 import Modelo.Notificacion;
+import Vista.Administrador.Experiencia.InterfaceOrdenacion.OrdenFechInicioAE;
+import Vista.Administrador.Experiencia.InterfaceOrdenacion.OrdenFechaE;
+import Vista.Administrador.Experiencia.InterfaceOrdenacion.OrdenNombreE;
+import Vista.Administrador.Experiencia.InterfaceOrdenacion.OrdenPrecioAE;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
@@ -21,6 +25,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Collections;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +37,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -115,11 +121,15 @@ public class ExperienciaAdminController implements Initializable {
     @FXML
     private JFXDatePicker fechaTopeValidez;
     @FXML
+    private ToggleGroup grupoEx;    
+    @FXML
     private RadioButton radioId;
     @FXML
     private RadioButton radioNombre;
     @FXML
     private RadioButton radioFechaTope;
+    @FXML
+    private ToggleGroup grupoAcEx;
     @FXML
     private RadioButton radioPrecio;
     @FXML
@@ -142,6 +152,7 @@ public class ExperienciaAdminController implements Initializable {
     private actividadesDAO activiDAO;
     
     boolean delete;
+    
        
     
     @Override
@@ -166,6 +177,38 @@ public class ExperienciaAdminController implements Initializable {
         listar();
        
     }
+    
+// ----------------------- RADIO BUTTON EXPERIENCIAS ----------------------
+    
+    private void ordenarId(){
+        Collections.sort(obExperiencias);
+    }
+    
+    private void ordenarNombre(){
+        Collections.sort(obExperiencias,new OrdenNombreE());
+    }
+    
+    private void ordenarFechaTope(){
+        Collections.sort(obExperiencias,new OrdenFechaE());
+    }
+    
+     
+    
+// -------------------- RADIO BUTTON ACTIVIDAD EXPERIENCIAS ---------------
+    
+    private void ordenarOrden(){
+        Collections.sort(obActiviEncias);
+    }
+    
+    private void ordenarFechaInicio(){
+        Collections.sort(obActiviEncias,new OrdenFechInicioAE());
+    }
+    
+    private void ordenarPrecio(){
+        Collections.sort(obActiviEncias, new OrdenPrecioAE());
+    }
+    
+    
     
 // -------------------------- INSERTAR ----------------------------------
     
@@ -332,8 +375,8 @@ public class ExperienciaAdminController implements Initializable {
             orden = Integer.parseInt(textOrden.getText());
             idExperiencia = Integer.parseInt(textIdExperiencia.getText());
             idActividad = activiDAO.consultarActividad(Integer.parseInt(textIdActividad.getText()));
-            fechaInicio = LocalDateTime.parse(textFechaInicio.getText());
-            fechaFinal = LocalDateTime.parse(textFechaFinal.getText());
+            fechaInicio = LocalDateTime.parse(textFechaInicio.getText().replace(' ', 'T'));
+            fechaFinal = LocalDateTime.parse(textFechaFinal.getText().replace(' ', 'T'));
             precio = Double.parseDouble(textPrecio.getText());
             numPlazas = Integer.parseInt(textNumPlazas.getText());
             
@@ -490,6 +533,18 @@ public class ExperienciaAdminController implements Initializable {
             
             obExperiencias.clear();
             obExperiencias.addAll(lista);
+            
+            if(radioId.isSelected()){
+               this.ordenarId();
+            }
+            if(radioNombre.isSelected()){
+                this.ordenarNombre();
+            }
+            if(radioFechaTope.isSelected()){
+                this.ordenarFechaTope();
+            }
+            
+            
             tableView.setItems(obExperiencias);
             
             tb_idExperiencia.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -505,9 +560,23 @@ public class ExperienciaAdminController implements Initializable {
         }
     }
     
+    
+    
     private void listarActividadExperiencia(List<ActividadExperiencia> listaDos){
         obActiviEncias.clear();
         obActiviEncias.addAll(listaDos);
+        
+        if(radioOrden.isSelected()){
+            this.ordenarOrden();
+        }
+        if(radioFechaInicio.isSelected()){
+            this.ordenarFechaInicio();
+        }
+        if(radioPrecio.isSelected()){
+            this.ordenarPrecio();
+        }
+        
+        
         tableListaExperiencias.setItems(obActiviEncias);
 
         tb_orden.setCellValueFactory(new PropertyValueFactory<>("orden"));
@@ -591,7 +660,7 @@ public class ExperienciaAdminController implements Initializable {
 
             textOrden.setText(String.valueOf(numOrden));
             textIdExperiencia.setText(String.valueOf(idExperienciaLista));
-            textIdActividad.setText(String.valueOf(actividad));
+            textIdActividad.setText(String.valueOf(actividad.getId()));
             textFechaInicio.setText(fechaIni.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
             textFechaFinal.setText(fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));       
             textPrecio.setText(String.valueOf(precio));
@@ -678,6 +747,16 @@ public class ExperienciaAdminController implements Initializable {
     @FXML
     private void borrarNueva(ActionEvent event) {
         eliminarActividadExperiencia();
+        seleccionarItem();
+    }
+
+    @FXML
+    private void ordenarEx(ActionEvent event) {
+        listar();
+    }
+
+    @FXML
+    private void ordenarAcEx(ActionEvent event) {
         seleccionarItem();
     }
 

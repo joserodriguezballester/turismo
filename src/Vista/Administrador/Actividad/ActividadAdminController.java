@@ -128,8 +128,6 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private Button botonImportar;
     
-   
-    
     private ObservableList<Actividad> actividades;
     private ObservableList<String> tipos;
 
@@ -144,10 +142,6 @@ public class ActividadAdminController implements Initializable {
     private tiposDAO tipoDAO;
     private Notificacion not;
     
-    
-    
-    
-
     public void setGestion(GestionBD gestion) {
         ActividadAdminController.gestion = gestion;
     }
@@ -229,11 +223,7 @@ public class ActividadAdminController implements Initializable {
         
         if(radioId.isSelected() && radioId.isFocused()){
            this.ordenarPorId();
-//           tb_id.getStyleClass().add("background1ColumnaIdActividad");
-//           tb_nombre.getStyleClass().add("background2ColumnaNombreActividad");
-//           tb_precio.getStyleClass().add("background2ColumnaPrecioActividad");
 
-           tb_id.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
         }   
         else{
             tb_id.setStyle("");
@@ -258,11 +248,7 @@ public class ActividadAdminController implements Initializable {
 //           
            tb_precio.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
         }   
-        else {
-            tb_precio.setStyle("");
-        }
  
-        
         tableview.setItems(actividades);
 
         tb_id.setCellValueFactory(new PropertyValueFactory<>("id"));
