@@ -94,7 +94,17 @@ public class ListaExperienciasController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
+        Image img = new Image("Imagenes/fondoexperiencialista1.jpg");
+        ImageView imagev = new ImageView(img);
+
+        imagev.setFitHeight(730);
+        imagev.setFitWidth(1300);
+
+//        imagev.setOpacity(0.8); 
+        
+        this.Ventana.getChildren().add(imagev);
+        imagev.toBack();
     }
 
     private void inicio() {
@@ -102,6 +112,7 @@ public class ListaExperienciasController implements Initializable {
         not = new Notificacion();
         botonConsultarExperiencias.getStyleClass().add("botonCrearExperiencia");
         ImprimirExperiencias.getStyleClass().add("botonImprimirExperiencia");
+        scrollPaneActividadesBuscador.getStyleClass().add("paneBuscador");
         cargarActividades();
     }
 

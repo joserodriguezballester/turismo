@@ -71,17 +71,23 @@ public class PerfilController implements Initializable {
     private ImageView caraIV;
     @FXML
     private Pane alFrenteAP;
+    @FXML
+    private Pane barra;
+    @FXML
+    private Pane paneBienvenido;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        Image img = new Image("Imagenes/fondoPerfil.jpg");
+        Image img = new Image("Imagenes/banner2.jpg");
         ImageView imagev = new ImageView(img);
         Ventana.getChildren().add(imagev);
         imagev.setFitHeight(230);
         imagev.setFitWidth(1300);
         Ventana.toBack();
         alFrenteAP.getStyleClass().add("panePerfilPersonal");
+        barra.getStyleClass().add("barraPerfil");
+        paneBienvenido.getStyleClass().add("paneBienv");
         alFrenteAP.toFront();
         caraIV.setOnMouseClicked(event -> cargarfoto());
     }

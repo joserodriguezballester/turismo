@@ -49,7 +49,9 @@ public class ActividadController implements Initializable {
     private actividadesDAO gestionBDActividad;
     private subtiposDAO gestionSubtipos;
     private TranslateTransition translate;
+    private TranslateTransition transl;
     private Notificacion not;
+    private JFXButton boton;
     
     @FXML
     private AnchorPane Ventana;
@@ -211,6 +213,14 @@ public class ActividadController implements Initializable {
         translate.setInterpolator(Interpolator.LINEAR);
 //        listaElementos.setLayoutX(listaElementos.getLayoutX() + 50);
         translate.play();
+        
+        transl = new TranslateTransition(Duration.seconds(1), boton);
+        translate.setFromX(0);
+        translate.setToX(10);
+        translate.setInterpolator(Interpolator.LINEAR);
+//        listaElementos.setLayoutX(listaElementos.getLayoutX() + 50);
+        translate.play();
+        
 
         FadeTransition ft = new FadeTransition(Duration.millis(1500), listaElementos);
         ft.setFromValue(0);

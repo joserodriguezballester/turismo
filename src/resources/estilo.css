@@ -223,7 +223,7 @@ and open the template in the editor.
 }
 
 .paneActividadBuscadorSeleccionado{
-    -fx-background-color: rgba(60, 182, 214, 0.8);
+    -fx-background-color: rgba(104, 90, 71,0.8);
     -fx-background-radius: 20;
 }
 
@@ -279,12 +279,19 @@ and open the template in the editor.
 .panePerfilPersonal{
     -fx-background-color: rgb(217, 219, 221);
     -fx-background-radius: 10;
-    -fx-border-color: rgb(161, 131, 89);
+    -fx-border-color: rgb(229, 202, 165);
     -fx-border-width: 5 ; 
 }
 
+.barraPerfil{
+    -fx-background-color: rgb(229, 202, 165);
+    
+}
 
-
+.paneBienv{
+    -fx-background-color: rgba(229, 202, 165,0.6);
+    
+}
 
 
 
