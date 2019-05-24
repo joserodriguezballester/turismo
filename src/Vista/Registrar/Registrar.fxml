@@ -53,7 +53,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="ContraL" prefHeight="48.0" prefWidth="100.0" text="Contraseña" GridPane.rowIndex="1">
+                        <Label fx:id="contraL" prefHeight="48.0" prefWidth="100.0" text="Contraseña" GridPane.rowIndex="1">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -63,7 +63,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="DirecL" prefHeight="48.0" prefWidth="100.0" text="Direccion" GridPane.rowIndex="10">
+                        <Label fx:id="DirecL" prefHeight="30.0" prefWidth="174.0" text="Direccion  (opcional)" GridPane.rowIndex="10">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -73,7 +73,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="dniL" prefHeight="48.0" prefWidth="100.0" text="DNI.-" GridPane.rowIndex="6">
+                        <Label fx:id="dniL" prefHeight="30.0" prefWidth="150.0" text="DNI  (opcional)" GridPane.rowIndex="6">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -83,7 +83,7 @@
                               <Font name="System Bold" size="16.0" />
                            </font>
                         </Label>
-                        <Label fx:id="usuL" prefHeight="48.0" prefWidth="100.0" text="Usuario">
+                        <Label fx:id="nickL" prefHeight="48.0" prefWidth="100.0" text="Usuario">
                            <font>
                               <Font name="System Bold" size="16.0" />
                            </font>
@@ -103,18 +103,19 @@
                               <ToggleGroup fx:id="rolUsuRB" />
                            </toggleGroup>
                         </RadioButton>
-                        <JFXDatePicker fx:id="fecNacTF" prefHeight="28.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <JFXTextField fx:id="nickTF" GridPane.columnIndex="1" />
+                        <JFXPasswordField fx:id="contraPF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <JFXPasswordField fx:id="repContraPF" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                         <JFXTextField fx:id="nombreTF" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                         <JFXTextField fx:id="apellidosTF" prefHeight="26.0" prefWidth="284.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
                         <JFXTextField fx:id="dniTF" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <JFXDatePicker fx:id="fecNacTF" editable="false" prefHeight="28.0" prefWidth="182.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                         <JFXTextField fx:id="telefonoTF" GridPane.columnIndex="1" GridPane.rowIndex="9" />
                         <JFXTextField fx:id="direccionTF" GridPane.columnIndex="1" GridPane.rowIndex="10" />
                         <JFXTextField fx:id="emailTF" GridPane.columnIndex="1" GridPane.rowIndex="11" />
                         <Label prefHeight="48.0" prefWidth="100.0" text="rol" visible="false" GridPane.rowIndex="13" />
                         <JFXTextField fx:id="rolTF" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="13" />
-                        <JFXPasswordField fx:id="contraPF" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <JFXPasswordField fx:id="repContraPF" visible="false" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        
                      </children>
                   </GridPane>
                   <JFXButton fx:id="aceptarBT" layoutX="316.0" layoutY="530.0" onAction="#registrar" onMouseEntered="#comprobar" prefHeight="39.0" prefWidth="100.0" text="Aceptar" />

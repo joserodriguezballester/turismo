@@ -4,6 +4,8 @@ import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
+import Vista.Principal.PrincipalController;
+import Vista.Usuario.UsuarioController;
 import com.jfoenix.controls.JFXDatePicker;
 import java.io.File;
 import java.net.URL;
@@ -75,6 +77,7 @@ public class PerfilController implements Initializable {
     private Pane barra;
     @FXML
     private Pane paneBienvenido;
+    private PrincipalController principalController;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -112,7 +115,7 @@ public class PerfilController implements Initializable {
         } catch (Exception e) {
             caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
         }
-//        fecNacTF.setText(usuario.getFecNac().toString());
+
 
 //        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
     }
@@ -143,7 +146,17 @@ public class PerfilController implements Initializable {
                 usuario.setTelefono(telefono);
                 usuario.setDireccion(direccion);
                 usuario.setEmail(email);
+                labelUser.setText(nick);
+//                usuario.setFoto(DNI);
+//                UsuarioController usuarioController=new UsuarioController();        
+//                Stage escenario = (Stage) this.Ventana.getParent().getScene().getWindow();  
+//              Ventana.getChildren().removeAll(Ventana.getChildren());
+//                usuarioController.cargarVentanaPrincipal();
+//                PrincipalController principalController=new PrincipalController();
+                principalController.cargaNickFoto();
+
                 labelUser.setText(nick.toUpperCase());
+
             }
 
             //asi hemos recargado la lista
@@ -151,7 +164,7 @@ public class PerfilController implements Initializable {
             not.error("ERROR SQL", "" + ex.getMessage()
                     + " en modificar() --- PerfilAdminController");
         }
-
+       
     }
 
     @FXML
@@ -180,6 +193,10 @@ public class PerfilController implements Initializable {
 
         }
         modificarBT.setDisable(false);
+    }
+
+    public void setcontroler(PrincipalController principalController) {
+     this.principalController=principalController;
     }
 
 }

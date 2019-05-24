@@ -69,7 +69,7 @@ public class ListaExperienciasController implements Initializable {
     JFXHighlighter high = new JFXHighlighter();
     private Notificacion not;
     experienciasDAO expDAO;
-
+    
     @FXML
     private ScrollPane scrollPaneActividadesBuscador;
     @FXML
@@ -82,22 +82,22 @@ public class ListaExperienciasController implements Initializable {
     private JFXButton botonConsultarExperiencias;
     @FXML
     private AnchorPane Ventana;
-
+    
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
+    
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
         inicio();
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
         Image img = new Image("Imagenes/fondoexperiencialista1.jpg");
         ImageView imagev = new ImageView(img);
-
+        
         imagev.setFitHeight(730);
         imagev.setFitWidth(1300);
 
@@ -105,7 +105,7 @@ public class ListaExperienciasController implements Initializable {
         this.Ventana.getChildren().add(imagev);
         imagev.toBack();
     }
-
+    
     private void inicio() {
         expDAO = new experienciasDAO(gestion);
         not = new Notificacion();
@@ -115,7 +115,7 @@ public class ListaExperienciasController implements Initializable {
         entradaBusqueda.getStyleClass().add("buscador");
         cargarListaExperiencias();
     }
-
+    
     private void cargarListaExperiencias() {
         paneActividadesBuscador.getChildren().clear();
         int posicionX = 25;
@@ -171,11 +171,11 @@ public class ListaExperienciasController implements Initializable {
                 descripcion.setText(exp.getDescripcion());
 //                descripcion.setStyle("-fx-background-color: rgb(255, 244, 229)");
                 descripcion.getStyleClass().add("descripcionBusc");
-
+                
                 if (!entradaBusqueda.getText().isEmpty()) {
                     high.highlight(pane, entradaBusqueda.getText());
                 }
-
+                
                 pane.getChildren().addAll(img, titulo, descripcion);
 
 //                AÑADE PULSANDO LA DESCRIPCION
@@ -202,7 +202,7 @@ public class ListaExperienciasController implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     private String guardarExperiencia(Experiencia exp) {
         String estilo;
         boolean encontrado = false;
@@ -219,9 +219,9 @@ public class ListaExperienciasController implements Initializable {
             estilo = "paneActividadBuscador";
         }
         return estilo;
-
+        
     }
-
+    
     private List<Experiencia> buscarActividades(List<Experiencia> lista) {
         List<Experiencia> encontrados = new ArrayList<>();
         String descripcion;
@@ -241,12 +241,12 @@ public class ListaExperienciasController implements Initializable {
         }
         return encontrados;
     }
-
+    
     @FXML
     private void buscar(KeyEvent event) {
         cargarListaExperiencias();
     }
-
+    
     @FXML
     private void imprimirExperiencias(ActionEvent event) {
         if (!listaExperienciasSeleccionadas.isEmpty()) {
@@ -255,19 +255,19 @@ public class ListaExperienciasController implements Initializable {
             not.error("ELIGE UN CONJUNTO DE EXPERIENCIAS", "Debes elegir un conjunto de experiencias a imprimir");
         }
     }
-
+    
     @FXML
     private void cargarExperiencias(ActionEvent event) {
         if (!listaExperienciasSeleccionadas.isEmpty()) {
             Ventana.getChildren().removeAll(Ventana.getChildren());
             FXMLLoader loader = new FXMLLoader();
-
+            
             ExperienciaController controlador;
-
+            
             loader.setLocation(getClass().getResource("/Vista/Experiencia/Experiencia.fxml"));
             try {
                 Parent root = loader.load();
-
+                
                 controlador = loader.getController();
                 controlador.setUsuario(usuario);
                 controlador.setGestion(gestion);
@@ -284,25 +284,25 @@ public class ListaExperienciasController implements Initializable {
             not.error("ELIGE UN CONJUNTO DE EXPERIENCIAS", "Debes elegir un conjunto de experiencias a consultar");
         }
     }
-
+    
     public void elejirArchivoTicket() {
         DirectoryChooser dirChooser = new DirectoryChooser();
         dirChooser.setTitle("Archivo de Actividades");
         File archivo = dirChooser.showDialog(new Stage());
         generarTicket(archivo);
     }
-
+    
     public void generarTicket(File file) {
         String ruta = file.toString();
         String nombre = usuario.getNick();
         DateTimeFormatter patronArchivo = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
         DateTimeFormatter patronFecha = DateTimeFormatter.ofPattern("HH:mm:ss, dd/MM/yyyy");
         Path fichero = Paths.get(ruta + "/" + patronArchivo.format(LocalDateTime.now()) + ".txt");
-
+        
         try (BufferedWriter bw = Files.newBufferedWriter(fichero, Charset.defaultCharset(), StandardOpenOption.CREATE)) {
             bw.write("Fichero creado por " + nombre);
             bw.newLine();
-
+            
             int contadorExp = 1;
             for (Experiencia exp : listaExperienciasSeleccionadas) {
                 bw.newLine();
@@ -310,7 +310,7 @@ public class ListaExperienciasController implements Initializable {
                 bw.newLine();
                 bw.write("  " + exp.getDescripcion());
                 bw.newLine();
-
+                
                 int contadorAct = 1;
                 for (ActividadExperiencia actexp : exp.getListaActividades()) {
                     bw.write("  Actividad " + contadorAct + " - " + actexp.getActividad().getNombre());
