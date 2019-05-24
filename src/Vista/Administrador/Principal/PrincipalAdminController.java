@@ -39,7 +39,7 @@ public class PrincipalAdminController implements Initializable {
     @FXML
     private AnchorPane Ventana;
     
-    private Notificacion not;
+    private Notificacion not = new Notificacion();
     private GestionBD gestion;
     @FXML
     private Button transportesBT;
