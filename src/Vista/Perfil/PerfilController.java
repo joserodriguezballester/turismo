@@ -139,6 +139,8 @@ public class PerfilController implements Initializable {
     private void modificar(ActionEvent event) {
 
         String nick = nickTF.getText();
+        System.out.println(" al entrar en modificar nick "+nick);
+        System.out.println("foto "+foto);
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String DNI = dniTF.getText();
@@ -148,6 +150,9 @@ public class PerfilController implements Initializable {
         String email = emailTF.getText();
         String contrasena = usuario.encriptar(contraPF.getText()); ////encriptada
         //borrar foto si cambia nick
+        //controlar foto=null si no se cambia
+        usuario.setNick(nick);
+        System.out.println("2 llamaremos a fotoToString "+nick);
         foto = usuario.fotoToString();   ///pasar fotofile a string
         
 //        usuario.
@@ -157,11 +162,14 @@ public class PerfilController implements Initializable {
             boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, contrasena, foto, id, fecNac);
 
             // si ha modificado algo
-            if (modificado) {
+//            if (modificado) {
+                System.out.println("modificado "+modificado);
                 //guardar si cambia nick o foto.
+                System.out.println("2 "+nick);
+                usuario.setNick(nick);
+                System.out.println("3 "+usuario.getNick());
                 usuario.guardarFoto();
                 not.info("Modificar", "Ha sido modificado con exito");
-                usuario.setNick(nick);
                 usuario.setNombre(nombre);
                 usuario.setApellidos(apellidos);
                 usuario.setDni(DNI);
@@ -185,7 +193,7 @@ public class PerfilController implements Initializable {
 
                 labelUser.setText(nick.toUpperCase());
 
-            }
+//            }
 
             //asi hemos recargado la lista
         } catch (SQLException ex) {

@@ -96,13 +96,18 @@ public class PrincipalController implements Initializable {
     }
 
     public void cargaNickFoto() {
+//        System.out.print("carganick "+usuario.getNick()+" foto "+usuario.getFoto());
         if (usuario != null) {
             botonPerfil.setText(usuario.getNick().toUpperCase());           
             try {
                 System.out.println("1");
+                System.out.println("carganick "+usuario.getNick()+" foto "+usuario.getFoto());
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+                System.out.println("imagen"+ caraIV.getImage());
             } catch (Exception e) {
+                e.printStackTrace();
                   System.out.println("2");
+                  System.out.println("carganick "+usuario.getNick()+" foto "+usuario.getFoto());
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
         }
