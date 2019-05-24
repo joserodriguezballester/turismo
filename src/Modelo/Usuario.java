@@ -184,7 +184,8 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        
+        this.password = encriptar(password);
     }
 
     public String getDireccion() {
