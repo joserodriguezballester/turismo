@@ -8,6 +8,8 @@ import Modelo.Notificacion;
 import Modelo.Tipo;
 import Vista.Administrador.Actividad.InterfaceOrdenacion.OrdenNombreA;
 import Vista.Administrador.Actividad.InterfaceOrdenacion.OrdenPrecioA;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
@@ -16,6 +18,7 @@ import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Stream;
@@ -485,7 +488,87 @@ public class ActividadAdminController implements Initializable {
     }
 
     @FXML
-    private void ordenar(ActionEvent event) {
-//        cargarTabla(actividades);
+    private void importarActividad(ActionEvent event) {
+        FileChooser fChooser = new FileChooser();
+        fChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+        fChooser.setTitle("Seleccione un fichero");
+        File raiz = new File("");
+        Path root = Paths.get(raiz.getAbsolutePath() + "\\src\\ficherosActividades");
+        fChooser.setInitialDirectory(root.toFile());
+        File carta = fChooser.showOpenDialog(new Stage());
+        try (Stream<String> datos = Files.lines(carta.toPath(),
+                StandardCharsets.ISO_8859_1)) {
+            Iterator<String> it = datos.iterator();
+            int numLinea = 1;
+            String[] cabecera = null;
+            while (it.hasNext()) {
+                String linea = it.next();
+                String[] trozos;
+                if (numLinea == 1) {
+                    cabecera = linea.split("#");
+                } else {
+                    trozos = linea.split("#");
+                    int id = 0;
+                    String nombre = "";
+                    double precio = 0;
+                    String horario = "";
+                    String descripcion = "";
+                    String url = "";
+                    String direccion = "";
+                    String telefono = "";
+                    String foto = "";
+                    int idSubtipo = 0;
+                    for (int i = 0; i < cabecera.length; i++) {
+                        System.out.println(cabecera[i]);
+
+                        switch (cabecera[i]) {
+                            case "id":
+                                id = Integer.parseInt(trozos[i]);
+                                break;
+                            case "nombre":
+                                nombre = trozos[i];
+                                break;
+                            case "precio":
+                                precio = Double.parseDouble(trozos[i]);
+                                break;
+                            case "horario":
+                                horario = trozos[i];
+                                break;
+                            case "descripcion":
+                                descripcion = trozos[i];
+                                break;
+                            case "url":
+                                url = trozos[i];
+                                break;
+                            case "direccion":
+                                direccion = trozos[i];
+                                break;
+                            case "telefono":
+                                telefono = trozos[i];
+                                break;
+                            case "foto":
+                                foto = trozos[i];
+                                break;
+                            case "idsubTipo":
+                                System.out.println(Integer.parseInt(trozos[i]));
+                                idSubtipo = Integer.parseInt(trozos[i]);
+                                break;
+                        }
+                    }
+                    Actividad act;
+                    try {
+                        act = new Actividad(id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo);
+                        activiDAO.insertarActividad(act);
+                    } catch (SQLException e) {
+//                            ERROR SQL
+                        e.printStackTrace();
+                    }
+                }
+                numLinea++;
+            }
+        } catch (IOException e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setContentText("ERROR " + e.getMessage());
+        }
     }
 }

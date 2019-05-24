@@ -21,6 +21,7 @@
 <?import javafx.scene.text.Font?>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 <AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="730.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Actividad.ActividadAdminController">
    <children>
       <Label layoutX="40.0" layoutY="20.0" text="ActividadAdmin">
@@ -238,6 +239,244 @@
    <effect>
       <DropShadow height="6.0" radius="2.5" width="6.0" />
    </effect>
+=======
+<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" stylesheets="@../../../resources/estilo.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Actividad.ActividadAdminController">
+    <children>
+        <Label layoutX="40.0" layoutY="20.0" text="ActividadAdmin">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <GridPane fx:id="menu2" layoutX="50.0" layoutY="630.0" prefHeight="30.0" prefWidth="371.0">
+            <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+            </columnConstraints>
+            <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            </rowConstraints>
+            <children>
+                <Button fx:id="botonAñadir" layoutX="50.0" layoutY="600.0" mnemonicParsing="false" onAction="#anadir" prefHeight="39.0" prefWidth="100.0" text="Añadir" GridPane.columnIndex="1">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
+                <Button fx:id="botonListar" mnemonicParsing="false" onAction="#listar" prefHeight="39.0" prefWidth="100.0" text="Listar" GridPane.columnIndex="3">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
+                <Button fx:id="botonBorrar" mnemonicParsing="false" onAction="#borrar" prefHeight="39.0" prefWidth="100.0" text="Borrar" GridPane.columnIndex="2">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
+                <Button fx:id="botonModificar" mnemonicParsing="false" onAction="#modificar" prefHeight="39.0" prefWidth="100.0" text="Modificar">
+                    <effect>
+                        <DropShadow />
+                    </effect>
+                </Button>
+            </children>
+        </GridPane>
+        <TableView fx:id="tableview" layoutX="17.0" layoutY="69.0" onMousePressed="#mostrar" prefHeight="275.0" prefWidth="1260.0">
+            <columns>
+                <TableColumn fx:id="tb_id" prefWidth="45.0" text="id" />
+                <TableColumn fx:id="tb_nombre" prefWidth="111.66667175292969" text="nombre" />
+                <TableColumn fx:id="tb_descripcion" prefWidth="191.3333282470703" text="descripcion" />
+                <TableColumn fx:id="tb_horario" prefWidth="109.0" text="horario" />
+                <TableColumn fx:id="tb_precio" prefWidth="89.33331298828125" text="precio" />
+                <TableColumn fx:id="tb_direccion" prefWidth="164.66665649414062" text="direccion" />
+                <TableColumn fx:id="tb_url" minWidth="0.0" prefWidth="156.33331298828125" text="url" />
+                <TableColumn fx:id="tb_telefono" prefWidth="174.33331298828125" text="telefono" />
+                <TableColumn fx:id="tb_foto" minWidth="0.0" prefWidth="121.33331298828125" text="foto" />
+                <TableColumn fx:id="tb_idTipo" minWidth="0.0" prefWidth="100.3333740234375" text="idsubTipo" />
+            </columns>
+            <effect>
+                <DropShadow />
+            </effect>
+        </TableView>
+        <Label layoutX="40.0" layoutY="385.0" text="ID">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="40.0" layoutY="420.0" text="NOMBRE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="40.0" layoutY="490.0" text="DESCRIPCION">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="40.0" layoutY="455.0" text="HORARIO">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="340.0" layoutY="385.0" text="PRECIO">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="340.0" layoutY="420.0" prefHeight="25.0" prefWidth="86.0" text="DIRECCION">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="340.0" layoutY="455.0" text="URL">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="340.0" layoutY="490.0" text="TELEFONO">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="340.0" layoutY="525.0" text="FOTO">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="340.0" layoutY="560.0" text="IDTIPO">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Pane fx:id="paneFoto" layoutX="670.0" layoutY="385.0" prefHeight="250.0" prefWidth="250.0">
+            <children>
+                <ImageView fx:id="imageView" fitHeight="210.0" fitWidth="256.0" layoutX="-3.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+            </children>
+        </Pane>
+        <TextField fx:id="textId" layoutX="150.0" layoutY="385.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextField fx:id="textNombre" layoutX="150.0" layoutY="420.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextField fx:id="textHorario" layoutX="150.0" layoutY="455.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextArea fx:id="textDescripcion" layoutX="40.0" layoutY="519.0" prefHeight="67.0" prefWidth="263.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextArea>
+        <TextField fx:id="textPrecio" layoutX="450.0" layoutY="385.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextField fx:id="textDireccion" layoutX="450.0" layoutY="420.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextField fx:id="textUrl" layoutX="450.0" layoutY="455.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextField fx:id="textTelefono" layoutX="450.0" layoutY="490.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextField fx:id="textFoto" layoutX="450.0" layoutY="525.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <TextField fx:id="textIdTipo" layoutX="450.0" layoutY="560.0">
+            <effect>
+                <DropShadow height="15.0" radius="7.0" width="15.0" />
+            </effect>
+        </TextField>
+        <Button fx:id="botonGuardar" layoutX="474.0" layoutY="630.0" mnemonicParsing="false" onAction="#guardar" prefHeight="30.0" prefWidth="126.0" text="Limpiar">
+            <effect>
+                <DropShadow />
+            </effect>
+        </Button>
+        <Line endX="86.0" layoutX="853.0" layoutY="383.0" startX="-204.0">
+            <effect>
+                <DropShadow />
+            </effect>
+        </Line>
+        <Line endX="171.0" layoutX="770.0" layoutY="655.0" startX="-121.0">
+            <effect>
+                <DropShadow />
+            </effect>
+        </Line>
+        <Button fx:id="botonListarIdTipo" layoutX="850.0" layoutY="25.0" mnemonicParsing="false" onAction="#listarId" prefHeight="25.0" prefWidth="66.0" text="ListarID">
+            <effect>
+                <DropShadow />
+            </effect>
+        </Button>
+        <Label layoutX="486.0" layoutY="29.0" text="LISTAR ACTIVIDAD POR TIPO  -----&gt;  IDTIPO" />
+        <ComboBox fx:id="comboListarIdTipo" layoutX="739.0" layoutY="25.0" prefHeight="25.0" prefWidth="86.0" promptText="Combo">
+            <effect>
+                <DropShadow />
+            </effect>
+        </ComboBox>
+        <Button fx:id="botonImportar" layoutX="688.0" layoutY="680.0" mnemonicParsing="false" onAction="#importarActividad" text="Importar Actividad de un fichero" />
+        <RadioButton fx:id="radioId" layoutX="1080.0" layoutY="450.0" mnemonicParsing="false">
+            <font>
+                <Font size="16.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect>
+        </RadioButton>
+        <RadioButton fx:id="radioNombre" layoutX="1080.0" layoutY="485.0" mnemonicParsing="false">
+            <font>
+                <Font size="16.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect>
+        </RadioButton>
+        <RadioButton fx:id="radioPrecio" layoutX="1080.0" layoutY="520.0" mnemonicParsing="false">
+            <font>
+                <Font size="16.0" />
+            </font>
+            <effect>
+                <DropShadow />
+            </effect>
+        </RadioButton>
+        <Label layoutX="1120.0" layoutY="450.0" text="ORDENAR ID">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="1120.0" layoutY="485.0" text="ORDENAR NOMBRE">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+        <Label layoutX="1120.0" layoutY="520.0" text="ORDENAR PRECIO">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </Label>
+    </children>
+    <styleClass>
+        <String fx:value="mainFxmlClass" />
+        <String fx:value="fondoExperienciaAdmin" />
+    </styleClass>
+    <effect>
+        <DropShadow height="6.0" radius="2.5" width="6.0" />
+    </effect>
+>>>>>>> origin/master
 =======
 <AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" stylesheets="@../../../resources/estilo.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Actividad.ActividadAdminController">
     <children>
