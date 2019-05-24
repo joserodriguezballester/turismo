@@ -6,6 +6,7 @@ import Modelo.Notificacion;
 import Modelo.Usuario;
 import Vista.Principal.PrincipalController;
 import Vista.Usuario.UsuarioController;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import java.io.File;
@@ -83,6 +84,10 @@ public class PerfilController implements Initializable {
     @FXML
     private JFXPasswordField contraPF;
     private String foto;
+    @FXML
+    private Button botonGuardar;
+    @FXML
+    private JFXButton cancelarBT;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -96,8 +101,12 @@ public class PerfilController implements Initializable {
         alFrenteAP.getStyleClass().add("panePerfilPersonal");
         barra.getStyleClass().add("barraPerfil");
         paneBienvenido.getStyleClass().add("paneBienv");
+        cancelarBT.getStyleClass().add("botonCerrarInformacion");
+        botonGuardar.getStyleClass().add("botonGuardarModificacion");
         alFrenteAP.toFront();
         caraIV.setOnMouseClicked(event -> mostrarFoto());
+        botonGuardar.setVisible(false); 
+        cancelarBT.setVisible(false); 
 
     }
 
@@ -159,7 +168,7 @@ public class PerfilController implements Initializable {
         int id = usuario.getId();
 
         try {           ////String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String contrasena, String foto, int id, LocalDate fecNac
-            boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, contrasena, foto, id, fecNac);
+            boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, foto, id, fecNac);
 
             // si ha modificado algo
 //            if (modificado) {
@@ -179,7 +188,6 @@ public class PerfilController implements Initializable {
                 usuario.setEmail(email);
 
                 usuario.setFotoFile(fotoFile);
-
 
 
                 labelUser.setText(nick);
@@ -203,11 +211,6 @@ public class PerfilController implements Initializable {
 
     }
 
-    @FXML
-    private void mostrarBoton(MouseEvent event) {
-
-        modificarBT.setDisable(false);
-    }
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -234,4 +237,31 @@ public class PerfilController implements Initializable {
         this.principalController = principalController;
     }
 
+    @FXML
+    private void editarPerfil(ActionEvent event) {
+        botonGuardar.setVisible(true); 
+        cancelarBT.setVisible(true);
+        
+        boolean siEditable = true;
+        editables(siEditable); 
+    }
+
+    @FXML
+    private void cancelar(ActionEvent event) {
+        botonGuardar.setVisible(false); 
+        cancelarBT.setVisible(false);
+        
+        boolean noEditable = false;
+        editables(noEditable);
+    } 
+    
+    private void editables(boolean edit){
+        nickTF.setEditable(edit); 
+        nombreTF.setEditable(edit); 
+        apellidosTF.setEditable(edit); 
+        dniTF.setEditable(edit); 
+        fecNacTF.setEditable(edit); 
+        direccionTF.setEditable(edit); 
+        emailTF.setEditable(edit);
+    }
 }
