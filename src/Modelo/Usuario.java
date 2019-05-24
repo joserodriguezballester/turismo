@@ -70,20 +70,13 @@ public class Usuario implements Comparable<Usuario> {
         return fotoFile;
     }
 
-    public void guardarFoto() {
-        System.out.println("guarda foto" + foto);
+    public void guardarFoto() throws IOException {
         if (fotoFile != null) {
             Path from = Paths.get(fotoFile.toURI());
             Path to = Paths.get("src/imagenes/usuarios/" + foto);
-            try {
-                //Files.copy(from.toFile(), to.toFile());
-                Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
-            System.out.println("guardada foto" + foto+"__"+to);
-            
-            } catch (IOException ex) {
-                ex.getStackTrace();
-                //    not.alert("Error", "Hay un error de fichero");
-            }
+
+            //Files.copy(from.toFile(), to.toFile());
+            Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
         }
     }
 
@@ -96,9 +89,9 @@ public class Usuario implements Comparable<Usuario> {
             String nombreString = fotoFile.getName();
             String[] extensionStrings = nombreString.split("\\.");
             foto = nick + "." + (extensionStrings[extensionStrings.length - 1]);
-           
+
         }
-         System.out.println(" nombre de foto " + foto+ " "+fotoFile);
+        System.out.println(" nombre de foto " + foto + " " + fotoFile);
         return foto;
     }
 
@@ -189,7 +182,7 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public void setPassword(String password) {
-        
+
         this.password = encriptar(password);
     }
 

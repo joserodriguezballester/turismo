@@ -10,6 +10,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -145,8 +146,7 @@ public class PerfilController implements Initializable {
     }
 
     @FXML
-    private void modificar(ActionEvent event) {
-
+    private void modificar(ActionEvent event) throws IOException {
         String nick = nickTF.getText();
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
@@ -157,23 +157,30 @@ public class PerfilController implements Initializable {
         String email = emailTF.getText();
         String contrasena = usuario.encriptar(contraPF.getText()); ////encriptada
         usuario.setNick(nick);
-
         foto = usuario.fotoToString();   ///pasar fotofile a string
-
         int id = usuario.getId();
-
-        try {           ////String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String contrasena, String foto, int id, LocalDate fecNac
-            boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, foto, id, fecNac);
-
-            // si ha modificado algo
-//            if (modificado) {
-            System.out.println("modificado " + modificado);
-            //guardar si cambia nick o foto.
-            System.out.println("2 " + nick);
-            usuario.setNick(nick);
-            System.out.println("3 " + usuario.getNick());
+        if (!usuario.getNick().equals(nickTF.getText())) {
+            boolean modificado = usuarioDAO.modificarNick(nick);
+            if (modificado) {
+                usuario.setNick(nick);
+                 not.info("Modificar", "Ha sido modificado con exito");
+            }
+        }
+        if (!usuario.getNombre().equals(nombreTF.getText())) {
+            boolean modificado = usuarioDAO.modificarNombre(nombre);
+            if (modificado) {
+                usuario.setNombre(nombre);
+            }
+        }
+         if (!usuario.getApellidos().equals(apellidosTF.getText())) {
+            boolean modificado = usuarioDAO.modificarApellidosTF(apellidos);
+            if (modificado) {
+                usuario.setApellidos(apellidos);             
+            }
+        }
+//        not.alert("Error", "Hay un error de fichero");
             usuario.guardarFoto();
-            not.info("Modificar", "Ha sido modificado con exito");
+           
             usuario.setNombre(nombre);
             usuario.setApellidos(apellidos);
             usuario.setDni(DNI);
@@ -192,12 +199,13 @@ public class PerfilController implements Initializable {
 
 //            }
             //asi hemos recargado la lista
-        } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " en modificar() --- PerfilAdminController");
+//        } catch (SQLException ex) {
+//            not.error("ERROR SQL", "" + ex.getMessage()
+//                    + " en modificar() --- PerfilAdminController");
+//        }
         }
 
-    }
+    
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;

@@ -244,4 +244,20 @@ public class usuariosDAO {
         return existe;
     }
 
+    public boolean modificarNick(String nick) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET nick = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, nick);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+    public boolean modificarNombre(String nombre) {
+    }
+
+    public boolean modificarApellidosTF(String apellidos) {
+    }
+
 }
