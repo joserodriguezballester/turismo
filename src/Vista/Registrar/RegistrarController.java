@@ -5,29 +5,18 @@
  */
 package Vista.Registrar;
 
-import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
-import Vista.Administrador.Registrar.RegistrarAdminController;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javafx.beans.InvalidationListener;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -38,15 +27,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
-import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javax.imageio.ImageIO;
 
 /**
  * FXML Controller class
@@ -59,8 +45,7 @@ public class RegistrarController implements Initializable {
     private Notificacion not;
     public String foto = "avatar.png";
     private String aviso = " -fx-text-fill:grey";
-    File fotoFile;
-     
+    private File fotoFile;
 
     @FXML
     private AnchorPane Ventana;
@@ -122,11 +107,13 @@ public class RegistrarController implements Initializable {
     private Label repContraL;
     @FXML
     private Label fecNacL;
+    private Usuario usuario;
 
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
+        usuario=new Usuario();
 
         styleInicio();
 
@@ -134,7 +121,6 @@ public class RegistrarController implements Initializable {
 
     }
 
-  
     private void styleInicio() {
 
         //Imagen fondo
@@ -160,7 +146,7 @@ public class RegistrarController implements Initializable {
         avatarIV.setOnMouseClicked(event -> cargarfoto());
         nickTF.setOnMouseClicked(event -> usuL.setStyle(aviso));
         contraPF.setOnMouseClicked(event -> ContraL.setStyle(aviso));
-        repContraPF.setOnMouseClicked(event -> repContraL.setStyle(aviso)); 
+        repContraPF.setOnMouseClicked(event -> repContraL.setStyle(aviso));
         nombreTF.setOnMouseClicked(event -> nombreL.setStyle(aviso));
         apellidosTF.setOnMouseClicked(event -> apelliL.setStyle(aviso));
         telefonoTF.setOnMouseClicked(event -> telefL.setStyle(aviso));
@@ -170,21 +156,15 @@ public class RegistrarController implements Initializable {
 
     private void cargarfoto() {
         Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
-        FileChooser fileChooser = new FileChooser();
-
-        // Agregar filtros para facilitar la busqueda
-        fileChooser.getExtensionFilters().addAll(
-                //new FileChooser.ExtensionFilter("All Images", "*.*"),
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png")
-        );
-        fotoFile = fileChooser.showOpenDialog(stage);
+        fotoFile=usuario.cargarfoto();
+  
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
         }
+        
     }
-    
+
     public void setParametros(usuariosDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
@@ -193,13 +173,9 @@ public class RegistrarController implements Initializable {
     @FXML
     private void registrar(ActionEvent event) {
         //Boton Registrar
-        boolean registrado = false;
-
-        Path to;
-        Path from;
-
+        boolean registrado = false;  
         String nick = nickTF.getText();
-        String contrasena = contraPF.getText();
+        String contrasena =usuario.encriptar(contraPF.getText());////cambiado
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String dni = dniTF.getText();
@@ -208,22 +184,28 @@ public class RegistrarController implements Initializable {
         String email = emailTF.getText();
 
         LocalDate fecNac = fecNacTF.getValue();
-
-        if (fotoFile == null) {
-            foto = "avatar.png";
-        } else {
-            String nombreString = fotoFile.getName();
-            String[] extensionStrings = nombreString.split("\\.");
-            foto = nick + "." + (extensionStrings[extensionStrings.length - 1]);
-        }
+ 
+        String foto=usuario.fotoToString();
+      
         //avatarIV.getImage().getUrl();
 
         //Control de entradas nulas//
         boolean noInsertar = camposVacios();
         //crear usuario//
         if (!noInsertar) {
-            Usuario usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
-
+//            usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
+            usuario.setNick(nick);
+            usuario.setPassword(contrasena);
+            
+            usuario.setNombre(nombre);
+            usuario.setApellidos(apellidos);
+            usuario.setDni(dni);
+            usuario.setTelefono(telefono);
+            usuario.getDireccion();
+            usuario.getEmail();
+            usuario.setFecNac(fecNac);
+            usuario.setFoto(foto);
+            usuario.setFotoFile(fotoFile);
             try {
                 //insertar usuario en BD//
                 registrado = usuarioDAO.insertarUsuario(usuario);
@@ -232,44 +214,17 @@ public class RegistrarController implements Initializable {
             }
 
             if (registrado) {
-                if (fotoFile != null) {
-                    from = Paths.get(fotoFile.toURI());
-                    to = Paths.get("src/imagenes/usuarios/" + foto);
-                    try {
-                        //Files.copy(from.toFile(), to.toFile());
-                        Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
+                usuario.guardarFoto();
+                //Cerrar ventana 
+                Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();//Identificamos la ventana (Stage) 
+                stage.close();
+                //Fin cerrar ventana
 
-                        //String titulo = "Bienvenido " + usuario.getNick();
-                        //String mensaje = "Disfruta de tu viaje a Amsterdam";
-                        //not.ventanaInfo(titulo, mensaje);
-                        //}
-                        //}catch (SQLException ex) {             
-                        //}
-                    } catch (IOException ex) {
-                        not.alert("Error", "Hay un error de fichero");
-                    }
-
-                    //Cerrar ventana 
-                    Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();//Identificamos la ventana (Stage) 
-                    stage.close();
-                    //Fin cerrar ventana
-
-                    //FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
-                    //informar esta registrado//
-                    not.alert("Registrarse", "Ya te has registrado");
-                } else {
-                    not.confirm("Registrarse", "No te has registrado");
-                }
-
-                //} catch (SQLException ex) {
-                //  if (ex.getErrorCode() == 1062) {
-                //     not.alert("Registrase", "Usuario Repetido");
-                //     usuL.setStyle(aviso);
-                //} else {
-                //     not.alert("SQL", "Error en la BD");
-                //}
-                //} catch (IOException ex) {
-                //               not.alert("Imagen","Tu imagen no ha podido ser guardada");
+                //FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
+                //informar esta registrado//
+                not.alert("Registrarse", "Ya te has registrado");
+            } else {
+                not.confirm("Registrarse", "No te has registrado");
             }
         }
     }
@@ -349,6 +304,8 @@ public class RegistrarController implements Initializable {
         //  DirecL.setStyle(aviso);
         //}
     }
-    
-    
+
+//    public void guardarFoto() {
+//
+//    }
 }

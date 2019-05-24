@@ -7,6 +7,7 @@ import Modelo.Usuario;
 import Vista.Principal.PrincipalController;
 import Vista.Usuario.UsuarioController;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXPasswordField;
 import java.io.File;
 import java.net.URL;
 import java.sql.SQLException;
@@ -78,6 +79,10 @@ public class PerfilController implements Initializable {
     @FXML
     private Pane paneBienvenido;
     private PrincipalController principalController;
+    private File fotoFile;
+    @FXML
+    private JFXPasswordField contraPF;
+    private String foto;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -92,7 +97,18 @@ public class PerfilController implements Initializable {
         barra.getStyleClass().add("barraPerfil");
         paneBienvenido.getStyleClass().add("paneBienv");
         alFrenteAP.toFront();
-        caraIV.setOnMouseClicked(event -> cargarfoto());
+        caraIV.setOnMouseClicked(event -> mostrarFoto());
+
+    }
+
+    private void mostrarFoto() {
+        fotoFile = usuario.cargarfoto();
+
+        if (fotoFile != null) {
+            Image image = new Image(fotoFile.toURI().toString());
+            caraIV.setImage(image);
+        }
+//         foto = usuario.fotoToString();
     }
 
     public void setUsuario(Usuario usuario) {
@@ -116,7 +132,6 @@ public class PerfilController implements Initializable {
             caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
         }
 
-
 //        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
     }
 
@@ -131,12 +146,20 @@ public class PerfilController implements Initializable {
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
+        String contrasena = usuario.encriptar(contraPF.getText()); ////encriptada
+        //borrar foto si cambia nick
+        foto = usuario.fotoToString();   ///pasar fotofile a string
+        
+//        usuario.
         int id = usuario.getId();
 
-        try {
-            boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, id, fecNac);
+        try {           ////String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String contrasena, String foto, int id, LocalDate fecNac
+            boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, contrasena, foto, id, fecNac);
+
             // si ha modificado algo
             if (modificado) {
+                //guardar si cambia nick o foto.
+                usuario.guardarFoto();
                 not.info("Modificar", "Ha sido modificado con exito");
                 usuario.setNick(nick);
                 usuario.setNombre(nombre);
@@ -146,7 +169,8 @@ public class PerfilController implements Initializable {
                 usuario.setTelefono(telefono);
                 usuario.setDireccion(direccion);
                 usuario.setEmail(email);
-<<<<<<< HEAD
+                usuario.setFotoFile(fotoFile);
+
                 labelUser.setText(nick);
 //                usuario.setFoto(DNI);
 //                UsuarioController usuarioController=new UsuarioController();        
@@ -155,12 +179,9 @@ public class PerfilController implements Initializable {
 //                usuarioController.cargarVentanaPrincipal();
 //                PrincipalController principalController=new PrincipalController();
                 principalController.cargaNickFoto();
-                
-                
-                
-=======
+
                 labelUser.setText(nick.toUpperCase());
->>>>>>> origin/master
+
             }
 
             //asi hemos recargado la lista
@@ -168,7 +189,7 @@ public class PerfilController implements Initializable {
             not.error("ERROR SQL", "" + ex.getMessage()
                     + " en modificar() --- PerfilAdminController");
         }
-       
+
     }
 
     @FXML
@@ -180,7 +201,7 @@ public class PerfilController implements Initializable {
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
     }
-
+/////corregir
     private void cargarfoto() {
         Stage stage = (Stage) this.caraIV.getParent().getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
@@ -194,13 +215,12 @@ public class PerfilController implements Initializable {
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             caraIV.setImage(image);
-
         }
         modificarBT.setDisable(false);
     }
 
     public void setcontroler(PrincipalController principalController) {
-     this.principalController=principalController;
+        this.principalController = principalController;
     }
 
 }

@@ -1,6 +1,16 @@
 package Modelo;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import static java.nio.file.attribute.FileTime.from;
+import static java.nio.file.attribute.FileTime.from;
 import java.time.LocalDate;
+import javafx.scene.image.Image;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
 
@@ -18,6 +28,7 @@ public class Usuario implements Comparable<Usuario> {
     private LocalDate fecNac;
     private rol perfil;
     private String foto;
+    private File fotoFile;
 
     public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac, String foto) {
         this.dni = DNI;
@@ -31,10 +42,62 @@ public class Usuario implements Comparable<Usuario> {
         this.nick = nick;
         this.fecNac = fecNac;
         this.foto = foto;
+        
+    }
+
+    public File getFotoFile() {
+        return fotoFile;
+    }
+
+    public void setFotoFile(File fotoFile) {
+        this.fotoFile = fotoFile;
+    }
+
+    public File cargarfoto() {
+    
+        FileChooser fileChooser = new FileChooser();
+        // Agregar filtros para facilitar la busqueda
+        fileChooser.getExtensionFilters().addAll(
+                // new FileChooser.ExtensionFilter("All Images", "*.*"),
+                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
+                new FileChooser.ExtensionFilter("PNG", "*.png")
+        );
+         fotoFile = fileChooser.showOpenDialog(null);
+//        if (fotoFile != null) {
+//            Image image = new Image(fotoFile.toURI().toString());
+//            caraIV.setImage(image);
+//        }
+    return fotoFile;
+    }
+    
+    
+    public void guardarFoto() {
+          if (fotoFile != null) {
+              Path from = Paths.get(fotoFile.toURI());
+              Path to = Paths.get("src/imagenes/usuarios/" + foto);
+                    try {
+                        //Files.copy(from.toFile(), to.toFile());
+                        Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
+
+                    } catch (IOException ex) {
+                    //    not.alert("Error", "Hay un error de fichero");
+                    }
+          }
+    }
+
+    public String fotoToString() {
+          if (fotoFile == null) {
+            foto = "avatar.png";
+        } else {
+            String nombreString = fotoFile.getName();
+            String[] extensionStrings = nombreString.split("\\.");
+            foto = nick + "." + (extensionStrings[extensionStrings.length - 1]);
+        }
+        return foto;
     }
 
     private enum rol {
-        CLIENTE, ADMINISTRADOR, EMPRESA
+        CLIENTE, ADMINISTRADOR
     }
 
     public rol getPerfil() {

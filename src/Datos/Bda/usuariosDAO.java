@@ -51,7 +51,9 @@ public class usuariosDAO {
     //UPDATE
     public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
         boolean modificado = false;
-        modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, id, fecNac);
+//        modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, id, fecNac);
+        /////////////corregir//////////   
+
         String consulta = "UPDATE USUARIOS SET ROL = ? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, rol);
@@ -61,9 +63,9 @@ public class usuariosDAO {
         return modificado;
     }
 
-    public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
+    public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String contrasena, String foto, int id, LocalDate fecNac) throws SQLException {
         boolean modificado = false; /////contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol,foto 
-        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
+        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? ,contraseña=?, foto=? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, DNI);
         ps.setString(2, nombre);
@@ -73,7 +75,9 @@ public class usuariosDAO {
         ps.setString(6, telefono);
         ps.setString(7, email);
         ps.setString(8, fecNac.toString());
-        ps.setInt(9, id);
+        ps.setString(9, contrasena);
+        ps.setString(10, foto);
+        ps.setInt(11, id);
 
         ps.executeUpdate();
         modificado = true;
