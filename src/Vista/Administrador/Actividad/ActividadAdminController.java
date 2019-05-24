@@ -125,6 +125,10 @@ public class ActividadAdminController implements Initializable {
     private RadioButton radioNombre;
     @FXML
     private RadioButton radioPrecio;
+    @FXML
+    private Button botonImportar;
+    
+   
     
     private ObservableList<Actividad> actividades;
     private ObservableList<String> tipos;
@@ -139,8 +143,10 @@ public class ActividadAdminController implements Initializable {
     private actividadesDAO activiDAO;
     private tiposDAO tipoDAO;
     private Notificacion not;
-    @FXML
-    private Button botonImportar;
+    
+    
+    
+    
 
     public void setGestion(GestionBD gestion) {
         ActividadAdminController.gestion = gestion;
@@ -172,7 +178,7 @@ public class ActividadAdminController implements Initializable {
         radioNombre.setToggleGroup(grupo);
         radioPrecio.setToggleGroup(grupo);
         radioId.setSelected(true);
-
+        
     }
     
     
@@ -180,20 +186,14 @@ public class ActividadAdminController implements Initializable {
     
     private void ordenarPorId(){       
         Collections.sort(actividades);
-//        System.out.println("OrdenarPorId: " + actividades);
-//        cargarTabla(actividades);
     }
     
     private void ordenarPorNombre(){
         Collections.sort(actividades,new OrdenNombreA());
-//         System.out.println("OrdenarPorNombre: " + actividades);
-//        cargarTabla(actividades);
     }
     
     private void ordenarPorPrecio(){
         Collections.sort(actividades,new OrdenPrecioA());
-//         System.out.println("OrdenarPorPrecio: " + actividades);
-//        cargarTabla(actividades);
     }
 
 // ---------------------------- CARGAR COMBO TIPO ------------------------
@@ -227,18 +227,41 @@ public class ActividadAdminController implements Initializable {
         actividades.clear();
         actividades.addAll(coleccion);
         
-        if(radioId.isSelected()){
+        if(radioId.isSelected() && radioId.isFocused()){
            this.ordenarPorId();
-                   
+//           tb_id.getStyleClass().add("background1ColumnaIdActividad");
+//           tb_nombre.getStyleClass().add("background2ColumnaNombreActividad");
+//           tb_precio.getStyleClass().add("background2ColumnaPrecioActividad");
+
+           tb_id.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
+        }   
+        else{
+            tb_id.setStyle("");
         }
-        if(radioNombre.isSelected()){
+
+        if(radioNombre.isSelected() && radioNombre.isFocused()){
            this.ordenarPorNombre();
-//           listar();
+//           tb_id.getStyleClass().add("background2ColumnaIdActividad");
+//           tb_nombre.getStyleClass().add("background1ColumnaNombreActividad");
+//           tb_precio.getStyleClass().add("background2ColumnaPrecioActividad");
+           tb_nombre.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
+        }   
+        else {
+            tb_nombre.setStyle("");
         }
-        if(radioPrecio.isSelected()){
+
+        if(radioPrecio.isSelected() && radioPrecio.isFocused()){
            this.ordenarPorPrecio();
-//           listar();
+//           tb_id.getStyleClass().add("background2ColumnaIdActividad");
+//           tb_nombre.getStyleClass().add("background2ColumnaNombreActividad");
+//           tb_precio.getStyleClass().add("background1ColumnaPrecioActividad");
+//           
+           tb_precio.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
+        }   
+        else {
+            tb_precio.setStyle("");
         }
+ 
         
         tableview.setItems(actividades);
 
@@ -311,9 +334,9 @@ public class ActividadAdminController implements Initializable {
             } else {
                 imageView.setVisible(true);
                 imageView.setImage(new Image("Imagenes/" + foto));
-                imageView.setFitHeight(250);
-                imageView.setFitWidth(250);
-                imageView.setPreserveRatio(true);
+                imageView.setFitHeight(200);
+                imageView.setFitWidth(300);
+                imageView.setPreserveRatio(false);
             }
         } catch (Exception ex) {
             not.error("ERROR EXCEPTION", "" + ex.getMessage()
@@ -485,6 +508,11 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private void listarId(ActionEvent event) {
         cargarTablaPorTipo();
+    }
+    
+     @FXML
+    private void ordenar(ActionEvent event) {
+        listar();
     }
 
     @FXML
