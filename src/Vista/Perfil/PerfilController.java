@@ -169,8 +169,11 @@ public class PerfilController implements Initializable {
                 usuario.setTelefono(telefono);
                 usuario.setDireccion(direccion);
                 usuario.setEmail(email);
+<<<<<<< HEAD
                 usuario.setFotoFile(fotoFile);
 
+=======
+>>>>>>> origin/master
                 labelUser.setText(nick);
 //                usuario.setFoto(DNI);
 //                UsuarioController usuarioController=new UsuarioController();        

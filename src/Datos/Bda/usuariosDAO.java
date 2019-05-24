@@ -123,12 +123,12 @@ public class usuariosDAO {
         String tabla = "CLIENTES";
         List<Usuario> listaUsuarios = lista(tabla);
 //        List<Usuario> listaUsuarios = null;
-//        if (gestion.getConn() != null) {       
-//            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
-//            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-//            ResultSet rs = ps.executeQuery();       
-//            listaUsuarios = darValorRs(rs);
-//        }
+        if (gestion.getConn() != null) {       
+            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();       
+            listaUsuarios = darValorRs(rs);
+        }
         return listaUsuarios;
     }
 
@@ -229,6 +229,21 @@ public class usuariosDAO {
             correo = rs.getString(1);
         }
         return correo;
+    }
+    
+    public boolean clienteExiste(String nick) throws SQLException{
+        List<Usuario> listausuarios = new ArrayList<>();
+        boolean existe= false;
+        
+        listausuarios = listarClientes(); 
+        for (Usuario user : listausuarios) {
+            if(user.getNick().equalsIgnoreCase(nick)){ 
+                existe = true;
+                break;
+            }
+        }
+        
+        return existe;
     }
 
 }

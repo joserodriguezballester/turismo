@@ -1,0 +1,3 @@
+nombre#precio#horario#descripcion#url#direccion#telefono#foto#idsubTipo
+actividad1#10#el horario1#la descripcion1#la url1#la direccion1#el telefono1# la foto1#1
+actividad2#10#el horario2#la descripcion2#la url2#la direccion2#el telefono2# la foto1#2

@@ -100,12 +100,11 @@ public class UsuarioController implements Initializable {
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
-          
         styleInicio();
     }
 
     private void styleInicio() {
-                
+
         //Imagen fondo
         Image img = new Image("Imagenes/inicioprueba.jpg");
         ImageView imagev = new ImageView(img);
@@ -125,8 +124,6 @@ public class UsuarioController implements Initializable {
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
         olvidar.getStyleClass().add("recordarpassword");   
-        
-  
     }
 
     //ACCIONES------------------------------------------------------------------
@@ -290,15 +287,15 @@ public class UsuarioController implements Initializable {
 
                 // segun el roll ejecutará uno de los dos metodos
                 if ("CLIENTE".equalsIgnoreCase(usuario.getPerfilString())) {
-                    
+
                     String rol = "cliente";
                     transicionPrincipal(rol);
 
                 } else {
-                
+
                     if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
                         String rol = "admin";
-                        transicionPrincipal(rol);  
+                        transicionPrincipal(rol);
                     } else {
                         not.error("Segun lorenzo soy tonto",
                                 "en logearseBueno() --- UsuarioController");
@@ -338,12 +335,12 @@ public class UsuarioController implements Initializable {
 
         translatePrincipal.setFromX(0);
         translatePrincipal.setToX(-1350);
-        
+
         translatePrincipal.setInterpolator(Interpolator.LINEAR);
         translatePrincipal.play();
         translateAgencia.setInterpolator(Interpolator.LINEAR);
         translateAgencia.play();
-        
+
         translatePrincipal.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -359,7 +356,7 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void recordarPass(MouseEvent event) throws SQLException, MessagingException {
-        
+
         //Enviar un correo con una nueva contraseña
         not = new Notificacion();
         Pair<String, String> pareja = not.recordar();

@@ -67,22 +67,22 @@ public class actividadesDAO {
     }
 
     //CREATE
-    public boolean insertarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int subtipo) throws SQLException {
+    public boolean insertarActividad(Actividad act) throws SQLException {
         boolean insertado = false;
 
         if (gestion.getConn() != null) {
             String consulta = "INSERT INTO ACTIVIDADES (ID, NOMBRE, PRECIO, HORARIO, DESCRIPCION, URL, DIRECCION, TELEFONO, FOTO, IDSUBTIPO) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ps.setInt(1, id);
-            ps.setString(2, nombre);
-            ps.setDouble(3, precio);
-            ps.setString(4, horario);
-            ps.setString(5, descripcion);
-            ps.setString(6, url);
-            ps.setString(7, direccion);
-            ps.setString(8, telefono);
-            ps.setString(9, rutaFoto);
-            ps.setInt(10, subtipo);
+            ps.setObject(1, null);
+            ps.setString(2, act.getNombre());
+            ps.setDouble(3, act.getPrecio());
+            ps.setString(4, act.getHorario());
+            ps.setString(5, act.getDescripcion());
+            ps.setString(6, act.getUrl());
+            ps.setString(7, act.getDireccion());
+            ps.setString(8, act.getTelefono());
+            ps.setString(9, act.getFoto());
+            ps.setInt(10, act.getIdsubTipo());
             ps.executeUpdate();
             insertado = true;
         } else {
