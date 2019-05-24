@@ -63,9 +63,9 @@ public class usuariosDAO {
         return modificado;
     }
 
-    public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String contrasena, String foto, int id, LocalDate fecNac) throws SQLException {
+    public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String foto, int id, LocalDate fecNac) throws SQLException {
         boolean modificado = false; /////contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol,foto 
-        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? ,contraseña=?, foto=? WHERE ID = ?;";
+        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =?, foto=? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, DNI);
         ps.setString(2, nombre);
@@ -75,10 +75,8 @@ public class usuariosDAO {
         ps.setString(6, telefono);
         ps.setString(7, email);
         ps.setString(8, fecNac.toString());
-        ps.setString(9, contrasena);
-        ps.setString(10, foto);
-        ps.setInt(11, id);
-
+        ps.setString(9, foto);
+        ps.setInt(10, id);
         ps.executeUpdate();
         modificado = true;
         return modificado;
@@ -244,6 +242,22 @@ public class usuariosDAO {
         }
         
         return existe;
+    }
+
+    public boolean modificarNick(String nick) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET nick = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, nick);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+    public boolean modificarNombre(String nombre) {
+    }
+
+    public boolean modificarApellidosTF(String apellidos) {
     }
 
 }

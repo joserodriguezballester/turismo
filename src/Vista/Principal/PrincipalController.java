@@ -82,7 +82,7 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        styleInicio();   
+        styleInicio();
         efectoTransicion();
     }
 
@@ -97,12 +97,10 @@ public class PrincipalController implements Initializable {
 
     public void cargaNickFoto() {
         if (usuario != null) {
-            botonPerfil.setText(usuario.getNick().toUpperCase());           
+            botonPerfil.setText(usuario.getNick().toUpperCase());
             try {
-                System.out.println("1");
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
             } catch (Exception e) {
-                  System.out.println("2");
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
         }
@@ -168,7 +166,6 @@ public class PrincipalController implements Initializable {
                     "Revisa el código y vuelve a intentarlo, (irInicio PrincipalController)");
         }
     }
-    
 
     @FXML
     private void irActividad(ActionEvent event) {
@@ -227,15 +224,14 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
 
         PerfilController perfilController;
-       
 
         loader.setLocation(getClass().getResource("/Vista/Perfil/Perfil.fxml"));
         try {
             Parent root = loader.load();
             perfilController = loader.getController();
             perfilController.setUsuario(usuario);
-             perfilController.setcontroler(principalController);
-          
+            perfilController.setcontroler(principalController);
+
             perfilController.setGestion(gestion);
             perfilController.calcularnodos();
             Ventana.getChildren().add(root);
@@ -359,7 +355,7 @@ public class PrincipalController implements Initializable {
     }
 
     public void setcontroller(PrincipalController principalController) {
-    this.principalController=principalController;
+        this.principalController = principalController;
     }
 
 }

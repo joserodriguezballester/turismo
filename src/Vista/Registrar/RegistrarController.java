@@ -115,7 +115,7 @@ public class RegistrarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        usuario=new Usuario();
+        usuario = new Usuario();
 
         styleInicio();
 
@@ -156,13 +156,13 @@ public class RegistrarController implements Initializable {
 
     private void cargarfoto() {
         Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
-        fotoFile=usuario.cargarfoto();
-  
+        fotoFile = usuario.cargarfoto();
+
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
         }
-        
+
     }
 
     public void setParametros(usuariosDAO usuarioDAO) {
@@ -181,18 +181,15 @@ public class RegistrarController implements Initializable {
             Path from;
 
             LocalDate fecNac = fecNacTF.getValue();
- 
-            String foto=usuario.fotoToString();
-      
-        //avatarIV.getImage().getUrl();
 
-        //Control de entradas nulas//
-           
-        //crear usuario//
-        
+            String foto = usuario.fotoToString();
+
+            //avatarIV.getImage().getUrl();
+            //Control de entradas nulas//
             boolean noInsertar = camposVacios();
+            //crear usuario//
             if (!noInsertar) {
-    //            usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
+//            usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
                 usuario.setNick(nick);
                 usuario.setPassword(contrasena);
 
@@ -226,8 +223,13 @@ public class RegistrarController implements Initializable {
                 } else {
                     not.confirm("Registrarse", "No te has registrado");
                 }
-            }    
+            }
         }
+    }
+
+    @FXML
+    private void comprobar(MouseEvent event) {
+        camposVacios();
     }
 
     @FXML
@@ -237,13 +239,8 @@ public class RegistrarController implements Initializable {
         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();
         stage.close();
     }
-
-    @FXML
-    private void comprobar(MouseEvent event) {
-        camposVacios();
-    }
-
     //CONTROL DE DATOS----------------------------------------------------------
+
     private boolean comprobacionCampos() throws SQLException {
         recogerDatos();
         boolean todoCorrecto = true;
@@ -330,22 +327,22 @@ public class RegistrarController implements Initializable {
         recogerDatos();
 
         //Comprobar si los campos estan vacios y pone el label en rojo
-        if ("".equals(nick)) {
+        if (nick.equals("")) {
             vacio = true;
             nickL.setStyle(mal);
             nickTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
         }
-        if ("".equals(contrasena)) {
+        if (contrasena.equals("")) {
             vacio = true;
             contraL.setStyle(mal);
             contraPF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
         }
-        if ("".equals(nombre)) {
+        if (nombre.equals("")) {
             vacio = true;
             nombreL.setStyle(mal);
             nombreTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
         }
-        if ("".equals(apellidos)) {
+        if (apellidos.equals("")) {
             vacio = true;
             apelliL.setStyle(mal);
             apellidosTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
@@ -355,12 +352,12 @@ public class RegistrarController implements Initializable {
             fecNacL.setStyle(mal);
             fecNacTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
         }
-        if ("".equals(telefono)) {
+        if (telefono.equals("")) {
             vacio = true;
             telefL.setStyle(mal);
             telefonoTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
         }
-        if ("".equals(email)) {
+        if (email.equals("")) {
             vacio = true;
             emailL.setStyle(mal);
             emailTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
