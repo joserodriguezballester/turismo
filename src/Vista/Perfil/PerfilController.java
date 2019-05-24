@@ -143,7 +143,7 @@ public class PerfilController implements Initializable {
                 usuario.setTelefono(telefono);
                 usuario.setDireccion(direccion);
                 usuario.setEmail(email);
-                labelUser.setText(nick);
+                labelUser.setText(nick.toUpperCase());
             }
 
             //asi hemos recargado la lista

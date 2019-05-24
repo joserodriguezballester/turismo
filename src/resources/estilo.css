@@ -32,6 +32,7 @@ and open the template in the editor.
     -jfx-button-type: RAISED;
     -fx-padding: 0.7em 0.57em;
     -fx-border: solid;
+    -fx-cursor:hand;
 }
 
 .recordarpassword{
@@ -70,6 +71,7 @@ and open the template in the editor.
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-background-color: rgb(2,144,46);
+    -fx-cursor:hand;
 }
 
 .botonEliminar{
@@ -78,7 +80,8 @@ and open the template in the editor.
     -fx-background-radius: 20;
     -fx-font-size: 16px;
     -fx-font-weight: bold;
-    -fx-background-color: #ff0000
+    -fx-background-color: #ff0000;
+    -fx-cursor:hand;
 }
 
 
@@ -98,6 +101,7 @@ and open the template in the editor.
     /*-fx-background-color: rgb(77,102,204);*/
     -fx-background-color:rgb(226, 207, 181);
     -fx-border: solid;
+    -fx-cursor:hand;
 }
 
 .botonMenu:hover{
@@ -137,6 +141,7 @@ and open the template in the editor.
     -fx-background-color: rgb(161, 131, 89); 
     /*    -fx-background-color: rgb(226, 207, 181);*/
     -fx-text-fill:BLACK;
+    -fx-cursor:hand;
 }
 
 .botonActividad:hover{
@@ -155,6 +160,7 @@ and open the template in the editor.
     -jfx-button-type: RAISED;
     -fx-background-color: rgb(238,32,32);
     -fx-text-fill: WHITE;
+    -fx-cursor:hand;
 }
 
 .tituloActividades {
@@ -176,9 +182,20 @@ and open the template in the editor.
 .botonCrearExperiencia{
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
-    -fx-font-size: 16px;
+    -fx-font-size: 17px;
     -fx-font-weight: bold;
     -fx-background-color: rgb(2,144,46);
+    -fx-cursor:hand;
+}
+.botonCrearExperiencia:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(2,144,46);
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: WHITE;
+    -fx-border-color: rgb(2,144,46);
+    -fx-border-width: 4; 
+    -fx-cursor:hand;
 }
 
 .botonAnyadir{
@@ -188,15 +205,9 @@ and open the template in the editor.
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-background-color: rgb(2,144,46);
+    -fx-cursor:hand;
 }
 
-.botonImprimirExperiencia{
-    -fx-font-weight: bold;
-    -fx-text-fill: WHITE;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-background-color: rgb(20,40,100);
-}
 .botonAnyadirExperiencia{
     -fx-font-weight: bold;
     -fx-text-fill: WHITE;
@@ -204,6 +215,7 @@ and open the template in the editor.
     -fx-font-size: 16px;
     -fx-font-weight: bold;
     -fx-background-color: #3366ff;
+    -fx-cursor:hand;
 }
 
 .paneexperiencia{
@@ -227,6 +239,50 @@ and open the template in the editor.
     -fx-background-radius: 20;
 }
 
+.listaVisualExperiencias{
+    -fx-background-color: rgba(104, 90, 71,0.8);
+}
+
+.botonConsultarExperiencias{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(2,144,46);
+    -fx-border-width: 4; 
+    -fx-cursor:hand;
+}
+
+.botonImprimirExperiencia{
+    -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(20,40,100);
+    -fx-border-width: 4; 
+    -fx-cursor:hand;
+}
+.botonConsultarExperiencias:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(2,144,46);
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: WHITE;
+    -fx-border-color: rgb(2,144,46);
+    -fx-border-width: 4; 
+    -fx-cursor:hand;
+}
+
+.botonImprimirExperiencia:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: rgb(20,40,100);
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: WHITE;
+    -fx-border-color: rgb(20,40,100);
+    -fx-border-width: 4; 
+    -fx-cursor:hand;
+}
 /*ESTILOS_VISTA.BUSCADOR------------------------------------------------------*/
 
 .paneActividadBuscador{
@@ -286,7 +342,7 @@ and open the template in the editor.
 
 .barraPerfil{
     -fx-background-color: rgb(229, 202, 165);
-    
+
 }
 
 /* ESTILOS_EXPERIENCIAS_ADMIN_CONTROLLER ------------------------------------*/
@@ -297,7 +353,7 @@ and open the template in the editor.
 
 .paneBienv{
     -fx-background-color: rgba(229, 202, 165,0.6);
-    
+
 }
 
 
