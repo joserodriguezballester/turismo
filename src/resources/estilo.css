@@ -82,6 +82,7 @@ and open the template in the editor.
 }
 
 
+
 /*ESTILOS_VISTA.PRINCIPAL-----------------------------------------------------*/
 
 .menu{
@@ -286,7 +287,7 @@ and open the template in the editor.
 
 .barraPerfil{
     -fx-background-color: rgb(229, 202, 165);
-    
+
 }
 
 /* ESTILOS_EXPERIENCIAS_ADMIN_CONTROLLER ------------------------------------*/
@@ -297,7 +298,7 @@ and open the template in the editor.
 
 .paneBienv{
     -fx-background-color: rgba(229, 202, 165,0.6);
-    
+
 }
 
 
