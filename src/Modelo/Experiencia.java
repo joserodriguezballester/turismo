@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Experiencia {
+public class Experiencia implements Comparable<Experiencia>{
 
     private int id, idUsuario;
     private String nombre;
@@ -97,5 +97,17 @@ public class Experiencia {
     @Override
     public String toString() {
         return nombre;
+    }
+
+    @Override
+    public int compareTo(Experiencia exp) {
+        int compara = 0;
+        if(this.id < exp.getId()){
+            compara = -1;
+        }
+        else if(this.id > exp.getId()){
+            compara = 1;
+        }       
+        return compara;
     }
 }

@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
  *
  * @author 20857464y
  */
-public class ActividadExperiencia {
+public class ActividadExperiencia implements Comparable<ActividadExperiencia>{
 
     private int orden;
     private int idExperiencia;
@@ -104,6 +104,18 @@ public class ActividadExperiencia {
     @Override
     public String toString() {
         return orden + " - " + actividad;
+    }
+
+    @Override
+    public int compareTo(ActividadExperiencia aex) {
+        int compara = 0;
+        if(this.orden < aex.getOrden()){
+            compara = -1;
+        }
+        else if(this.orden > aex.getOrden()){
+            compara = 1;
+        }        
+        return compara;
     }
 
 }

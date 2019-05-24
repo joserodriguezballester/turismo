@@ -51,7 +51,7 @@ public class ExperienciaController implements Initializable {
     private Usuario usuario;
     private Stage escenario;
     private ObservableList<Experiencia> listaExperiencias = FXCollections.observableArrayList();
-
+    
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -77,29 +77,32 @@ public class ExperienciaController implements Initializable {
     @FXML
     private JFXButton botonModificarExperiencia;
     private Notificacion not;
-
+    
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
     }
-
+    
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-
+    
     public void setListaExperiencias(ObservableList<Experiencia> listaExperienciasSeleccionadas) {
         listaExperiencias = listaExperienciasSeleccionadas;
         inicio();
     }
-
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 //        IMAGEN FONDO
         Image img = new Image("Imagenes/fondoExperienc3.jpg");
         ImageView imagev = new ImageView(img);
-
+        
         imagev.setFitHeight(730);
         imagev.setFitWidth(1300);
-
+        imagev.setLayoutX(0);
+        imagev.setLayoutY(0);
+        imagev.setPreserveRatio(false);
+        
         this.Ventana.getChildren().add(imagev);
         botonCrearExperiencia.toFront();
         listaVisualExperiencias.toFront();
@@ -114,13 +117,14 @@ public class ExperienciaController implements Initializable {
         botonCerrarInformacion.getStyleClass().add("botonCerrarInformacion");
         paneInformacion.setVisible(false);
         paneInformacion.getStyleClass().add("paneInformacionActividades");
-
+        listaVisualExperiencias.getStyleClass().add("listaVisualExperiencias");
+        
         textAreaDescripcion.getStyleClass().add("textoActividad");
         textFieldFechaValidez.getStyleClass().add("textoActividad");
         listaActividades.getStyleClass().add("textoActividad");
         salidaPrecio.getStyleClass().add("textoActividad");
     }
-
+    
     private void inicio() {
         gestionBDExperiencias = new experienciasDAO(gestion);
         try {
@@ -133,7 +137,7 @@ public class ExperienciaController implements Initializable {
                     "Revisa el código y vuelve a intentarlo");
         }
     }
-
+    
     @FXML
     public void cargarExperiencia() {
         listaActividades.getItems().clear();
@@ -150,39 +154,39 @@ public class ExperienciaController implements Initializable {
         }
         salidaPrecio.setText(String.valueOf(experiencia.calcularPrecio()) + "€");
     }
-
+    
     @FXML
     private void cerrarInformacion(ActionEvent event) {
         cerrarInfo();
     }
-
+    
     private void cerrarInfo() {
         FadeTransition transicion = new FadeTransition(Duration.millis(1000), paneInformacion);
         transicion.setFromValue(1.0);
         transicion.setToValue(0);
         transicion.play();
     }
-
+    
     @FXML
     private void CrearExperiencia(ActionEvent event) {
         CargarVentanaCrear();
     }
-
+    
     @FXML
     private void ModificarExperiencia(ActionEvent event) {
         CargarVentanaCrear(listaVisualExperiencias.getSelectionModel().getSelectedItem());
     }
-
+    
     private void CargarVentanaCrear() {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-
+        
         CrearExperienciaController controlador;
-
+        
         loader.setLocation(getClass().getResource("/Vista/CrearExperiencia/CrearExperiencia.fxml"));
         try {
             Parent root = loader.load();
-
+            
             controlador = loader.getController();
             controlador.setGestion(gestion);
             controlador.setUsuario(usuario);
@@ -197,17 +201,17 @@ public class ExperienciaController implements Initializable {
                     "en CargarVentanaCrear --- ExperienciaController");
         }
     }
-
+    
     private void CargarVentanaCrear(Experiencia experiencia) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-
+        
         CrearExperienciaController controlador;
-
+        
         loader.setLocation(getClass().getResource("/Vista/CrearExperiencia/CrearExperiencia.fxml"));
         try {
             Parent root = loader.load();
-
+            
             controlador = loader.getController();
             controlador.setGestion(gestion);
             controlador.setUsuario(usuario);
@@ -223,5 +227,5 @@ public class ExperienciaController implements Initializable {
                     "en CargarVentanaCrear(param) --- ExperienciaController");
         }
     }
-
+    
 }

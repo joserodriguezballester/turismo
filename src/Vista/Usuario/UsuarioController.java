@@ -75,8 +75,6 @@ public class UsuarioController implements Initializable {
     @FXML
     private TextField nickTF;
     @FXML
-    private Pane Ventana;
-    @FXML
     private AnchorPane fondoUsuario;
     @FXML
     private Label agencia;
