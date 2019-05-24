@@ -77,7 +77,6 @@ public class usuariosDAO {
         ps.setString(8, fecNac.toString());
         ps.setString(9, foto);
         ps.setInt(10, id);
-
         ps.executeUpdate();
         modificado = true;
         return modificado;

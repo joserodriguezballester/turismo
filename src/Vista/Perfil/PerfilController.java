@@ -105,19 +105,19 @@ public class PerfilController implements Initializable {
         botonGuardar.getStyleClass().add("botonGuardarModificacion");
         alFrenteAP.toFront();
         caraIV.setOnMouseClicked(event -> mostrarFoto());
-        botonGuardar.setVisible(false); 
-        cancelarBT.setVisible(false); 
+        botonGuardar.setVisible(false);
+        cancelarBT.setVisible(false);
 
     }
 
     private void mostrarFoto() {
         fotoFile = usuario.cargarfoto();
-
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             caraIV.setImage(image);
+
         }
-//         foto = usuario.fotoToString();
+//      principalController.cargaNickFoto();  
     }
 
     public void setUsuario(Usuario usuario) {
@@ -148,8 +148,6 @@ public class PerfilController implements Initializable {
     private void modificar(ActionEvent event) {
 
         String nick = nickTF.getText();
-        System.out.println(" al entrar en modificar nick "+nick);
-        System.out.println("foto "+foto);
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String DNI = dniTF.getText();
@@ -158,13 +156,10 @@ public class PerfilController implements Initializable {
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
         String contrasena = usuario.encriptar(contraPF.getText()); ////encriptada
-        //borrar foto si cambia nick
-        //controlar foto=null si no se cambia
         usuario.setNick(nick);
-        System.out.println("2 llamaremos a fotoToString "+nick);
+
         foto = usuario.fotoToString();   ///pasar fotofile a string
-        
-//        usuario.
+
         int id = usuario.getId();
 
         try {           ////String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String contrasena, String foto, int id, LocalDate fecNac
@@ -172,37 +167,30 @@ public class PerfilController implements Initializable {
 
             // si ha modificado algo
 //            if (modificado) {
-                System.out.println("modificado "+modificado);
-                //guardar si cambia nick o foto.
-                System.out.println("2 "+nick);
-                usuario.setNick(nick);
-                System.out.println("3 "+usuario.getNick());
-                usuario.guardarFoto();
-                not.info("Modificar", "Ha sido modificado con exito");
-                usuario.setNombre(nombre);
-                usuario.setApellidos(apellidos);
-                usuario.setDni(DNI);
-                usuario.setFecNac(fecNac);
-                usuario.setTelefono(telefono);
-                usuario.setDireccion(direccion);
-                usuario.setEmail(email);
+            System.out.println("modificado " + modificado);
+            //guardar si cambia nick o foto.
+            System.out.println("2 " + nick);
+            usuario.setNick(nick);
+            System.out.println("3 " + usuario.getNick());
+            usuario.guardarFoto();
+            not.info("Modificar", "Ha sido modificado con exito");
+            usuario.setNombre(nombre);
+            usuario.setApellidos(apellidos);
+            usuario.setDni(DNI);
+            usuario.setFecNac(fecNac);
+            usuario.setTelefono(telefono);
+            usuario.setDireccion(direccion);
+            usuario.setEmail(email);
 
-                usuario.setFotoFile(fotoFile);
+            usuario.setFotoFile(fotoFile);
 
+            labelUser.setText(nick);
 
-                labelUser.setText(nick);
-//                usuario.setFoto(DNI);
-//                UsuarioController usuarioController=new UsuarioController();        
-//                Stage escenario = (Stage) this.Ventana.getParent().getScene().getWindow();  
-//              Ventana.getChildren().removeAll(Ventana.getChildren());
-//                usuarioController.cargarVentanaPrincipal();
-//                PrincipalController principalController=new PrincipalController();
-                principalController.cargaNickFoto();
+            principalController.cargaNickFoto();
 
-                labelUser.setText(nick.toUpperCase());
+            labelUser.setText(nick.toUpperCase());
 
 //            }
-
             //asi hemos recargado la lista
         } catch (SQLException ex) {
             not.error("ERROR SQL", "" + ex.getMessage()
@@ -211,11 +199,11 @@ public class PerfilController implements Initializable {
 
     }
 
-
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
     }
 /////corregir
+
     private void cargarfoto() {
         Stage stage = (Stage) this.caraIV.getParent().getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
@@ -239,29 +227,29 @@ public class PerfilController implements Initializable {
 
     @FXML
     private void editarPerfil(ActionEvent event) {
-        botonGuardar.setVisible(true); 
+        botonGuardar.setVisible(true);
         cancelarBT.setVisible(true);
-        
+
         boolean siEditable = true;
-        editables(siEditable); 
+        editables(siEditable);
     }
 
     @FXML
     private void cancelar(ActionEvent event) {
-        botonGuardar.setVisible(false); 
+        botonGuardar.setVisible(false);
         cancelarBT.setVisible(false);
-        
+
         boolean noEditable = false;
         editables(noEditable);
-    } 
-    
-    private void editables(boolean edit){
-        nickTF.setEditable(edit); 
-        nombreTF.setEditable(edit); 
-        apellidosTF.setEditable(edit); 
-        dniTF.setEditable(edit); 
-        fecNacTF.setEditable(edit); 
-        direccionTF.setEditable(edit); 
+    }
+
+    private void editables(boolean edit) {
+        nickTF.setEditable(edit);
+        nombreTF.setEditable(edit);
+        apellidosTF.setEditable(edit);
+        dniTF.setEditable(edit);
+        fecNacTF.setEditable(edit);
+        direccionTF.setEditable(edit);
         emailTF.setEditable(edit);
     }
 }
