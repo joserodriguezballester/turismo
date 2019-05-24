@@ -100,7 +100,6 @@ public class UsuarioController implements Initializable {
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
-
         styleInicio();
     }
 
@@ -124,7 +123,7 @@ public class UsuarioController implements Initializable {
         paneagencia.getStyleClass().add("paneAgencia");
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
-        olvidar.getStyleClass().add("recordarpassword");
+        olvidar.getStyleClass().add("recordarpassword");   
     }
 
     //ACCIONES------------------------------------------------------------------
@@ -168,8 +167,8 @@ public class UsuarioController implements Initializable {
     //VENTANAS------------------------------------------------------------------
     public void cargarVentanaPrincipal() {
 
-        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
-
+//        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
+        
         String nombrefichero = "/Vista/Principal/Principal.fxml";
         PrincipalController principalController;
         Parent root;
@@ -183,6 +182,7 @@ public class UsuarioController implements Initializable {
             //Pasamos informacion a la clase siguiente
             principalController.setGestion(gestion);
             principalController.setParametroUsuario(usuario);
+             principalController.setcontroller(principalController);
 
             //principalController.setParametros(usuario, bda, cambiador);
             //Damos valores a los nodos antes de mostrarlos
@@ -200,7 +200,7 @@ public class UsuarioController implements Initializable {
 
     private void cargarVentanaPrincipalAdmin() {
 
-        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
+//        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
 
         String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
         PrincipalAdminController principalAdminController;
@@ -264,10 +264,8 @@ public class UsuarioController implements Initializable {
         PasswordEncryptor encryptor = new BasicPasswordEncryptor();
         boolean existe = false;
         boolean checkPassword;
-
         String nick = nickTF.getText();
         String contrasena = contraTF.getText();
-
         String contrasenaBD = null;
 
         try {
@@ -275,13 +273,12 @@ public class UsuarioController implements Initializable {
         } catch (SQLException ex) {
             not.alert(tituloAlertSQL, mensajeSQL);
         }
-
         checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
-
         return checkPassword;
     }
 
     private void logearseBueno() throws InterruptedException {
+       escenario = (Stage) this.nickTF.getParent().getScene().getWindow();  
         boolean logeado = verificaUsuario();        //Verifica que existe y contraseña correcta
 
         if (logeado) {
@@ -328,7 +325,7 @@ public class UsuarioController implements Initializable {
         }
     }
 
-    private void transicionPrincipal(String rol) {
+    public void transicionPrincipal(String rol) {
 
         translatePrincipal = new TranslateTransition(Duration.seconds(1), paneCapaTriangulo);
         translateAgencia = new TranslateTransition(Duration.seconds(1), paneagencia);

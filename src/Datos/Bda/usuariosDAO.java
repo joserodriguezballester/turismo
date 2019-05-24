@@ -62,7 +62,7 @@ public class usuariosDAO {
     }
 
     public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
-        boolean modificado = false;
+        boolean modificado = false; /////contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol,foto 
         String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, DNI);
@@ -119,12 +119,12 @@ public class usuariosDAO {
         String tabla = "CLIENTES";
         List<Usuario> listaUsuarios = lista(tabla);
 //        List<Usuario> listaUsuarios = null;
-//        if (gestion.getConn() != null) {       
-//            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
-//            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-//            ResultSet rs = ps.executeQuery();       
-//            listaUsuarios = darValorRs(rs);
-//        }
+        if (gestion.getConn() != null) {       
+            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
+            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();       
+            listaUsuarios = darValorRs(rs);
+        }
         return listaUsuarios;
     }
 
@@ -225,6 +225,21 @@ public class usuariosDAO {
             correo = rs.getString(1);
         }
         return correo;
+    }
+    
+    public boolean clienteExiste(String nick) throws SQLException{
+        List<Usuario> listausuarios = new ArrayList<>();
+        boolean existe= false;
+        
+        listausuarios = listarClientes(); 
+        for (Usuario user : listausuarios) {
+            if(user.getNick().equalsIgnoreCase(nick)){ 
+                existe = true;
+                break;
+            }
+        }
+        
+        return existe;
     }
 
 }
