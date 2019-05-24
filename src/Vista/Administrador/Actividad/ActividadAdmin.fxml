@@ -185,6 +185,7 @@
          <effect>
             <DropShadow />
          </effect></ComboBox>
+      <Button fx:id="botonImportar" layoutX="688.0" layoutY="680.0" mnemonicParsing="false" onAction="#importarActividad" text="Importar Actividad de un fichero" />
    </children>
    <styleClass>
       <String fx:value="mainFxmlClass" />

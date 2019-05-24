@@ -1,4 +1,3 @@
-
 package Vista.Administrador.Actividad;
 
 import Datos.Bda.GestionBD;
@@ -7,11 +6,19 @@ import Datos.Bda.tiposDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
+import java.io.File;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,6 +26,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
@@ -31,6 +39,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
@@ -49,7 +59,7 @@ public class ActividadAdminController implements Initializable {
     private Button botonListar;
     @FXML
     private Button botonBorrar;
-    @FXML   
+    @FXML
     private Button botonGuardar;
     @FXML
     private Button botonModificar;
@@ -103,77 +113,75 @@ public class ActividadAdminController implements Initializable {
     private ComboBox<Tipo> comboListarIdTipo = new ComboBox<Tipo>();
     @FXML
     private ImageView imageView;
-    
-    
+
     private ObservableList<Actividad> actividades;
     private ObservableList<String> tipos;
-    
+
     private List<Tipo> listaTipos = new ArrayList<>();
-    
+
     private Actividad actividad;
-    
+
     private static GestionBD gestion;
 
     private actividadesDAO activiDAO;
     private tiposDAO tipoDAO;
     private Notificacion not;
-      
+    @FXML
+    private Button botonImportar;
+
     public void setGestion(GestionBD gestion) {
-        ActividadAdminController.gestion = gestion; 
+        ActividadAdminController.gestion = gestion;
     }
-    
-    public void ejecutaAlPrincipio() throws SQLException{
-        activiDAO=new actividadesDAO(gestion);
+
+    public void ejecutaAlPrincipio() throws SQLException {
+        activiDAO = new actividadesDAO(gestion);
         tipoDAO = new tiposDAO(gestion);
-        
+
         try {
             listaTipos = tipoDAO.consultarTipos();
         } catch (SQLException ex) {
-             not.error("ERROR SQL","" + ex.getMessage() + 
-                    " Error al consultar la DB turismo"); 
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " Error al consultar la DB turismo");
         }
-        
+
         cargarCombo();
         cargarTabla(activiDAO.listarActividad());
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
         actividades = FXCollections.observableArrayList();
-        
-        
+
     }
-    
+
 // ---------------------------- CARGAR COMBO TIPO ------------------------
-    
-    private void cargarCombo(){      
-                   
-        for(Tipo valor: listaTipos){
+    private void cargarCombo() {
+
+        for (Tipo valor : listaTipos) {
             comboListarIdTipo.getItems().add(valor);
         }
     }
-    
+
 // ----------------------------- LISTAR ------------------------------------
-    
     @FXML
-    private void listar(){
-        List<Actividad> lista = new ArrayList<>();       
-        try {            
-            lista = activiDAO.listarActividad();           
-          
+    private void listar() {
+        List<Actividad> lista = new ArrayList<>();
+        try {
+            lista = activiDAO.listarActividad();
+
         } catch (SQLException ex) {
-            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " Error al consultar la DB turismo"); 
-        } catch (Exception es){
-            not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    " Error al mostrar la información");
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " Error al consultar la DB turismo");
+        } catch (Exception es) {
+            not.error("ERROR EXCEPTION", "" + es.getMessage()
+                    + " Error al mostrar la información");
         }
         cargarTabla(lista);
     }
 // -------------------------------- CARGAR TABLA ---------------------------
-    
-    private void cargarTabla(List<Actividad> coleccion){
+
+    private void cargarTabla(List<Actividad> coleccion) {
 
         actividades.clear();
         actividades.addAll(coleccion);
@@ -189,39 +197,37 @@ public class ActividadAdminController implements Initializable {
         tb_telefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
         tb_foto.setCellValueFactory(new PropertyValueFactory<>("foto"));
         tb_idTipo.setCellValueFactory(new PropertyValueFactory<>("idsubTipo"));
-            
+
     }
 // --------------------------- LISTAR POR TIPO ------------------------
-    
-    private void cargarTablaPorTipo(){
+
+    private void cargarTablaPorTipo() {
         List<Actividad> listaPorTipo = new ArrayList<>();
         Tipo tipo;
 
         tipo = comboListarIdTipo.getValue();
 
-        try{
-           listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
-        }catch (SQLException ex){
-           not.error("ERROR SQL","" + ex.getMessage() + 
-                    " Error al consultar la DB turismo");  
-        }catch (Exception es){
-           not.error("ERROR EXCEPTION",
+        try {
+            listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
+        } catch (SQLException ex) {
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " Error al consultar la DB turismo");
+        } catch (Exception es) {
+            not.error("ERROR EXCEPTION",
                     "Primero selecciona un tipo de actividad, (Combo)\n "
-                            + "luego puedes presionar el boton de listarID "); 
+                    + "luego puedes presionar el boton de listarID ");
         }
-        cargarTabla(listaPorTipo);    
+        cargarTabla(listaPorTipo);
     }
 
-    
 // --------------------------- SELECCIONAR UN ITEM --------------------------
-    
-    private void seleccionarItem(){
+    private void seleccionarItem() {
         int id, idsubTipo;
         double precio;
-        String nombre,descripcion,horario,direccion,url,telefono,foto;
-               
+        String nombre, descripcion, horario, direccion, url, telefono, foto;
+
         actividad = tableview.getSelectionModel().getSelectedItem();
-                       
+
         id = actividad.getId();
         nombre = actividad.getNombre();
         descripcion = actividad.getDescripcion();
@@ -243,68 +249,30 @@ public class ActividadAdminController implements Initializable {
         textTelefono.setText(telefono);
         textFoto.setText(foto);
         textIdTipo.setText(String.valueOf(idsubTipo));
-        
+
         try {
-            if(foto == null){
+            if (foto == null) {
                 imageView.setVisible(false);
-            }
-            else{
+            } else {
                 imageView.setVisible(true);
                 imageView.setImage(new Image("Imagenes/" + foto));
                 imageView.setFitHeight(250);
                 imageView.setFitWidth(250);
                 imageView.setPreserveRatio(true);
             }
-        } catch (Exception ex){
-            not.error("ERROR EXCEPTION","" + ex.getMessage() + 
-                    " Error al no encontrar la ruta de las imagenes");
-        }          
+        } catch (Exception ex) {
+            not.error("ERROR EXCEPTION", "" + ex.getMessage()
+                    + " Error al no encontrar la ruta de las imagenes");
+        }
     }
-    
+
 /// ----------------------------- INSERTAR -------------------------------         
-    private void insertar(){
-       int id, idsubTipo;
-       double precio;
-       String nombre,descripcion, horario, url, direccion, telefono, foto;
-       boolean ok = false;
-       
-       id = Integer.parseInt(textId.getText());
-       nombre = textNombre.getText();
-       descripcion = textDescripcion.getText();
-       horario = textHorario.getText();
-       precio = Double.parseDouble(textPrecio.getText());
-       direccion = textDireccion.getText();
-       url = textUrl.getText();
-       telefono = textTelefono.getText();
-       foto = textFoto.getText();
-       idsubTipo = Integer.parseInt(textIdTipo.getText());
-            
-        try {
-            ok = activiDAO.insertarActividad(id, nombre, precio, horario,
-                         descripcion, url, direccion, telefono, foto, idsubTipo);
-        } catch (SQLException ex) {
-            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " Error al insertar un registro en DB turismo");
-        }
-        if(ok == true){
-            not.info("INSERTAR CON EXITO EN TABLA ACTIVIDADES", 
-                    " La operación se ha realizado con éxito");
-        }
-        else {
-            not.info("INSERTAR SIN EXITO EN TABLA ACTIVIDADES", 
-                    " No se ha insertado el registro");
-        }
-    }
-  
-// -------------------------------- ACTUALIZAR --------------------------
-    private void actualizar(){        
-        boolean ok = false;
+    private void insertar() {
         int id, idsubTipo;
         double precio;
-        String nombre, descripcion, horario, direccion, url, telefono, foto;
-        
-        actividad = tableview.getSelectionModel().getSelectedItem();
-        
+        String nombre, descripcion, horario, url, direccion, telefono, foto;
+        boolean ok = false;
+
         id = Integer.parseInt(textId.getText());
         nombre = textNombre.getText();
         descripcion = textDescripcion.getText();
@@ -315,54 +283,90 @@ public class ActividadAdminController implements Initializable {
         telefono = textTelefono.getText();
         foto = textFoto.getText();
         idsubTipo = Integer.parseInt(textIdTipo.getText());
-        
+
         try {
-            ok = activiDAO.modificarActividad(id,nombre,precio,horario,descripcion,
-                                      url,direccion,telefono,foto,idsubTipo);
+            Actividad act = new Actividad(id, nombre, precio, horario,
+                    descripcion, url, direccion, telefono, foto, idsubTipo);
+            ok = activiDAO.insertarActividad(act);
         } catch (SQLException ex) {
-            not.error("ERROR SQL","" + ex.getMessage() + 
-                    " Error al modificar la actividad en DB turismo");
-        }if(ok){
-            not.info("ACTUALIZAR CON EXITO EN TABLA ACTIVIDADES", 
-                    " Operación realizada con éxito");
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " Error al insertar un registro en DB turismo");
         }
-        else {
-            not.info("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES", 
+        if (ok == true) {
+            not.info("INSERTAR CON EXITO EN TABLA ACTIVIDADES",
+                    " La operación se ha realizado con éxito");
+        } else {
+            not.info("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
+                    " No se ha insertado el registro");
+        }
+    }
+
+// -------------------------------- ACTUALIZAR --------------------------
+    private void actualizar() {
+        boolean ok = false;
+        int id, idsubTipo;
+        double precio;
+        String nombre, descripcion, horario, direccion, url, telefono, foto;
+
+        actividad = tableview.getSelectionModel().getSelectedItem();
+
+        id = Integer.parseInt(textId.getText());
+        nombre = textNombre.getText();
+        descripcion = textDescripcion.getText();
+        horario = textHorario.getText();
+        precio = Double.parseDouble(textPrecio.getText());
+        direccion = textDireccion.getText();
+        url = textUrl.getText();
+        telefono = textTelefono.getText();
+        foto = textFoto.getText();
+        idsubTipo = Integer.parseInt(textIdTipo.getText());
+
+        try {
+            ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
+                    url, direccion, telefono, foto, idsubTipo);
+        } catch (SQLException ex) {
+            not.error("ERROR SQL", "" + ex.getMessage()
+                    + " Error al modificar la actividad en DB turismo");
+        }
+        if (ok) {
+            not.info("ACTUALIZAR CON EXITO EN TABLA ACTIVIDADES",
+                    " Operación realizada con éxito");
+        } else {
+            not.info("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
                     " No se ha modificado el registro");
         }
     }
- 
+
 // -------------------------------- ELIMINAR ----------------------------
-    
-    private void eliminar(){
+    private void eliminar() {
         boolean ok;
         int id;
-              
-        actividad = tableview.getSelectionModel().getSelectedItem();
-        System.out.println("ACTIVIDAD: " + actividad);        
-        id = actividad.getId();
-        
-        Notifications notification = Notifications.create()
-        .title("ESTAS SEGURO DE ELIMINAR LA ACTIVIDAD " + id)
-        .text("Comfirma haciendo click sobre la ventana")
-        .graphic(null)
-        .hideAfter(Duration.seconds(25))
-        .position(Pos.TOP_LEFT)
-        .onAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
 
-                try {
-                    activiDAO.borrarActividad(id);
-                } catch (SQLException ex) {
-                    not.error("ERROR SQL", "" + ex.getMessage()
-                            + "Error al eliminar un registro de DB turismo");
-                }
-            }
-        });
-        
-        notification.showWarning();  
-              
+        actividad = tableview.getSelectionModel().getSelectedItem();
+        System.out.println("ACTIVIDAD: " + actividad);
+        id = actividad.getId();
+
+        Notifications notification = Notifications.create()
+                .title("ESTAS SEGURO DE ELIMINAR LA ACTIVIDAD " + id)
+                .text("Comfirma haciendo click sobre la ventana")
+                .graphic(null)
+                .hideAfter(Duration.seconds(25))
+                .position(Pos.TOP_LEFT)
+                .onAction(new EventHandler<ActionEvent>() {
+                    @Override
+                    public void handle(ActionEvent arg0) {
+
+                        try {
+                            activiDAO.borrarActividad(id);
+                        } catch (SQLException ex) {
+                            not.error("ERROR SQL", "" + ex.getMessage()
+                                    + "Error al eliminar un registro de DB turismo");
+                        }
+                    }
+                });
+
+        notification.showWarning();
+
 //        if(ok){
 //            not.info("ELIMINAR CON EXITO EN TABLA ACTIVIDADES", 
 //                    " Operación realizada con éxito");
@@ -372,11 +376,9 @@ public class ActividadAdminController implements Initializable {
 //                    " No se pudo eliminar el registro");
 //        }
     }
-    
-    
+
 // ----------------------- LIMPIAR LOS CAMPOS DE TEXTO --------------------
-    
-    private void limpiar(){
+    private void limpiar() {
         textId.clear();
         textNombre.clear();
         textHorario.clear();
@@ -387,13 +389,12 @@ public class ActividadAdminController implements Initializable {
         textTelefono.clear();
         textFoto.clear();
         textIdTipo.clear();
-        
+
         imageView.setVisible(false);
-        
+
     }
-  
+
 // ------------------------------ EVENTOS ---------------------------------
-    
     @FXML
     private void anadir(ActionEvent event) {
         insertar();
@@ -412,10 +413,10 @@ public class ActividadAdminController implements Initializable {
         listar();
     }
 
-    private void listar(ActionEvent event) {      
+    private void listar(ActionEvent event) {
         listar();
     }
-    
+
     @FXML
     private void guardar(ActionEvent event) {
         limpiar();
@@ -429,5 +430,90 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private void listarId(ActionEvent event) {
         cargarTablaPorTipo();
+    }
+
+    @FXML
+    private void importarActividad(ActionEvent event) {
+        FileChooser fChooser = new FileChooser();
+        fChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));
+        fChooser.setTitle("Seleccione un fichero");
+        File raiz = new File("");
+        Path root = Paths.get(raiz.getAbsolutePath() + "\\src\\ficherosActividades");
+        fChooser.setInitialDirectory(root.toFile());
+        File carta = fChooser.showOpenDialog(new Stage());
+        try (Stream<String> datos = Files.lines(carta.toPath(),
+                StandardCharsets.ISO_8859_1)) {
+            Iterator<String> it = datos.iterator();
+            int numLinea = 1;
+            String[] cabecera = null;
+            while (it.hasNext()) {
+                String linea = it.next();
+                String[] trozos;
+                if (numLinea == 1) {
+                    cabecera = linea.split("#");
+                } else {
+                    trozos = linea.split("#");
+                    int id = 0;
+                    String nombre = "";
+                    double precio = 0;
+                    String horario = "";
+                    String descripcion = "";
+                    String url = "";
+                    String direccion = "";
+                    String telefono = "";
+                    String foto = "";
+                    int idSubtipo = 0;
+                    for (int i = 0; i < cabecera.length; i++) {
+                        System.out.println(cabecera[i]);
+
+                        switch (cabecera[i]) {
+                            case "id":
+                                id = Integer.parseInt(trozos[i]);
+                                break;
+                            case "nombre":
+                                nombre = trozos[i];
+                                break;
+                            case "precio":
+                                precio = Double.parseDouble(trozos[i]);
+                                break;
+                            case "horario":
+                                horario = trozos[i];
+                                break;
+                            case "descripcion":
+                                descripcion = trozos[i];
+                                break;
+                            case "url":
+                                url = trozos[i];
+                                break;
+                            case "direccion":
+                                direccion = trozos[i];
+                                break;
+                            case "telefono":
+                                telefono = trozos[i];
+                                break;
+                            case "foto":
+                                foto = trozos[i];
+                                break;
+                            case "idsubTipo":
+                                System.out.println(Integer.parseInt(trozos[i]));
+                                idSubtipo = Integer.parseInt(trozos[i]);
+                                break;
+                        }
+                    }
+                    Actividad act;
+                    try {
+                        act = new Actividad(id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo);
+                        activiDAO.insertarActividad(act);
+                    } catch (SQLException e) {
+//                            ERROR SQL
+                        e.printStackTrace();
+                    }
+                }
+                numLinea++;
+            }
+        } catch (IOException e) {
+            Alert alerta = new Alert(Alert.AlertType.ERROR);
+            alerta.setContentText("ERROR " + e.getMessage());
+        }
     }
 }
