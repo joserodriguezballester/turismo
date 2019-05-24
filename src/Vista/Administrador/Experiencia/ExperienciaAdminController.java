@@ -28,6 +28,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,6 +36,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import org.controlsfx.control.Notifications;
 
@@ -112,7 +114,20 @@ public class ExperienciaAdminController implements Initializable {
     private JFXDatePicker fechaFin;
     @FXML
     private JFXDatePicker fechaTopeValidez;
-    
+    @FXML
+    private RadioButton radioId;
+    @FXML
+    private RadioButton radioNombre;
+    @FXML
+    private RadioButton radioFechaTope;
+    @FXML
+    private RadioButton radioPrecio;
+    @FXML
+    private RadioButton radioFechaInicio;
+    @FXML
+    private RadioButton radioOrden;
+    @FXML
+    private AnchorPane anchorPane;
     
     
     private ObservableList<Experiencia> obExperiencias;
@@ -127,8 +142,7 @@ public class ExperienciaAdminController implements Initializable {
     private actividadesDAO activiDAO;
     
     boolean delete;
-    
-   
+       
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -136,6 +150,7 @@ public class ExperienciaAdminController implements Initializable {
         obActiviEncias = FXCollections.observableArrayList();
         
         not = new Notificacion();
+        anchorPane.getStyleClass().add("fondoExperienciaAdmin");
     }
     
        

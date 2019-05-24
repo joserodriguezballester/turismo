@@ -4,6 +4,7 @@
 <?import com.jfoenix.controls.JFXTimePicker?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -16,7 +17,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" styleClass="fondoExperienciaAdmin" stylesheets="@../../../resources/estilo.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Experiencia.ExperienciaAdminController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="730.0" prefWidth="1300.0" styleClass="fondoExperienciaAdmin" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Experiencia.ExperienciaAdminController">
    <children>
       <Label layoutX="40.0" layoutY="20.0" text="Experiencia">
          <font>
@@ -228,5 +229,83 @@
       <JFXDatePicker fx:id="fechaInicio" layoutX="990.0" layoutY="438.0" prefHeight="28.0" prefWidth="27.0" />
       <JFXDatePicker fx:id="fechaFin" layoutX="990.0" layoutY="478.0" prefHeight="28.0" prefWidth="12.0" />
       <JFXDatePicker fx:id="fechaTopeValidez" layoutX="266.0" layoutY="444.0" prefHeight="28.0" prefWidth="26.0" />
+      <RadioButton fx:id="radioId" layoutX="72.0" layoutY="591.0" mnemonicParsing="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+      </RadioButton>
+      <RadioButton fx:id="radioNombre" layoutX="160.0" layoutY="590.0" mnemonicParsing="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+      </RadioButton>
+      <RadioButton fx:id="radioFechaTope" layoutX="284.0" layoutY="590.0" mnemonicParsing="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+      </RadioButton>
+      <RadioButton fx:id="radioPrecio" layoutX="1095.0" layoutY="608.0" mnemonicParsing="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+      </RadioButton>
+      <RadioButton fx:id="radioFechaInicio" layoutX="943.0" layoutY="610.0" mnemonicParsing="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+      </RadioButton>
+      <RadioButton fx:id="radioOrden" layoutX="833.0" layoutY="610.0" mnemonicParsing="false">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+      </RadioButton>
+      <Label layoutX="861.0" layoutY="608.0" text="ORDEN">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="971.0" layoutY="609.0" text="FECHA INICIO">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="1123.0" layoutY="609.0" text="PRECIO">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="101.0" layoutY="591.0" text="ID">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="187.0" layoutY="591.0" text="NOMBRE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="313.0" layoutY="590.0" text="FECHATOPE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

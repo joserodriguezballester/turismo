@@ -7,9 +7,12 @@ import Datos.Bda.tiposDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
+import Vista.Administrador.Actividad.InterfaceOrdenacion.OrdenNombreA;
+import Vista.Administrador.Actividad.InterfaceOrdenacion.OrdenPrecioA;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -21,24 +24,23 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.RadioButton;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import org.controlsfx.control.Notifications;
 
-/**
- * FXML Controller class
- *
- * @author joser
- */
+
 public class ActividadAdminController implements Initializable {
 
     @FXML
@@ -103,12 +105,22 @@ public class ActividadAdminController implements Initializable {
     private ComboBox<Tipo> comboListarIdTipo = new ComboBox<Tipo>();
     @FXML
     private ImageView imageView;
-    
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private ToggleGroup grupo;
+    @FXML
+    private RadioButton radioId;
+    @FXML
+    private RadioButton radioNombre;
+    @FXML
+    private RadioButton radioPrecio;
     
     private ObservableList<Actividad> actividades;
     private ObservableList<String> tipos;
     
     private List<Tipo> listaTipos = new ArrayList<>();
+    private List<Actividad> lista = new ArrayList<>();
     
     private Actividad actividad;
     
@@ -117,6 +129,8 @@ public class ActividadAdminController implements Initializable {
     private actividadesDAO activiDAO;
     private tiposDAO tipoDAO;
     private Notificacion not;
+    
+    
       
     public void setGestion(GestionBD gestion) {
         ActividadAdminController.gestion = gestion; 
@@ -142,7 +156,34 @@ public class ActividadAdminController implements Initializable {
         not = new Notificacion();
         actividades = FXCollections.observableArrayList();
         
+        anchorPane.getStyleClass().add("fondoExperienciaAdmin");
         
+        radioId.setToggleGroup(grupo);
+        radioNombre.setToggleGroup(grupo);
+        radioPrecio.setToggleGroup(grupo);
+        radioId.setSelected(true);
+
+    }
+    
+    
+// --------------------------- RADIO BUTTON -----------------------------
+    
+    private void ordenarPorId(){       
+        Collections.sort(actividades);
+//        System.out.println("OrdenarPorId: " + actividades);
+//        cargarTabla(actividades);
+    }
+    
+    private void ordenarPorNombre(){
+        Collections.sort(actividades,new OrdenNombreA());
+//         System.out.println("OrdenarPorNombre: " + actividades);
+//        cargarTabla(actividades);
+    }
+    
+    private void ordenarPorPrecio(){
+        Collections.sort(actividades,new OrdenPrecioA());
+//         System.out.println("OrdenarPorPrecio: " + actividades);
+//        cargarTabla(actividades);
     }
     
 // ---------------------------- CARGAR COMBO TIPO ------------------------
@@ -157,8 +198,7 @@ public class ActividadAdminController implements Initializable {
 // ----------------------------- LISTAR ------------------------------------
     
     @FXML
-    private void listar(){
-        List<Actividad> lista = new ArrayList<>();       
+    private void listar(){    
         try {            
             lista = activiDAO.listarActividad();           
           
@@ -169,14 +209,49 @@ public class ActividadAdminController implements Initializable {
             not.error("ERROR EXCEPTION","" + es.getMessage() + 
                     " Error al mostrar la información");
         }
+   
         cargarTabla(lista);
     }
 // -------------------------------- CARGAR TABLA ---------------------------
+    
+//    private void ordenarLista(List<Actividad> coleccion){
+//        actividades.clear();
+//        actividades.addAll(coleccion);
+//        
+//        if(radioId.isSelected()){
+//           this.ordenarPorId();
+//                   
+//        }
+//        if(radioNombre.isSelected()){
+//           this.ordenarPorNombre();
+////           listar();
+//        }
+//        if(radioPrecio.isSelected()){
+//           this.ordenarPorPrecio();
+////           listar();
+//        }
+//        cargarTabla(actividades);
+////        return actividades;
+//    }
     
     private void cargarTabla(List<Actividad> coleccion){
 
         actividades.clear();
         actividades.addAll(coleccion);
+        
+        if(radioId.isSelected()){
+           this.ordenarPorId();
+                   
+        }
+        if(radioNombre.isSelected()){
+           this.ordenarPorNombre();
+//           listar();
+        }
+        if(radioPrecio.isSelected()){
+           this.ordenarPorPrecio();
+//           listar();
+        }
+        
         tableview.setItems(actividades);
 
         tb_id.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -429,5 +504,10 @@ public class ActividadAdminController implements Initializable {
     @FXML
     private void listarId(ActionEvent event) {
         cargarTablaPorTipo();
+    }
+
+    @FXML
+    private void ordenar(ActionEvent event) {
+//        cargarTabla(actividades);
     }
 }

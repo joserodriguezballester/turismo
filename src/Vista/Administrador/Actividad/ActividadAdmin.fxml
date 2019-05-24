@@ -9,6 +9,7 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" stylesheets="@../../../resources/estilo.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Actividad.ActividadAdminController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="730.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Actividad.ActividadAdminController">
    <children>
       <Label layoutX="40.0" layoutY="20.0" text="ActividadAdmin">
          <font>
@@ -186,7 +187,18 @@
          <effect>
             <DropShadow />
          </effect></ComboBox>
-      <RadioButton fx:id="radioId" layoutX="1080.0" layoutY="450.0" mnemonicParsing="false">
+      <RadioButton fx:id="radioId" layoutX="1080.0" layoutY="450.0" mnemonicParsing="false" onAction="#ordenar">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+         <toggleGroup>
+            <ToggleGroup fx:id="grupo" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioNombre" layoutX="1080.0" layoutY="485.0" mnemonicParsing="false" onAction="#ordenar" toggleGroup="$grupo">
          <font>
             <Font size="16.0" />
          </font>
@@ -194,15 +206,7 @@
             <DropShadow />
          </effect>
       </RadioButton>
-      <RadioButton fx:id="radioNombre" layoutX="1080.0" layoutY="485.0" mnemonicParsing="false">
-         <font>
-            <Font size="16.0" />
-         </font>
-         <effect>
-            <DropShadow />
-         </effect>
-      </RadioButton>
-      <RadioButton fx:id="radioPrecio" layoutX="1080.0" layoutY="520.0" mnemonicParsing="false">
+      <RadioButton fx:id="radioPrecio" layoutX="1080.0" layoutY="520.0" mnemonicParsing="false" onAction="#ordenar" toggleGroup="$grupo">
          <font>
             <Font size="16.0" />
          </font>
