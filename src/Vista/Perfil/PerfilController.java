@@ -4,19 +4,25 @@ import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
+import Vista.CambiarContra.CambiarContraController;
 import Vista.Principal.PrincipalController;
+import Vista.Registrar.RegistrarController;
 import Vista.Usuario.UsuarioController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -29,6 +35,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -81,13 +88,14 @@ public class PerfilController implements Initializable {
     private Pane paneBienvenido;
     private PrincipalController principalController;
     private File fotoFile;
-    @FXML
     private JFXPasswordField contraPF;
     private String foto;
     @FXML
     private Button botonGuardar;
     @FXML
     private JFXButton cancelarBT;
+    @FXML
+    private Label labelPW;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -103,10 +111,12 @@ public class PerfilController implements Initializable {
         paneBienvenido.getStyleClass().add("paneBienv");
         cancelarBT.getStyleClass().add("botonCerrarInformacion");
         botonGuardar.getStyleClass().add("botonGuardarModificacion");
+        labelPW.getStyleClass().add("recordarpassword");
         alFrenteAP.toFront();
         caraIV.setOnMouseClicked(event -> mostrarFoto());
         botonGuardar.setVisible(false); 
         cancelarBT.setVisible(false); 
+        labelPW.setVisible(false);
 
     }
 
@@ -232,6 +242,7 @@ public class PerfilController implements Initializable {
     private void editarPerfil(ActionEvent event) {
         botonGuardar.setVisible(true); 
         cancelarBT.setVisible(true);
+        labelPW.setVisible(true);
         
         boolean siEditable = true;
         editables(siEditable); 
@@ -241,6 +252,7 @@ public class PerfilController implements Initializable {
     private void cancelar(ActionEvent event) {
         botonGuardar.setVisible(false); 
         cancelarBT.setVisible(false);
+        labelPW.setVisible(false);
         
         boolean noEditable = false;
         editables(noEditable);
@@ -254,5 +266,32 @@ public class PerfilController implements Initializable {
         fecNacTF.setEditable(edit); 
         direccionTF.setEditable(edit); 
         emailTF.setEditable(edit);
+    }
+
+    @FXML
+    private void cambiarPassword(MouseEvent event) {
+        Parent root;
+
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/Vista/CambiarContra/CambiarContra.fxml"));
+            root = loader.load();  // el meotodo initialize() se ejecuta
+
+            //OBTENER EL CONTROLADOR DE LA VENTANA
+            CambiarContraController cambiarcontracontroller = loader.getController();
+//            cambiarcontracontroller.setParametros(usuarioDAO);
+
+            Stage escena = new Stage();    //En Stage nuevo.                  
+            escena.setTitle("Cambiar Contraseña");
+
+            // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+            escena.initModality(Modality.APPLICATION_MODAL);
+            escena.getIcons().add(new Image("/Imagenes/iconos/lock.png"));
+            escena.setScene(new Scene(root));
+            escena.showAndWait();
+        } catch (IOException ex) {
+            not.error("ERROR IOException",
+                    "en Perfil() --- UsuarioController");
+        }
     }
 }
