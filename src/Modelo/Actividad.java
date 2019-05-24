@@ -3,7 +3,7 @@ package Modelo;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Actividad {
+public class Actividad implements Comparable<Actividad> {
 
     private int id;
     private String nombre;
@@ -115,5 +115,17 @@ public class Actividad {
     public String toString() {
         return nombre;
 
+    }
+
+    @Override
+    public int compareTo(Actividad act) {
+        int compara = 0;
+        if(this.id < act.getId()){
+            compara = -1;
+        }
+        else if(this.id > act.getId()){
+            compara = 1;
+        }       
+        return compara;
     }
 }

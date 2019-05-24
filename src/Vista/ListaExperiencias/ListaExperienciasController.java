@@ -109,13 +109,14 @@ public class ListaExperienciasController implements Initializable {
     private void inicio() {
         expDAO = new experienciasDAO(gestion);
         not = new Notificacion();
-        botonConsultarExperiencias.getStyleClass().add("botonCrearExperiencia");
+        botonConsultarExperiencias.getStyleClass().add("botonConsultarExperiencias");
         ImprimirExperiencias.getStyleClass().add("botonImprimirExperiencia");
         scrollPaneActividadesBuscador.getStyleClass().add("paneBuscador");
-        cargarActividades();
+        entradaBusqueda.getStyleClass().add("buscador");
+        cargarListaExperiencias();
     }
 
-    private void cargarActividades() {
+    private void cargarListaExperiencias() {
         paneActividadesBuscador.getChildren().clear();
         int posicionX = 25;
         int posicionY = 10;
@@ -243,36 +244,44 @@ public class ListaExperienciasController implements Initializable {
 
     @FXML
     private void buscar(KeyEvent event) {
-        cargarActividades();
+        cargarListaExperiencias();
     }
 
     @FXML
     private void imprimirExperiencias(ActionEvent event) {
-        elejirArchivoTicket();
+        if (!listaExperienciasSeleccionadas.isEmpty()) {
+            elejirArchivoTicket();
+        } else {
+            not.error("ELIGE UN CONJUNTO DE EXPERIENCIAS", "Debes elegir un conjunto de experiencias a imprimir");
+        }
     }
 
     @FXML
     private void cargarExperiencias(ActionEvent event) {
-        Ventana.getChildren().removeAll(Ventana.getChildren());
-        FXMLLoader loader = new FXMLLoader();
+        if (!listaExperienciasSeleccionadas.isEmpty()) {
+            Ventana.getChildren().removeAll(Ventana.getChildren());
+            FXMLLoader loader = new FXMLLoader();
 
-        ExperienciaController controlador;
+            ExperienciaController controlador;
 
-        loader.setLocation(getClass().getResource("/Vista/Experiencia/Experiencia.fxml"));
-        try {
-            Parent root = loader.load();
+            loader.setLocation(getClass().getResource("/Vista/Experiencia/Experiencia.fxml"));
+            try {
+                Parent root = loader.load();
 
-            controlador = loader.getController();
-            controlador.setUsuario(usuario);
-            controlador.setGestion(gestion);
-            controlador.setListaExperiencias(listaExperienciasSeleccionadas);
-            Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-            not.error("ERROR IOException",
-                    "en irActividad --- PrincipalController");
-        } catch (Exception es) {
-            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
-                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+                controlador = loader.getController();
+                controlador.setUsuario(usuario);
+                controlador.setGestion(gestion);
+                controlador.setListaExperiencias(listaExperienciasSeleccionadas);
+                Ventana.getChildren().add(root);
+            } catch (IOException ex) {
+                not.error("ERROR IOException",
+                        "en irActividad --- PrincipalController");
+            } catch (Exception es) {
+                not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
+                        "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+            }
+        } else {
+            not.error("ELIGE UN CONJUNTO DE EXPERIENCIAS", "Debes elegir un conjunto de experiencias a consultar");
         }
     }
 

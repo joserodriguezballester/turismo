@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
@@ -185,9 +186,51 @@
          <effect>
             <DropShadow />
          </effect></ComboBox>
+      <RadioButton fx:id="radioId" layoutX="1080.0" layoutY="450.0" mnemonicParsing="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </RadioButton>
+      <RadioButton fx:id="radioNombre" layoutX="1080.0" layoutY="485.0" mnemonicParsing="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </RadioButton>
+      <RadioButton fx:id="radioPrecio" layoutX="1080.0" layoutY="520.0" mnemonicParsing="false">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <effect>
+            <DropShadow />
+         </effect>
+      </RadioButton>
+      <Label layoutX="1120.0" layoutY="450.0" text="ORDENAR ID">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="1120.0" layoutY="485.0" text="ORDENAR NOMBRE">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="1120.0" layoutY="520.0" text="ORDENAR PRECIO">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
    </children>
    <styleClass>
       <String fx:value="mainFxmlClass" />
       <String fx:value="fondoExperienciaAdmin" />
    </styleClass>
+   <effect>
+      <DropShadow height="6.0" radius="2.5" width="6.0" />
+   </effect>
 </AnchorPane>

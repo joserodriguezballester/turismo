@@ -64,7 +64,7 @@ public class Correo {
         message.setSubject("Agencia Turistica GRUPO4 AMSTERDAM");
         message.setText("Hola " + pareja.getKey() + " Sentimos mucho tu Alzheimer; tu nueva contraseña es " + numero + " te recomendamos la cambies nada mas entrar en la aplicacion");
         Transport t = session.getTransport("smtp");
-        t.connect((String) properties.get("mail.smtp.user"), password);
+        t.connect((String) properties.get("mail.smtp.user"),"dawGIAT4" );
         t.sendMessage(message, message.getAllRecipients());
         t.close();
 //        System.out.println("mensaje mandado");

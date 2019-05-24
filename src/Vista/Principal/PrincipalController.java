@@ -76,15 +76,13 @@ public class PrincipalController implements Initializable {
     private ImageView caraIV;
     @FXML
     private ImageView imgLupa;
+    private PrincipalController principalController;
 
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-
-        styleInicio();
-        //gestion = new GestionBD();
-        //gestion.conectar();
+        styleInicio();   
         efectoTransicion();
     }
 
@@ -99,8 +97,7 @@ public class PrincipalController implements Initializable {
 
     public void cargaNickFoto() {
         if (usuario != null) {
-            botonPerfil.setText(usuario.getNick().toUpperCase());
-            //System.out.println("Imagenes/usuarios/" + usuario.getFoto()+".jpg");
+            botonPerfil.setText(usuario.getNick().toUpperCase());           
             try {
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
             } catch (Exception e) {
@@ -168,8 +165,8 @@ public class PrincipalController implements Initializable {
             not.error("ERROR AL CARGAR VENTANA INICIO",
                     "Revisa el código y vuelve a intentarlo, (irInicio PrincipalController)");
         }
-
     }
+    
 
     @FXML
     private void irActividad(ActionEvent event) {
@@ -228,13 +225,15 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
 
         PerfilController perfilController;
+       
 
         loader.setLocation(getClass().getResource("/Vista/Perfil/Perfil.fxml"));
         try {
             Parent root = loader.load();
             perfilController = loader.getController();
             perfilController.setUsuario(usuario);
-            System.out.println("gestion PC " + gestion);
+             perfilController.setcontroler(principalController);
+          
             perfilController.setGestion(gestion);
             perfilController.calcularnodos();
             Ventana.getChildren().add(root);
@@ -355,6 +354,10 @@ public class PrincipalController implements Initializable {
         Image imagen = new Image("Imagenes/iconos/loupe.png");
         imgLupa.setImage(imagen);
         panePerfil.setVisible(false);
+    }
+
+    public void setcontroller(PrincipalController principalController) {
+    this.principalController=principalController;
     }
 
 }
