@@ -108,10 +108,10 @@ public class PerfilController implements Initializable {
         emailTF.setText(usuario.getEmail());
         fecNacTF.setValue(usuario.getFecNac());
         try {
-                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
-            } catch (Exception e) {
-                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
-            }
+            caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+        } catch (Exception e) {
+            caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+        }
 //        fecNacTF.setText(usuario.getFecNac().toString());
 
 //        ContraPF.setText(usuario.desencriptar(usuario.getPassword()));
@@ -135,7 +135,15 @@ public class PerfilController implements Initializable {
             // si ha modificado algo
             if (modificado) {
                 not.info("Modificar", "Ha sido modificado con exito");
-
+                usuario.setNick(nick);
+                usuario.setNombre(nombre);
+                usuario.setApellidos(apellidos);
+                usuario.setDni(DNI);
+                usuario.setFecNac(fecNac);
+                usuario.setTelefono(telefono);
+                usuario.setDireccion(direccion);
+                usuario.setEmail(email);
+                labelUser.setText(nick);
             }
 
             //asi hemos recargado la lista
