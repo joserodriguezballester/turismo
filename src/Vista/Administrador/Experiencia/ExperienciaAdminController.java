@@ -9,6 +9,8 @@ import Modelo.Actividad;
 import Modelo.ActividadExperiencia;
 import Modelo.Experiencia;
 import Modelo.Notificacion;
+import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTimePicker;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import javafx.collections.FXCollections;
@@ -99,6 +102,17 @@ public class ExperienciaAdminController implements Initializable {
     private TextField textPrecio;
     @FXML
     private TextField textNumPlazas;
+    @FXML
+    private JFXTimePicker horaInicio;
+    @FXML
+    private JFXTimePicker horaFin;
+    @FXML
+    private JFXDatePicker fechaInicio;
+    @FXML
+    private JFXDatePicker fechaFin;
+    @FXML
+    private JFXDatePicker fechaTopeValidez;
+    
     
     
     private ObservableList<Experiencia> obExperiencias;
@@ -143,16 +157,19 @@ public class ExperienciaAdminController implements Initializable {
     private void insertar(){
         int id, idUsuario;
         String nombre,descripcion,foto;
-        LocalDate fechaTope;
+        LocalDate fechaTope = null;
         List<ActividadExperiencia> lista = null;
         boolean ok = false;
+        
+
         
         try {
             id = Integer.parseInt(textExperiencia.getText());
             idUsuario = Integer.parseInt(textUsuario.getText());
             nombre = textNombre.getText();
             descripcion = textDescripcion.getText();
-            fechaTope = LocalDate.parse(textFecha.getText());
+            fechaTope = fechaTopeValidez.getValue();
+            textFecha.setText(fechaTope.toString());
             foto = textFoto.getText();
 
             Experiencia nueva = new Experiencia(id, idUsuario, nombre, descripcion, fechaTope, foto,lista);
@@ -174,27 +191,43 @@ public class ExperienciaAdminController implements Initializable {
         }
     }
     
+    private LocalDateTime fechaDT(LocalDate fecha, LocalTime hora){
+        String momentoTotal1;
+        LocalDateTime fechaRetorno = null;
+    
+        momentoTotal1 = fecha + " " + hora;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        fechaRetorno = LocalDateTime.parse(momentoTotal1, formatter);
+        
+        return fechaRetorno;
+    }
+    
     
     private List<ActividadExperiencia> insertarActividadExperiencia(){
         int numOrden, idExperiencia,numPlazas;
+        
         Actividad actividad = null;
-        LocalDateTime fechaIni, fechaFin;
+        LocalDateTime fechaIni, fechaFinal;
         double precio;
         List<ActividadExperiencia> listaActividadExperiencia = new ArrayList<>();
         ActividadExperiencia acEx;
         boolean ok = false;
         
+               
         actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
         try {
             numOrden = Integer.parseInt(textOrden.getText());
             idExperiencia = Integer.parseInt(textIdExperiencia.getText());
             actividad = activiDAO.consultarActividad(Integer.parseInt(textIdActividad.getText()));
-            fechaIni = LocalDateTime.parse(textFechaInicio.getText());
-            fechaFin = LocalDateTime.parse(textFechaFinal.getText());
+//            fechaIni = LocalDateTime.parse(textFechaInicio.getText());
+            fechaIni = fechaDT(fechaInicio.getValue(),horaInicio.getValue());
+            textFechaInicio.setText(fechaIni.toString().replace('T', ' '));
+            fechaFinal = fechaDT(fechaFin.getValue(),horaFin.getValue());
+            textFechaFinal.setText(fechaFinal.toString().replace('T',' '));
             precio = Double.parseDouble(textPrecio.getText());
             numPlazas = Integer.parseInt(textNumPlazas.getText());
             
-            acEx = new ActividadExperiencia(numOrden,idExperiencia,actividad,fechaIni,fechaFin,precio,numPlazas);
+            acEx = new ActividadExperiencia(numOrden,idExperiencia,actividad,fechaIni,fechaFinal,precio,numPlazas);
             listaActividadExperiencia.add(acEx);
             ok = eaDAO.insertarActividadExperiencia(acEx);
                 
@@ -529,24 +562,27 @@ public class ExperienciaAdminController implements Initializable {
               
         actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
         
-        numOrden = actExperiencia.getOrden();
-        idExperienciaLista = actExperiencia.getIdExperiencia();
-        actividad = actExperiencia.getActividad();
-        fechaIni = actExperiencia.getFechaInicio();
-        fechaFin = actExperiencia.getFechaFinal();
-        precio = actExperiencia.getPrecio();
-        numPlazas = actExperiencia.getNumPlazas();
+        if(actExperiencia != null){
+            numOrden = actExperiencia.getOrden();
+            idExperienciaLista = actExperiencia.getIdExperiencia();
+            actividad = actExperiencia.getActividad();
+            fechaIni = actExperiencia.getFechaInicio();
+            fechaFin = actExperiencia.getFechaFinal();
+            precio = actExperiencia.getPrecio();
+            numPlazas = actExperiencia.getNumPlazas();
+
+
+            actExperiencia = new ActividadExperiencia(numOrden,idExperienciaLista,actividad,fechaIni,fechaFin,precio,numPlazas);
+
+            textOrden.setText(String.valueOf(numOrden));
+            textIdExperiencia.setText(String.valueOf(idExperienciaLista));
+            textIdActividad.setText(String.valueOf(actividad));
+            textFechaInicio.setText(fechaIni.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+            textFechaFinal.setText(fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));       
+            textPrecio.setText(String.valueOf(precio));
+            textNumPlazas.setText(String.valueOf(numPlazas)); 
+        }
         
-        
-        actExperiencia = new ActividadExperiencia(numOrden,idExperienciaLista,actividad,fechaIni,fechaFin,precio,numPlazas);
-        
-        textOrden.setText(String.valueOf(numOrden));
-        textIdExperiencia.setText(String.valueOf(idExperienciaLista));
-        textIdActividad.setText(String.valueOf(actividad));
-        textFechaInicio.setText(fechaIni.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-        textFechaFinal.setText(fechaFin.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));       
-        textPrecio.setText(String.valueOf(precio));
-        textNumPlazas.setText(String.valueOf(numPlazas));
     }
 
     

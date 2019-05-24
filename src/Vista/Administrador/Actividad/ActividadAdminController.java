@@ -134,11 +134,12 @@ public class ActividadAdminController implements Initializable {
         }
         
         cargarCombo();
+        cargarTabla(activiDAO.listarActividad());
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-       not = new Notificacion();
+        not = new Notificacion();
         actividades = FXCollections.observableArrayList();
         
         
@@ -204,8 +205,9 @@ public class ActividadAdminController implements Initializable {
            not.error("ERROR SQL","" + ex.getMessage() + 
                     " Error al consultar la DB turismo");  
         }catch (Exception es){
-           not.error("ERROR EXCEPTION","" + es.getMessage() + 
-                    "Error al mostrar la información"); 
+           not.error("ERROR EXCEPTION",
+                    "Primero selecciona un tipo de actividad, (Combo)\n "
+                            + "luego puedes presionar el boton de listarID "); 
         }
         cargarTabla(listaPorTipo);    
     }
@@ -251,7 +253,7 @@ public class ActividadAdminController implements Initializable {
                 imageView.setImage(new Image("Imagenes/" + foto));
                 imageView.setFitHeight(250);
                 imageView.setFitWidth(250);
-                imageView.setPreserveRatio(false);
+                imageView.setPreserveRatio(true);
             }
         } catch (Exception ex){
             not.error("ERROR EXCEPTION","" + ex.getMessage() + 

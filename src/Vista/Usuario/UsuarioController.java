@@ -45,6 +45,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import javafx.util.Pair;
 import javax.mail.MessagingException;
+import javax.swing.FocusManager;
 import org.controlsfx.dialog.LoginDialog;
 import org.jasypt.util.password.BasicPasswordEncryptor;
 import org.jasypt.util.password.PasswordEncryptor;
@@ -101,12 +102,12 @@ public class UsuarioController implements Initializable {
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
-
+              
         styleInicio();
     }
 
     private void styleInicio() {
-
+                
         //Imagen fondo
         Image img = new Image("Imagenes/inicioprueba.jpg");
         ImageView imagev = new ImageView(img);
@@ -125,7 +126,7 @@ public class UsuarioController implements Initializable {
         paneagencia.getStyleClass().add("paneAgencia");
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
-        olvidar.getStyleClass().add("recordarpassword");
+        olvidar.getStyleClass().add("recordarpassword");       
     }
 
     //ACCIONES------------------------------------------------------------------

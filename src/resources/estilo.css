@@ -283,10 +283,17 @@ and open the template in the editor.
     -fx-border-width: 5 ; 
 }
 
+
 .barraPerfil{
     -fx-background-color: rgb(229, 202, 165);
     
 }
+
+/* ESTILOS_EXPERIENCIAS_ADMIN_CONTROLLER ------------------------------------*/
+.fondoExperienciaAdmin {
+    -fx-background-color: rgb(217, 219, 221);
+}
+
 
 .paneBienv{
     -fx-background-color: rgba(229, 202, 165,0.6);
