@@ -115,7 +115,7 @@ public class RegistrarController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        usuario=new Usuario();
+        usuario = new Usuario();
 
         styleInicio();
 
@@ -156,13 +156,13 @@ public class RegistrarController implements Initializable {
 
     private void cargarfoto() {
         Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
-        fotoFile=usuario.cargarfoto();
-  
+        fotoFile = usuario.cargarfoto();
+
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
         }
-        
+
     }
 
     public void setParametros(usuariosDAO usuarioDAO) {
@@ -180,49 +180,49 @@ public class RegistrarController implements Initializable {
             Path to;
             Path from;
 
-        LocalDate fecNac = fecNacTF.getValue();
- 
-        String foto=usuario.fotoToString();
-      
-        //avatarIV.getImage().getUrl();
+            LocalDate fecNac = fecNacTF.getValue();
 
-        //Control de entradas nulas//
-        boolean noInsertar = camposVacios();
-        //crear usuario//
-        if (!noInsertar) {
-//            usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
-            usuario.setNick(nick);
-            usuario.setPassword(contrasena);
-            
-            usuario.setNombre(nombre);
-            usuario.setApellidos(apellidos);
-            usuario.setDni(dni);
-            usuario.setTelefono(telefono);
-            usuario.getDireccion();
-            usuario.getEmail();
-            usuario.setFecNac(fecNac);
-            usuario.setFoto(foto);
-            usuario.setFotoFile(fotoFile);
-            try {
-                //insertar usuario en BD//
-                registrado = usuarioDAO.insertarUsuario(usuario);
-            } catch (SQLException ex) {
-                not.alert("Error", "Hay un error de SQL");
-            }
+            String foto = usuario.fotoToString();
+
             //avatarIV.getImage().getUrl();
+            //Control de entradas nulas//
+            boolean noInsertar = camposVacios();
+            //crear usuario//
+            if (!noInsertar) {
+//            usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
+                usuario.setNick(nick);
+                usuario.setPassword(contrasena);
 
-            if (registrado) {
-                usuario.guardarFoto();
-                //Cerrar ventana 
-                Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();//Identificamos la ventana (Stage) 
-                stage.close();
-                //Fin cerrar ventana
+                usuario.setNombre(nombre);
+                usuario.setApellidos(apellidos);
+                usuario.setDni(dni);
+                usuario.setTelefono(telefono);
+                usuario.getDireccion();
+                usuario.getEmail();
+                usuario.setFecNac(fecNac);
+                usuario.setFoto(foto);
+                usuario.setFotoFile(fotoFile);
+                try {
+                    //insertar usuario en BD//
+                    registrado = usuarioDAO.insertarUsuario(usuario);
+                } catch (SQLException ex) {
+                    not.alert("Error", "Hay un error de SQL");
+                }
+                //avatarIV.getImage().getUrl();
 
-                //FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
-                //informar esta registrado//
-                not.alert("Registrarse", "Ya te has registrado");
-            } else {
-                not.confirm("Registrarse", "No te has registrado");
+                if (registrado) {
+                    usuario.guardarFoto();
+                    //Cerrar ventana 
+                    Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();//Identificamos la ventana (Stage) 
+                    stage.close();
+                    //Fin cerrar ventana
+
+                    //FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
+                    //informar esta registrado//
+                    not.alert("Registrarse", "Ya te has registrado");
+                } else {
+                    not.confirm("Registrarse", "No te has registrado");
+                }
             }
         }
     }
