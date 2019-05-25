@@ -90,16 +90,28 @@ public class PrincipalController implements Initializable {
         this.gestion = gestion;
     }
 
-    public void setParametroUsuario(Usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-        cargaNickFoto();      //seria mejor llamarlo desde el otro controlador pero...  
     }
 
-    public void cargaNickFoto() {
+    public void calcularNodos() {
+        cargaNick();
+        cargaFoto();
+    }
+
+    public void cargaNick() {
         if (usuario != null) {
             botonPerfil.setText(usuario.getNick().toUpperCase());
+        }
+    }
+
+    public void cargaFoto() {
+        if (usuario.getFotoFile() != null) {
+            caraIV.setImage(new Image(usuario.getFotoFile().toURI().toString()));
+        } else {
             try {
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+            
             } catch (Exception e) {
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
@@ -354,7 +366,7 @@ public class PrincipalController implements Initializable {
         panePerfil.setVisible(false);
     }
 
-    public void setcontroller(PrincipalController principalController) {
+    public void setController(PrincipalController principalController) {
         this.principalController = principalController;
     }
 

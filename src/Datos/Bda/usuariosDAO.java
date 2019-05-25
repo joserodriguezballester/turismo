@@ -26,7 +26,7 @@ public class usuariosDAO {
         this.gestion = gestion;
     }
 
-    //CREATE PASANDO USUARIO
+//CREATE (pasando usuario)*********************************************************
     public boolean insertarUsuario(Usuario usuario) throws SQLException {
         boolean insertado = false;
         String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,foto)"
@@ -47,8 +47,22 @@ public class usuariosDAO {
         insertado = true;
         return insertado;
     }
+// fin Create -----------------------------------
+    
+// DELETE (pasando idUsuario)  *********************************************
+    public boolean borrarUsuario(int idUsuario) throws SQLException {
+        boolean borrado = false;
+        String sql = "DELETE FROM USUARIOS WHERE id = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(sql);
+        ps.setInt(1, idUsuario);
+        ps.executeUpdate();
+        borrado = true;
+        return borrado;
+    }
 
-    //UPDATE
+    
+//UPDATE   ***********************************************************************
+    ///modificando desde administrador  // habra que revisarlo
     public boolean modificarUsuario(String DNI, String nombre, String apellidos, String rol, String nick, String direccion, String telefono, String email, int id, LocalDate fecNac) throws SQLException {
         boolean modificado = false;
 //        modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, id, fecNac);
@@ -63,26 +77,119 @@ public class usuariosDAO {
         return modificado;
     }
 
-    public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String foto, int id, LocalDate fecNac) throws SQLException {
-        boolean modificado = false; /////contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol,foto 
-        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =?, foto=? WHERE ID = ?;";
+   
+//// UPDATE parametro a parametro   ********************************************
+    
+//NICK
+    public boolean modificarNick(String nick, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET nick = ? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-        ps.setString(1, DNI);
-        ps.setString(2, nombre);
-        ps.setString(3, apellidos);
-        ps.setString(4, nick);
-        ps.setString(5, direccion);
-        ps.setString(6, telefono);
-        ps.setString(7, email);
-        ps.setString(8, fecNac.toString());
-        ps.setString(9, foto);
-        ps.setInt(10, id);
+        ps.setString(1, nick);
+        ps.setInt(2, id);
         ps.executeUpdate();
         modificado = true;
         return modificado;
     }
 
-    public void introducirContra(String contra, String key) throws SQLException {
+//NOMBRE
+    public boolean modificarNombre(String nombre, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET nombre = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, nombre);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+    
+//APELLIDOS
+    public boolean modificarApellidosTF(String apellidos, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET apellidos = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, apellidos);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+//DNI
+    public boolean modificarDni(String DNI, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET dni = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, DNI);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+    
+//FECHA DE NACIMIENTO
+    public boolean modificarFecNac(LocalDate fecNac, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET fecNac = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, fecNac.toString());
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+//TELEFONO
+    public boolean modificarTelefono(String telefono, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET telefono = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, telefono);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+//DIRECCION
+    public boolean modificarDireccion(String direccion, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET direccion = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, direccion);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+//EMAIL 
+    public boolean modificarEmail(String email, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET email = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, email);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+//FOTO
+    public boolean modificarFoto(String foto, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET foto = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, foto);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }  
+    
+//CONTRASEÑA (a partir del nick)    
+    public boolean introducirContra(String contra, String key) throws SQLException {
         boolean modificado = false;
         String consulta = "UPDATE USUARIOS SET contraseña=? WHERE nick = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
@@ -90,23 +197,24 @@ public class usuariosDAO {
         ps.setString(2, key);
         ps.executeUpdate();
         modificado = true;
-
+        return modificado;
     }
 
-    //DELETE
-    public boolean borrarUsuario(int idUsuario) throws SQLException {
-        boolean borrado = false;
-        String sql = "DELETE FROM USUARIOS WHERE id = ?;";
-
-        PreparedStatement ps = gestion.getConn().prepareStatement(sql);
-        ps.setInt(1, idUsuario);
+//ROL  
+     public boolean modificarRol(String rol, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET ROL = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, rol);
+        ps.setInt(2, id);
         ps.executeUpdate();
-        borrado = true;
-
-        return borrado;
+        modificado = true;
+        return modificado;
     }
-
-    //READ
+     
+// FIN UPDATE-------------------------------------------------------------------     
+     
+//READ
     public List<Usuario> lista(String tabla) throws SQLException {
         List<Usuario> listaUsuarios = null;
         String consulta = "call listarUsuarios (?);";
@@ -120,13 +228,12 @@ public class usuariosDAO {
     public List<Usuario> listarClientes() throws SQLException {
         String tabla = "CLIENTES";
         List<Usuario> listaUsuarios = lista(tabla);
-//        List<Usuario> listaUsuarios = null;
-        if (gestion.getConn() != null) {       
-            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
-            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();       
-            listaUsuarios = darValorRs(rs);
-        }
+//        if (gestion.getConn() != null) {
+//            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";
+//            PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+//            ResultSet rs = ps.executeQuery();
+//            listaUsuarios = darValorRs(rs);
+//        }
         return listaUsuarios;
     }
 
@@ -154,20 +261,9 @@ public class usuariosDAO {
         return listaUsuarios;
     }
 
-    // Obtener Contraseña
-    public String obtenerContra(String nick) throws SQLException {
-        String contrasena = null;
-        String sql = "SELECT Contraseña FROM USUARIOS WHERE nick=?;";
-        PreparedStatement ps = gestion.getConn().prepareStatement(sql);
-        ps.setString(1, nick);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            contrasena = rs.getString("Contraseña");
-        }
-        return contrasena;
-    }
+  
 
-// Obtener un Todos los campos de un Usuario 
+// Obtener un Todos los campos de un Usuario y asignarselos
     public Usuario cargarUsuario(String nick) throws SQLException {
         Usuario usuario = new Usuario();
         java.sql.Date fechabda;
@@ -191,6 +287,19 @@ public class usuariosDAO {
             usuario.setFoto(rs.getString("foto"));
         }
         return usuario;
+    }
+    
+// Obtener Contraseña
+    public String obtenerContra(String nick) throws SQLException {
+        String contrasena = null;
+        String sql = "SELECT Contraseña FROM USUARIOS WHERE nick=?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(sql);
+        ps.setString(1, nick);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            contrasena = rs.getString("Contraseña");
+        }
+        return contrasena;
     }
 
 // Carga las List recogidas en el apartado READ
@@ -216,7 +325,7 @@ public class usuariosDAO {
         return listaUsuarios;
     }
 
-    //obtener el correo
+//obtener el correo
     public String DarCorreo(String nick) throws SQLException {
         String correo = null;
         String consulta = "select dimecorreo (?);";
@@ -228,56 +337,38 @@ public class usuariosDAO {
         }
         return correo;
     }
-    
-    public boolean clienteExiste(String nick) throws SQLException{
+
+    public boolean clienteExiste(String nick) throws SQLException {
         List<Usuario> listausuarios = new ArrayList<>();
-        boolean existe= false;
-        
-        listausuarios = listarClientes(); 
+        boolean existe = false;
+        listausuarios = listarClientes();
         for (Usuario user : listausuarios) {
-            if(user.getNick().equalsIgnoreCase(nick)){ 
+            if (user.getNick().equalsIgnoreCase(nick)) {
                 existe = true;
                 break;
             }
         }
-        
         return existe;
     }
 
-    public boolean modificarNick(String nick, int id) throws SQLException {
-        
-        boolean modificado = false;
-        String consulta = "UPDATE USUARIOS SET nick = ? WHERE ID = ?;";
-        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-        ps.setString(1, nick);
-        ps.setInt(2, id);
-        ps.executeUpdate();
-        modificado = true;
-        return modificado;
-    }
+  
 
-    public boolean modificarNombre(String nombre, int id) throws SQLException {
-        boolean modificado = false;
-        String consulta = "UPDATE USUARIOS SET nombre = ? WHERE ID = ?;";
-        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-        ps.setString(1, nombre);
-        ps.setInt(2, id);
-        ps.executeUpdate();
-        modificado = true;
-        
-        return modificado;
-    }
-
-    public boolean modificarApellidosTF(String apellidos, int id) throws SQLException {
-        boolean modificado = false;
-        String consulta = "UPDATE USUARIOS SET nombre = ? WHERE ID = ?;";
-        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
-        ps.setString(1, apellidos);
-        ps.setInt(2, id);
-        ps.executeUpdate(); 
-        modificado = true;
-        
-        return modificado;
-    }
-
+//       public boolean modificarUsuariodesdeUsuario(String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String foto, int id, LocalDate fecNac) throws SQLException {
+//        boolean modificado = false; /////contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol,foto 
+//        String consulta = "UPDATE USUARIOS SET DNI = ?, NOMBRE = ?, APELLIDOS = ?,  nick = ?, DIRECCION = ?, TELEFONO = ?, EMAIL = ?,fecNac =?, foto=? WHERE ID = ?;";
+//        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+//        ps.setString(1, DNI);
+//        ps.setString(2, nombre);
+//        ps.setString(3, apellidos);
+//        ps.setString(4, nick);
+//        ps.setString(5, direccion);
+//        ps.setString(6, telefono);
+//        ps.setString(7, email);
+//        ps.setString(8, fecNac.toString());
+//        ps.setString(9, foto);
+//        ps.setInt(10, id);
+//        ps.executeUpdate();
+//        modificado = true;
+//        return modificado;
+//    }
 }

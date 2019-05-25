@@ -55,7 +55,6 @@ import org.jasypt.util.password.PasswordEncryptor;
  *
  * @author Grupo4
  */
-
 public class UsuarioController implements Initializable {
 
     private Label label;
@@ -123,7 +122,7 @@ public class UsuarioController implements Initializable {
         paneagencia.getStyleClass().add("paneAgencia");
         botonLog.getStyleClass().add("botoninicio");
         botonReg.getStyleClass().add("botoninicio");
-        olvidar.getStyleClass().add("recordarpassword");   
+        olvidar.getStyleClass().add("recordarpassword");
     }
 
     //ACCIONES------------------------------------------------------------------
@@ -168,7 +167,6 @@ public class UsuarioController implements Initializable {
     public void cargarVentanaPrincipal() {
 
 //        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
-        
         String nombrefichero = "/Vista/Principal/Principal.fxml";
         PrincipalController principalController;
         Parent root;
@@ -181,12 +179,11 @@ public class UsuarioController implements Initializable {
 
             //Pasamos informacion a la clase siguiente
             principalController.setGestion(gestion);
-            principalController.setParametroUsuario(usuario);
-            principalController.setcontroller(principalController);
+            principalController.setUsuario(usuario);
+            principalController.setController(principalController);
 
-            //principalController.setParametros(usuario, bda, cambiador);
             //Damos valores a los nodos antes de mostrarlos
-            //principalController.calcularnodos();
+            principalController.calcularNodos();
             
             escenario.setScene(new Scene(root));
             escenario.show();
@@ -202,7 +199,6 @@ public class UsuarioController implements Initializable {
     private void cargarVentanaPrincipalAdmin() {
 
 //        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
-
         String nombrefichero = "/Vista/Administrador/Principal/PrincipalAdmin.fxml";
         PrincipalAdminController principalAdminController;
         Parent root;
@@ -279,7 +275,7 @@ public class UsuarioController implements Initializable {
     }
 
     private void logearseBueno() throws InterruptedException {
-       escenario = (Stage) this.nickTF.getParent().getScene().getWindow();  
+        escenario = (Stage) this.nickTF.getParent().getScene().getWindow();
         boolean logeado = verificaUsuario();        //Verifica que existe y contraseña correcta
 
         if (logeado) {
@@ -345,9 +341,9 @@ public class UsuarioController implements Initializable {
         translatePrincipal.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                if(rol.equalsIgnoreCase("cliente")){
+                if (rol.equalsIgnoreCase("cliente")) {
                     cargarVentanaPrincipal();
-                }else if(rol.equalsIgnoreCase("admin")){
+                } else if (rol.equalsIgnoreCase("admin")) {
                     cargarVentanaPrincipalAdmin();
                 }
             }

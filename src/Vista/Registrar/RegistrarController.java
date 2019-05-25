@@ -158,7 +158,6 @@ public class RegistrarController implements Initializable {
     private void cargarfoto() {
         Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
         fotoFile = usuario.cargarfoto();
-
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);

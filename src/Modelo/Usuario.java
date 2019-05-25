@@ -5,6 +5,7 @@ import java.nio.file.Path;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import static java.nio.file.attribute.FileTime.from;
 import static java.nio.file.attribute.FileTime.from;
 import java.time.LocalDate;
@@ -54,7 +55,6 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public File cargarfoto() {
-
         FileChooser fileChooser = new FileChooser();
         // Agregar filtros para facilitar la busqueda
         fileChooser.getExtensionFilters().addAll(
@@ -62,36 +62,31 @@ public class Usuario implements Comparable<Usuario> {
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
-        fotoFile = fileChooser.showOpenDialog(null);
+        File fotoElegida = fileChooser.showOpenDialog(null);
 //        if (fotoFile != null) {
 //            Image image = new Image(fotoFile.toURI().toString());
 //            caraIV.setImage(image);
 //        }
-        return fotoFile;
+        return fotoElegida;
     }
 
     public void guardarFoto() throws IOException {
         if (fotoFile != null) {
             Path from = Paths.get(fotoFile.toURI());
             Path to = Paths.get("src/imagenes/usuarios/" + foto);
-
             //Files.copy(from.toFile(), to.toFile());
-            Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
+            Files.copy(from.toAbsolutePath(), to.toAbsolutePath(),StandardCopyOption.REPLACE_EXISTING);            
         }
     }
 
     public String fotoToString() {
-        System.out.println("entrado en fotoToString  " + nick);
-        System.out.println("5 " + getNick());
         if (fotoFile == null) {
             foto = "avatar.png";
         } else {
             String nombreString = fotoFile.getName();
             String[] extensionStrings = nombreString.split("\\.");
             foto = nick + "." + (extensionStrings[extensionStrings.length - 1]);
-
         }
-        System.out.println(" nombre de foto " + foto + " " + fotoFile);
         return foto;
     }
 
@@ -141,18 +136,6 @@ public class Usuario implements Comparable<Usuario> {
     public Usuario() {
     }
 
-//    public Usuario(String DNI, String nombre, String apellidos, String contrasena, String direccion, String telefono, String email, String nick, LocalDate fecNac) {
-//        this.dni = DNI;
-//        this.nombre = nombre;
-//        this.apellidos = apellidos;
-//        String passwordEncriptado = encriptar(contrasena);
-//        this.password = passwordEncriptado;
-//        this.direccion = direccion;
-//        this.telefono = telefono;
-//        this.email = email;
-//        this.nick = nick;
-//        this.fecNac = fecNac;
-//    }
     public int getId() {
         return id;
     }
