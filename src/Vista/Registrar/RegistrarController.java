@@ -7,6 +7,7 @@ import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Path;
 import java.sql.SQLException;
@@ -171,7 +172,7 @@ public class RegistrarController implements Initializable {
 
     //ACCIONES------------------------------------------------------------------
     @FXML
-    private void registrar(ActionEvent event) throws SQLException {
+    private void registrar(ActionEvent event) throws SQLException, IOException {
         //Boton Registrar
         boolean registrado = false;
 
@@ -189,7 +190,7 @@ public class RegistrarController implements Initializable {
             boolean noInsertar = camposVacios();
             //crear usuario//
             if (!noInsertar) {
-                usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
+//            usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
                 usuario.setNick(nick);
                 usuario.setPassword(contrasena);
 
@@ -233,8 +234,7 @@ public class RegistrarController implements Initializable {
     }
 
     @FXML
-    private void salir(ActionEvent event
-    ) {
+    private void salir(ActionEvent event) {
         //Boton salir
         //Identificamos la ventana (Stage) 
         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();

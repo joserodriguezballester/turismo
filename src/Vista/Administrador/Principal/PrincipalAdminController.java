@@ -52,7 +52,7 @@ public class PrincipalAdminController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        not=new Notificacion();
         try {
             Transicion tr = new Transicion();
             tr.setRoot(Ventana);
@@ -85,8 +85,11 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
+            ex.printStackTrace();
+           
              not.error("ERROR IOExcepction" ," No se encuentra la ventana de login");
-        } catch (Exception es) {
+        } 
+        catch (Exception es) {
             not.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,"
           + "(irActividad PrincipalAdminController)");
         

@@ -182,11 +182,12 @@ public class UsuarioController implements Initializable {
             //Pasamos informacion a la clase siguiente
             principalController.setGestion(gestion);
             principalController.setParametroUsuario(usuario);
-             principalController.setcontroller(principalController);
+            principalController.setcontroller(principalController);
 
             //principalController.setParametros(usuario, bda, cambiador);
             //Damos valores a los nodos antes de mostrarlos
             //principalController.calcularnodos();
+            
             escenario.setScene(new Scene(root));
             escenario.show();
 

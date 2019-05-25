@@ -114,20 +114,24 @@ public class PerfilController implements Initializable {
         labelPW.getStyleClass().add("recordarpassword");
         alFrenteAP.toFront();
         caraIV.setOnMouseClicked(event -> mostrarFoto());
-        botonGuardar.setVisible(false); 
-        cancelarBT.setVisible(false); 
+
+        botonGuardar.setVisible(false);
+        cancelarBT.setVisible(false);
         labelPW.setVisible(false);
+
+        botonGuardar.setVisible(false);
+        cancelarBT.setVisible(false);
 
     }
 
     private void mostrarFoto() {
         fotoFile = usuario.cargarfoto();
-
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             caraIV.setImage(image);
+
         }
-//         foto = usuario.fotoToString();
+//      principalController.cargaNickFoto();  
     }
 
     public void setUsuario(Usuario usuario) {
@@ -155,9 +159,9 @@ public class PerfilController implements Initializable {
     }
 
     @FXML
-    private void modificar(ActionEvent event) {
-
+    private void modificar(ActionEvent event) throws IOException, SQLException {
         String nick = nickTF.getText();
+
         String nombre = nombreTF.getText();
         String apellidos = apellidosTF.getText();
         String DNI = dniTF.getText();
@@ -165,58 +169,64 @@ public class PerfilController implements Initializable {
         String telefono = telefonoTF.getText();
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
-        String contrasena = usuario.encriptar(contraPF.getText()); ////encriptada
-        //borrar foto si cambia nick
+//        String contrasena = usuario.encriptar(contraPF.getText()); ////encriptada
+//        usuario.setNick(nick);
+
         foto = usuario.fotoToString();   ///pasar fotofile a string
-        
-//        usuario.
         int id = usuario.getId();
-
-        try {           ////String DNI, String nombre, String apellidos, String nick, String direccion, String telefono, String email, String contrasena, String foto, int id, LocalDate fecNac
-            boolean modificado = usuarioDAO.modificarUsuariodesdeUsuario(DNI, nombre, apellidos, nick, direccion, telefono, email, foto, id, fecNac);
-
-            // si ha modificado algo
+        if (!usuario.getNick().equals(nickTF.getText())) {
+            
+            boolean modificado = usuarioDAO.modificarNick(nick, id);
+            System.out.println("nick" + usuario.getNick());
             if (modificado) {
-                //guardar si cambia nick o foto.
-                usuario.guardarFoto();
-                not.info("Modificar", "Ha sido modificado con exito");
                 usuario.setNick(nick);
-                usuario.setNombre(nombre);
-                usuario.setApellidos(apellidos);
-                usuario.setDni(DNI);
-                usuario.setFecNac(fecNac);
-                usuario.setTelefono(telefono);
-                usuario.setDireccion(direccion);
-                usuario.setEmail(email);
-
-                usuario.setFotoFile(fotoFile);
-
-                labelUser.setText(nick);
-//                usuario.setFoto(DNI);
-//                UsuarioController usuarioController=new UsuarioController();        
-//                Stage escenario = (Stage) this.Ventana.getParent().getScene().getWindow();  
-//              Ventana.getChildren().removeAll(Ventana.getChildren());
-//                usuarioController.cargarVentanaPrincipal();
-//                PrincipalController principalController=new PrincipalController();
-                principalController.cargaNickFoto();
-
-                labelUser.setText(nick.toUpperCase());
-
+                not.info("Modificar", "Ha sido modificado con exito");
             }
-
-            //asi hemos recargado la lista
-        } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " en modificar() --- PerfilAdminController");
         }
+        if (!usuario.getNombre().equals(nombreTF.getText())) {
+            boolean modificado = usuarioDAO.modificarNombre(nombre, id);
+            if (modificado) {
+                usuario.setNombre(nombre);
+            }
+        }
+        if (!usuario.getApellidos().equals(apellidosTF.getText())) {
+            boolean modificado = usuarioDAO.modificarApellidosTF(apellidos, id);
+            if (modificado) {
+                usuario.setApellidos(apellidos);
+            }
+        }
+//        not.alert("Error", "Hay un error de fichero");
+        usuario.guardarFoto();
 
+        usuario.setNombre(nombre);
+        usuario.setApellidos(apellidos);
+        usuario.setDni(DNI);
+        usuario.setFecNac(fecNac);
+        usuario.setTelefono(telefono);
+        usuario.setDireccion(direccion);
+        usuario.setEmail(email);
+
+        usuario.setFotoFile(fotoFile);
+
+        labelUser.setText(nick);
+
+        principalController.cargaNickFoto();
+
+        labelUser.setText(nick.toUpperCase());
+
+//            }
+        //asi hemos recargado la lista
+//        } catch (SQLException ex) {
+//            not.error("ERROR SQL", "" + ex.getMessage()
+//                    + " en modificar() --- PerfilAdminController");
+//        }
     }
-
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
     }
 /////corregir
+
     private void cargarfoto() {
         Stage stage = (Stage) this.caraIV.getParent().getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
@@ -240,33 +250,36 @@ public class PerfilController implements Initializable {
 
     @FXML
     private void editarPerfil(ActionEvent event) {
-        botonGuardar.setVisible(true); 
+        botonGuardar.setVisible(true);
         cancelarBT.setVisible(true);
+
         labelPW.setVisible(true);
-        
-        boolean siEditable = true;
-        editables(siEditable); 
+
+        nickTF.setEditable(true);
+        nombreTF.setEditable(true);
+        apellidosTF.setEditable(true);
+        dniTF.setEditable(true);
+//        fecNacTF.setEditable(true);
+        direccionTF.setEditable(true);
+        emailTF.setEditable(true);
+
     }
 
     @FXML
     private void cancelar(ActionEvent event) {
-        botonGuardar.setVisible(false); 
+        botonGuardar.setVisible(false);
         cancelarBT.setVisible(false);
         labelPW.setVisible(false);
-        
-        boolean noEditable = false;
-        editables(noEditable);
-    } 
-    
-    private void editables(boolean edit){
-        nickTF.setEditable(edit); 
-        nombreTF.setEditable(edit); 
-        apellidosTF.setEditable(edit); 
-        dniTF.setEditable(edit); 
-        fecNacTF.setEditable(edit); 
-        direccionTF.setEditable(edit); 
-        emailTF.setEditable(edit);
+
+        nickTF.setEditable(false);
+        nombreTF.setEditable(false);
+        apellidosTF.setEditable(false);
+        dniTF.setEditable(false);
+        fecNacTF.setEditable(false);
+        direccionTF.setEditable(false);
+        emailTF.setEditable(false);
     }
+
 
     @FXML
     private void cambiarPassword(MouseEvent event) {
@@ -288,6 +301,7 @@ public class PerfilController implements Initializable {
             escena.initModality(Modality.APPLICATION_MODAL);
             escena.getIcons().add(new Image("/Imagenes/iconos/lock.png"));
             escena.setScene(new Scene(root));
+            escena.setResizable(false);
             escena.showAndWait();
         } catch (IOException ex) {
             not.error("ERROR IOException",

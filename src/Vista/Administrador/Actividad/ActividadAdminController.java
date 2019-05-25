@@ -139,8 +139,6 @@ public class ActividadAdminController implements Initializable {
     private actividadesDAO activiDAO;
     private tiposDAO tipoDAO;
     private Notificacion not;
-    @FXML
-    private Button botonImportar;
 
     public void setGestion(GestionBD gestion) {
         ActividadAdminController.gestion = gestion;
@@ -205,7 +203,6 @@ public class ActividadAdminController implements Initializable {
     }
 
 // ----------------------------- LISTAR ------------------------------------
-    @FXML
     private void listar(){    
         try {            
             lista = activiDAO.listarActividad();           
@@ -487,7 +484,6 @@ public class ActividadAdminController implements Initializable {
         cargarTablaPorTipo();
     }
 
-    @FXML
     private void importarActividad(ActionEvent event) {
         FileChooser fChooser = new FileChooser();
         fChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("TXT", "*.txt"));

@@ -42,7 +42,7 @@ public class Usuario implements Comparable<Usuario> {
         this.nick = nick;
         this.fecNac = fecNac;
         this.foto = foto;
-        
+
     }
 
     public File getFotoFile() {
@@ -54,7 +54,7 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public File cargarfoto() {
-    
+
         FileChooser fileChooser = new FileChooser();
         // Agregar filtros para facilitar la busqueda
         fileChooser.getExtensionFilters().addAll(
@@ -62,37 +62,36 @@ public class Usuario implements Comparable<Usuario> {
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
-         fotoFile = fileChooser.showOpenDialog(null);
+        fotoFile = fileChooser.showOpenDialog(null);
 //        if (fotoFile != null) {
 //            Image image = new Image(fotoFile.toURI().toString());
 //            caraIV.setImage(image);
 //        }
-    return fotoFile;
+        return fotoFile;
     }
-    
-    
-    public void guardarFoto() {
-          if (fotoFile != null) {
-              Path from = Paths.get(fotoFile.toURI());
-              Path to = Paths.get("src/imagenes/usuarios/" + foto);
-                    try {
-                        //Files.copy(from.toFile(), to.toFile());
-                        Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
 
-                    } catch (IOException ex) {
-                    //    not.alert("Error", "Hay un error de fichero");
-                    }
-          }
+    public void guardarFoto() throws IOException {
+        if (fotoFile != null) {
+            Path from = Paths.get(fotoFile.toURI());
+            Path to = Paths.get("src/imagenes/usuarios/" + foto);
+
+            //Files.copy(from.toFile(), to.toFile());
+            Files.copy(from.toAbsolutePath(), to.toAbsolutePath());
+        }
     }
 
     public String fotoToString() {
-          if (fotoFile == null) {
+        System.out.println("entrado en fotoToString  " + nick);
+        System.out.println("5 " + getNick());
+        if (fotoFile == null) {
             foto = "avatar.png";
         } else {
             String nombreString = fotoFile.getName();
             String[] extensionStrings = nombreString.split("\\.");
             foto = nick + "." + (extensionStrings[extensionStrings.length - 1]);
+
         }
+        System.out.println(" nombre de foto " + foto + " " + fotoFile);
         return foto;
     }
 
@@ -154,7 +153,6 @@ public class Usuario implements Comparable<Usuario> {
 //        this.nick = nick;
 //        this.fecNac = fecNac;
 //    }
-
     public int getId() {
         return id;
     }
@@ -184,7 +182,7 @@ public class Usuario implements Comparable<Usuario> {
     }
 
     public void setPassword(String password) {
-        
+
         this.password = encriptar(password);
     }
 

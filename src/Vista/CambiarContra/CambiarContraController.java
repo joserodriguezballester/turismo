@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -46,15 +47,29 @@ public class CambiarContraController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+//        Scene escenario = guardarBT.getParent().getScene();
+//        escenario.getStylesheets().add("resources/estilo.css");
+        
+ 
+           paneContra.getStyleClass().add("paneNuevaContra");
+
         guardarBT.setStyle(" -fx-font-weight: bold;\n" +
-"    -fx-text-fill: WHITE;\n" +
-"    -fx-background-radius: 20;\n" +
-"    -fx-font-size: 16px;\n" +
-"    -fx-font-weight: bold;\n" +
-"    -fx-background-color: rgb(2,144,46);\n" +
-"    -fx-cursor:hand;");
-        cancelarBT.getStyleClass().add("botonEliminar");
-        paneContra.getStyleClass().add("paneNuevaContra");
+                "    -fx-text-fill: WHITE;\n" +
+                "    -fx-background-radius: 20;\n" +
+                "    -fx-font-size: 16px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-background-color: rgb(2,144,46);\n" +
+                "    -fx-cursor:hand;");
+        cancelarBT.setStyle("botonEliminar-fx-font-weight: bold;\n" +
+                "    -fx-text-fill: WHITE;\n" +
+                "    -fx-background-radius: 20;\n" +
+                "    -fx-font-size: 16px;\n" +
+                "    -fx-font-weight: bold;\n" +
+                "    -fx-background-color: #ff0000;\n" +
+                "    -fx-cursor:hand;");
+//        paneContra.setStyle(" -fx-background: rgb(255, 255, 255);\n" +
+//                 "    -fx-background-radius: 20;");
         
         Image img = new Image("Imagenes/fondoBuscar.jpg");
         ImageView imagev = new ImageView(img);
@@ -74,6 +89,10 @@ public class CambiarContraController implements Initializable {
     private void cancelar(ActionEvent event) {
         Stage stage = (Stage) this.guardarBT.getParent().getScene().getWindow();
         stage.close();
+    }
+    
+    public void setParametros(Scene escenario){
+        
     }
     
 }

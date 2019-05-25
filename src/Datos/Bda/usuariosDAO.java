@@ -77,7 +77,6 @@ public class usuariosDAO {
         ps.setString(8, fecNac.toString());
         ps.setString(9, foto);
         ps.setInt(10, id);
-
         ps.executeUpdate();
         modificado = true;
         return modificado;
@@ -243,6 +242,42 @@ public class usuariosDAO {
         }
         
         return existe;
+    }
+
+    public boolean modificarNick(String nick, int id) throws SQLException {
+        System.out.println("EYYYYYYYYYYYYYYYYYYYY");
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET nick = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, nick);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        return modificado;
+    }
+
+    public boolean modificarNombre(String nombre, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET nombre = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, nombre);
+        ps.setInt(2, id);
+        ps.executeUpdate();
+        modificado = true;
+        
+        return modificado;
+    }
+
+    public boolean modificarApellidosTF(String apellidos, int id) throws SQLException {
+        boolean modificado = false;
+        String consulta = "UPDATE USUARIOS SET nombre = ? WHERE ID = ?;";
+        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+        ps.setString(1, apellidos);
+        ps.setInt(2, id);
+        ps.executeUpdate(); 
+        modificado = true;
+        
+        return modificado;
     }
 
 }
