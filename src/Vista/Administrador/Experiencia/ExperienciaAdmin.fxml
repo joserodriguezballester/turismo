@@ -8,6 +8,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -229,7 +230,18 @@
       <JFXDatePicker fx:id="fechaInicio" layoutX="990.0" layoutY="438.0" prefHeight="28.0" prefWidth="27.0" />
       <JFXDatePicker fx:id="fechaFin" layoutX="990.0" layoutY="478.0" prefHeight="28.0" prefWidth="12.0" />
       <JFXDatePicker fx:id="fechaTopeValidez" layoutX="266.0" layoutY="444.0" prefHeight="28.0" prefWidth="26.0" />
-      <RadioButton fx:id="radioId" layoutX="72.0" layoutY="591.0" mnemonicParsing="false">
+      <RadioButton fx:id="radioId" layoutX="72.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarEx" selected="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+         <toggleGroup>
+            <ToggleGroup fx:id="grupoEx" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioNombre" layoutX="160.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarEx" toggleGroup="$grupoEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -237,7 +249,7 @@
             <DropShadow radius="8.5" width="15.0" />
          </effect>
       </RadioButton>
-      <RadioButton fx:id="radioNombre" layoutX="160.0" layoutY="590.0" mnemonicParsing="false">
+      <RadioButton fx:id="radioFechaTope" layoutX="284.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarEx" toggleGroup="$grupoEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -245,7 +257,18 @@
             <DropShadow radius="8.5" width="15.0" />
          </effect>
       </RadioButton>
-      <RadioButton fx:id="radioFechaTope" layoutX="284.0" layoutY="590.0" mnemonicParsing="false">
+      <RadioButton fx:id="radioPrecio" layoutX="1095.0" layoutY="608.0" mnemonicParsing="false" onAction="#ordenarAcEx">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <effect>
+            <DropShadow radius="8.5" width="15.0" />
+         </effect>
+         <toggleGroup>
+            <ToggleGroup fx:id="grupoAcEx" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="radioFechaInicio" layoutX="943.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarAcEx" toggleGroup="$grupoAcEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -253,23 +276,7 @@
             <DropShadow radius="8.5" width="15.0" />
          </effect>
       </RadioButton>
-      <RadioButton fx:id="radioPrecio" layoutX="1095.0" layoutY="608.0" mnemonicParsing="false">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <effect>
-            <DropShadow radius="8.5" width="15.0" />
-         </effect>
-      </RadioButton>
-      <RadioButton fx:id="radioFechaInicio" layoutX="943.0" layoutY="610.0" mnemonicParsing="false">
-         <font>
-            <Font size="14.0" />
-         </font>
-         <effect>
-            <DropShadow radius="8.5" width="15.0" />
-         </effect>
-      </RadioButton>
-      <RadioButton fx:id="radioOrden" layoutX="833.0" layoutY="610.0" mnemonicParsing="false">
+      <RadioButton fx:id="radioOrden" layoutX="833.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarAcEx" selected="true" toggleGroup="$grupoAcEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -292,17 +299,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="101.0" layoutY="591.0" text="ID">
+      <Label layoutX="101.0" layoutY="610.0" text="ID">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="187.0" layoutY="591.0" text="NOMBRE">
+      <Label layoutX="187.0" layoutY="610.0" text="NOMBRE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="313.0" layoutY="590.0" text="FECHATOPE">
+      <Label layoutX="313.0" layoutY="610.0" text="FECHATOPE">
          <font>
             <Font size="14.0" />
          </font>

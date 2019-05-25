@@ -245,7 +245,7 @@ public class usuariosDAO {
     }
 
     public boolean modificarNick(String nick, int id) throws SQLException {
-        System.out.println("EYYYYYYYYYYYYYYYYYYYY");
+        
         boolean modificado = false;
         String consulta = "UPDATE USUARIOS SET nick = ? WHERE ID = ?;";
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);

@@ -357,7 +357,31 @@ and open the template in the editor.
 
 /* ESTILOS_EXPERIENCIAS_ADMIN_CONTROLLER ------------------------------------*/
 .fondoExperienciaAdmin {
-    -fx-background-color: rgb(230, 249, 255);
+    -fx-background-color: rgb(223, 191, 159);
+}
+
+.background1ColumnaIdActividad {
+    -fx-background-color: rgba(132, 174, 232,.5);
+}
+
+.background2ColumnaIdActividad {
+    -fx-background-color: rgba(255, 255, 255,.1);
+}
+
+.background1ColumnaNombreActividad {
+    -fx-background-color: rgba(132, 174, 232,.5);
+}
+
+.background2ColumnaNombreActividad {
+    -fx-background-color: rgba(255, 255, 255,.1); 
+}
+
+.background1ColumnaPrecioActividad {
+    -fx-background-color: rgba(132, 174, 232,.5);
+}
+
+.background2ColumnaPrecioActividad {
+    -fx-background-color: rgba(255, 255, 255,.1);
 }
 
 

@@ -126,6 +126,7 @@ public class PerfilController implements Initializable {
 
     private void mostrarFoto() {
         fotoFile = usuario.cargarfoto();
+
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             caraIV.setImage(image);
@@ -177,10 +178,38 @@ public class PerfilController implements Initializable {
         if (!usuario.getNick().equals(nickTF.getText())) {
             
             boolean modificado = usuarioDAO.modificarNick(nick, id);
-            System.out.println("nick" + usuario.getNick());
+            
             if (modificado) {
                 usuario.setNick(nick);
+
                 not.info("Modificar", "Ha sido modificado con exito");
+
+                usuario.setNombre(nombre);
+                usuario.setApellidos(apellidos);
+                usuario.setDni(DNI);
+                usuario.setFecNac(fecNac);
+                usuario.setTelefono(telefono);
+                usuario.setDireccion(direccion);
+                usuario.setEmail(email);
+
+                usuario.setFotoFile(fotoFile);
+
+
+
+                labelUser.setText(nick);
+//                usuario.setFoto(DNI);
+//                UsuarioController usuarioController=new UsuarioController();        
+//                Stage escenario = (Stage) this.Ventana.getParent().getScene().getWindow();  
+//              Ventana.getChildren().removeAll(Ventana.getChildren());
+//                usuarioController.cargarVentanaPrincipal();
+//                PrincipalController principalController=new PrincipalController();
+                principalController.cargaNickFoto();
+
+                labelUser.setText(nick.toUpperCase());
+
+
+                 not.info("Modificar", "Ha sido modificado con exito");
+
             }
         }
         if (!usuario.getNombre().equals(nombreTF.getText())) {

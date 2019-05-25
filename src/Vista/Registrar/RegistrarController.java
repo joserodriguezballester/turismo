@@ -234,7 +234,7 @@ public class RegistrarController implements Initializable {
     }
 
     @FXML
-    private void salir(ActionEvent event) {
+    private void salir(ActionEvent event)  {
         //Boton salir
         //Identificamos la ventana (Stage) 
         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();
