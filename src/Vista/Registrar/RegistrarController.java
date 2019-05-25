@@ -1,6 +1,7 @@
 package Vista.Registrar;
 
 import Datos.Bda.usuariosDAO;
+import Modelo.ValidarCampos;
 import Modelo.Notificacion;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXDatePicker;
@@ -111,13 +112,14 @@ public class RegistrarController implements Initializable {
     @FXML
     private Label nickL;
     private Usuario usuario;
+    private  ValidarCampos validarCampos;
 
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
         usuario = new Usuario();
-
+        validarCampos=new ValidarCampos();
         styleInicio();
 
         styleRellenarCamposVacios();
@@ -177,8 +179,8 @@ public class RegistrarController implements Initializable {
 
         if (comprobacionCampos() == true) {
 
-            Path to;
-            Path from;
+//            Path to;
+//            Path from;
 
             LocalDate fecNac = fecNacTF.getValue();
 
@@ -187,12 +189,11 @@ public class RegistrarController implements Initializable {
             //avatarIV.getImage().getUrl();
             //Control de entradas nulas//
             boolean noInsertar = camposVacios();
-            //crear usuario//
+            //crear usuario// 
             if (!noInsertar) {
-//            usuario = new Usuario(dni, nombre, apellidos, contrasena, direccion, telefono, email, nick, fecNac, foto);
+
                 usuario.setNick(nick);
                 usuario.setPassword(contrasena);
-
                 usuario.setNombre(nombre);
                 usuario.setApellidos(apellidos);
                 usuario.setDni(dni);
@@ -254,12 +255,12 @@ public class RegistrarController implements Initializable {
             } else {
                 nickTF.setPromptText("Ese usuario ya existe");
             }
-            nombreL.setStyle(mal);
+            nombreL.setStyle(mal);  // comprobar que no sea nickL
         } else {
             nickL.setStyle(correcto);
         }
 
-        if (comprobardni() == false) {
+        if (validarCampos.comprobardni(dni) == false) {
             todoCorrecto = false;
             dniTF.setText("");
             dniTF.setPromptText("Intoduce un DNI valido");
@@ -267,7 +268,7 @@ public class RegistrarController implements Initializable {
         } else {
             dniL.setStyle(correcto);
         }
-        if (comprobarTelefono() == false) {
+        if (validarCampos.comprobarTelefono(telefono) == false) {
             todoCorrecto = false;
             telefonoTF.setText("");
             telefonoTF.setPromptText("Intoduce un Número valido");
@@ -275,7 +276,7 @@ public class RegistrarController implements Initializable {
         } else {
             telefL.setStyle(correcto);
         }
-        if (comprobarEmail() == false) {
+        if (validarCampos.comprobarEmail(email) == false) {
             todoCorrecto = false;
             emailTF.setText("");
             emailTF.setPromptText("Intoduce un Email valido");
@@ -286,44 +287,40 @@ public class RegistrarController implements Initializable {
         return todoCorrecto;
     }
 
-    public boolean comprobardni() {
-        boolean dniCorrecto;
-        if (dni.matches("^\\d?\\d{7}(-|\\s)?[A-Za-z]$") || dni.equals("")) {
-            dniCorrecto = true;
-        } else {
-            dniCorrecto = false;
-        }
-        return dniCorrecto;
-    }
+//    public boolean comprobardni() {
+//        boolean dniCorrecto;
+//        if (dni.matches("^\\d?\\d{7}(-|\\s)?[A-Za-z]$") || dni.equals("")) {
+//            dniCorrecto = true;
+//        } else {
+//            dniCorrecto = false;
+//        }
+//        return dniCorrecto;
+//    }
 
-    public boolean comprobarTelefono() {
-        boolean tlfCorrecto;
-        if (telefono.matches("^[0-9]{2,3}-? ?[0-9]{6,7}$")) {
-            tlfCorrecto = true;
-        } else {
-            tlfCorrecto = false;
-        }
-        return tlfCorrecto;
+//    public boolean comprobarTelefono() {
+//        boolean tlfCorrecto;
+//        if (telefono.matches("^[0-9]{2,3}-? ?[0-9]{6,7}$")) {
+//            tlfCorrecto = true;
+//        } else {
+//            tlfCorrecto = false;
+//        }
+//        return tlfCorrecto;
+//
+//    }
 
-    }
-
-    public boolean comprobarEmail() {
-        boolean emailCorrecto;
-        if (email.matches("^[A-Za-z0-9\\-\\.]+@[A-Za-z0-9\\-\\.]+\\.[A-Za-z]{2,}$")) {
-            emailCorrecto = true;
-        } else {
-            emailCorrecto = false;
-        }
-        return emailCorrecto;
-    }
+//    public boolean comprobarEmail() {
+//        boolean emailCorrecto;
+//        if (email.matches("^[A-Za-z0-9\\-\\.]+@[A-Za-z0-9\\-\\.]+\\.[A-Za-z]{2,}$")) {
+//            emailCorrecto = true;
+//        } else {
+//            emailCorrecto = false;
+//        }
+//        return emailCorrecto;
+//    }
 
     private boolean camposVacios() {   //   devuelve true si hay algun campo "necesario" nulo 
-
         boolean vacio = false;
-
         String estilo = null;
-
-        //String foto = avatarIV.getImage().toString();
         recogerDatos();
 
         //Comprobar si los campos estan vacios y pone el label en rojo
@@ -375,7 +372,6 @@ public class RegistrarController implements Initializable {
         telefono = telefonoTF.getText();
         direccion = direccionTF.getText();
         email = emailTF.getText();
-
         fecNac = fecNacTF.getValue();
     }
 

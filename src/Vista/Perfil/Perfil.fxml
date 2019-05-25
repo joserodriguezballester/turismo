@@ -46,12 +46,12 @@
             <RowConstraints maxHeight="46.0" minHeight="10.0" prefHeight="46.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Nombre" GridPane.rowIndex="3">
+            <Label fx:id="nombreL" prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Nombre" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Apellidos" GridPane.rowIndex="4">
+            <Label fx:id="apelliL" prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Apellidos" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -61,22 +61,22 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Telefono" GridPane.rowIndex="8">
+            <Label fx:id="telefL" prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Telefono" GridPane.rowIndex="8">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="DNI.-" GridPane.rowIndex="5">
+            <Label fx:id="dniL" prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="DNI.-" GridPane.rowIndex="5">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="email" GridPane.rowIndex="10">
+            <Label fx:id="emailL" prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="email" GridPane.rowIndex="10">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Usuario" GridPane.rowIndex="1">
+            <Label fx:id="nickL" prefHeight="48.0" prefWidth="100.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Usuario" GridPane.rowIndex="1">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
@@ -91,7 +91,7 @@
             <JFXTextField fx:id="emailTF" editable="false" styleClass="textoPerfil" stylesheets="@../../resources/estilo.css" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Label prefHeight="42.0" prefWidth="145.0" text="Repetir Contraseña" visible="false" />
             <PasswordField fx:id="repContraPF" prefHeight="31.0" prefWidth="213.0" visible="false" GridPane.columnIndex="1" />
-            <Label prefHeight="33.0" prefWidth="131.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Fecha Nacimiento" GridPane.rowIndex="6">
+            <Label fx:id="fecNacL" prefHeight="33.0" prefWidth="131.0" styleClass="textoPerfilEtiquetas" stylesheets="@../../resources/estilo.css" text="Fecha Nacimiento" GridPane.rowIndex="6">
                <font>
                   <Font name="System Bold" size="15.0" />
                </font>
