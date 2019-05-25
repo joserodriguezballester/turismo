@@ -113,7 +113,7 @@ public class Actividad implements Comparable<Actividad> {
 
     @Override
     public String toString() {
-        return nombre + "," + id + "," + precio;
+        return nombre;
 
     }
 

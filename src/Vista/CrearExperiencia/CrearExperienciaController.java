@@ -37,6 +37,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -115,6 +116,8 @@ public class CrearExperienciaController implements Initializable {
     private Pane paneTituloExperiencia;
     @FXML
     private Pane paneTituloExperiencia1;
+    @FXML
+    private JFXTextField textPrecioPorPersona;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -129,6 +132,22 @@ public class CrearExperienciaController implements Initializable {
 
         not = new Notificacion();
 
+//        LIMITE LAS FECHAS ANTERIORES AL MOMENTO ACTUAL EN LOS DATE PICKER
+        LocalDate minDate = LocalDate.now();
+        datePickerFechaInicio.setDayCellFactory(d -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                setDisable(item.isBefore(minDate));
+            }
+        });
+        datePickerFechaFinal.setDayCellFactory(d -> new DateCell() {
+            @Override
+            public void updateItem(LocalDate item, boolean empty) {
+                super.updateItem(item, empty);
+                setDisable(item.isBefore(minDate));
+            }
+        });
         botonActividades.getStyleClass().add("botonAnyadir");
         botonEliminar.getStyleClass().add("botonEliminar");
         botonAñadirExperiencia.getStyleClass().add("botonAnyadirExperiencia");
@@ -232,6 +251,9 @@ public class CrearExperienciaController implements Initializable {
 //        COMPROBAR LA COMPOSICION DE LA FECHA DE INICIO
             try {
                 fechaInicio = LocalDateTime.of(diaInicio, horaInicio);
+                if (fechaInicio.isBefore(LocalDateTime.now())) {
+                    throw new Exception();
+                }
                 actividadValida = true;
             } catch (Exception e) {
                 actividadValida = false;
@@ -241,6 +263,9 @@ public class CrearExperienciaController implements Initializable {
             //        COMPROBAR LA COMPOSICION DE LA FECHA FINAL
             try {
                 fechaFinal = LocalDateTime.of(diaFinal, horaFinal);
+                if (fechaInicio.isBefore(LocalDateTime.now())) {
+                    throw new Exception();
+                }
                 actividadValida = true;
             } catch (Exception e) {
                 actividadValida = false;
@@ -365,6 +390,8 @@ public class CrearExperienciaController implements Initializable {
     private void ActualizarDatosActividad(MouseEvent event) {
         ActividadExperiencia actExp = listaActividadesCarrito.getSelectionModel().getSelectedItem();
         textNumPlazas.setText(String.valueOf(actExp.getNumPlazas()));
+//        ACTUALIZAR PRECIO POR PERSONA
+        textPrecioPorPersona.setText(String.valueOf(actExp.getPrecio()));
 //        ACTUALIZAR FECHA INICIO
         datePickerFechaInicio.setValue(actExp.getFechaInicio().toLocalDate());
         timePickerHoraInicio.setValue(actExp.getFechaInicio().toLocalTime());
@@ -449,5 +476,16 @@ public class CrearExperienciaController implements Initializable {
         timePickerHoraFinal.setValue(null);
         timePickerHoraInicio.setValue(null);
         etiquetaNumPlazas.setText("");
+    }
+
+    @FXML
+    private void ActualizarPrecioActividad(MouseEvent event) {
+        Actividad act = listaActividadesElegir.getSelectionModel().getSelectedItem();
+        if (act.getPrecio() == 0) {
+            textPrecioPorPersona.setText("Gratis");
+        } else {
+            textPrecioPorPersona.setText(String.valueOf(act.getPrecio()) + "€ por persona");
+        }
+
     }
 }
