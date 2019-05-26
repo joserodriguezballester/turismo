@@ -27,10 +27,30 @@ public class usuariosDAO {
     }
 
 //CREATE (pasando usuario)*********************************************************
-    public boolean insertarUsuario(Usuario usuario) throws SQLException {
+//    public boolean insertarUsuario(Usuario usuario) throws SQLException {
+//        boolean insertado = false;
+//        String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,foto)"
+//                + " VALUES(?, ?, ?, ?, ?,?,?,?,?,?);";
+//
+//        PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
+//        ps.setString(1, usuario.getNick());
+//        ps.setString(2, usuario.getPassword());
+//        ps.setString(3, usuario.getFecNac().toString());
+//        ps.setString(4, usuario.getNombre());
+//        ps.setString(5, usuario.getApellidos());
+//        ps.setString(6, usuario.getDni());
+//        ps.setString(7, usuario.getTelefono());
+//        ps.setString(8, usuario.getDireccion());
+//        ps.setString(9, usuario.getEmail());
+//        ps.setString(10, usuario.getFoto());
+//        ps.executeUpdate();
+//        insertado = true;
+//        return insertado;
+//    }
+     public boolean insertarUsuario(Usuario usuario) throws SQLException {
         boolean insertado = false;
-        String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,foto)"
-                + " VALUES(?, ?, ?, ?, ?,?,?,?,?,?);";
+        String consulta = "INSERT INTO USUARIOS (nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,foto,rol)"
+                + " VALUES(?,?, ?, ?, ?, ?,?,?,?,?,?);";
 
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, usuario.getNick());
@@ -43,10 +63,13 @@ public class usuariosDAO {
         ps.setString(8, usuario.getDireccion());
         ps.setString(9, usuario.getEmail());
         ps.setString(10, usuario.getFoto());
+        ps.setString(11, usuario.getPerfilString());
+        System.out.println("ps"+ps);
         ps.executeUpdate();
         insertado = true;
         return insertado;
-    }
+    } 
+   
 // fin Create -----------------------------------
     
 // DELETE (pasando idUsuario)  *********************************************
@@ -238,7 +261,7 @@ public class usuariosDAO {
     }
 
     public List<Usuario> listarAdministradores() throws SQLException {
-        String tabla = "ADMINISTRADOR";
+        String tabla = "ADMINISTRADORES";
         List<Usuario> listaUsuarios = lista(tabla);
 
 //        String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM administradores;";
@@ -249,7 +272,7 @@ public class usuariosDAO {
     }
 
     public List<Usuario> listarTodos() throws SQLException {
-        String tabla = "TODOS";
+        String tabla = "USUARIOS";
         List<Usuario> listaUsuarios = lista(tabla);
 ////        List<Usuario> listaUsuarios = null;
 //        if (gestion.getConn() != null) {
@@ -321,6 +344,7 @@ public class usuariosDAO {
             usuario.setDireccion(rs.getString("direccion"));
             usuario.setEmail(rs.getString("email"));
             usuario.setPerfil(rs.getString("rol").toUpperCase());
+            usuario.setFoto(rs.getString("foto"));
         }
         return listaUsuarios;
     }

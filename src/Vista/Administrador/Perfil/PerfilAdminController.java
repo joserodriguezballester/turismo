@@ -70,6 +70,8 @@ public class PerfilAdminController implements Initializable {
     private TableColumn<Usuario, String> emailTC;
     @FXML
     private TableColumn<Usuario, LocalDate> fecNacTC;
+     @FXML
+    private TableColumn<Usuario,String> archivoTC;
 
     private GestionBD gestion;
     private ObservableList<Usuario> usuarios;
@@ -105,6 +107,8 @@ public class PerfilAdminController implements Initializable {
     private ImageView caraIV;
     @FXML
     private JFXTextField archivoTF;
+    private Usuario usuario;
+   
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -118,9 +122,10 @@ public class PerfilAdminController implements Initializable {
         direccionTC.setCellValueFactory(new PropertyValueFactory<>("direccion"));
         emailTC.setCellValueFactory(new PropertyValueFactory<>("email"));
         fecNacTC.setCellValueFactory(new PropertyValueFactory<>("fecNac"));
+        archivoTC.setCellValueFactory(new PropertyValueFactory<>("foto"));
 
         usuariosTV.getSelectionModel().selectedItemProperty().addListener(
-                (observable, oldValue, newValue) -> cargarEtiquetas(newValue));
+                (observable, oldValue, newValue) -> modifSelecListView(newValue));
     }
 
     public void setGestion(GestionBD gestion) {
@@ -145,8 +150,8 @@ public class PerfilAdminController implements Initializable {
         cargarTabla("CLIENTES");
     }
 
-     private void recargarlista() {
-         cargarTabla(tipoUsuario.getValue());
+    private void recargarlista() {
+        cargarTabla(tipoUsuario.getValue());
     }
 
     @FXML
@@ -169,7 +174,7 @@ public class PerfilAdminController implements Initializable {
             not.error("ERROR IOException", "" + ex.getMessage()
                     + " en anadir() --- PerfilAdminController");
         }
-        recargarlista();       
+        recargarlista();
     }
 
     @FXML
@@ -184,35 +189,46 @@ public class PerfilAdminController implements Initializable {
         String direccion = direccionTF.getText();
         String email = emailTF.getText();
         String rol = rolCB.getValue();
-        int id = Integer.parseInt(id_invisibleTF.getText());
-
+//        int id = Integer.parseInt(id_invisibleTF.getText());
+        int id = usuario.getId();
         try {
-            usuarioDAO.modificarUsuario(DNI, nombre, apellidos, rol, nick, direccion, telefono, email, id, fecNac);
+     /////********************//////       //falta comprobar valores de entrada
+            boolean modificado = usuarioDAO.modificarUsuario(DNI, nombre, apellidos, rol, nick, direccion, telefono, email, id, fecNac);
             // si ha modificado algo
-            cargarTabla(rolCB.getValue());
-            //asi hemos recargado la lista
+            if (modificado) {
+                cargarTabla(rolCB.getValue()); //asi hemos recargado la lista
+                not.confirm("Modificado", "Se ha modificado con exito");
+            } else {
+                not.error("Modificado", "No se ha modificado con exito");
+            }
+
         } catch (SQLException ex) {
+          
             not.error("ERROR SQL", "" + ex.getMessage()
                     + " en modificar() --- PerfilAdminController");
         }
-        
-    }
+    }   //////falta controlar campos, comprobar que introduce todos en particular foto y rol
 
     @FXML
     private void borrar(ActionEvent event) {
-        
-        int id = Integer.valueOf(id_invisibleTF.getText());
-        try {
-            usuarioDAO.borrarUsuario(id);
-        } catch (SQLException ex) {
-            not.alert("Error SQL", "Error al borrar");
+//        int id = Integer.valueOf(id_invisibleTF.getText());
+        if (usuario != null) {
+            not.confirm("Borrar","Seguro que quieres borrar este usuario");         //////*******esta not no vale.
+            int id = usuario.getId();
+            try {
+                usuarioDAO.borrarUsuario(id);
+            } catch (SQLException ex) {
+                not.alert("Error SQL", "Error al borrar");
+            }
+            recargarlista();
+        }else{
+            not.info("Borrar","no has seleccionado ningun usuario");
         }
-        recargarlista();
-    }
+    }       //// Pracicamente acabado falta que la ventana de confirmacion     
 
     private void cargarTabla(String seleccion) {
-         List<Usuario> lista = new ArrayList<>();
-        try {     
+        List<Usuario> lista = new ArrayList<>();
+        try {
             switch (seleccion) {
                 case "CLIENTES":
                     lista = usuarioDAO.listarClientes();
@@ -232,9 +248,10 @@ public class PerfilAdminController implements Initializable {
             cargarUsuarios(lista);
 
         } catch (SQLException ex) {
+              ex.printStackTrace();
             not.error("ERROR SQL", "" + ex.getMessage()
                     + " en cargarTabla() --- PerfilAdminController");
-        } 
+        }
     }
 
     private void cargarUsuarios(List<Usuario> lista) {
@@ -243,8 +260,18 @@ public class PerfilAdminController implements Initializable {
         usuariosTV.setItems(usuarios);
     }
 
-    private void cargarEtiquetas(Usuario usuario) {
-        id_invisibleTF.setText(Integer.toString(usuario.getId()));
+    private void modifSelecListView(Usuario newValue) {
+        this.usuario = newValue;
+        if (usuario != null) {
+            cargarEtiquetas();
+        } else {
+            limpiarEtiquetas();
+        }
+    }
+
+    private void cargarEtiquetas() {
+//        id_invisibleTF.setText(Integer.toString(usuario.getId()));
+//        id_invisibleTF.setText(usuario.getId() + "");
         nickTF.setText(usuario.getNick());
         nombreTF.setText(usuario.getNombre());
         apellidosTF.setText(usuario.getApellidos());
@@ -255,10 +282,10 @@ public class PerfilAdminController implements Initializable {
         fecNacDP.setValue(usuario.getFecNac());
         rolCB.setValue(usuario.getPerfilString());
         archivoTF.setText(usuario.getFoto());
-        cargarfoto(usuario);
-
+        cargarfoto();
     }
-     private void cargarfoto(Usuario usuario) {
+
+    private void cargarfoto() {
         try {
             caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
         } catch (Exception e) {
@@ -266,10 +293,33 @@ public class PerfilAdminController implements Initializable {
         }
     }
 
-    @FXML
-    private void editar(ActionEvent event) {
-        
+    private void limpiarEtiquetas() {
+//        id_invisibleTF.setText(Integer.toString(usuario.getId()));
+//        id_invisibleTF.setText("");
+        nickTF.setText("");
+        nombreTF.setText("");
+        apellidosTF.setText("");
+        dniTF.setText("");
+        telefonoTF.setText("");
+        direccionTF.setText("");
+        emailTF.setText("");
+        fecNacDP.setValue(null);
+        rolCB.setValue(null);
+        archivoTF.setText("");
+        limpiarfoto();
     }
 
-   
+    private void limpiarfoto() {
+        try {
+            caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+        } catch (Exception e) {
+            caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+        }
+    }
+
+    @FXML
+    private void editar(ActionEvent event) {
+
+    }
+
 }

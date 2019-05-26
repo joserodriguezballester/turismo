@@ -41,6 +41,7 @@
                   <TableColumn fx:id="direccionTC" prefWidth="169.0" text="direccion" />
                   <TableColumn fx:id="emailTC" minWidth="0.0" prefWidth="186.0" text="email" />
                   <TableColumn fx:id="fecNacTC" maxWidth="500.0" prefWidth="100.0" text="fec Nac" />
+                  <TableColumn fx:id="archivoTC" prefWidth="75.0" text="foto" />
                </columns>
             </TableView>
             <Label layoutX="40.0" layoutY="385.0" text="Nick">

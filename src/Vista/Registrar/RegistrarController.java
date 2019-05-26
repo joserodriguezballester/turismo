@@ -111,7 +111,7 @@ public class RegistrarController implements Initializable {
     @FXML
     private Label nickL;
     private Usuario usuario;
-    private  ValidarCampos validarCampos;
+    private ValidarCampos validarCampos;
     @FXML
     private Label rolL;
     @FXML
@@ -124,7 +124,7 @@ public class RegistrarController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
         usuario = new Usuario();
-        validarCampos=new ValidarCampos();
+        validarCampos = new ValidarCampos();
         styleInicio();
 
         styleRellenarCamposVacios();
@@ -178,18 +178,15 @@ public class RegistrarController implements Initializable {
 
     //ACCIONES------------------------------------------------------------------
     @FXML
-    private void registrar(ActionEvent event) throws SQLException, IOException {
-        //Boton Registrar
+    private void registrar(ActionEvent event) throws SQLException, IOException {    //Boton Registrar      
         boolean registrado = false;
 
-        if (comprobacionCampos() == true) {
-
+        if (comprobacionCampos() == true) {         //Validando formato de entrada
             LocalDate fecNac = fecNacTF.getValue();
-
-            String foto = usuario.fotoToString();
+           
 
             //Control de entradas nulas//
-            boolean noInsertar = camposVacios();
+            boolean noInsertar = camposVacios();        //ValidaCampos not null
             //crear usuario// 
             if (!noInsertar) {
 
@@ -199,14 +196,19 @@ public class RegistrarController implements Initializable {
                 usuario.setApellidos(apellidos);
                 usuario.setDni(dni);
                 usuario.setTelefono(telefono);
-                usuario.getDireccion();
-                usuario.getEmail();
+                usuario.setDireccion(direccion);
+                usuario.setEmail(email);
                 usuario.setFecNac(fecNac);
-                usuario.setFoto(foto);
                 usuario.setFotoFile(fotoFile);
+                String foto = usuario.fotoToString();
+                usuario.setFoto(foto);
+                
+                RadioButton selecRol = (RadioButton) rolUsuRB.getSelectedToggle();               
+                usuario.setPerfil(selecRol.getText().toUpperCase());
+                System.out.println("perfil"+usuario.getPerfilString());
                 try {
                     //insertar usuario en BD//
-                    registrado = usuarioDAO.insertarUsuario(usuario);
+                registrado = usuarioDAO.insertarUsuario(usuario);
                 } catch (SQLException ex) {
                     not.alert("Error", "Hay un error de SQL");
                 }
@@ -219,7 +221,6 @@ public class RegistrarController implements Initializable {
                     stage.close();
                     //Fin cerrar ventana
 
-                   
                     not.alert("Registrarse", "Ya te has registrado");
                 } else {
                     not.confirm("Registrarse", "No te has registrado");
@@ -234,7 +235,7 @@ public class RegistrarController implements Initializable {
     }
 
     @FXML
-    private void salir(ActionEvent event)  {
+    private void salir(ActionEvent event) {
         //Boton salir
         //Identificamos la ventana (Stage) 
         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();
@@ -255,7 +256,7 @@ public class RegistrarController implements Initializable {
             } else {
                 nickTF.setPromptText("Ese usuario ya existe");
             }
-            nombreL.setStyle(mal);  // comprobar que no sea nickL
+            nickL.setStyle(mal);
         } else {
             nickL.setStyle(correcto);
         }
@@ -286,37 +287,6 @@ public class RegistrarController implements Initializable {
         }
         return todoCorrecto;
     }
-
-//    public boolean comprobardni() {
-//        boolean dniCorrecto;
-//        if (dni.matches("^\\d?\\d{7}(-|\\s)?[A-Za-z]$") || dni.equals("")) {
-//            dniCorrecto = true;
-//        } else {
-//            dniCorrecto = false;
-//        }
-//        return dniCorrecto;
-//    }
-
-//    public boolean comprobarTelefono() {
-//        boolean tlfCorrecto;
-//        if (telefono.matches("^[0-9]{2,3}-? ?[0-9]{6,7}$")) {
-//            tlfCorrecto = true;
-//        } else {
-//            tlfCorrecto = false;
-//        }
-//        return tlfCorrecto;
-//
-//    }
-
-//    public boolean comprobarEmail() {
-//        boolean emailCorrecto;
-//        if (email.matches("^[A-Za-z0-9\\-\\.]+@[A-Za-z0-9\\-\\.]+\\.[A-Za-z]{2,}$")) {
-//            emailCorrecto = true;
-//        } else {
-//            emailCorrecto = false;
-//        }
-//        return emailCorrecto;
-//    }
 
     private boolean camposVacios() {   //   devuelve true si hay algun campo "necesario" nulo 
         boolean vacio = false;
@@ -364,6 +334,7 @@ public class RegistrarController implements Initializable {
 
     //METODOS UTILES------------------------------------------------------------
     private void recogerDatos() {
+
         nick = nickTF.getText();
         contrasena = contraPF.getText();
         nombre = nombreTF.getText();
@@ -384,13 +355,13 @@ public class RegistrarController implements Initializable {
         telefonoTF.setText("");
         direccionTF.setText("");
         emailTF.setText("");
-        
+
     }
 
     public void ejecutaPrimero() {
-       clienteRB.setVisible(true);
-       adminRB.setVisible(true);
-       rolL.setVisible(true);
+        clienteRB.setVisible(true);
+        adminRB.setVisible(true);
+        rolL.setVisible(true);
     }
 
 }
