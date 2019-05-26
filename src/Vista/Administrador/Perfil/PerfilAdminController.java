@@ -5,8 +5,10 @@ import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
 import Vista.Administrador.Registrar.RegistrarAdminController;
+import Vista.Registrar.RegistrarController;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,6 +34,8 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -95,6 +99,12 @@ public class PerfilAdminController implements Initializable {
     private Notificacion not;
     @FXML
     private JFXDatePicker fecNacDP;
+    @FXML
+    private Button editarBT;
+    @FXML
+    private ImageView caraIV;
+    @FXML
+    private JFXTextField archivoTF;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -121,19 +131,22 @@ public class PerfilAdminController implements Initializable {
         usuarioDAO = new usuariosDAO(gestion);
         ObservableList<String> roleOL = FXCollections.observableArrayList();
         ObservableList<String> rolOL = FXCollections.observableArrayList();
-        roleOL.add("CLIENTE");
+        roleOL.add("CLIENTES");
         roleOL.add("ADMINISTRADOR");
         roleOL.add("TODOS");
         rolOL.add("CLIENTE");
         rolOL.add("ADMINISTRADOR");
         tipoUsuario.setItems(roleOL);
-        tipoUsuario.setValue("Clientes");
+        tipoUsuario.setValue("CLIENTES");
         tipoUsuario.getSelectionModel().selectedItemProperty().addListener((options, oldValue, newValue) -> {
             cargarTabla(newValue);
         });
         rolCB.setItems(rolOL);
-        cargarTabla("Clientes");
+        cargarTabla("CLIENTES");
+    }
 
+     private void recargarlista() {
+         cargarTabla(tipoUsuario.getValue());
     }
 
     @FXML
@@ -142,10 +155,11 @@ public class PerfilAdminController implements Initializable {
         Parent root;
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Vista/Administrador/Registrar/RegistrarAdmin.fxml"));
+            loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
             root = loader.load();
-            RegistrarAdminController registrarAdminController = loader.getController();
-            registrarAdminController.setParametros(gestion, usuarioDAO);
+            RegistrarController registrarController = loader.getController();
+            registrarController.ejecutaPrimero();
+            registrarController.setUsuarioDAO(usuarioDAO);
             Stage escena = new Stage();
             escena.setTitle("Registrarse");
             escena.initModality(Modality.APPLICATION_MODAL);
@@ -155,7 +169,7 @@ public class PerfilAdminController implements Initializable {
             not.error("ERROR IOException", "" + ex.getMessage()
                     + " en anadir() --- PerfilAdminController");
         }
-
+        recargarlista();       
     }
 
     @FXML
@@ -181,51 +195,46 @@ public class PerfilAdminController implements Initializable {
             not.error("ERROR SQL", "" + ex.getMessage()
                     + " en modificar() --- PerfilAdminController");
         }
-
+        
     }
 
     @FXML
     private void borrar(ActionEvent event) {
+        
         int id = Integer.valueOf(id_invisibleTF.getText());
         try {
             usuarioDAO.borrarUsuario(id);
         } catch (SQLException ex) {
-           not.alert("Error SQL", "Error al borrar");
+            not.alert("Error SQL", "Error al borrar");
         }
+        recargarlista();
     }
 
     private void cargarTabla(String seleccion) {
-        try {
-
-            List<Usuario> lista = new ArrayList<>();
-//            String seleccion = tipoUsuario.getSelectionModel().getSelectedItem();
-
+         List<Usuario> lista = new ArrayList<>();
+        try {     
             switch (seleccion) {
-                case "CLIENTE":
-
+                case "CLIENTES":
                     lista = usuarioDAO.listarClientes();
-
                     break;
+
                 case "ADMINISTRADOR":
                     lista = usuarioDAO.listarAdministradores();
                     break;
+
                 case "TODOS":
                     lista = usuarioDAO.listarClientes();
                     break;
+
                 default:
                     lista = usuarioDAO.listarClientes();
-
             }
             cargarUsuarios(lista);
 
         } catch (SQLException ex) {
             not.error("ERROR SQL", "" + ex.getMessage()
                     + " en cargarTabla() --- PerfilAdminController");
-        } catch (Exception es) {
-            not.error("ERROR EXCEPTION", "" + es.getMessage()
-                    + " en cargarTabla() --- PerfilAdminController");
-        }
-
+        } 
     }
 
     private void cargarUsuarios(List<Usuario> lista) {
@@ -234,12 +243,8 @@ public class PerfilAdminController implements Initializable {
         usuariosTV.setItems(usuarios);
     }
 
-//    private void asignarColumnas() {
-//        usuariosTV.setItems(usuarios);
-//    }
     private void cargarEtiquetas(Usuario usuario) {
         id_invisibleTF.setText(Integer.toString(usuario.getId()));
-
         nickTF.setText(usuario.getNick());
         nombreTF.setText(usuario.getNombre());
         apellidosTF.setText(usuario.getApellidos());
@@ -249,9 +254,22 @@ public class PerfilAdminController implements Initializable {
         emailTF.setText(usuario.getEmail());
         fecNacDP.setValue(usuario.getFecNac());
         rolCB.setValue(usuario.getPerfilString());
+        archivoTF.setText(usuario.getFoto());
+        cargarfoto(usuario);
 
-//        fecNacTF.setText(usuario.getFecNac().toString());
-//        rolTF.setText(usuario.getPerfilString());
+    }
+     private void cargarfoto(Usuario usuario) {
+        try {
+            caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+        } catch (Exception e) {
+            caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+        }
     }
 
+    @FXML
+    private void editar(ActionEvent event) {
+        
+    }
+
+   
 }

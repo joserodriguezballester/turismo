@@ -163,7 +163,7 @@ public class PerfilController implements Initializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-        labelUser.setText(usuario.getNick().toUpperCase());
+       
     }
 
     public void calcularnodos() {
@@ -176,6 +176,7 @@ public class PerfilController implements Initializable {
         direccionTF.setText(usuario.getDireccion());
         emailTF.setText(usuario.getEmail());
         fecNacTF.setValue(usuario.getFecNac());
+        labelUser.setText(usuario.getNick().toUpperCase());
         cargarfoto();
     }
 
@@ -369,7 +370,7 @@ public class PerfilController implements Initializable {
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
     }
-/////corregir
+
 
     private void cargarfoto() {
         try {
@@ -395,7 +396,7 @@ public class PerfilController implements Initializable {
 //        fecNacTF.setEditable(true);
         direccionTF.setEditable(true);
         emailTF.setEditable(true);
-        editarFoto();
+        editarFoto();   ///comentar a Dani si puede cambiar el marco de color
 
     }
 

@@ -6,6 +6,7 @@ import Modelo.Notificacion;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXRadioButton;
 import com.jfoenix.controls.JFXTextField;
 import java.io.File;
 import java.io.IOException;
@@ -80,8 +81,6 @@ public class RegistrarController implements Initializable {
     @FXML
     private RadioButton clienteRB;
     @FXML
-    private ToggleGroup rolUsuRB;
-    @FXML
     private Button salirBT;
     @FXML
     private JFXTextField rolTF;
@@ -113,6 +112,12 @@ public class RegistrarController implements Initializable {
     private Label nickL;
     private Usuario usuario;
     private  ValidarCampos validarCampos;
+    @FXML
+    private Label rolL;
+    @FXML
+    private JFXRadioButton adminRB;
+    @FXML
+    private ToggleGroup rolUsuRB;
 
     //INICIO--------------------------------------------------------------------
     @Override
@@ -158,7 +163,7 @@ public class RegistrarController implements Initializable {
     }
 
     private void cargarfoto() {
-        Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
+//        Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
         fotoFile = usuario.cargarfoto();
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
@@ -167,7 +172,7 @@ public class RegistrarController implements Initializable {
 
     }
 
-    public void setParametros(usuariosDAO usuarioDAO) {
+    public void setUsuarioDAO(usuariosDAO usuarioDAO) {
         this.usuarioDAO = usuarioDAO;
     }
 
@@ -179,14 +184,10 @@ public class RegistrarController implements Initializable {
 
         if (comprobacionCampos() == true) {
 
-//            Path to;
-//            Path from;
-
             LocalDate fecNac = fecNacTF.getValue();
 
             String foto = usuario.fotoToString();
 
-            //avatarIV.getImage().getUrl();
             //Control de entradas nulas//
             boolean noInsertar = camposVacios();
             //crear usuario// 
@@ -218,8 +219,7 @@ public class RegistrarController implements Initializable {
                     stage.close();
                     //Fin cerrar ventana
 
-                    //FileWriter fw=new FileWriter("src/imagenes/usuarios/".concat(nick));
-                    //informar esta registrado//
+                   
                     not.alert("Registrarse", "Ya te has registrado");
                 } else {
                     not.confirm("Registrarse", "No te has registrado");
@@ -384,6 +384,13 @@ public class RegistrarController implements Initializable {
         telefonoTF.setText("");
         direccionTF.setText("");
         emailTF.setText("");
+        
+    }
+
+    public void ejecutaPrimero() {
+       clienteRB.setVisible(true);
+       adminRB.setVisible(true);
+       rolL.setVisible(true);
     }
 
 }

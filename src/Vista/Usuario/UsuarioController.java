@@ -147,7 +147,7 @@ public class UsuarioController implements Initializable {
 
             //OBTENER EL CONTROLADOR DE LA VENTANA
             RegistrarController registrarController = loader.getController();
-            registrarController.setParametros(usuarioDAO);
+            registrarController.setUsuarioDAO(usuarioDAO);
 
             Stage escena = new Stage();    //En Stage nuevo.                  
             escena.setTitle("Registro");
@@ -213,7 +213,7 @@ public class UsuarioController implements Initializable {
             principalAdminController.setGestion(gestion);
             principalAdminController.setParametroUsuario(usuario);
 
-            //principalController.setParametros(usuario, bda, cambiador);
+            //principalController.setUsuarioDAO(usuario, bda, cambiador);
             //Damos valores a los nodos antes de mostrarlos
             //principalController.calcularnodos();
             escenario.setScene(new Scene(root));

@@ -8,6 +8,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -30,16 +31,16 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TableView fx:id="usuariosTV" layoutX="17.0" layoutY="66.0" prefHeight="250.0" prefWidth="1200.0">
+            <TableView fx:id="usuariosTV" layoutX="17.0" layoutY="66.0" prefHeight="250.0" prefWidth="990.0">
                <columns>
-                  <TableColumn fx:id="nickTC" maxWidth="100.0" prefWidth="95.0" text="nick" />
-                  <TableColumn fx:id="nombreTC" maxWidth="200.0" minWidth="50.0" prefWidth="126.00003051757812" text="nombre" />
-                  <TableColumn fx:id="apellidosTC" minWidth="0.0" prefWidth="172.0" text="apellidos" />
-                  <TableColumn fx:id="dniTC" minWidth="0.0" prefWidth="78.0" text="Dni" />
-                  <TableColumn fx:id="telefonoTC" prefWidth="87.0" text="telefono" />
-                  <TableColumn fx:id="direccionTC" prefWidth="279.0" text="direccion" />
-                  <TableColumn fx:id="emailTC" minWidth="0.0" prefWidth="257.0" text="email" />
-                  <TableColumn fx:id="fecNacTC" maxWidth="500.0" prefWidth="104.0" text="fec Nac" />
+                  <TableColumn fx:id="nickTC" maxWidth="100.0" prefWidth="84.0" text="nick" />
+                  <TableColumn fx:id="nombreTC" maxWidth="200.0" minWidth="50.0" prefWidth="121.0" text="nombre" />
+                  <TableColumn fx:id="apellidosTC" minWidth="0.0" prefWidth="155.0" text="apellidos" />
+                  <TableColumn fx:id="dniTC" minWidth="0.0" prefWidth="95.0" text="Dni" />
+                  <TableColumn fx:id="telefonoTC" prefWidth="78.0" text="telefono" />
+                  <TableColumn fx:id="direccionTC" prefWidth="169.0" text="direccion" />
+                  <TableColumn fx:id="emailTC" minWidth="0.0" prefWidth="186.0" text="email" />
+                  <TableColumn fx:id="fecNacTC" maxWidth="500.0" prefWidth="100.0" text="fec Nac" />
                </columns>
             </TableView>
             <Label layoutX="40.0" layoutY="385.0" text="Nick">
@@ -103,18 +104,22 @@
               <rowConstraints>
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
                   <Button fx:id="botonAñadir" mnemonicParsing="false" onAction="#anadir" prefHeight="39.0" prefWidth="100.0" text="Añadir" />
                   <Button fx:id="botonModificar" mnemonicParsing="false" onAction="#modificar" prefHeight="39.0" prefWidth="100.0" text="Modificar" GridPane.rowIndex="1" />
                   <Button fx:id="botonBorrar" mnemonicParsing="false" onAction="#borrar" prefHeight="39.0" prefWidth="100.0" text="Borrar" GridPane.rowIndex="2" />
+                  <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" prefHeight="39.0" prefWidth="100.0" text="Editar" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <Label fx:id="id_invisibleTF" layoutX="780.0" layoutY="542.0" text="id_invisible" visible="false" />
             <JFXComboBox fx:id="rolCB" layoutX="498.0" layoutY="525.0" prefHeight="25.0" prefWidth="182.0" />
             <JFXComboBox fx:id="tipoUsuario" layoutX="106.0" layoutY="24.0" prefHeight="25.0" prefWidth="135.0" />
             <JFXDatePicker fx:id="fecNacDP" layoutX="174.0" layoutY="524.0" />
+            <ImageView fx:id="caraIV" fitHeight="208.0" fitWidth="200.0" layoutX="1041.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
+            <JFXTextField fx:id="archivoTF" layoutX="1050.0" layoutY="291.0" prefHeight="25.0" prefWidth="182.0" />
          </children>
       </AnchorPane>
    </children>
