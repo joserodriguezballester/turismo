@@ -366,7 +366,8 @@ public class UsuarioController implements Initializable {
                     String contra = usuario.encriptar(numero);
                     usuarioDAO.introducirContra(contra, pareja.getKey());
                     Correo correo = new Correo();
-                    correo.setparametros(pareja, numero, correo);
+//                    correo.setparametros(pareja, numero, correo);
+                     correo.setparametros(pareja, numero);
                     correo.mandarcorreo();
                     not.info("Email", "Revisa tu correo, te hemos enviado un mensaje");
                 } else {

@@ -4,7 +4,6 @@ import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
-import Vista.Administrador.Registrar.RegistrarAdminController;
 import Vista.Registrar.RegistrarController;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;

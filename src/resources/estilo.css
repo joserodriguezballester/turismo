@@ -400,15 +400,9 @@ and open the template in the editor.
 }
 
 
-/*.botonCancelar{
+/* ESTILOS VENTANA INFORMACION -----------------------------------------------*/
+
+.informacionTV{  /* SE APLICA AL TREEMAP*/
+    -fx-font-size:14px;
     -fx-font-weight: bold;
-    -fx-text-fill: WHITE;
-    -fx-background-radius: 20;
-    -fx-font-size: 12px;
-    -fx-background-color: #ff0000
 }
-
-/*.botonIcono{
-    -fx-background-color:#fff952;
-}*/
-

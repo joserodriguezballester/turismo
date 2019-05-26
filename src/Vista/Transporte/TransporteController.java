@@ -9,25 +9,19 @@ import Datos.Bda.GestionBD;
 import Datos.Bda.TransportesDAO;
 import Modelo.Notificacion;
 import Modelo.Transporte;
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 
 public class TransporteController implements Initializable {
@@ -154,5 +148,6 @@ seleccionar();
         ft.setToValue(1);
         ft.play();        
     }
+
 
 }
