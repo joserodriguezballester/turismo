@@ -77,6 +77,8 @@ public class PrincipalController implements Initializable {
     @FXML
     private ImageView imgLupa;
     private PrincipalController principalController;
+    @FXML
+    private JFXButton botonTransportes1;
 
     //INICIO--------------------------------------------------------------------
     @Override
@@ -304,6 +306,32 @@ public class PrincipalController implements Initializable {
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
 
+     @FXML
+    private void irContactar(ActionEvent event) {
+        Ventana.getChildren().removeAll(Ventana.getChildren());
+        FXMLLoader loader = new FXMLLoader();
+        String nombrefichero = "/Vista/Contactar/Contactar.fxml";
+        loader.setLocation(getClass().getResource(nombrefichero));
+        try {
+            Parent root = loader.load();    //para obtener el controlador ; se ejecuta inicialice
+            //anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+            Ventana.getChildren().add(root);
+        } catch (IOException ex) {
+
+            ex.printStackTrace();
+            not.error("ERROR IOException",
+                    "en irTransporte --- PrincipalController");
+        } catch (Exception es) {
+            not.error("ERROR AL CARGAR VENTANA TRANSPORTE",
+                    "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");
+        }
+        //ActividadController actividadController=loader.getController(); por si hace falta
+    }
+        
+        
+    
+    
+    
     @FXML
     private void cerrarSesion(ActionEvent event) {
 
@@ -369,5 +397,7 @@ public class PrincipalController implements Initializable {
     public void setController(PrincipalController principalController) {
         this.principalController = principalController;
     }
+
+   
 
 }

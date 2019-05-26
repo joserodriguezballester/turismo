@@ -54,6 +54,7 @@
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="3" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="4" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="7" />
+                  <JFXButton fx:id="botonTransportes1" onAction="#irContactar" prefHeight="70.0" prefWidth="300.0" text="Contactar" GridPane.columnIndex="4" />
                </children>
             </GridPane>
          </children>
