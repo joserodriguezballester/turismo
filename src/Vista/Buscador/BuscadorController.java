@@ -66,7 +66,7 @@ public class BuscadorController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Image img = new Image("Imagenes/fondoBuscar.jpg");
+        Image img = new Image("Imagenes/fondoBuscar3.jpg");
         ImageView imagev = new ImageView(img);
 
         imagev.setFitHeight(730);

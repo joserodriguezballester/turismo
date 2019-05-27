@@ -406,3 +406,54 @@ and open the template in the editor.
     -fx-font-size:14px;
     -fx-font-weight: bold;
 }
+
+/*ESTILOS_VISTA.ADMINISTRADOR.PRINCIPAL-----------------------------------------------------*/
+
+.menuP{
+    -fx-background-color:rgb(142, 143, 145);
+}
+
+.botonMenuInicioP{
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(132, 132, 132);
+    -fx-border: solid; 
+    -fx-cursor:hand;
+}
+
+.botonMenuInicioP:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(84, 86, 89);
+    -fx-cursor:hand;
+}
+.botonMenuP{
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(142, 143, 145);
+    -fx-border: solid;
+    -fx-cursor:hand;
+}
+
+.botonMenuP:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(84, 86, 89);
+    -fx-cursor:hand;
+}
+
+.fondoLiso{
+    -fx-background-color:rgb(157, 178, 177);
+}

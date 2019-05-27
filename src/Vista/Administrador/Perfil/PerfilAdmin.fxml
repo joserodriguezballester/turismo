@@ -16,12 +16,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Perfil.PerfilAdminController">
+<AnchorPane id="AnchorPane" fx:id="Ventana" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Perfil.PerfilAdminController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass">
+      <AnchorPane id="AnchorPane" fx:id="panePerfilA" layoutX="10.0" layoutY="10.0" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass">
          <stylesheets>
             <URL value="@/resources/estilo.css" />
          </stylesheets>

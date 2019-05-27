@@ -44,17 +44,17 @@
                      </graphic>
                   </Button>
                   <ImageView fx:id="caraIV" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" />
-                  <JFXButton fx:id="botonLogo" onAction="#irInicio" prefHeight="70.0" prefWidth="300.0" text="Inicio" />
-                  <JFXButton fx:id="botonActividades" onAction="#irActividad" prefHeight="70.0" prefWidth="300.0" text="Actividad" GridPane.columnIndex="1" />
-                  <JFXButton fx:id="botonExperiencias" onAction="#irExperiencia" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="2" />
-                  <JFXButton fx:id="botonTransportes" onAction="#irTransporte" prefHeight="70.0" prefWidth="300.0" text="Información" GridPane.columnIndex="3" />
+                  <JFXButton fx:id="botonLogo" onAction="#irInicio" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Inicio" />
+                  <JFXButton fx:id="botonActividades" onAction="#irActividad" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Actividad" GridPane.columnIndex="1" />
+                  <JFXButton fx:id="botonExperiencias" onAction="#irExperiencia" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Experiencias" GridPane.columnIndex="2" />
+                  <JFXButton fx:id="botonTransportes" onAction="#irTransporte" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Información" GridPane.columnIndex="3" />
                   <JFXButton fx:id="botonPerfil" onMouseEntered="#mostrarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Perfil" GridPane.columnIndex="8" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="1" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="2" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="3" />
-                  <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="4" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="7" />
-                  <JFXButton fx:id="botonTransportes1" onAction="#irContactar" prefHeight="70.0" prefWidth="300.0" text="Contactar" GridPane.columnIndex="4" />
+                  <JFXButton fx:id="botonContactar" onAction="#irContactar" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Contactar" GridPane.columnIndex="4" />
+                  <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="4" />
                </children>
             </GridPane>
          </children>

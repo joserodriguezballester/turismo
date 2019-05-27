@@ -78,14 +78,14 @@ public class PrincipalController implements Initializable {
     private ImageView imgLupa;
     private PrincipalController principalController;
     @FXML
-    private JFXButton botonTransportes1;
+    private JFXButton botonContactar;
 
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
         styleInicio();
-        efectoTransicion();
+        
     }
 
     public void setGestion(GestionBD gestion) {
@@ -143,20 +143,9 @@ public class PrincipalController implements Initializable {
         botonTransportes.getStyleClass().add("botonMenu");
         botnPerfil.getStyleClass().add("botonMenu");
         botnSalir.getStyleClass().add("botonMenu");
+        botonContactar.getStyleClass().add("botonMenu");
     }
 
-    private void efectoTransicion() {
-        try {
-            Transicion tr = new Transicion();
-            tr.setRoot(Ventana);
-            Ventana.toBack();
-            tr.start();
-        } catch (Exception e) {
-            System.out.println("ha petao");
-            not.error("ERROR Exception",
-                    "en initialize --- PrincipalController");
-        }
-    }
 
     //ACCIONES------------------------------------------------------------------
     @FXML
