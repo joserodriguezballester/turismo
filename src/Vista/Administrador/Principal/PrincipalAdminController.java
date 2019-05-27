@@ -199,8 +199,10 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
-        } catch (Exception es) {
+            ex.printStackTrace();
+            not.error("ERROR IOExcepction" ," No se encuentra la ventana de login");
+        } catch (Exception es){
+             es.printStackTrace();
             not.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
                     + "(irPerfil PrincipalAdminController)");
 

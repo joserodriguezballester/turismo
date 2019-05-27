@@ -201,18 +201,24 @@ public class Usuario implements Comparable<Usuario> {
         this.foto = foto;
     }
 
-    @Override
-    public String toString() {
-        return "Usuario{" + "id=" + id
-                + ", dni=" + dni
-                + ", nombre=" + nombre
-                + ", apellidos=" + apellidos
-                + ", password=" + password
-                + ", direccion=" + direccion
-                + ", telefono=" + telefono
-                + ", email=" + email + '}';
-    }
+//    @Override
+//    public String toString() {
+//        return "Usuario{" + "id=" + id
+//                + ", dni=" + dni
+//                + ", nombre=" + nombre
+//                + ", apellidos=" + apellidos
+//                + ", password=" + password
+//                + ", direccion=" + direccion
+//                + ", telefono=" + telefono
+//                + ", email=" + email + '}';
+//    }
 
+      @Override
+    public String toString() {
+        return nick;
+    }
+    
+    
     @Override
     public int compareTo(Usuario us) {
         int compara;
