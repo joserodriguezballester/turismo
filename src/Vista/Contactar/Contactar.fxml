@@ -35,7 +35,11 @@
                   <Font size="36.0" />
                </font>
             </Label>
-            <ImageView fx:id="caraIV" fitHeight="228.0" fitWidth="216.0" layoutX="585.0" layoutY="2.0" pickOnBounds="true" preserveRatio="true" />
+            <Pane layoutX="573.0" layoutY="-6.0" prefHeight="236.0" prefWidth="236.0">
+               <children>
+                  <ImageView fx:id="caraIV" fitHeight="228.0" fitWidth="216.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </Pane>
          </children>
       </Pane>
       <Pane layoutX="382.0" layoutY="339.0" prefHeight="236.0" prefWidth="823.0">
@@ -50,9 +54,15 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="AsuntoTA" layoutX="163.0" layoutY="15.0" prefHeight="25.0" prefWidth="463.0" />
-            <Button fx:id="mandarBT" layoutX="686.0" layoutY="126.0" mnemonicParsing="false" onAction="#mandarCorreo" text="Mandar Correo" />
-            <TextArea fx:id="mensajeTA" layoutX="163.0" layoutY="51.0" prefHeight="165.0" prefWidth="463.0" />
+            <TextField fx:id="AsuntoTA" editable="false" layoutX="163.0" layoutY="15.0" prefHeight="25.0" prefWidth="450.0" />
+            <TextArea fx:id="mensajeTA" layoutX="163.0" layoutY="51.0" prefHeight="165.0" prefWidth="450.0" />
+            <TextArea layoutX="626.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" text="Para mandar un correo necesitas habilitar gmail para aplicaciones no seguras e introducir tu contraseña " wrapText="true">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextArea>
+            <TextField fx:id="passgmail" layoutX="639.0" layoutY="134.0" promptText="Contraseña gmail" />
+            <Button fx:id="mandarBT" layoutX="640.0" layoutY="175.0" mnemonicParsing="false" onAction="#mandarCorreo" prefHeight="25.0" prefWidth="149.0" text="Mandar Correo" />
          </children>
       </Pane>
    </children>

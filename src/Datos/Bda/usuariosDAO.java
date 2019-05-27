@@ -241,6 +241,7 @@ public class usuariosDAO {
     public List<Usuario> lista(String tabla) throws SQLException {
         List<Usuario> listaUsuarios = null;
         String consulta = "call listarUsuarios (?);";
+        System.out.println("ges"+gestion);
         PreparedStatement ps = gestion.getConn().prepareStatement(consulta);
         ps.setString(1, tabla);
         ResultSet rs = ps.executeQuery();
@@ -249,7 +250,7 @@ public class usuariosDAO {
     }
 
     public List<Usuario> listarClientes() throws SQLException {
-        String tabla = "CLIENTES";
+        String tabla = "Clientes";
         List<Usuario> listaUsuarios = lista(tabla);
 //        if (gestion.getConn() != null) {
 //            String consulta = "SELECT id,nick,contraseña,fecNac,nombre,apellidos,dni,telefono,direccion,email,rol FROM Clientes;";

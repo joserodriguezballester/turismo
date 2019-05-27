@@ -6,6 +6,7 @@ import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
 import Vista.Buscador.BuscadorController;
+import Vista.Contactar.ContactarController;
 
 import Vista.Perfil.PerfilController;
 
@@ -285,7 +286,7 @@ public class PrincipalController implements Initializable {
     }
 
     @FXML
-    private void irTransporte(ActionEvent event) {
+    private void irTransporte(ActionEvent event) {      //Boton informacion
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Transporte/Transporte.fxml";
@@ -312,17 +313,22 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Contactar/Contactar.fxml";
         loader.setLocation(getClass().getResource(nombrefichero));
+         ContactarController contactarController=new ContactarController();
         try {
-            Parent root = loader.load();    //para obtener el controlador ; se ejecuta inicialice
-            //anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+            Parent root = loader.load();             //para obtener el controlador ; se ejecuta inicialice
+           contactarController=loader.getController();
+          
+          contactarController.setGestion(gestion);
+          contactarController.cargainicial();
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-
             ex.printStackTrace();
+         
             not.error("ERROR IOException",
                     "en irTransporte --- PrincipalController");
         } catch (Exception es) {
-            not.error("ERROR AL CARGAR VENTANA TRANSPORTE",
+            es.printStackTrace();
+            not.error("ERROR AL CARGAR VENTANA CONTACTAR",
                     "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");
         }
         //ActividadController actividadController=loader.getController(); por si hace falta
