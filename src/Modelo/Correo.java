@@ -25,7 +25,6 @@ public class Correo {
     private Session session;
     private Pair<String, String> pareja;
     private String numero; //por si variamos el metodo send email
-//    private Correo correo;
    
     private final String password = "dawGIAT4";
 
@@ -36,8 +35,12 @@ public class Correo {
     public void mandarcorreo() throws MessagingException {
       String emisor = "grupo4amsterdam@gmail.com";  //correo de la agencia
       String receptor=pareja.getValue();      /// pasar correo del usuario
-      String contrasena="dawGIAT4";
-     sendEmail(emisor,receptor,contrasena);
+      String contrasena="dawGIAT4";             // contraseña gmail
+      String asunto="Agencia Turistica GRUPO4 AMSTERDAM";
+      String mensaje="Hola " + pareja.getKey() + " Tu nueva contraseña es "
+              + numero + " te recomendamos la cambies nada mas entrar en la aplicacion";
+      
+     sendEmail(emisor,receptor,contrasena,asunto,mensaje);
     }
 
     private void init(String emisor) {
@@ -50,34 +53,40 @@ public class Correo {
         session = Session.getDefaultInstance(properties);
     }
 
-    public void sendEmail(String emisor,String receptor,String contrasena) throws AddressException, MessagingException {
-//        public void sendEmail() throws AddressException, MessagingException { 
-//          String emisor = "grupo4amsterdam@gmail.com";  //correo de la agencia
-//        System.out.println("pareja "+pareja);
-        
- //       String receptor=pareja.getValue();    /// pasar correo del usuario
-        
-//        int contraseña = 0;    /////ojo cuando pasemos contraseña por parametro
-
-        init(emisor);
-       
-        MimeMessage message = new MimeMessage(session);
-        message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
-        message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
-        message.setSubject("Agencia Turistica GRUPO4 AMSTERDAM");
-        message.setText("Hola " + pareja.getKey() + " Sentimos mucho tu Alzheimer; tu nueva contraseña es " + numero + " te recomendamos la cambies nada mas entrar en la aplicacion");
-        Transport t = session.getTransport("smtp");
-//        t.connect((String) properties.get("mail.smtp.user"),"dawGIAT4" );
-         t.connect((String) properties.get("mail.smtp.user"),contrasena );
-        t.sendMessage(message, message.getAllRecipients());
-        t.close();
-//        System.out.println("mensaje mandado");
-
-    }
+//    public void sendEmail(String emisor,String receptor,String contrasena) throws AddressException, MessagingException {
+//        init(emisor);     
+//        MimeMessage message = new MimeMessage(session);
+//        message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+//        message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
+//        message.setSubject("Agencia Turistica GRUPO4 AMSTERDAM");
+//        message.setText("Hola " + pareja.getKey() + " Sentimos mucho tu Alzheimer; tu nueva contraseña es " + numero + " te recomendamos la cambies nada mas entrar en la aplicacion");
+//        Transport t = session.getTransport("smtp");
+////        t.connect((String) properties.get("mail.smtp.user"),"dawGIAT4" );
+//         t.connect((String) properties.get("mail.smtp.user"),contrasena );
+//        t.sendMessage(message, message.getAllRecipients());
+//        t.close();
+////        System.out.println("mensaje mandado");
+//
+//    }
 
     public void setparametros(Pair<String, String> pareja, String numero) {
         this.pareja = pareja;
         this.numero = numero;
      
+    }
+
+    public void sendEmail(String emisor, String receptor, String contrasena, String asunto, String mensaje) throws AddressException, MessagingException {
+         init(emisor);
+       
+        MimeMessage message = new MimeMessage(session);
+        message.setFrom(new InternetAddress((String) properties.get("mail.smtp.mail.sender")));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(receptor));
+        message.setSubject(asunto);
+        message.setText(mensaje);
+        Transport transport = session.getTransport("smtp");
+        transport.connect((String) properties.get("mail.smtp.user"),contrasena );
+        transport.sendMessage(message, message.getAllRecipients());
+        transport.close();
+//        System.out.println("mensaje mandado");
     }
 }

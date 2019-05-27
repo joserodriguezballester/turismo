@@ -16,13 +16,12 @@
       <URL value="@/resources/estilo.css" />
    </stylesheets>
    <children>
-      <Label layoutX="82.0" layoutY="63.0" text="GUIAS TURISTICOS">
+      <Label layoutX="82.0" layoutY="129.0" text="GUIAS TURISTICOS">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
       <JFXListView fx:id="guiasLV" layoutX="82.0" layoutY="175.0" />
-      <Label layoutX="82.0" layoutY="135.0" text="buscar" />
       <Pane layoutX="382.0" layoutY="63.0" prefHeight="236.0" prefWidth="823.0">
          <children>
             <Label fx:id="nickL" layoutX="55.0" layoutY="92.0" text="nick">
@@ -54,15 +53,15 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <TextField fx:id="AsuntoTA" editable="false" layoutX="163.0" layoutY="15.0" prefHeight="25.0" prefWidth="450.0" />
-            <TextArea fx:id="mensajeTA" layoutX="163.0" layoutY="51.0" prefHeight="165.0" prefWidth="450.0" />
+            <TextField fx:id="asuntoTA" disable="true" layoutX="163.0" layoutY="15.0" prefHeight="25.0" prefWidth="450.0" />
+            <TextArea fx:id="mensajeTA" disable="true" layoutX="163.0" layoutY="51.0" prefHeight="165.0" prefWidth="450.0" />
             <TextArea layoutX="626.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" text="Para mandar un correo necesitas habilitar gmail para aplicaciones no seguras e introducir tu contraseña " wrapText="true">
                <font>
                   <Font size="14.0" />
                </font>
             </TextArea>
             <TextField fx:id="passgmail" layoutX="639.0" layoutY="134.0" promptText="Contraseña gmail" />
-            <Button fx:id="mandarBT" layoutX="640.0" layoutY="175.0" mnemonicParsing="false" onAction="#mandarCorreo" prefHeight="25.0" prefWidth="149.0" text="Mandar Correo" />
+            <Button fx:id="mandarBT" disable="true" layoutX="640.0" layoutY="175.0" mnemonicParsing="false" onAction="#mandarCorreo" prefHeight="25.0" prefWidth="149.0" text="Mandar Correo" />
          </children>
       </Pane>
    </children>

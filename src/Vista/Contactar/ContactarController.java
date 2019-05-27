@@ -48,8 +48,6 @@ public class ContactarController implements Initializable {
     @FXML
     private ImageView caraIV;
     @FXML
-    private TextField AsuntoTA;
-    @FXML
     private Button mandarBT;
     @FXML
     private TextArea mensajeTA;
@@ -61,6 +59,9 @@ public class ContactarController implements Initializable {
     private Usuario usuario;
     @FXML
     private TextField passgmail;
+    private Usuario guiaTuristico;
+    @FXML
+    private TextField asuntoTA;
     
 
     /**
@@ -77,10 +78,12 @@ public class ContactarController implements Initializable {
     @FXML
     private void mandarCorreo(ActionEvent event) {
         try {
-            String saliente = "";
-            String llegante = "";
-            String contrasena = "";
-            correo.sendEmail(llegante, llegante, contrasena);
+            String emisor = usuario.getEmail();
+            String receptor = guiaTuristico.getEmail();
+            String contrasena = passgmail.getText();
+            String asunto=asuntoTA.getText();
+            String mensaje=mensajeTA.getText();
+            correo.sendEmail(emisor, receptor, contrasena,asunto,mensaje);
         } catch (MessagingException ex) {
             System.out.println("error " + ex);
         }
@@ -89,6 +92,7 @@ public class ContactarController implements Initializable {
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
     }
+    
 
     public void cargainicial() {
         usuarioDAO = new usuariosDAO(gestion);
@@ -102,16 +106,19 @@ public class ContactarController implements Initializable {
         guiasLV.setItems(guiasOL);
         nickL.setText("");
         telefL.setText("");
-        caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
-          
+        caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));         
     }
 
     private void modifSelecListView(Usuario newValue) {
-      
-        if (newValue != null) {
-            nickL.setText(newValue.getNick());
-            telefL.setText(newValue.getTelefono());
-            caraIV.setImage(new Image("Imagenes/usuarios/" + newValue.getFoto()));
+      this.guiaTuristico=newValue;
+        if (guiaTuristico != null) {
+            mandarBT.setDisable(false);
+            asuntoTA.setDisable(false);
+            mensajeTA.setDisable(false);
+            nickL.setText(guiaTuristico.getNick());
+            telefL.setText(guiaTuristico.getTelefono());
+            System.out.println("newValue.getFoto"+guiaTuristico.getFoto());
+            caraIV.setImage(new Image("Imagenes/usuarios/" + guiaTuristico.getFoto()));
         } else {
             nickL.setText("");
             telefL.setText("");
@@ -124,6 +131,10 @@ public class ContactarController implements Initializable {
         } catch (Exception e) {
             caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
         }
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario=usuario;
     }
     
     

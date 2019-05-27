@@ -308,6 +308,7 @@ public class PrincipalController implements Initializable {
            contactarController=loader.getController();
           
           contactarController.setGestion(gestion);
+          contactarController.setUsuario(usuario);
           contactarController.cargainicial();
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
