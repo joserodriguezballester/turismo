@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package Modelo;
 
 /**
@@ -45,28 +41,17 @@ public class ValidarCampos {
         return emailCorrecto;
     }
     
-    public boolean comprobarUrl(String url){
-        boolean ok = false;
-        if(!url.matches("[:]?[http://www.|https://www.]{1}[a-z_0-9/.-$%&]*")){
-            ok = true;
+        public boolean isURL(String url) {
+            boolean ok = false;
+            try {
+               (new java.net.URL(url)).openStream().close();
+                ok = true;
+            } catch (Exception ex) { }
+            return ok;
         }
-        return ok;
-    }
     
     public double validarNumDecimal(String cadena){
         String aux = cadena;
-//        if(aux.matches("-[d]{1,7}[.]{1}[d]{1,}")){
-//            Double.parseDouble(cadena = "-1"); // numero negativo
-//        }
-//        
-//        if(!aux.matches("[0-9]{1,7}[.]{1}[0-9]{1,}")){
-//            Double.parseDouble(cadena = "0.0");  // contiene letras
-//            
-//        }
-//        
-//        if(!cadena.matches("[0-9]{1,7}([.]{1})?([0-9]{1,})?") || cadena.equals("")){
-//            cadena = "0.0";   // valida numero decimal o no, y cadena vacia
-//        }
         
         if(!aux.matches("[0-9]{1,7}([.]{1})?([0-9]{1,})?")){
 
@@ -117,6 +102,16 @@ public class ValidarCampos {
         }
        
         return Integer.parseInt(cadena);
+    }
+     
+     public boolean validarFoto(String cadena) {
+        boolean ok = false;
+        
+        if(cadena.matches("([a-zA-Z0-9\\s_\\\\.\\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$")){
+            ok = true;
+        }
+        
+        return ok;
     }
 
 }

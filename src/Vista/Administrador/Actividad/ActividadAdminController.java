@@ -319,8 +319,8 @@ public class ActividadAdminController implements Initializable {
                 imageView.setPreserveRatio(false);
             }
         } catch (Exception ex) {
-            not.error("ERROR EXCEPTION", "" + ex.getMessage()
-                    + " Error al no encontrar la ruta de las imagenes");
+            not.error("NO SE ENCUENTRA ESA IMAGEN EN EL ARCHIVO DE IMAGENES", 
+                    " Error al no encontrar la ruta de las imagenes");
         }
     }
 
@@ -332,78 +332,74 @@ public class ActividadAdminController implements Initializable {
         String nombre, descripcion, horario, url, direccion, telefono, foto;
         boolean ok = false;
         boolean general = true;
-
-       // id = Integer.parseInt(textId.getText());
-       
+      
         nombre = textNombre.getText();
         if(!nombre.isEmpty()){
+
+        }
+        else {
+            general = false;
+            not.error("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
+        }
+        descripcion = textDescripcion.getText();       
+        horario = textHorario.getText();       
+        precio = validar.validarNumDecimal(textPrecio.getText());
+        if(precio != 0.0){
             
         }
         else {
             general = false;
+            not.error("ERROR DE FORMATO PRECIO","No puede estar vacio");
         }
-        descripcion = textDescripcion.getText();
-        if(!descripcion.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
-        horario = textHorario.getText();
-        if(!horario.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
-        precio = Double.parseDouble(textPrecio.getText());
-//        if(){
-//            
-//        }
-//        else {
-//            general = false;
-//        }
-        direccion = textDireccion.getText();
-        if(!direccion.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
+        direccion = textDireccion.getText();       
         url = textUrl.getText();
-        if(!url.isEmpty()){
-            if(validar.comprobarUrl(url) == true){
-                
+        if(url.isEmpty()){
+            
+        }
+        else{
+            if(validar.isURL(url ) == true){
+           
+        }
+            else {
+                general = false;
+                not.error("ERROR DE URL NO VALIDA", "URL incorrecta o no existe");
+            } 
+        }       
+        telefono = textTelefono.getText();
+        if(telefono.isEmpty()){
+            
+        }
+        else{
+            if(validar.comprobarTelefono(telefono) == true){
+            
             }
             else {
                 general = false;
+                not.error("ERROR DE FORMATO TELEFONO","No es un telefono valido");
+            }
+        }        
+        foto = textFoto.getText();
+        if(foto.isEmpty()){
+            
+        }
+        else{
+            if(validar.validarFoto(foto) == true){
+                
+            }
+            else{
+                general = false;
+                not.error("ERROR DE FORMATO FOTO","La extensión no es válida");
             }
         }
-        else {
-            general = false;
-        }
-        telefono = textTelefono.getText();
-        if(validar.comprobarTelefono(telefono) == true){
+        idsubTipo = validar.validarNumEntero(textIdTipo.getText());
+        if(idsubTipo != 0){
             
         }
         else {
             general = false;
+            not.error("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
         }
-        foto = textFoto.getText();
-        if(!foto.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
-        idsubTipo = Integer.parseInt(textIdTipo.getText());
-//        if(){
-//            
-//        }
-//        else {
-//            general = false;
-//        }
-        
+               
         if(general){
             try {
                 Actividad act = new Actividad(id, nombre, precio, horario,
@@ -414,15 +410,15 @@ public class ActividadAdminController implements Initializable {
                         + " Error al insertar un registro en DB turismo");
             }
             if (ok == true) {
-                not.info("INSERTAR CON EXITO EN TABLA ACTIVIDADES",
+                not.confirm("INSERTAR CON EXITO EN LA TABLA ACTIVIDADES",
                         " La operación se ha realizado con éxito");
             } else {
-                not.info("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
+                not.confirm("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
                         " No se ha insertado el registro");
             }
         }
         else {
-            not.error("ERROR AL INSERTAR ACTIVIDAD");
+            not.error("ERROR AL INSERTAR ACTIVIDAD","");
         }
     }
 
@@ -434,79 +430,75 @@ public class ActividadAdminController implements Initializable {
         int id = 0, idsubTipo;
         double precio;
         String nombre, descripcion, horario, direccion, url, telefono, foto;
-        
-        
+                
         actividad = tableview.getSelectionModel().getSelectedItem();
-
-//        id = Integer.parseInt(textId.getText());
+     
         nombre = textNombre.getText();
         if(!nombre.isEmpty()){
+
+        }
+        else {
+            general = false;
+            not.error("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
+        }
+        descripcion = textDescripcion.getText();       
+        horario = textHorario.getText();       
+        precio = validar.validarNumDecimal(textPrecio.getText());
+        if(precio != 0.0){
             
         }
         else {
             general = false;
+            not.error("ERROR DE FORMATO PRECIO","No puede estar vacio");
         }
-        descripcion = textDescripcion.getText();
-        if(!descripcion.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
-        horario = textHorario.getText();
-        if(!horario.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
-        precio = Double.parseDouble(textPrecio.getText());
-//        if(){
-//            
-//        }
-//        else {
-//            general = false;
-//        }
-        direccion = textDireccion.getText();
-        if(!direccion.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
+        direccion = textDireccion.getText();       
         url = textUrl.getText();
-        if(!url.isEmpty()){
-            if(validar.comprobarUrl(url) == true){
-                
+        if(url.isEmpty()){
+            
+        }
+        else{
+            if(validar.isURL(url ) == true){
+           
+        }
+            else {
+                general = false;
+                not.error("ERROR DE URL NO VALIDA", "URL incorrecta o no existe");
+            } 
+        }       
+        telefono = textTelefono.getText();
+        if(telefono.isEmpty()){
+            
+        }
+        else{
+            if(validar.comprobarTelefono(telefono) == true){
+            
             }
             else {
                 general = false;
+                not.error("ERROR DE FORMATO TELEFONO","No es un telefono valido");
+            }
+        }        
+        foto = textFoto.getText();
+        if(foto.isEmpty()){
+            
+        }
+        else{
+            if(validar.validarFoto(foto) == true){
+                
+            }
+            else{
+                general = false;
+                not.error("ERROR DE FORMATO FOTO","La extensión no es válida");
             }
         }
-        else {
-            general = false;
-        }
-        telefono = textTelefono.getText();
-        if(validar.comprobarTelefono(telefono) == true){
+        idsubTipo = validar.validarNumEntero(textIdTipo.getText());
+        if(idsubTipo != 0){
             
         }
         else {
             general = false;
+            not.error("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
         }
-        foto = textFoto.getText();
-        if(!foto.isEmpty()){
-            
-        }
-        else {
-            general = false;
-        }
-        idsubTipo = Integer.parseInt(textIdTipo.getText());
-//        if(){
-//            
-//        }
-//        else {
-//            general = false;
-//        }
         
         if(general){
             try {
@@ -517,15 +509,15 @@ public class ActividadAdminController implements Initializable {
                         + " Error al modificar la actividad en DB turismo");
             }
             if (ok) {
-                not.info("ACTUALIZAR CON EXITO EN TABLA ACTIVIDADES",
+                not.confirm("ACTUALIZAR CON EXITO EN LA TABLA ACTIVIDADES",
                         " Operación realizada con éxito");
             } else {
-                not.info("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
+                not.confirm("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
                         " No se ha modificado el registro");
             } 
         }
         else {
-            not.error("ERROR AL MODIFICAR ACTIVIDAD");
+            not.error("ERROR AL MODIFICAR ACTIVIDAD","");
         }
     }
 
@@ -537,27 +529,43 @@ public class ActividadAdminController implements Initializable {
         actividad = tableview.getSelectionModel().getSelectedItem();
         System.out.println("ACTIVIDAD: " + actividad);
         id = actividad.getId();
+        
+        ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO " + id + "",
+                "¿Estas seguro !!!?\n confirma presionando Aceptar");
+        
+        if(ok){
+            try {
+                activiDAO.borrarActividad(id);
+                if(ok){
+                    not.confirm("SE HA ELIMINADO EL REGISTRO " + id + " EN LA TABLA ACTIVIDADES", 
+                    " Operación realizada con éxito");
+                }
+            } catch (SQLException ex) {
+                not.error("ERROR SQL", "" + ex.getMessage()
+                        + "Error al eliminar el registro "+ id + " de tabla actividad");
+            }
+        }
 
-        Notifications notification = Notifications.create()
-                .title("ESTAS SEGURO DE ELIMINAR LA ACTIVIDAD " + id)
-                .text("Comfirma haciendo click sobre la ventana")
-                .graphic(null)
-                .hideAfter(Duration.seconds(25))
-                .position(Pos.TOP_LEFT)
-                .onAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent arg0) {
-
-                        try {
-                            activiDAO.borrarActividad(id);
-                        } catch (SQLException ex) {
-                            not.error("ERROR SQL", "" + ex.getMessage()
-                                    + "Error al eliminar un registro de DB turismo");
-                        }
-                    }
-                });
-
-        notification.showWarning();
+//        Notifications notification = Notifications.create()
+//                .title("ESTAS SEGURO DE ELIMINAR LA ACTIVIDAD " + id)
+//                .text("Comfirma haciendo click sobre la ventana")
+//                .graphic(null)
+//                .hideAfter(Duration.seconds(25))
+//                .position(Pos.TOP_LEFT)
+//                .onAction(new EventHandler<ActionEvent>() {
+//                    @Override
+//                    public void handle(ActionEvent arg0) {
+//
+//                        try {
+//                            activiDAO.borrarActividad(id);
+//                        } catch (SQLException ex) {
+//                            not.error("ERROR SQL", "" + ex.getMessage()
+//                                    + "Error al eliminar un registro de DB turismo");
+//                        }
+//                    }
+//                });
+//
+//        notification.showWarning();
 
 //        if(ok){
 //            not.info("ELIMINAR CON EXITO EN TABLA ACTIVIDADES", 
