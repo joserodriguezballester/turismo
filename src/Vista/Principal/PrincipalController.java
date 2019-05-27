@@ -79,14 +79,15 @@ public class PrincipalController implements Initializable {
     private ImageView imgLupa;
     private PrincipalController principalController;
     @FXML
-    private JFXButton botonTransportes1;
+    private JFXButton botonContactar;
 
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        styleInicio();
         efectoTransicion();
+        styleInicio();
+
     }
 
     public void setGestion(GestionBD gestion) {
@@ -114,7 +115,7 @@ public class PrincipalController implements Initializable {
         } else {
             try {
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
-            
+
             } catch (Exception e) {
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
@@ -124,7 +125,7 @@ public class PrincipalController implements Initializable {
     private void styleInicio() {
 
         //Transicion
-        FadeTransition ft = new FadeTransition(Duration.millis(1500), gridpane);
+        FadeTransition ft = new FadeTransition(Duration.millis(500), gridpane);
         ft.setFromValue(0);
         ft.setToValue(1);
         ft.play();
@@ -144,19 +145,7 @@ public class PrincipalController implements Initializable {
         botonTransportes.getStyleClass().add("botonMenu");
         botnPerfil.getStyleClass().add("botonMenu");
         botnSalir.getStyleClass().add("botonMenu");
-    }
-
-    private void efectoTransicion() {
-        try {
-            Transicion tr = new Transicion();
-            tr.setRoot(Ventana);
-            Ventana.toBack();
-            tr.start();
-        } catch (Exception e) {
-            System.out.println("ha petao");
-            not.error("ERROR Exception",
-                    "en initialize --- PrincipalController");
-        }
+        botonContactar.getStyleClass().add("botonMenu");
     }
 
     //ACCIONES------------------------------------------------------------------
@@ -307,7 +296,7 @@ public class PrincipalController implements Initializable {
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
 
-     @FXML
+    @FXML
     private void irContactar(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
@@ -333,11 +322,7 @@ public class PrincipalController implements Initializable {
         }
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
-        
-        
-    
-    
-    
+
     @FXML
     private void cerrarSesion(ActionEvent event) {
 
@@ -404,6 +389,17 @@ public class PrincipalController implements Initializable {
         this.principalController = principalController;
     }
 
-   
+    private void efectoTransicion() {
+        try {
+            Transicion tr = new Transicion();
+            tr.setRoot(Ventana);
+            Ventana.toBack();
+            tr.start();
+        } catch (Exception e) {
+            System.out.println("ha petao");
+            not.error("ERROR Exception",
+                    "en initialize --- PrincipalController");
+        }
+    }
 
 }

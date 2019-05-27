@@ -19,7 +19,7 @@
 
 <AnchorPane fx:id="Ventana" prefHeight="730.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Perfil.PerfilController">
    <children>
-      <Pane fx:id="alFrenteAP" layoutX="121.0" layoutY="83.0" prefHeight="254.0" prefWidth="203.0">
+      <Pane fx:id="alFrenteAP" layoutX="121.0" layoutY="83.0" maxHeight="254.0" maxWidth="203.0" minHeight="254.0" minWidth="203.0" prefHeight="254.0" prefWidth="203.0">
          <children>
             <ImageView fx:id="caraIV" fitHeight="240.0" fitWidth="192.0" layoutX="6.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true" />
          </children>
@@ -113,7 +113,7 @@
                   <Font name="Agency FB Bold" size="35.0" />
                </font>
             </Label>
-            <Label fx:id="labelUser" layoutX="265.0" layoutY="6.0" prefHeight="49.0" prefWidth="211.0">
+            <Label fx:id="labelUser" layoutX="203.0" layoutY="6.0" prefHeight="49.0" prefWidth="211.0">
                <font>
                   <Font name="Agency FB Bold" size="35.0" />
                </font>

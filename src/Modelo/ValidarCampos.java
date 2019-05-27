@@ -42,5 +42,13 @@ public class ValidarCampos {
         }
         return emailCorrecto;
     }
+    
+    public boolean comprobarUrl(String url){
+        boolean ok = false;
+        if(!url.matches("[:]?[http://www.|https://www.]{1}[a-z_0-9/.-$%&]*")){
+            ok = true;
+        }
+        return ok;
+    }
 
 }

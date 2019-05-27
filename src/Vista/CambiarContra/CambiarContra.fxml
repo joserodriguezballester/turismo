@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import java.net.URL?>
 <?import com.jfoenix.controls.JFXPasswordField?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -8,7 +9,10 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="anchorFondo" prefHeight="329.0" prefWidth="517.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.CambiarContra.CambiarContraController">
-   <children>
+   <stylesheets>
+        <URL value="@/resources/estilo.css" />
+    </stylesheets>
+    <children>
       <Pane fx:id="paneContra" layoutX="59.0" layoutY="37.0" prefHeight="255.0" prefWidth="400.0" styleClass="paneNuevaContra" stylesheets="@../../resources/estilo.css">
          <children>
             <Label layoutX="36.0" layoutY="43.0" text="Antigua Contraseña">

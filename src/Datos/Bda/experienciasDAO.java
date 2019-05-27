@@ -117,7 +117,7 @@ public class experienciasDAO {
 
     public int idExperienciaSiguiente() throws SQLException {
         int id = 0;
-        String consulta = "select id from experiencias order by id desc limit 1;";
+        String consulta = "select max(id) from experiencias;";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

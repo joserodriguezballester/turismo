@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
@@ -16,6 +17,10 @@
             <Pane fx:id="paneActividadesBuscador" />
          </content>
       </ScrollPane>
-      <JFXTextField fx:id="entradaBusqueda" layoutX="450.0" layoutY="25.0" onKeyTyped="#buscar" prefWidth="400.0" promptText="Buscar..." />
+      <JFXTextField fx:id="entradaBusqueda" layoutX="175.0" layoutY="26.0" onKeyTyped="#buscar" prefWidth="400.0" promptText="Buscar..." />
+      <Label layoutX="589.0" layoutY="30.0" text="Precio Mín.:" />
+      <JFXTextField fx:id="entradaPrecioMinimo" layoutX="659.0" layoutY="26.0" onKeyTyped="#filtrarPorPrecio" prefHeight="25.0" prefWidth="80.0" />
+      <Label layoutX="745.0" layoutY="30.0" text="Precio Máx.:" />
+      <JFXTextField fx:id="entradaPrecioMaximo" layoutX="816.0" layoutY="26.0" onKeyTyped="#filtrarPorPrecio" prefHeight="25.0" prefWidth="80.0" />
    </children>
 </AnchorPane>

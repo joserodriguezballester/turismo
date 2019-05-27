@@ -6,6 +6,7 @@ import Datos.Bda.tiposDAO;
 import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Tipo;
+import Modelo.ValidarCampos;
 import Vista.Administrador.Actividad.InterfaceOrdenacion.OrdenNombreA;
 import Vista.Administrador.Actividad.InterfaceOrdenacion.OrdenPrecioA;
 import java.io.File;
@@ -21,6 +22,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -178,9 +181,9 @@ public class ActividadAdminController implements Initializable {
     
 // --------------------------- RADIO BUTTON -----------------------------
     
-    private void ordenarPorId(){       
-        Collections.sort(actividades);
-    }
+//    private void ordenarPorId(){       
+//        Collections.sort(actividades);
+//    }
     
     private void ordenarPorNombre(){
         Collections.sort(actividades,new OrdenNombreA());
@@ -217,36 +220,25 @@ public class ActividadAdminController implements Initializable {
 // -------------------------------- CARGAR TABLA ---------------------------
 
     private void cargarTabla(List<Actividad> coleccion) {
-
+        
+        
         actividades.clear();
         actividades.addAll(coleccion);
-        
-        if(radioId.isSelected() && radioId.isFocused()){
-           this.ordenarPorId();
 
-        }   
-        else{
-            tb_id.setStyle("");
-        }
 
-        if(radioNombre.isSelected() && radioNombre.isFocused()){
+        if(radioNombre.isSelected()){
            this.ordenarPorNombre();
-//           tb_id.getStyleClass().add("background2ColumnaIdActividad");
-//           tb_nombre.getStyleClass().add("background1ColumnaNombreActividad");
-//           tb_precio.getStyleClass().add("background2ColumnaPrecioActividad");
-           tb_nombre.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
+
+          // tb_nombre.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
         }   
         else {
             tb_nombre.setStyle("");
         }
 
-        if(radioPrecio.isSelected() && radioPrecio.isFocused()){
+        if(radioPrecio.isSelected()){
            this.ordenarPorPrecio();
-//           tb_id.getStyleClass().add("background2ColumnaIdActividad");
-//           tb_nombre.getStyleClass().add("background2ColumnaNombreActividad");
-//           tb_precio.getStyleClass().add("background1ColumnaPrecioActividad");
-//           
-           tb_precio.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
+         
+           //tb_precio.setStyle("-fx-background-color: rgba(132, 174, 232,.5)");
         }   
  
         tableview.setItems(actividades);
@@ -288,6 +280,8 @@ public class ActividadAdminController implements Initializable {
     private void seleccionarItem() {
         int id, idsubTipo;
         double precio;
+        Actividad actividad = null;
+        
         String nombre, descripcion, horario, direccion, url, telefono, foto;
 
         actividad = tableview.getSelectionModel().getSelectedItem();
@@ -332,72 +326,206 @@ public class ActividadAdminController implements Initializable {
 
 /// ----------------------------- INSERTAR -------------------------------         
     private void insertar() {
-        int id, idsubTipo;
+        ValidarCampos validar = new ValidarCampos();
+        int id = 0, idsubTipo;
         double precio;
         String nombre, descripcion, horario, url, direccion, telefono, foto;
         boolean ok = false;
+        boolean general = true;
 
-        id = Integer.parseInt(textId.getText());
+       // id = Integer.parseInt(textId.getText());
+       
         nombre = textNombre.getText();
-        descripcion = textDescripcion.getText();
-        horario = textHorario.getText();
-        precio = Double.parseDouble(textPrecio.getText());
-        direccion = textDireccion.getText();
-        url = textUrl.getText();
-        telefono = textTelefono.getText();
-        foto = textFoto.getText();
-        idsubTipo = Integer.parseInt(textIdTipo.getText());
-
-        try {
-            Actividad act = new Actividad(id, nombre, precio, horario,
-                    descripcion, url, direccion, telefono, foto, idsubTipo);
-            ok = activiDAO.insertarActividad(act);
-        } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " Error al insertar un registro en DB turismo");
+        if(!nombre.isEmpty()){
+            
         }
-        if (ok == true) {
-            not.info("INSERTAR CON EXITO EN TABLA ACTIVIDADES",
-                    " La operación se ha realizado con éxito");
-        } else {
-            not.info("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
-                    " No se ha insertado el registro");
+        else {
+            general = false;
+        }
+        descripcion = textDescripcion.getText();
+        if(!descripcion.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        horario = textHorario.getText();
+        if(!horario.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        precio = Double.parseDouble(textPrecio.getText());
+//        if(){
+//            
+//        }
+//        else {
+//            general = false;
+//        }
+        direccion = textDireccion.getText();
+        if(!direccion.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        url = textUrl.getText();
+        if(!url.isEmpty()){
+            if(validar.comprobarUrl(url) == true){
+                
+            }
+            else {
+                general = false;
+            }
+        }
+        else {
+            general = false;
+        }
+        telefono = textTelefono.getText();
+        if(validar.comprobarTelefono(telefono) == true){
+            
+        }
+        else {
+            general = false;
+        }
+        foto = textFoto.getText();
+        if(!foto.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        idsubTipo = Integer.parseInt(textIdTipo.getText());
+//        if(){
+//            
+//        }
+//        else {
+//            general = false;
+//        }
+        
+        if(general){
+            try {
+                Actividad act = new Actividad(id, nombre, precio, horario,
+                        descripcion, url, direccion, telefono, foto, idsubTipo);
+                ok = activiDAO.insertarActividad(act);
+            } catch (SQLException ex) {
+                not.error("ERROR SQL", "" + ex.getMessage()
+                        + " Error al insertar un registro en DB turismo");
+            }
+            if (ok == true) {
+                not.info("INSERTAR CON EXITO EN TABLA ACTIVIDADES",
+                        " La operación se ha realizado con éxito");
+            } else {
+                not.info("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
+                        " No se ha insertado el registro");
+            }
+        }
+        else {
+            not.error("ERROR AL INSERTAR ACTIVIDAD");
         }
     }
 
 // -------------------------------- ACTUALIZAR --------------------------
     private void actualizar() {
+        ValidarCampos validar = new ValidarCampos();
         boolean ok = false;
-        int id, idsubTipo;
+        boolean general = true;
+        int id = 0, idsubTipo;
         double precio;
         String nombre, descripcion, horario, direccion, url, telefono, foto;
-
+        
+        
         actividad = tableview.getSelectionModel().getSelectedItem();
 
-        id = Integer.parseInt(textId.getText());
+//        id = Integer.parseInt(textId.getText());
         nombre = textNombre.getText();
-        descripcion = textDescripcion.getText();
-        horario = textHorario.getText();
-        precio = Double.parseDouble(textPrecio.getText());
-        direccion = textDireccion.getText();
-        url = textUrl.getText();
-        telefono = textTelefono.getText();
-        foto = textFoto.getText();
-        idsubTipo = Integer.parseInt(textIdTipo.getText());
-
-        try {
-            ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
-                    url, direccion, telefono, foto, idsubTipo);
-        } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " Error al modificar la actividad en DB turismo");
+        if(!nombre.isEmpty()){
+            
         }
-        if (ok) {
-            not.info("ACTUALIZAR CON EXITO EN TABLA ACTIVIDADES",
-                    " Operación realizada con éxito");
-        } else {
-            not.info("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
-                    " No se ha modificado el registro");
+        else {
+            general = false;
+        }
+        descripcion = textDescripcion.getText();
+        if(!descripcion.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        horario = textHorario.getText();
+        if(!horario.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        precio = Double.parseDouble(textPrecio.getText());
+//        if(){
+//            
+//        }
+//        else {
+//            general = false;
+//        }
+        direccion = textDireccion.getText();
+        if(!direccion.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        url = textUrl.getText();
+        if(!url.isEmpty()){
+            if(validar.comprobarUrl(url) == true){
+                
+            }
+            else {
+                general = false;
+            }
+        }
+        else {
+            general = false;
+        }
+        telefono = textTelefono.getText();
+        if(validar.comprobarTelefono(telefono) == true){
+            
+        }
+        else {
+            general = false;
+        }
+        foto = textFoto.getText();
+        if(!foto.isEmpty()){
+            
+        }
+        else {
+            general = false;
+        }
+        idsubTipo = Integer.parseInt(textIdTipo.getText());
+//        if(){
+//            
+//        }
+//        else {
+//            general = false;
+//        }
+        
+        if(general){
+            try {
+                ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
+                        url, direccion, telefono, foto, idsubTipo);
+            } catch (SQLException ex) {
+                not.error("ERROR SQL", "" + ex.getMessage()
+                        + " Error al modificar la actividad en DB turismo");
+            }
+            if (ok) {
+                not.info("ACTUALIZAR CON EXITO EN TABLA ACTIVIDADES",
+                        " Operación realizada con éxito");
+            } else {
+                not.info("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
+                        " No se ha modificado el registro");
+            } 
+        }
+        else {
+            not.error("ERROR AL MODIFICAR ACTIVIDAD");
         }
     }
 

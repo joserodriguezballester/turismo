@@ -131,6 +131,7 @@ public class PerfilController implements Initializable {
         paneBienvenido.getStyleClass().add("paneBienv");
         cancelarBT.getStyleClass().add("botonCerrarInformacion");
         botonGuardar.getStyleClass().add("botonGuardarModificacion");
+        modificarBT.getStyleClass().add("botonEditar");
         labelPW.getStyleClass().add("recordarpassword");
         alFrenteAP.toFront();
         /// lo pasamos a cuando este desabilitado editar
@@ -156,6 +157,10 @@ public class PerfilController implements Initializable {
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             caraIV.setImage(image);
+            caraIV.setPreserveRatio(false);
+//            caraIV.relocate(6, 7);
+//            caraIV.setFitWidth(192);
+//            caraIV.setFitHeight(240); 
         }
 
 //      principalController.cargaNickFoto();  
@@ -386,6 +391,7 @@ public class PerfilController implements Initializable {
 
     @FXML
     private void editarPerfil(ActionEvent event) {
+        alFrenteAP.getStyleClass().clear();
         botonGuardar.setVisible(true);
         cancelarBT.setVisible(true);
         labelPW.setVisible(true);
@@ -396,7 +402,16 @@ public class PerfilController implements Initializable {
 //        fecNacTF.setEditable(true);
         direccionTF.setEditable(true);
         emailTF.setEditable(true);
+        alFrenteAP.getStyleClass().add("panePerfilPersonalEditable");
         editarFoto();   ///comentar a Dani si puede cambiar el marco de color
+        nickTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
+        nombreTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
+        apellidosTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
+        dniTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
+        fecNacTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
+        emailTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
+        direccionTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
+        telefonoTF.setStyle("-fx-background-color: rgb(153, 151, 142)");
 
     }
 
@@ -405,7 +420,10 @@ public class PerfilController implements Initializable {
     }
 
     @FXML
-    private void cancelar(ActionEvent event) {
+    private void cancelar(ActionEvent event) { 
+        
+        alFrenteAP.getStyleClass().clear();
+        alFrenteAP.getStyleClass().add("panePerfilPersonal");
         botonGuardar.setVisible(false);
         cancelarBT.setVisible(false);
         labelPW.setVisible(false);
@@ -417,6 +435,16 @@ public class PerfilController implements Initializable {
         fecNacTF.setEditable(false);
         direccionTF.setEditable(false);
         emailTF.setEditable(false);
+        
+        nickTF.setStyle("");
+        nombreTF.setStyle("");
+        apellidosTF.setStyle("");
+        dniTF.setStyle("");
+        fecNacTF.setStyle("");
+        emailTF.setStyle("");
+        direccionTF.setStyle("");
+        telefonoTF.setStyle("");
+               
     }
 
     @FXML

@@ -334,7 +334,7 @@ and open the template in the editor.
 /*ESTILOS_VISTA.PERFIL--------------------------------------------------------*/
 
 .panePerfilPersonal{
-    -fx-background-color: rgb(217, 219, 221);
+    -fx-background-color: rgb(229, 202, 165);
     -fx-background-radius: 10;
     -fx-border-color: rgb(229, 202, 165);
     -fx-border-width: 5 ; 
@@ -353,6 +353,24 @@ and open the template in the editor.
 .barraPerfil{
     -fx-background-color: rgb(229, 202, 165);
 
+}
+
+.panePerfilPersonalEditable{
+    -fx-background-color: rgb(153, 151, 142);
+    -fx-background-radius: 10;
+    -fx-border-color: rgb(153, 151, 142);
+    -fx-border-width: 5 ; 
+}
+
+.botonEditar{
+     -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(20,40,100);
+    -fx-border-width: 4; 
+    -fx-cursor:hand;
+    
 }
 
 /* ESTILOS_EXPERIENCIAS_ADMIN_CONTROLLER ------------------------------------*/
@@ -405,4 +423,55 @@ and open the template in the editor.
 .informacionTV{  /* SE APLICA AL TREEMAP*/
     -fx-font-size:14px;
     -fx-font-weight: bold;
+}
+
+/*ESTILOS_VISTA.ADMINISTRADOR.PRINCIPAL-----------------------------------------------------*/
+
+.menuP{
+    -fx-background-color:rgb(142, 143, 145);
+}
+
+.botonMenuInicioP{
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(132, 132, 132);
+    -fx-border: solid; 
+    -fx-cursor:hand;
+}
+
+.botonMenuInicioP:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(84, 86, 89);
+    -fx-cursor:hand;
+}
+.botonMenuP{
+    -fx-font-weight: bold;
+    -fx-text-fill: #000000;
+
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(142, 143, 145);
+    -fx-border: solid;
+    -fx-cursor:hand;
+}
+
+.botonMenuP:hover{
+    -fx-font-weight: bold;
+    -fx-text-fill: #ffffff;
+
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(84, 86, 89);
+    -fx-cursor:hand;
+}
+
+.fondoLiso{
+    -fx-background-color:rgb(179, 180, 181);
 }

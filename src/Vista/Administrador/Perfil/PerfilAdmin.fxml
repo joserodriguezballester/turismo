@@ -16,12 +16,12 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Perfil.PerfilAdminController">
+<AnchorPane id="AnchorPane" fx:id="Ventana" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Perfil.PerfilAdminController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
-      <AnchorPane id="AnchorPane" layoutX="10.0" layoutY="10.0" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass">
+      <AnchorPane id="AnchorPane" fx:id="panePerfilA" layoutX="10.0" layoutY="10.0" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass">
          <stylesheets>
             <URL value="@/resources/estilo.css" />
          </stylesheets>
@@ -31,7 +31,7 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <TableView fx:id="usuariosTV" layoutX="17.0" layoutY="66.0" prefHeight="250.0" prefWidth="990.0">
+            <TableView fx:id="usuariosTV" layoutX="9.0" layoutY="66.0" prefHeight="250.0" prefWidth="1083.0">
                <columns>
                   <TableColumn fx:id="nickTC" maxWidth="100.0" prefWidth="84.0" text="nick" />
                   <TableColumn fx:id="nombreTC" maxWidth="200.0" minWidth="50.0" prefWidth="121.0" text="nombre" />
@@ -112,14 +112,14 @@
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <Line endX="200.0" layoutX="900.0" layoutY="365.0" />
-            <Line endX="200.0" layoutX="900.0" layoutY="600.0" />
+            <Line endX="200.0" layoutX="1072.0" layoutY="81.0" startX="28.0" startY="1.52587890625E-5" />
+            <Line endX="172.0" layoutX="1100.0" layoutY="300.0" />
             <Label layoutX="393.0" layoutY="525.0" text="Rol">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <GridPane layoutX="950.0" layoutY="396.0" prefHeight="174.0" prefWidth="100.0" vgap="10.0">
+            <GridPane layoutX="1136.0" layoutY="104.0" prefHeight="174.0" prefWidth="100.0" vgap="10.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
@@ -140,8 +140,8 @@
             <JFXComboBox fx:id="rolCB" layoutX="498.0" layoutY="525.0" prefHeight="25.0" prefWidth="182.0" />
             <JFXComboBox fx:id="tipoUsuario" layoutX="106.0" layoutY="24.0" prefHeight="25.0" prefWidth="163.0" />
             <JFXDatePicker fx:id="fecNacDP" layoutX="174.0" layoutY="524.0" />
-            <ImageView fx:id="caraIV" fitHeight="208.0" fitWidth="200.0" layoutX="1041.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-            <JFXTextField fx:id="archivoTF" layoutX="1050.0" layoutY="291.0" prefHeight="25.0" prefWidth="182.0">
+            <ImageView fx:id="caraIV" fitHeight="208.0" fitWidth="200.0" layoutX="771.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" />
+            <JFXTextField fx:id="archivoTF" layoutX="780.0" layoutY="603.0" prefHeight="25.0" prefWidth="182.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
