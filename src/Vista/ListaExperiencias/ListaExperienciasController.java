@@ -170,10 +170,6 @@ public class ListaExperienciasController implements Initializable {
 //                descripcion.setStyle("-fx-background-color: rgb(255, 244, 229)");
                 descripcion.getStyleClass().add("descripcionBusc");
 
-                if (!entradaBusqueda.getText().isEmpty()) {
-                    high.highlight(pane, entradaBusqueda.getText());
-                }
-
                 pane.getChildren().addAll(img, titulo, descripcion);
 
 //                AÑADE PULSANDO LA DESCRIPCION
