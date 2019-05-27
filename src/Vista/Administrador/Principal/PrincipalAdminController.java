@@ -93,7 +93,7 @@ public class PrincipalAdminController implements Initializable {
 
     private void styleInicio() {
 
-        FadeTransition ft = new FadeTransition(Duration.millis(1500), gridpane);
+        FadeTransition ft = new FadeTransition(Duration.millis(500), gridpane);
         ft.setFromValue(0);
         ft.setToValue(1);
         ft.play();

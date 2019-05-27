@@ -54,10 +54,10 @@
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="1" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="2" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="3" />
-                  <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="4" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="5" />
                   <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="8" />
                   <JFXButton fx:id="botonContactar" onAction="#irContactar" prefHeight="70.0" prefWidth="300.0" text="Contactar" GridPane.columnIndex="4" />
+                  <Line endX="-100.0" endY="42.0" startX="-100.0" GridPane.columnIndex="4" />
 <!--=======-->
 <!--                  <ImageView fx:id="caraIV" fitHeight="40.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" />
                   <JFXButton fx:id="botonLogo" onAction="#irInicio" onMouseExited="#ocultarPanePerfil" prefHeight="70.0" prefWidth="300.0" text="Inicio" />
