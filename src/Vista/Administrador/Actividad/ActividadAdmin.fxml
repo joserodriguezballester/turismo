@@ -60,24 +60,24 @@
                 </Button>
             </children>
         </GridPane>
-        <TableView fx:id="tableview" layoutX="17.0" layoutY="69.0" onMousePressed="#mostrar" prefHeight="275.0" prefWidth="1260.0">
+        <TableView fx:id="tableview" layoutX="14.0" layoutY="62.0" onMousePressed="#mostrar" prefHeight="275.0" prefWidth="1266.0">
             <columns>
-                <TableColumn fx:id="tb_id" editable="false" prefWidth="45.0" text="id" />
-                <TableColumn fx:id="tb_nombre" prefWidth="111.66667175292969" text="nombre" />
-                <TableColumn fx:id="tb_descripcion" prefWidth="191.3333282470703" text="descripcion" />
+                <TableColumn fx:id="tb_id" editable="false" minWidth="0.0" prefWidth="0.0" text="id" />
+                <TableColumn fx:id="tb_nombre" prefWidth="151.6666717529297" text="nombre" />
+                <TableColumn fx:id="tb_descripcion" prefWidth="199.3333282470703" text="descripcion" />
                 <TableColumn fx:id="tb_horario" prefWidth="109.0" text="horario" />
-                <TableColumn fx:id="tb_precio" prefWidth="89.33331298828125" text="precio" />
-                <TableColumn fx:id="tb_direccion" prefWidth="164.66665649414062" text="direccion" />
-                <TableColumn fx:id="tb_url" minWidth="0.0" prefWidth="156.33331298828125" text="url" />
-                <TableColumn fx:id="tb_telefono" prefWidth="174.33331298828125" text="telefono" />
-                <TableColumn fx:id="tb_foto" minWidth="0.0" prefWidth="121.33331298828125" text="foto" />
-                <TableColumn fx:id="tb_idTipo" minWidth="0.0" prefWidth="100.3333740234375" text="idsubTipo" />
+                <TableColumn fx:id="tb_precio" prefWidth="130.0" text="precio" />
+                <TableColumn fx:id="tb_direccion" prefWidth="179.0" text="direccion" />
+                <TableColumn fx:id="tb_url" minWidth="0.0" prefWidth="141.6666259765625" text="url" />
+                <TableColumn fx:id="tb_telefono" minWidth="0.0" prefWidth="163.6666259765625" text="telefono" />
+                <TableColumn fx:id="tb_foto" minWidth="0.0" prefWidth="128.3333740234375" text="foto" />
+                <TableColumn fx:id="tb_idTipo" minWidth="0.0" prefWidth="70.6666259765625" text="idsubTipo" />
             </columns>
             <effect>
                 <DropShadow />
             </effect>
         </TableView>
-        <Label layoutX="40.0" layoutY="385.0" text="ID">
+        <Label layoutX="40.0" layoutY="385.0" text="ID" visible="false">
             <font>
                 <Font size="16.0" />
             </font>
@@ -132,7 +132,7 @@
                 <ImageView fx:id="imageView" fitHeight="200.0" fitWidth="300.0" layoutX="2.0" layoutY="20.0" pickOnBounds="true" preserveRatio="true" />
             </children>
         </Pane>
-        <TextField fx:id="textId" layoutX="150.0" layoutY="385.0">
+        <TextField fx:id="textId" layoutX="150.0" layoutY="385.0" visible="false">
             <effect>
                 <DropShadow height="15.0" radius="7.0" width="15.0" />
             </effect>
@@ -212,7 +212,7 @@
         <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></Button>
-        <RadioButton fx:id="radioId" layoutX="1080.0" layoutY="450.0" mnemonicParsing="false" onAction="#ordenar" selected="true">
+        <RadioButton fx:id="radioId" layoutX="1080.0" layoutY="450.0" mnemonicParsing="false" onAction="#ordenar" selected="true" visible="false">
             <font>
                 <Font size="16.0" />
             </font>
@@ -239,7 +239,7 @@
                 <DropShadow />
             </effect>
         </RadioButton>
-        <Label layoutX="1120.0" layoutY="450.0" text="ORDENAR ID">
+        <Label layoutX="1120.0" layoutY="450.0" text="ORDENAR ID" visible="false">
             <font>
                 <Font size="16.0" />
             </font>
