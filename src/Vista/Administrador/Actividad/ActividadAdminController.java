@@ -542,7 +542,7 @@ public class ActividadAdminController implements Initializable {
                 }
             } catch (SQLException ex) {
                 not.error("ERROR SQL", "" + ex.getMessage()
-                        + "Error al eliminar el registro "+ id + " de tabla actividad");
+                        + "Error al eliminar el registro "+ id + " de tabla actividades");
             }
         }
 
