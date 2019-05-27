@@ -78,7 +78,7 @@ public class PrincipalController implements Initializable {
     private ImageView imgLupa;
     private PrincipalController principalController;
     @FXML
-    private JFXButton botonTransportes1;
+    private JFXButton botonContactar;
 
     //INICIO--------------------------------------------------------------------
     @Override
@@ -113,7 +113,7 @@ public class PrincipalController implements Initializable {
         } else {
             try {
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
-            
+
             } catch (Exception e) {
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
@@ -143,6 +143,7 @@ public class PrincipalController implements Initializable {
         botonTransportes.getStyleClass().add("botonMenu");
         botnPerfil.getStyleClass().add("botonMenu");
         botnSalir.getStyleClass().add("botonMenu");
+        botonContactar.getStyleClass().add("botonMenu");
     }
 
     private void efectoTransicion() {
@@ -306,7 +307,7 @@ public class PrincipalController implements Initializable {
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
 
-     @FXML
+    @FXML
     private void irContactar(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
@@ -327,11 +328,7 @@ public class PrincipalController implements Initializable {
         }
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
-        
-        
-    
-    
-    
+
     @FXML
     private void cerrarSesion(ActionEvent event) {
 
@@ -397,7 +394,5 @@ public class PrincipalController implements Initializable {
     public void setController(PrincipalController principalController) {
         this.principalController = principalController;
     }
-
-   
 
 }

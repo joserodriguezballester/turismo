@@ -52,7 +52,7 @@ public class ActividadController implements Initializable {
     private TranslateTransition transl;
     private Notificacion not;
     private JFXButton boton;
-    
+
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -89,8 +89,7 @@ public class ActividadController implements Initializable {
     private JFXTextField informacionPrecio;
     @FXML
     private Pane paneWebView;
-    
-    
+
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
         inicio();
@@ -100,13 +99,12 @@ public class ActividadController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         not = new Notificacion();
-        
+
         styleInicio();
     }
-    
 
     private void inicio() {
-        
+
         gestionBDActividad = new actividadesDAO(gestion);
         gestionSubtipos = new subtiposDAO(gestion);
         selectorSubtipos.toFront();
@@ -145,7 +143,7 @@ public class ActividadController implements Initializable {
         }
 
     }
-    
+
     private void styleInicio() {
 
         //Imagen fondo
@@ -161,10 +159,10 @@ public class ActividadController implements Initializable {
         listaElementos.setVisible(false);
         Ventana.setVisible(true);
         paneInformacion.setVisible(false);
-        
+
         scrollTipoActividades.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         scrollTipoActividades.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
-        
+
         listaElementos.toFront();
         scrollTipoActividades.toFront();
         paneInformacion.toFront();
@@ -213,14 +211,13 @@ public class ActividadController implements Initializable {
         translate.setInterpolator(Interpolator.LINEAR);
 //        listaElementos.setLayoutX(listaElementos.getLayoutX() + 50);
         translate.play();
-        
+
         transl = new TranslateTransition(Duration.seconds(1), boton);
         translate.setFromX(0);
         translate.setToX(10);
         translate.setInterpolator(Interpolator.LINEAR);
 //        listaElementos.setLayoutX(listaElementos.getLayoutX() + 50);
         translate.play();
-        
 
         FadeTransition ft = new FadeTransition(Duration.millis(1500), listaElementos);
         ft.setFromValue(0);
@@ -322,4 +319,5 @@ public class ActividadController implements Initializable {
         }
 
     }
+
 }

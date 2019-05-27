@@ -178,7 +178,6 @@ public class CrearExperienciaController implements Initializable {
         this.experiencia = experiencia;
         textNombreExperiencia.setText(experiencia.getNombre());
         cargarActividadesExperiencia();
-        actualizarTipos();
     }
 
     @FXML
