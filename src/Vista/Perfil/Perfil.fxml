@@ -113,7 +113,7 @@
                   <Font name="Agency FB Bold" size="35.0" />
                </font>
             </Label>
-            <Label fx:id="labelUser" layoutX="265.0" layoutY="6.0" prefHeight="49.0" prefWidth="211.0">
+            <Label fx:id="labelUser" layoutX="203.0" layoutY="6.0" prefHeight="49.0" prefWidth="211.0">
                <font>
                   <Font name="Agency FB Bold" size="35.0" />
                </font>

@@ -35,6 +35,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -107,6 +108,10 @@ public class PerfilAdminController implements Initializable {
     @FXML
     private JFXTextField archivoTF;
     private Usuario usuario;
+    @FXML
+    private AnchorPane Ventana;
+    @FXML
+    private AnchorPane panePerfilA;
    
 
     @Override
@@ -123,6 +128,8 @@ public class PerfilAdminController implements Initializable {
         fecNacTC.setCellValueFactory(new PropertyValueFactory<>("fecNac"));
         archivoTC.setCellValueFactory(new PropertyValueFactory<>("foto"));
 
+        Ventana.getStyleClass().add("fondoLiso");
+        panePerfilA.toFront();
         usuariosTV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> modifSelecListView(newValue));
     }

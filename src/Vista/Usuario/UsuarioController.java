@@ -99,6 +99,7 @@ public class UsuarioController implements Initializable {
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
         usuario = new Usuario();
+        not = new Notificacion();
         styleInicio();
     }
 

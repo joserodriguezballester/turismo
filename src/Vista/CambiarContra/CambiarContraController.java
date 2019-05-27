@@ -52,22 +52,10 @@ public class CambiarContraController implements Initializable {
 //        escenario.getStylesheets().add("resources/estilo.css");
         
  
-           paneContra.getStyleClass().add("paneNuevaContra");
+        paneContra.getStyleClass().add("paneNuevaContra");
 
-        guardarBT.setStyle(" -fx-font-weight: bold;\n" +
-                "    -fx-text-fill: WHITE;\n" +
-                "    -fx-background-radius: 20;\n" +
-                "    -fx-font-size: 16px;\n" +
-                "    -fx-font-weight: bold;\n" +
-                "    -fx-background-color: rgb(2,144,46);\n" +
-                "    -fx-cursor:hand;");
-        cancelarBT.setStyle("botonEliminar-fx-font-weight: bold;\n" +
-                "    -fx-text-fill: WHITE;\n" +
-                "    -fx-background-radius: 20;\n" +
-                "    -fx-font-size: 16px;\n" +
-                "    -fx-font-weight: bold;\n" +
-                "    -fx-background-color: #ff0000;\n" +
-                "    -fx-cursor:hand;");
+        guardarBT.getStyleClass().add("botonAceptarRegistro");
+        cancelarBT.getStyleClass().add("botonEliminar");
 //        paneContra.setStyle(" -fx-background: rgb(255, 255, 255);\n" +
 //                 "    -fx-background-radius: 20;");
         

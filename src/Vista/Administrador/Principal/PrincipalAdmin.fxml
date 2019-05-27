@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import java.net.URL?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.shape.Line?>
 
-<AnchorPane id="AnchorPane" prefHeight="800.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
+<AnchorPane id="AnchorPane" fx:id="anchorP" prefHeight="800.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Principal.PrincipalAdminController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
    <children>
       <AnchorPane fx:id="Menu" layoutX="20.0" layoutY="20.0" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <GridPane layoutX="-20.0" layoutY="-14.0" minHeight="0.0" prefHeight="70.0" prefWidth="1000.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <GridPane fx:id="gridpane" layoutY="-14.0" minHeight="0.0" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -31,13 +32,18 @@
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" onAction="#irActividad" prefHeight="70.0" prefWidth="201.0" text="Actividades" />
-                  <Button mnemonicParsing="false" onAction="#irExperiencia" prefHeight="70.0" prefWidth="200.0" text="Experiencias" GridPane.columnIndex="1" />
-                  <Button mnemonicParsing="false" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="2" />
-                  <Button mnemonicParsing="false" onAction="#irSalir" prefHeight="70.0" prefWidth="200.0" text="salir" GridPane.columnIndex="8" />
-                  <Button fx:id="transportesBT" mnemonicParsing="false" onAction="#irTransportesAdmin" prefHeight="70.0" prefWidth="200.0" text="Transportes" GridPane.columnIndex="3" />
-                  <Button fx:id="usuarioBT" alignment="CENTER_RIGHT" mnemonicParsing="false" prefHeight="70.0" prefWidth="200.0" text="nick" GridPane.columnIndex="7" />
-                  <ImageView fx:id="cara1" fitHeight="70.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" />
+                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="1" />
+                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="2" />
+                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="3" />
+                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="7" />
+                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="8" />
+                  <JFXButton fx:id="botonInicio" onAction="#irInicio" prefHeight="70.0" prefWidth="149.0" text="Inicio" />
+                  <JFXButton fx:id="botonActividades" onAction="#irActividad" prefHeight="70.0" prefWidth="149.0" text="Actividades" GridPane.columnIndex="1" />
+                  <JFXButton fx:id="botonExperiencias" onAction="#irExperiencia" prefHeight="70.0" prefWidth="149.0" text="Experiencias" GridPane.columnIndex="2" />
+                  <JFXButton fx:id="botonTransportes" onAction="#irTransportesAdmin" prefHeight="70.0" prefWidth="149.0" text="Transportes" GridPane.columnIndex="3" />
+                  <JFXButton fx:id="botnSalir" onAction="#irSalir" prefHeight="70.0" prefWidth="149.0" text="Salir" GridPane.columnIndex="8" />
+                  <JFXButton fx:id="usuarioBT" alignment="CENTER_RIGHT" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="7" />
+                  <ImageView fx:id="cara1" fitHeight="70.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" />
                </children>
             </GridPane>
          </children>

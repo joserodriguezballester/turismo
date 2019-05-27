@@ -84,8 +84,9 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        styleInicio();
         efectoTransicion();
+        styleInicio();
+
     }
 
     public void setGestion(GestionBD gestion) {
@@ -144,19 +145,6 @@ public class PrincipalController implements Initializable {
         botnPerfil.getStyleClass().add("botonMenu");
         botnSalir.getStyleClass().add("botonMenu");
         botonContactar.getStyleClass().add("botonMenu");
-    }
-
-    private void efectoTransicion() {
-        try {
-            Transicion tr = new Transicion();
-            tr.setRoot(Ventana);
-            Ventana.toBack();
-            tr.start();
-        } catch (Exception e) {
-            System.out.println("ha petao");
-            not.error("ERROR Exception",
-                    "en initialize --- PrincipalController");
-        }
     }
 
     //ACCIONES------------------------------------------------------------------
@@ -393,6 +381,19 @@ public class PrincipalController implements Initializable {
 
     public void setController(PrincipalController principalController) {
         this.principalController = principalController;
+    }
+
+    private void efectoTransicion() {
+        try {
+            Transicion tr = new Transicion();
+            tr.setRoot(Ventana);
+            Ventana.toBack();
+            tr.start();
+        } catch (Exception e) {
+            System.out.println("ha petao");
+            not.error("ERROR Exception",
+                    "en initialize --- PrincipalController");
+        }
     }
 
 }
