@@ -334,7 +334,7 @@ and open the template in the editor.
 /*ESTILOS_VISTA.PERFIL--------------------------------------------------------*/
 
 .panePerfilPersonal{
-    -fx-background-color: rgb(217, 219, 221);
+    -fx-background-color: rgb(229, 202, 165);
     -fx-background-radius: 10;
     -fx-border-color: rgb(229, 202, 165);
     -fx-border-width: 5 ; 
@@ -353,6 +353,24 @@ and open the template in the editor.
 .barraPerfil{
     -fx-background-color: rgb(229, 202, 165);
 
+}
+
+.panePerfilPersonalEditable{
+    -fx-background-color: rgb(153, 151, 142);
+    -fx-background-radius: 10;
+    -fx-border-color: rgb(153, 151, 142);
+    -fx-border-width: 5 ; 
+}
+
+.botonEditar{
+     -fx-font-weight: bold;
+    -fx-text-fill: WHITE;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-color: rgb(20,40,100);
+    -fx-border-width: 4; 
+    -fx-cursor:hand;
+    
 }
 
 /* ESTILOS_EXPERIENCIAS_ADMIN_CONTROLLER ------------------------------------*/
@@ -455,5 +473,5 @@ and open the template in the editor.
 }
 
 .fondoLiso{
-    -fx-background-color:rgb(157, 178, 177);
+    -fx-background-color:rgb(179, 180, 181);
 }
