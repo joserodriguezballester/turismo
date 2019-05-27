@@ -57,6 +57,10 @@ public class BuscadorController implements Initializable {
     private Pane paneActividadesBuscador;
     @FXML
     private JFXTextField entradaBusqueda;
+    @FXML
+    private JFXTextField entradaPrecioMinimo;
+    @FXML
+    private JFXTextField entradaPrecioMaximo;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -99,6 +103,9 @@ public class BuscadorController implements Initializable {
             if (!entradaBusqueda.getText().isEmpty()) {
                 lista = buscarActividades(lista);
             }
+            String stringPrecioMinimo = entradaPrecioMinimo.getText();
+            String stringPrecioMaximo = entradaPrecioMaximo.getText();
+            lista = filtrarPorPrecio(stringPrecioMinimo, stringPrecioMaximo, lista);
             for (Actividad act : lista) {
                 img = new ImageView();
                 titulo = new Label();
@@ -177,8 +184,33 @@ public class BuscadorController implements Initializable {
         return encontrados;
     }
 
+    private List<Actividad> filtrarPorPrecio(String stringPrecioMinimo, String stringPrecioMaximo, List<Actividad> lista) {
+        List<Actividad> encontrados = new ArrayList<>();
+        double precioMinimo = 0;
+        double precioMaximo = 99999;
+
+        if (!stringPrecioMinimo.equals("")) {
+            precioMinimo = Double.parseDouble(stringPrecioMinimo);
+        }
+        if (!stringPrecioMaximo.equals("")) {
+            precioMaximo = Double.parseDouble(stringPrecioMaximo);
+        }
+
+        for (Actividad act : lista) {
+            if (act.getPrecio() > precioMinimo && act.getPrecio() < precioMaximo) {
+                encontrados.add(act);
+            }
+        }
+        return encontrados;
+    }
+
     @FXML
     private void buscar(KeyEvent event) {
+        cargarActividades();
+    }
+
+    @FXML
+    private void filtrarPorPrecio(KeyEvent event) {
         cargarActividades();
     }
 }
