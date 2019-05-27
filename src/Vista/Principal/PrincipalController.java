@@ -10,30 +10,40 @@ import Vista.Contactar.ContactarController;
 
 import Vista.Perfil.PerfilController;
 
-import Vista.Experiencia.ExperienciaController;
 import Vista.ListaExperiencias.ListaExperienciasController;
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXButton.ButtonType;
+import com.jfoenix.controls.JFXNodesList;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.HPos;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -85,8 +95,95 @@ public class PrincipalController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
+
         efectoTransicion();
         styleInicio();
+
+////        NODE LIST
+        try {
+            JFXNodesList botonesNodesList = new JFXNodesList();
+            JFXButton redes = new JFXButton("Redes Sociales");
+
+            Image twitter = new Image("/Imagenes/iconos/twitterLogo.png");
+            ImageView imgTwitter = new ImageView(twitter);
+            imgTwitter.setFitHeight(40);
+            imgTwitter.setFitWidth(40);
+
+            Image facebook = new Image("/Imagenes/iconos/facebookLogo.jpg");
+            ImageView imgFacebook = new ImageView(facebook);
+            imgFacebook.setFitHeight(40);
+            imgFacebook.setFitWidth(40);
+
+            Image instagram = new Image("/Imagenes/iconos/instagramLogo.png");
+            ImageView imgInstagram = new ImageView(instagram);
+            imgInstagram.setFitHeight(40);
+            imgInstagram.setFitWidth(40);
+
+            JFXButton botonTwitter = new JFXButton();
+            botonTwitter.setGraphic(imgTwitter);
+            JFXButton botonInstagram = new JFXButton();
+            botonInstagram.setGraphic(imgInstagram);
+            JFXButton botonFacebook = new JFXButton();
+            botonFacebook.setGraphic(imgFacebook);
+
+            redes.getStyleClass().add("botonRedes");
+            botonTwitter.getStyleClass().add("botonRedes");
+            botonInstagram.getStyleClass().add("botonRedes");
+            botonFacebook.getStyleClass().add("botonRedes");
+
+            Label etiquetaTwitter = new Label("@Johansa");
+            Label etiquetaInstagram = new Label("@Johansa");
+            Label etiquetaFacebook = new Label("facebook.com/Johansa");
+
+            etiquetaTwitter.setVisible(false);
+            etiquetaInstagram.setVisible(false);
+            etiquetaFacebook.setVisible(false);
+
+            etiquetaTwitter.relocate(1100, 702);
+            etiquetaInstagram.relocate(1100, 640);
+            etiquetaFacebook.relocate(995, 576);
+
+            etiquetaTwitter.getStyleClass().add("etiquetaRedesSociales");
+            etiquetaInstagram.getStyleClass().add("etiquetaRedesSociales");
+            etiquetaFacebook.getStyleClass().add("etiquetaRedesSociales");
+
+//            ACCION BOTON TWITTER
+            botonTwitter.setOnMouseEntered((event) -> {
+                etiquetaTwitter.setVisible(true);
+            });
+            botonTwitter.setOnMouseExited((event) -> {
+                etiquetaTwitter.setVisible(false);
+            });
+
+//            ACCION BOTON INSTAGRAM
+            botonInstagram.setOnMouseEntered((event) -> {
+                etiquetaInstagram.setVisible(true);
+            });
+            botonInstagram.setOnMouseExited((event) -> {
+                etiquetaInstagram.setVisible(false);
+            });
+
+//            ACCION BOTON FACEBOOK
+            botonFacebook.setOnMouseEntered((event) -> {
+                etiquetaFacebook.setVisible(true);
+            });
+            botonFacebook.setOnMouseExited((event) -> {
+                etiquetaFacebook.setVisible(false);
+            });
+
+            botonesNodesList.addAnimatedNode(redes);
+            botonesNodesList.addAnimatedNode(botonTwitter);
+            botonesNodesList.addAnimatedNode(botonInstagram);
+            botonesNodesList.addAnimatedNode(botonFacebook);
+
+            botonesNodesList.setSpacing(10);
+            botonesNodesList.relocate(1150, 750);
+            botonesNodesList.setRotate(-180);
+            Ventana.getChildren().addAll(botonesNodesList, etiquetaFacebook, etiquetaInstagram, etiquetaTwitter);
+            botonesNodesList.toFront();
+        } catch (Exception e) {
+            not.error("Error", "Error cargando las redes sociales.");
+        }
 
     }
 
@@ -115,7 +212,6 @@ public class PrincipalController implements Initializable {
         } else {
             try {
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
-
             } catch (Exception e) {
                 caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
@@ -160,14 +256,8 @@ public class PrincipalController implements Initializable {
             controlador = loader.getController();
             controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en irInicio --- PrincipalController");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA INICIO",
-                    "Revisa el código y vuelve a intentarlo, (irInicio PrincipalController)");
+            not.error("Error", "Error al cargar la ventana Inicio");
         }
     }
 
@@ -185,14 +275,8 @@ public class PrincipalController implements Initializable {
             controlador = loader.getController();
             controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en irActividad --- PrincipalController");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA ACTIVIDAD",
-                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+            not.error("Error", "Error al cargar la ventana Actividades");
         }
     }
 
@@ -211,14 +295,8 @@ public class PrincipalController implements Initializable {
             controlador.setUsuario(usuario);
             controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en irActividad --- PrincipalController");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
-                    "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+            not.error("Error", "Error al cargar la ventana Experiencias");
         }
     }
 
@@ -239,15 +317,8 @@ public class PrincipalController implements Initializable {
             perfilController.setGestion(gestion);
             perfilController.calcularnodos();
             Ventana.getChildren().add(root);
-
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en irPerfil --- PrincipalController");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA PERFIL",
-                    "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
+            not.error("Error", "Error al cargar la ventana Perfil");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -264,13 +335,8 @@ public class PrincipalController implements Initializable {
             controlador = loader.getController();
             controlador.setGestion(gestion);
             Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en irPerfil --- PrincipalController");
         } catch (Exception es) {
-            not.error("ERROR AL CARGAR VENTANA PERFIL",
-                    "Revisa el código y vuelve a intentarlo, (irPerfil PrincipalController)");
+            not.error("Error", "Error al cargar la ventana Buscar Actividades");
         }
     }
 
@@ -284,14 +350,8 @@ public class PrincipalController implements Initializable {
             Parent root = loader.load();    //para obtener el controlador ; se ejecuta inicialice
             //anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en irTransporte --- PrincipalController");
         } catch (Exception es) {
-            not.error("ERROR AL CARGAR VENTANA TRANSPORTE",
-                    "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");
+            not.error("Error", "Error al cargar la ventana Transporte");
         }
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -302,24 +362,17 @@ public class PrincipalController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         String nombrefichero = "/Vista/Contactar/Contactar.fxml";
         loader.setLocation(getClass().getResource(nombrefichero));
-         ContactarController contactarController=new ContactarController();
+        ContactarController contactarController = new ContactarController();
         try {
             Parent root = loader.load();             //para obtener el controlador ; se ejecuta inicialice
-           contactarController=loader.getController();
-          
-          contactarController.setGestion(gestion);
-          contactarController.setUsuario(usuario);
-          contactarController.cargainicial();
+            contactarController = loader.getController();
+
+            contactarController.setGestion(gestion);
+            contactarController.setUsuario(usuario);
+            contactarController.cargainicial();
             Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-         
-            not.error("ERROR IOException",
-                    "en irTransporte --- PrincipalController");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA CONTACTAR",
-                    "Revisa el código y vuelve a intentarlo, (irTarnsporte PrincipalController)");
+            not.error("Error", "Error al cargar la ventana Contactar");
         }
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -343,9 +396,9 @@ public class PrincipalController implements Initializable {
             stage.show();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            not.error("Error", "Error al cerrar sesión");
         } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            not.error("Error", "Error al volver a la pantalla de login");
         }
 
     }
@@ -397,9 +450,8 @@ public class PrincipalController implements Initializable {
             Ventana.toBack();
             tr.start();
         } catch (Exception e) {
-            System.out.println("ha petao");
-            not.error("ERROR Exception",
-                    "en initialize --- PrincipalController");
+            not.error("Error",
+                    "Error al realizar el efecto slider");
         }
     }
 
