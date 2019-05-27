@@ -9,7 +9,6 @@ import Datos.Bda.GestionBD;
 import Datos.Bda.actividadesDAO;
 import Modelo.Actividad;
 import com.jfoenix.controls.JFXTextField;
-import com.jfoenix.utils.JFXHighlighter;
 import java.net.URL;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -46,7 +45,6 @@ public class BuscadorController implements Initializable {
     private Connection conn;
     ObservableList<Pane> listaPaneActividades = FXCollections.observableArrayList();
     ObservableList<Actividad> listaActividades = FXCollections.observableArrayList();
-    JFXHighlighter high = new JFXHighlighter();
 
     actividadesDAO actDAO;
     @FXML
@@ -105,7 +103,10 @@ public class BuscadorController implements Initializable {
             }
             String stringPrecioMinimo = entradaPrecioMinimo.getText();
             String stringPrecioMaximo = entradaPrecioMaximo.getText();
-            lista = filtrarPorPrecio(stringPrecioMinimo, stringPrecioMaximo, lista);
+            if (stringPrecioMinimo.equals("") || !stringPrecioMaximo.equals("")) {
+                lista = filtrarPorPrecio(stringPrecioMinimo, stringPrecioMaximo, lista);
+            }
+
             for (Actividad act : lista) {
                 img = new ImageView();
                 titulo = new Label();
@@ -149,9 +150,6 @@ public class BuscadorController implements Initializable {
 //                descripcion.setStyle("-fx-background-color: rgb(255, 244, 229)");
                 descripcion.getStyleClass().add("descripcionBusc");
 
-                if (!entradaBusqueda.getText().isEmpty()) {
-                    high.highlight(pane, entradaBusqueda.getText());
-                }
                 pane.getChildren().addAll(img, titulo, descripcion);
                 listaPaneActividades.add(pane);
                 paneActividadesBuscador.getChildren().add(pane);
@@ -179,6 +177,7 @@ public class BuscadorController implements Initializable {
                     }
                 }
             } catch (Exception e) {
+                e.printStackTrace();
             }
         }
         return encontrados;
