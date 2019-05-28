@@ -120,7 +120,7 @@ public class Notificacion {
     public Pair<String, String> recordar() {
 
         Dialog<Pair<String, String>> dialog = new Dialog<>();
-        dialog.setTitle("Alzheimer");
+        dialog.setTitle("Recordar contraseña");
         dialog.setHeaderText("Te mandamos la contraseña al correo");
 
         ButtonType loginButtonType = new ButtonType("Login", ButtonBar.ButtonData.OK_DONE);

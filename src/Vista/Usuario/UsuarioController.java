@@ -6,6 +6,7 @@ import Modelo.Correo;
 import Modelo.Notificacion;
 import Modelo.Transicion;
 import Modelo.Usuario;
+import Modelo.VentanaEmergente;
 import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
@@ -67,6 +68,7 @@ public class UsuarioController implements Initializable {
     private GestionBD gestion;
     private usuariosDAO usuarioDAO;
     private Notificacion not;
+    private VentanaEmergente vent;
     Usuario usuario;
 
     @FXML
@@ -385,5 +387,13 @@ public class UsuarioController implements Initializable {
 
     private void logearseComoAdministrador() {
         cargarVentanaPrincipalAdmin();
+    }
+
+    @FXML
+    private void pruebaVentana(ActionEvent event) {
+        String titulo = "TituloPrueba";
+        String mensaje = "AAAAAAAAAA por favor que vaya";
+        
+        vent.info(titulo, mensaje, fondoUsuario); 
     }
 }
