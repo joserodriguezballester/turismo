@@ -1,6 +1,8 @@
 
 package Modelo;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author joser
@@ -91,8 +93,8 @@ public class ValidarCampos {
         return Double.parseDouble(cadena);
     }
     
-     public int validarNumEntero(String cadena) {
-//        String string = "abcdefghijklmnñopqrstuvwxyzABCDEFGHIJKLMNÑOPQRSTUVWXYZ";
+    public int validarNumEntero(String cadena) {
+
         cadena.matches("[0-9]*");      
            
         cadena = cadena.replaceAll("[^0-9]", "");
@@ -104,7 +106,7 @@ public class ValidarCampos {
         return Integer.parseInt(cadena);
     }
      
-     public boolean validarFoto(String cadena) {
+    public boolean validarFoto(String cadena) {
         boolean ok = false;
         
         if(cadena.matches("([a-zA-Z0-9\\s_\\\\.\\-:])+(.png|.jpg|.gif|.jpeg|.PNG|.JPG|.GIF|.JPEG)$")){
@@ -113,5 +115,14 @@ public class ValidarCampos {
         
         return ok;
     }
-
+     
+     
+    public boolean validarFechaLD(LocalDate date){
+        boolean ok = false;
+  
+        if(date.isBefore(LocalDate.now())){
+            ok = true;
+        }
+        return ok;
+    }
 }
