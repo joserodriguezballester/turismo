@@ -306,7 +306,7 @@ public class UsuarioController implements Initializable {
                         "en logearseBueno() --- UsuarioController");
             }
         } else { 
-           not.alertWarningDelete("ERROR","Usuario o contraseña incorrectos");
+           not.error("ERROR","Usuario o contraseña incorrectos");
 //            not.prueba("Error", "Usuario o contraseña incorrectos"); 
 
             nickTF.setText("");
