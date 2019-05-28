@@ -43,9 +43,9 @@
       </Pane>
       <Pane fx:id="paneagencia" layoutX="762.0" layoutY="63.0" prefHeight="75.0" prefWidth="425.0">
          <children>
-            <Label fx:id="agencia" alignment="CENTER" prefHeight="61.0" prefWidth="395.0" text="nombre">
+            <Label fx:id="agencia" alignment="CENTER" prefHeight="61.0" prefWidth="395.0" text="JOHANSA">
                <font>
-                  <Font name="MV Boli" size="40.0" />
+                  <Font name="Alef Regular" size="49.0" />
                </font>
             </Label>
          </children>
