@@ -5,6 +5,7 @@ import Datos.Bda.usuariosDAO;
 import Modelo.Notificacion;
 import Modelo.Usuario;
 import Modelo.ValidarCampos;
+import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.CambiarContra.CambiarContraController;
 import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
@@ -115,9 +116,10 @@ public class PerfilController implements Initializable {
     private Label apelliL;
     @FXML
     private Label fecNacL;
-    
+
     private String nick, nombre, apellidos, dni, telefono, direccion, email;
     private LocalDate fecNac;
+    private PrincipalAdminController controlador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -125,9 +127,10 @@ public class PerfilController implements Initializable {
         validarCampos = new ValidarCampos();
         Image img = new Image("Imagenes/banner2.jpg");
         ImageView imagev = new ImageView(img);
-        Ventana.getChildren().add(imagev);
+        
         imagev.setFitHeight(230);
         imagev.setFitWidth(1300);
+        Ventana.getChildren().add(imagev);
         Ventana.toBack();
         alFrenteAP.getStyleClass().add("panePerfilPersonal");
         barra.getStyleClass().add("barraPerfil");
@@ -171,7 +174,7 @@ public class PerfilController implements Initializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
-       
+
     }
 
     public void calcularnodos() {
@@ -236,8 +239,16 @@ public class PerfilController implements Initializable {
             oldfile.renameTo(newfile); //creo que no lo hace bien mejor guardar foto
             //**cambios en vista            
             labelUser.setText(nick.toUpperCase());
-            principalController.cargaNick();
-            principalController.cargaFoto();
+            if (principalController != null) {
+                principalController.cargaNick();
+                principalController.cargaFoto();
+            }
+              if (controlador != null) {
+                controlador.cargaNick();
+                controlador.cargaFoto();
+            }   
+            
+
         }
 //fin NICK  ------------
 
@@ -363,8 +374,13 @@ public class PerfilController implements Initializable {
         if (modiFoto) {
             // guardar foto nueva
             usuario.guardarFoto();
-            //cambios en vista         
-            principalController.cargaFoto();
+            //cambios en vista        
+            if (principalController != null) {
+                principalController.cargaFoto();
+            } else {
+                controlador.cargaFoto();
+            }
+
         }
 //////INFORMAR DEL RESULTADO  
         if (todoCorrecto && correctoSQL) {
@@ -379,7 +395,6 @@ public class PerfilController implements Initializable {
         this.gestion = gestion;
     }
 
-
     private void cargarfoto() {
         try {
             caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
@@ -390,6 +405,10 @@ public class PerfilController implements Initializable {
 
     public void setcontroler(PrincipalController principalController) {
         this.principalController = principalController;
+    }
+
+    public void setcontrolador(PrincipalAdminController controlador) {
+        this.controlador = controlador;
     }
 
     @FXML
@@ -423,8 +442,8 @@ public class PerfilController implements Initializable {
     }
 
     @FXML
-    private void cancelar(ActionEvent event) { 
-        
+    private void cancelar(ActionEvent event) {
+
         alFrenteAP.getStyleClass().clear();
         alFrenteAP.getStyleClass().add("panePerfilPersonal");
         botonGuardar.setVisible(false);
@@ -438,7 +457,7 @@ public class PerfilController implements Initializable {
         fecNacTF.setEditable(false);
         direccionTF.setEditable(false);
         emailTF.setEditable(false);
-        
+
         nickTF.setStyle("");
         nombreTF.setStyle("");
         apellidosTF.setStyle("");
@@ -447,7 +466,7 @@ public class PerfilController implements Initializable {
         emailTF.setStyle("");
         direccionTF.setStyle("");
         telefonoTF.setStyle("");
-               
+
     }
 
     @FXML
