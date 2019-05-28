@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXTreeTableView?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.TiposSubtipos.TiposSubtiposController">
+    <stylesheets>
+        <URL value="@/resources/estilo.css" />
+    </stylesheets>
+   <children>
+      <JFXTreeTableView fx:id="tablaTipos" layoutX="14.0" layoutY="165.0" prefWidth="250.0" />
+      <JFXTreeTableView fx:id="tablaSubtipos" layoutX="557.0" layoutY="165.0" prefWidth="375.0" />
+   </children>
+</AnchorPane>

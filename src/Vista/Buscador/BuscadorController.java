@@ -7,7 +7,13 @@ package Vista.Buscador;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.actividadesDAO;
+import Datos.Bda.subtiposDAO;
+import Datos.Bda.tiposDAO;
 import Modelo.Actividad;
+import Modelo.Notificacion;
+import Modelo.Subtipo;
+import Modelo.Tipo;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.sql.Connection;
@@ -47,6 +53,11 @@ public class BuscadorController implements Initializable {
     ObservableList<Actividad> listaActividades = FXCollections.observableArrayList();
 
     actividadesDAO actDAO;
+    tiposDAO tipDAO;
+    subtiposDAO subDAO;
+
+    Notificacion not;
+
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -59,6 +70,10 @@ public class BuscadorController implements Initializable {
     private JFXTextField entradaPrecioMinimo;
     @FXML
     private JFXTextField entradaPrecioMaximo;
+    @FXML
+    private JFXComboBox<Tipo> comboBoxTipos;
+    @FXML
+    private JFXComboBox<Subtipo> comboBoxSubtipos;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -79,13 +94,20 @@ public class BuscadorController implements Initializable {
     }
 
     public void inicio() {
+        not = new Notificacion();
         actDAO = new actividadesDAO(gestion);
+        tipDAO = new tiposDAO(gestion);
+        subDAO = new subtiposDAO(gestion);
         cargarActividades();
+        try {
+            comboBoxTipos.getItems().addAll(tipDAO.consultarTipos());
+        } catch (SQLException e) {
+            not.error("Error", "No se han podido cargar los tipos");
+        }
 
         scrollPaneActividadesBuscador.getStyleClass().add("paneBuscador");
         entradaBusqueda.getStyleClass().add("buscador");
 
-//        scrollPaneActividadesBuscador.setOpacity(0.4);
     }
 
     private void cargarActividades() {
@@ -101,12 +123,6 @@ public class BuscadorController implements Initializable {
             if (!entradaBusqueda.getText().isEmpty()) {
                 lista = buscarActividades(lista);
             }
-            String stringPrecioMinimo = entradaPrecioMinimo.getText();
-            String stringPrecioMaximo = entradaPrecioMaximo.getText();
-            if (stringPrecioMinimo.equals("") || !stringPrecioMaximo.equals("")) {
-                lista = filtrarPorPrecio(stringPrecioMinimo, stringPrecioMaximo, lista);
-            }
-
             for (Actividad act : lista) {
                 img = new ImageView();
                 titulo = new Label();
@@ -163,23 +179,43 @@ public class BuscadorController implements Initializable {
     }
 
     private List<Actividad> buscarActividades(List<Actividad> lista) {
-        List<Actividad> encontrados = new ArrayList<>();
-        String descripcion;
-        String nombre;
-        String busqueda = entradaBusqueda.getText().toLowerCase();
-        for (Actividad act : lista) {
+        String busqueda = entradaBusqueda.getText();
+
+        double precioMin = 0.0;
+        if (!entradaPrecioMinimo.getText().equals("")) {
             try {
-                descripcion = act.getDescripcion().toLowerCase();
-                nombre = act.getNombre().toLowerCase();
-                if (!busqueda.isEmpty()) {
-                    if (descripcion.contains(busqueda) || nombre.contains(busqueda)) {
-                        encontrados.add(act);
-                    }
-                }
+                precioMin = Double.parseDouble(entradaPrecioMinimo.getText());
             } catch (Exception e) {
-                e.printStackTrace();
+                not.error("Error", "Solo puedes introducir numeros en el campo Precio Minimo");
             }
         }
+
+        double precioMax = 999.0;
+        if (!entradaPrecioMaximo.getText().equals("")) {
+            try {
+                precioMax = Double.parseDouble(entradaPrecioMaximo.getText());
+            } catch (Exception e) {
+                not.error("Error", "Solo puedes introducir numeros en el campo Precio Maximo");
+            }
+
+        }
+        Tipo tipo = null;
+        if (!(comboBoxTipos.getSelectionModel().getSelectedItem() == null)) {
+            tipo = comboBoxTipos.getSelectionModel().getSelectedItem();
+        }
+        Subtipo subtipo = null;
+        if (!(comboBoxSubtipos.getSelectionModel().getSelectedItem() == null)) {
+            subtipo = comboBoxSubtipos.getSelectionModel().getSelectedItem();
+        }
+
+        List<Actividad> encontrados = new ArrayList<>();
+        try {
+            encontrados = actDAO.filtrarActividades(busqueda, precioMin, precioMax, tipo, subtipo);
+        } catch (Exception e) {
+            e.printStackTrace();
+            not.error("Error", "No se han podido encontrar las actividades");
+        }
+
         return encontrados;
     }
 
@@ -210,6 +246,21 @@ public class BuscadorController implements Initializable {
 
     @FXML
     private void filtrarPorPrecio(KeyEvent event) {
+        cargarActividades();
+    }
+
+    @FXML
+    private void buscarSubtipos(ActionEvent event) {
+        try {
+            comboBoxSubtipos.getItems().addAll(subDAO.consultarSubtiposporTipo(comboBoxTipos.getSelectionModel().getSelectedItem()));
+        } catch (SQLException e) {
+            not.error("Error", "No han podido cargarse los subtipos");
+        }
+        cargarActividades();
+    }
+
+    @FXML
+    private void buscarPorSubtipo(ActionEvent event) {
         cargarActividades();
     }
 }

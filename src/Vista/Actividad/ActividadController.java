@@ -259,39 +259,45 @@ public class ActividadController implements Initializable {
         etiquetaSubtipoTitulo.setText(subtipo + " - " + actividad.getNombre());
         etiquetaSubtipoTitulo.getStyleClass().add("tituloActividades");
 
-        informacionDireccion.setText(actividad.getDireccion());
+        if (actividad.getDireccion().equals("")) {
+            informacionDireccion.setText("Sin dirección");
+        } else {
+            informacionDireccion.setText(actividad.getDireccion());
+        }
         informacionDireccion.getStyleClass().add("textoActividad");
 
-        informacionPrecio.setText(String.valueOf(actividad.getPrecio()) + "€ por persona");
+        if (actividad.getPrecio() == 0) {
+            informacionPrecio.setText("Gratis");
+        } else {
+            informacionPrecio.setText(String.valueOf(actividad.getPrecio()) + "€ por persona");
+        }
         informacionPrecio.getStyleClass().add("textoActividad");
-
-        informacionHorario.setText(actividad.getHorario());
+        if (actividad.getHorario().equals("")) {
+            informacionHorario.setText("Horario libre");
+        } else {
+            informacionHorario.setText(actividad.getHorario());
+        }
         informacionHorario.getStyleClass().add("textoActividad");
 
-        descripcionActividad.setText(actividad.getDescripcion());
-        descripcionActividad.getStyleClass().add("textoActividad");
-        try {
-//            if (actividad.getUrl() == null) {
-            if (actividad.getFoto() == null) {
-                fotoActividad.setVisible(false);
-            } else {
-                fotoActividad.setVisible(true);
-                fotoActividad.setImage(new Image("Imagenes/" + actividad.getFoto()));
-                fotoActividad.setFitHeight(337);
-                fotoActividad.setFitWidth(330);
-                fotoActividad.setPreserveRatio(false);
-            }
-        } catch (Exception es) {
-            fotoActividad.setVisible(false);
-            not.error("ERROR EXCEPTION", "" + es.getMessage()
-                    + "Error al recuperar la ruta de las imagenes, imagen no encontrada");
-
+        if (actividad.getDescripcion().equals("")) {
+            descripcionActividad.setText("Sin descripcion");
+        } else {
+            descripcionActividad.setText(actividad.getDescripcion());
         }
+        descripcionActividad.getStyleClass().add("textoActividad");
+
+        try {
+            fotoActividad.setImage(new Image("Imagenes/" + actividad.getFoto()));
+        } catch (Exception e) {
+            fotoActividad.setImage(new Image("Imagenes/iconos/sinFoto.png"));
+        }
+        fotoActividad.setFitHeight(337);
+        fotoActividad.setFitWidth(330);
+        fotoActividad.setPreserveRatio(false);
 
         if (actividad.getUrl() == null) {
             paneWebView.setVisible(false);
             webViewActividad.setVisible(false);
-
         } else {
             paneWebView.setVisible(true);
             webViewActividad.setVisible(true);

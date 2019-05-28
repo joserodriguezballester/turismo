@@ -26,7 +26,6 @@ public class actividadesDAO {
     private Notificacion not;
     private GestionBD gestion;
     private Connection conn;
-    private ResultSet rs;
 
     public actividadesDAO(GestionBD gestion) {
         this.gestion = gestion;
@@ -99,7 +98,7 @@ public class actividadesDAO {
         if (gestion.getConn() != null) {
             String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades ORDER BY nombre;";
             PreparedStatement ps = conn.prepareStatement(consulta);
-            rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 listaTodasActividades.add(new Actividad(
                         rs.getInt("id"),
@@ -123,7 +122,7 @@ public class actividadesDAO {
         String consulta = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo FROM actividades WHERE id = ? ORDER BY nombre;";
         PreparedStatement ps = conn.prepareStatement(consulta);
         ps.setInt(1, idActividad);
-        rs = ps.executeQuery();
+        ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             actividad = new Actividad(
                     rs.getInt("id"),
@@ -184,7 +183,7 @@ public class actividadesDAO {
 
         if (gestion.getConn() != null) {
 
-            String sql = "SELECT id, nombre FROM tipos;";
+            String sql = "SELECT id, nombre FROM tipos ORDER BY nombre;";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
@@ -200,7 +199,7 @@ public class actividadesDAO {
 
         if (gestion.getConn() != null) {
 
-            String sql = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ? ORDER BY nombre);";
+            String sql = "SELECT id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idsubtipo FROM actividades WHERE idsubtipo IN (SELECT id FROM subtipos WHERE idTipo = ?) ORDER BY nombre;";
             PreparedStatement ps = gestion.getConn().prepareStatement(sql);
             ps.setInt(1, tipo.getId());
             ResultSet rs = ps.executeQuery();
@@ -243,6 +242,44 @@ public class actividadesDAO {
                         rs.getString("foto"),
                         rs.getInt("idsubtipo")));
             }
+        }
+        return listaActividades;
+    }
+
+    public List<Actividad> filtrarActividades(String busqueda, double precioMin, double precioMax, Tipo tipo, Subtipo subtipo) throws SQLException {
+        String textoTipo, textoSubtipo;
+        if (tipo == null) {
+            textoTipo = null;
+        } else {
+            textoTipo = tipo.getNombre();
+        }
+        if (subtipo == null) {
+            textoSubtipo = null;
+        } else {
+            textoSubtipo = subtipo.getNombre();
+        }
+
+        List<Actividad> listaActividades = new ArrayList<>();
+        String sql = "CALL filtrarActividades(?, ?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setString(1, busqueda);
+        ps.setDouble(2, precioMin);
+        ps.setDouble(3, precioMax);
+        ps.setString(4, textoTipo);
+        ps.setString(5, textoSubtipo);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            listaActividades.add(new Actividad(
+                    rs.getInt("id"),
+                    rs.getString("nombre"),
+                    rs.getDouble("precio"),
+                    rs.getString("horario"),
+                    rs.getString("descripcion"),
+                    rs.getString("url"),
+                    rs.getString("direccion"),
+                    rs.getString("telefono"),
+                    rs.getString("foto"),
+                    rs.getInt("idsubtipo")));
         }
         return listaActividades;
     }

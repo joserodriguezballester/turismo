@@ -27,6 +27,7 @@
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                </columnConstraints>
                <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -35,15 +36,19 @@
                   <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="1" />
                   <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="2" />
                   <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="3" />
-                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="7" />
                   <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="8" />
+                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="9" />
                   <JFXButton fx:id="botonInicio" onAction="#irInicio" prefHeight="70.0" prefWidth="149.0" text="Inicio" />
                   <JFXButton fx:id="botonActividades" onAction="#irActividad" prefHeight="70.0" prefWidth="149.0" text="Actividades" GridPane.columnIndex="1" />
                   <JFXButton fx:id="botonExperiencias" onAction="#irExperiencia" prefHeight="70.0" prefWidth="149.0" text="Experiencias" GridPane.columnIndex="2" />
                   <JFXButton fx:id="botonTransportes" onAction="#irTransportesAdmin" prefHeight="70.0" prefWidth="149.0" text="Transportes" GridPane.columnIndex="3" />
-                  <JFXButton fx:id="botnSalir" onAction="#irSalir" prefHeight="70.0" prefWidth="149.0" text="Salir" GridPane.columnIndex="8" />
-                  <JFXButton fx:id="usuarioBT" alignment="CENTER_RIGHT" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="7" />
-                  <ImageView fx:id="cara1" fitHeight="70.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" />
+                  <JFXButton fx:id="botnSalir" onAction="#irSalir" prefHeight="70.0" prefWidth="149.0" text="Salir" GridPane.columnIndex="9" />
+                  <JFXButton fx:id="usuarioBT" alignment="CENTER_RIGHT" onAction="#IrPerfil" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="8" />
+                  <ImageView fx:id="cara1" fitHeight="70.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="8" />
+                  <Line endX="-100.0" endY="40.0" layoutX="1151.0" layoutY="26.0" startX="-100.0" GridPane.columnIndex="4" />
+                  <JFXButton fx:id="botonTiposSubtipos" layoutX="366.0" layoutY="10.0" onAction="#irTiposSubtiposAdmin" prefHeight="70.0" prefWidth="149.0" text="Tipos y Subtipos" GridPane.columnIndex="4" />
+                  <Line endX="-100.0" endY="40.0" layoutX="1293.0" layoutY="26.0" startX="-100.0" />
+                  <JFXButton fx:id="botonAgenda" layoutX="484.0" layoutY="10.0" onAction="#irAgenda" prefHeight="70.0" prefWidth="149.0" text="Agenda del Dia" GridPane.columnIndex="7" />
                </children>
             </GridPane>
          </children>

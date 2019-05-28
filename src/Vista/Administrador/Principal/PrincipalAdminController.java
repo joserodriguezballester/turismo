@@ -10,10 +10,13 @@ import Modelo.Notificacion;
 import Modelo.Transicion;
 import Modelo.Usuario;
 import Vista.Administrador.Actividad.ActividadAdminController;
+import Vista.Administrador.Agenda.AgendaController;
 import Vista.Administrador.Experiencia.ExperienciaAdminController;
 import Vista.Administrador.Perfil.PerfilAdminController;
+import Vista.Administrador.TiposSubtipos.TiposSubtiposController;
 import Vista.Administrador.Transportes.TransportesAdminController;
 import Vista.Principal.PrincipalController;
+import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -70,11 +73,14 @@ public class PrincipalAdminController implements Initializable {
     private Button botonInicio;
     @FXML
     private AnchorPane anchorP;
+    @FXML
+    private JFXButton botonTiposSubtipos;
+    @FXML
+    private JFXButton botonAgenda;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
-        
 
         Image img = new Image("Imagenes/imagenesPrincipal/0.jpg");
         ImageView imagev = new ImageView(img);
@@ -82,10 +88,9 @@ public class PrincipalAdminController implements Initializable {
         imagev.setFitHeight(800);
         imagev.setFitWidth(1300);
 
-     
         this.anchorP.getChildren().add(imagev);
         imagev.toBack();
-        
+
         styleInicio();
 //        gestion = new GestionBD();
 //        gestion.conectar();
@@ -97,7 +102,7 @@ public class PrincipalAdminController implements Initializable {
         ft.setFromValue(0);
         ft.setToValue(1);
         ft.play();
-        
+
         //Estilos
         gridpane.getStyleClass().add("menuP");
         botonActividades.getStyleClass().add("botonMenuP");
@@ -200,9 +205,9 @@ public class PrincipalAdminController implements Initializable {
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
             ex.printStackTrace();
-            not.error("ERROR IOExcepction" ," No se encuentra la ventana de login");
-        } catch (Exception es){
-             es.printStackTrace();
+            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
+        } catch (Exception es) {
+            es.printStackTrace();
             not.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
                     + "(irPerfil PrincipalAdminController)");
 
@@ -270,6 +275,42 @@ public class PrincipalAdminController implements Initializable {
             } catch (Exception e) {
                 cara1.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
+        }
+    }
+
+    @FXML
+    private void irTiposSubtiposAdmin(ActionEvent event) {
+        Ventana.getChildren().removeAll(Ventana.getChildren());
+        FXMLLoader loader = new FXMLLoader();
+        String nombrefichero = "/Vista/Administrador/TiposSubtipos/TiposSubtipos.fxml";
+        loader.setLocation(getClass().getResource(nombrefichero));
+        try {
+            Parent root = loader.load();
+
+            TiposSubtiposController controlador = loader.getController();
+            controlador.setGestion(gestion);
+
+            Ventana.getChildren().add(root);
+        } catch (Exception es) {
+            not.error("Error", "No se ha podido cargar la ventana de tipos y subtipos");
+        }
+    }
+
+    @FXML
+    private void irAgenda(ActionEvent event) {
+        Ventana.getChildren().removeAll(Ventana.getChildren());
+        FXMLLoader loader = new FXMLLoader();
+        String nombrefichero = "/Vista/Administrador/Agenda/Agenda.fxml";
+        loader.setLocation(getClass().getResource(nombrefichero));
+        try {
+            Parent root = loader.load();
+
+            AgendaController controlador = loader.getController();
+            controlador.setGestion(gestion);
+
+            Ventana.getChildren().add(root);
+        } catch (Exception es) {
+            not.error("Error", "No se ha podido cargar la agenda");
         }
     }
 

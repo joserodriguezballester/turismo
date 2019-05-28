@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
@@ -22,5 +23,8 @@
       <JFXTextField fx:id="entradaPrecioMinimo" layoutX="659.0" layoutY="26.0" onKeyTyped="#filtrarPorPrecio" prefHeight="25.0" prefWidth="80.0" />
       <Label layoutX="745.0" layoutY="30.0" text="Precio Máx.:" />
       <JFXTextField fx:id="entradaPrecioMaximo" layoutX="816.0" layoutY="26.0" onKeyTyped="#filtrarPorPrecio" prefHeight="25.0" prefWidth="80.0" />
+      <JFXComboBox />
+      <JFXComboBox fx:id="comboBoxTipos" layoutX="947.0" layoutY="17.0" onAction="#buscarSubtipos" prefHeight="25.0" prefWidth="178.0" promptText="Tipos" />
+      <JFXComboBox fx:id="comboBoxSubtipos" layoutX="947.0" layoutY="42.0" onAction="#buscarPorSubtipo" prefHeight="25.0" prefWidth="178.0" promptText="Subtipos" />
    </children>
 </AnchorPane>
