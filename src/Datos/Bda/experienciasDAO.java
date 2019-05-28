@@ -47,7 +47,7 @@ public class experienciasDAO {
             ps.setInt(2, experiencia.getIdUsuario());
             ps.setString(3, experiencia.getNombre());
             ps.setString(4, experiencia.getDescripcion());
-            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez()));
+            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez().plusDays(1)));
 //            ps.setString(5, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             ps.setString(6, experiencia.getFoto());
             ps.executeUpdate();

@@ -425,8 +425,8 @@ public class ActividadAdminController implements Initializable {
 // -------------------------------- ACTUALIZAR --------------------------
     private void actualizar() {
         ValidarCampos validar = new ValidarCampos();
-        boolean ok = false;
         boolean general = true;
+        boolean ok = false;
         int id = 0, idsubTipo;
         double precio;
         String nombre, descripcion, horario, direccion, url, telefono, foto;
@@ -545,36 +545,6 @@ public class ActividadAdminController implements Initializable {
                         + "Error al eliminar el registro "+ id + " de tabla actividades");
             }
         }
-
-//        Notifications notification = Notifications.create()
-//                .title("ESTAS SEGURO DE ELIMINAR LA ACTIVIDAD " + id)
-//                .text("Comfirma haciendo click sobre la ventana")
-//                .graphic(null)
-//                .hideAfter(Duration.seconds(25))
-//                .position(Pos.TOP_LEFT)
-//                .onAction(new EventHandler<ActionEvent>() {
-//                    @Override
-//                    public void handle(ActionEvent arg0) {
-//
-//                        try {
-//                            activiDAO.borrarActividad(id);
-//                        } catch (SQLException ex) {
-//                            not.error("ERROR SQL", "" + ex.getMessage()
-//                                    + "Error al eliminar un registro de DB turismo");
-//                        }
-//                    }
-//                });
-//
-//        notification.showWarning();
-
-//        if(ok){
-//            not.info("ELIMINAR CON EXITO EN TABLA ACTIVIDADES", 
-//                    " Operación realizada con éxito");
-//        }
-//        else {
-//            not.info("ELIMINAR SIN EXITO EN TABLA ACTIVIDADES", 
-//                    " No se pudo eliminar el registro");
-//        }
     }
 
 // ----------------------- LIMPIAR LOS CAMPOS DE TEXTO --------------------
