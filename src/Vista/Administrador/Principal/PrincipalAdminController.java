@@ -100,21 +100,7 @@ public class PrincipalAdminController implements Initializable {
         this.anchorP.getChildren().add(imagev);
 
         imagev.toBack();
-         << << << < HEAD
-
-   == == ==
-                = taparP.toBack();
-         >>> >>> > 28
-        cfe2d5308fc92203cdcde67c1374606b573747 styleInicio
-    
-
-    
-
-    
-
-    ();
-//        gestion = new GestionBD();
-//        gestion.conectar();
+        taparP.toBack();
     }
 
     private void styleInicio() {
