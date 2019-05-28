@@ -5,7 +5,6 @@
  */
 package Datos.Bda;
 
-import Modelo.Subtipo;
 import Modelo.Tipo;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -49,5 +48,27 @@ public class tiposDAO {
             tipo = new Tipo(rs.getInt("id"), rs.getString("nombre"));
         }
         return tipo;
+    }
+
+    public void insertarTipo(Tipo tipo) throws SQLException {
+        String consulta = "INSERT INTO tipos (id, nombre) VALUES (null, ?);";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setString(1, tipo.getNombre());
+        ps.executeUpdate();
+    }
+
+    public void actualizarTipo(Tipo tipo) throws SQLException {
+        String consulta = "UPDATE tipos SET nombre = ? WHERE id = ?";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setString(1, tipo.getNombre());
+        ps.setInt(2, tipo.getId());
+        ps.executeUpdate();
+    }
+
+    public void borrarTipo(Tipo tipo) throws SQLException {
+        String consulta = "DELETE FROM tipos WHERE id = ?;";
+        PreparedStatement ps = conn.prepareStatement(consulta);
+        ps.setInt(1, tipo.getId());
+        ps.executeUpdate();
     }
 }

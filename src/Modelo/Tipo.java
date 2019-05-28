@@ -19,6 +19,10 @@ public class Tipo {
         this.nombre = nombre;
     }
 
+    public Tipo(String nombre) {
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }

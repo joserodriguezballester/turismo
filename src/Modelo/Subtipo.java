@@ -21,6 +21,11 @@ public class Subtipo {
         this.nombre = nombre;
     }
 
+    public Subtipo(Tipo tipo, String nombre) {
+        this.tipo = tipo;
+        this.nombre = nombre;
+    }
+
     public int getId() {
         return id;
     }

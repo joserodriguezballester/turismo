@@ -109,6 +109,10 @@ public class PrincipalAdminController implements Initializable {
         usuarioBT.getStyleClass().add("botonMenuP");
         botnSalir.getStyleClass().add("botonMenuP");
         botonInicio.getStyleClass().add("botonMenuInicioP");
+        botonTiposSubtipos.getStyleClass().add("botonMenuP");
+        botonTiposSubtipos.setWrapText(true);
+        botonAgenda.getStyleClass().add("botonMenuP");
+        botonAgenda.setWrapText(true);
     }
 
     public void setGestion(GestionBD gestion) {
@@ -289,6 +293,7 @@ public class PrincipalAdminController implements Initializable {
 
             Ventana.getChildren().add(root);
         } catch (Exception es) {
+            es.printStackTrace();
             not.error("Error", "No se ha podido cargar la ventana de tipos y subtipos");
         }
     }
