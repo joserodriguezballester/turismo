@@ -115,6 +115,9 @@ public class PerfilController implements Initializable {
     private Label apelliL;
     @FXML
     private Label fecNacL;
+    
+    private String nick, nombre, apellidos, dni, telefono, direccion, email;
+    private LocalDate fecNac;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -191,14 +194,14 @@ public class PerfilController implements Initializable {
         boolean modiFoto = false;
         boolean todoCorrecto = true;
         boolean correctoSQL = true;
-        String nick = nickTF.getText();
-        String nombre = nombreTF.getText();
-        String apellidos = apellidosTF.getText();
-        String dni = dniTF.getText();
-        LocalDate fecNac = fecNacTF.getValue();
-        String telefono = telefonoTF.getText();
-        String direccion = direccionTF.getText();
-        String email = emailTF.getText();
+        nick = nickTF.getText();
+        nombre = nombreTF.getText();
+        apellidos = apellidosTF.getText();
+        dni = dniTF.getText();
+        fecNac = fecNacTF.getValue();
+        telefono = telefonoTF.getText();
+        direccion = direccionTF.getText();
+        email = emailTF.getText();
 
         int id = usuario.getId();
 
@@ -458,7 +461,7 @@ public class PerfilController implements Initializable {
 
             //OBTENER EL CONTROLADOR DE LA VENTANA
             CambiarContraController cambiarcontracontroller = loader.getController();
-//            cambiarcontracontroller.setParametros(usuarioDAO);
+            cambiarcontracontroller.setParametros(usuarioDAO, usuario);
 
             Stage escena = new Stage();    //En Stage nuevo.                  
             escena.setTitle("Cambiar Contraseña");
