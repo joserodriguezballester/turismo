@@ -427,96 +427,47 @@ public class ExperienciaAdminController implements Initializable {
         experiencia = tableView.getSelectionModel().getSelectedItem();
         id = experiencia.getId();
         
-        Notifications notification = Notifications.create()
-        .title("ESTAS SEGURO DE ELIMINAR LA EXPERIENCIA  " + id)
-        .text("El proceso no tiene vuelta atras")
-        .graphic(null)
-        .hideAfter(javafx.util.Duration.seconds(40))
-        .position(Pos.TOP_LEFT)
-        .onAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-
-                Notifications notification = Notifications.create()
-                .title("ELIMINAR REGISTRO EXPERIENCIA  " + id + " \nEN TABLA EXPERIENCIA ACTIVIDAD")
-                .text("Comfirma haciendo click sobre la ventana")
-                .graphic(null)
-                .hideAfter(javafx.util.Duration.seconds(40))
-                .position(Pos.TOP_LEFT)
-                .onAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent arg0) {
-                        try {
-                            experienDAO.borrarExperiencia(id);
-                        } catch(SQLException ex){
-                            not.error("ERROR AL ELIMINAR EL REGISTRO \nEN TABLA EXPERIENCIAS", "No es posible realizar la operación");
-                        }
-                        
-                        if(delete){
-                            not.info("REGISTRO ELIMINADO EN TABLA EXPERIENCIAS", "Operación realizada con éxito");
-                        }
-                        else{
-                            not.info("ELIMINACION FALLIDA EN TABLA EXPERIENCIAS", "No se ha podido eliminar el registro");
-                        }
-                    }
-                });
+        ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO " + id + " EN LA TABLA EXPERIENCIAS",
+                "¿ESTAS SEGURO !!! ?\n Confirma presionando Aceptar");
         
-                notification.showConfirm();
-                                    
+        if(ok){
+            try {
+                experienDAO.borrarExperiencia(id);
+                if(ok){
+                    not.confirm("SE HA ELIMINADO EL REGISTRO " + id + " EN LA TABLA EXPERIENCIAS", 
+                    " Operación realizada con éxito");
+                }
+            } catch (SQLException ex) {
+                not.error("ERROR SQL", "" + ex.getMessage()
+                        + "Error al eliminar el registro "+ id + " de tabla experiencias");
             }
-        });
-        
-        notification.showWarning();
+        }
 
     }
-    
+  
     private void eliminarActividadExperiencia(){
         int id, orden;
+        boolean ok = false;
         
         actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
         id = actExperiencia.getIdExperiencia();
         orden = actExperiencia.getOrden();
-
-        Notifications notification = Notifications.create()
-        .title("ESTAS SEGURO DE ELIMINAR \nLA EXPERIENCIA CON NUMERO DE ORDEN " + orden)
-        .text("El proceso no tiene vuelta atras")
-        .graphic(null)
-        .hideAfter(javafx.util.Duration.seconds(40))
-        .position(Pos.TOP_LEFT)
-        .onAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent arg0) {
-
-                Notifications notification = Notifications.create()
-                .title("ELIMINAR REGISTRO EXPERIENCIA CON NUMERO DE ORDEN " + orden + " \nEN TABLA EXPERIENCIA ACTIVIDAD")
-                .text("Comfirma haciendo click sobre la ventana")
-                .graphic(null)
-                .hideAfter(javafx.util.Duration.seconds(40))
-                .position(Pos.TOP_LEFT)
-                .onAction(new EventHandler<ActionEvent>() {
-                    @Override
-                    public void handle(ActionEvent arg0) {
-                        try {
-                            delete = eaDAO.eliminarActividadExperiencia(orden, id);
-                        } catch(SQLException ex){
-                            not.error("ERROR AL ELIMINAR EL REGISTRO \nEN TABLA EXPERIENCIA ACTIVIDAD", "No es posible realizar la operación");
-                        }
-                        
-                        if(delete){
-                            not.info("REGISTRO ELIMINADO EN TABLA EXPERIENCIA ACTIVIDAD", "Operación realizada con éxito");
-                        }
-                        else{
-                            not.info("ELIMINACION FALLIDA EN TABLA EXPERIENCIA ACTIVIDAD", "No se ha podido eliminar el registro");
-                        }
-                    }
-                });
         
-                notification.showConfirm();
-                                    
+            ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO CON NUMERO DE ORDEN " + orden + "",
+                "¿ESTAS SEGURO !!! ?\n Confirma presionando Aceptar");
+        
+        if(ok){
+            try {
+                 delete = eaDAO.eliminarActividadExperiencia(orden, id);
+                if(ok){
+                    not.confirm("SE HA ELIMINADO EL REGISTRO " + orden + " EN LA TABLA EXPERIENCIA ACTIVIDAD", 
+                    " Operación realizada con éxito");
+                }
+            } catch (SQLException ex) {
+                not.error("ERROR SQL", "" + ex.getMessage()
+                        + "Error al eliminar el registro "+ orden + " de tabla experiencia actividad");
             }
-        });
-        
-        notification.showWarning();
+        }
         
     }
     

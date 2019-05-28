@@ -12,6 +12,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
@@ -101,7 +103,18 @@ public class Notificacion {
         notification.showWarning();
     }
 
-    public void error(String string) {
+    public boolean alertWarningDelete(String titulo, String cadena) {
+        boolean ok = false;
+        Alert alert = new Alert(AlertType.WARNING);
+        alert.setTitle("Warning Delete");
+        alert.setHeaderText(titulo);
+        alert.setContentText(cadena);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK){
+            ok =  true;
+        } 
+        return ok;
     }
 
     public Pair<String, String> recordar() {
