@@ -102,10 +102,12 @@ public class PrincipalAdminController implements Initializable {
         imagev.toBack();
          << << << < HEAD
 
-  == == ==
+   == == ==
                 = taparP.toBack();
          >>> >>> > 28
         cfe2d5308fc92203cdcde67c1374606b573747 styleInicio
+    
+
     
 
     
@@ -376,8 +378,7 @@ public class PrincipalAdminController implements Initializable {
         } catch (Exception es) {
             not.error("Error", "No se ha podido cargar la agenda");
         }
-
-    
+    }
 
     public void calcularnodos() {
         cargaNick();
