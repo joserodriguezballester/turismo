@@ -15,6 +15,7 @@ import Vista.Administrador.Experiencia.ExperienciaAdminController;
 import Vista.Administrador.Perfil.PerfilAdminController;
 import Vista.Administrador.TiposSubtipos.TiposSubtiposController;
 import Vista.Administrador.Transportes.TransportesAdminController;
+import Vista.Perfil.PerfilController;
 import Vista.Principal.PrincipalController;
 import com.jfoenix.controls.JFXButton;
 import java.io.IOException;
@@ -28,13 +29,16 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.geometry.HPos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -49,14 +53,12 @@ public class PrincipalAdminController implements Initializable {
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
-
+    private ImageView imagev;
     private Notificacion not = new Notificacion();
     private GestionBD gestion;
     private Usuario usuario;
-    @FXML
-    private Button usuarioBT;
+
 //    private ImageView caraIV;
-    @FXML
     private ImageView cara1;
     @FXML
     private GridPane gridpane;
@@ -77,21 +79,38 @@ public class PrincipalAdminController implements Initializable {
     private JFXButton botonTiposSubtipos;
     @FXML
     private JFXButton botonAgenda;
+    PrincipalAdminController controlador;
+    @FXML
+    private JFXButton botonPerfil;
+    @FXML
+    private ImageView caraIV;
+    @FXML
+    private Pane taparP;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
 
         Image img = new Image("Imagenes/imagenesPrincipal/0.jpg");
-        ImageView imagev = new ImageView(img);
+        imagev = new ImageView(img);
 
         imagev.setFitHeight(800);
         imagev.setFitWidth(1300);
 
         this.anchorP.getChildren().add(imagev);
-        imagev.toBack();
 
-        styleInicio();
+        imagev.toBack();
+         << << << < HEAD
+
+  == == ==
+                = taparP.toBack();
+         >>> >>> > 28
+        cfe2d5308fc92203cdcde67c1374606b573747 styleInicio
+    
+
+    
+
+    ();
 //        gestion = new GestionBD();
 //        gestion.conectar();
     }
@@ -108,7 +127,7 @@ public class PrincipalAdminController implements Initializable {
         botonActividades.getStyleClass().add("botonMenuP");
         botonExperiencias.getStyleClass().add("botonMenuP");
         botonTransportes.getStyleClass().add("botonMenuP");
-        usuarioBT.getStyleClass().add("botonMenuP");
+        botonPerfil.getStyleClass().add("botonMenuP");
         botnSalir.getStyleClass().add("botonMenuP");
         botonInicio.getStyleClass().add("botonMenuInicioP");
     }
@@ -122,7 +141,7 @@ public class PrincipalAdminController implements Initializable {
 
         anchorP.getChildren().removeAll(anchorP.getChildren());
         FXMLLoader loader = new FXMLLoader();
-        PrincipalAdminController controlador;
+//        PrincipalAdminController controlador;
         loader.setLocation(getClass().getResource("/Vista/Administrador/Principal/PrincipalAdmin.fxml"));
         try {
             Parent root = loader.load();
@@ -238,47 +257,92 @@ public class PrincipalAdminController implements Initializable {
         }
     }
 
+//    private void irTransportesAdmin(ActionEvent event) {
+//        Ventana.getChildren().removeAll(Ventana.getChildren());
+//        FXMLLoader loader = new FXMLLoader();
+//        String nombrefichero = "/Vista/Administrador/Transportes/TransportesAdmin.fxml";
+//        loader.setLocation(getClass().getResource(nombrefichero));
+//        try {
+//            Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
+//            TransportesAdminController transportesAdminController = loader.getController();
+//            transportesAdminController.setGestion(gestion);
+//            //        transportesAdminController.ejecutaAlPrincipio();
+////           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
+//            Ventana.getChildren().add(root);
+//        } catch (IOException ex) {
+//            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
+//        } catch (Exception es) {
+//            not.error("ERROR AL CARGAR TRNSPORTE ADMIN", "Verifica tu código,"
+//                    + "(irTransporteAdmin PrincipalAdminController)");
+//
+//        }
+//    }
+    public void setParametroUsuario(Usuario usuario) {
+        this.usuario = usuario;
+//        cargaNickFoto();  
+
+        //seria mejor llamarlo desde el otro controlador pero...  
+    }
+
+//   public void cargaNickFoto() {
+//        if (usuario != null) {
+//            botonPerfil.setText(usuario.getNick().toUpperCase());
+//            System.out.println("Imagenes/usuarios/" + usuario.getFoto());
+////            cara1.setImage(new Image("Imagenes/usuarios/raquel.jpg"));
+//            try {
+//                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+//            } catch (Exception e) {
+//                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+//            }
+//        }
+//    }
     @FXML
-    private void irTransportesAdmin(ActionEvent event) {
+    private void IrPerfilAdmin(ActionEvent event) {
+        imagev.setImage(null);
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
-        String nombrefichero = "/Vista/Administrador/Transportes/TransportesAdmin.fxml";
-        loader.setLocation(getClass().getResource(nombrefichero));
-        try {
-            Parent root = loader.load();    //para obtener el controlador se ejecuta inicialice
-            TransportesAdminController transportesAdminController = loader.getController();
-            transportesAdminController.setGestion(gestion);
-            //        transportesAdminController.ejecutaAlPrincipio();
-//           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
-            Ventana.getChildren().add(root);
-        } catch (IOException ex) {
-            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
-        } catch (Exception es) {
-            not.error("ERROR AL CARGAR TRNSPORTE ADMIN", "Verifica tu código,"
-                    + "(irTransporteAdmin PrincipalAdminController)");
 
+        PerfilController perfilController;
+
+        loader.setLocation(getClass().getResource("/Vista/Perfil/Perfil.fxml"));
+        try {
+            Parent root = loader.load();
+            perfilController = loader.getController();
+            perfilController.setUsuario(usuario);
+            perfilController.setcontrolador(controlador);
+            perfilController.setGestion(gestion);
+            perfilController.calcularnodos();
+
+            taparP.setStyle(" -fx-background-color: rgb(255, 255, 255)");
+
+            taparP.toFront();
+            Ventana.getChildren().add(root);
+        } catch (Exception es) {
+            not.error("Error", "Error al cargar la ventana Perfil");
+        }
+//        ActividadController actividadController=loader.getController(); por si hace falta
+    }
+
+    public void cargaNick() {
+        if (usuario != null) {
+            botonPerfil.setText(usuario.getNick().toUpperCase());
         }
     }
 
-    public void setParametroUsuario(Usuario usuario) {
-        this.usuario = usuario;
-        cargaNickFoto();      //seria mejor llamarlo desde el otro controlador pero...  
-    }
-
-    public void cargaNickFoto() {
-        if (usuario != null) {
-            usuarioBT.setText(usuario.getNick().toUpperCase());
-            System.out.println("Imagenes/usuarios/" + usuario.getFoto());
-//            cara1.setImage(new Image("Imagenes/usuarios/raquel.jpg"));
+    public void cargaFoto() {
+        if (usuario.getFotoFile() != null) {
+            caraIV.setImage(new Image(usuario.getFotoFile().toURI().toString()));
+        } else {
             try {
-                cara1.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
             } catch (Exception e) {
-                cara1.setImage(new Image("Imagenes/usuarios/avatar.png"));
+                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
         }
     }
 
     @FXML
+
     private void irTiposSubtiposAdmin(ActionEvent event) {
         Ventana.getChildren().removeAll(Ventana.getChildren());
         FXMLLoader loader = new FXMLLoader();
@@ -312,6 +376,12 @@ public class PrincipalAdminController implements Initializable {
         } catch (Exception es) {
             not.error("Error", "No se ha podido cargar la agenda");
         }
+
+    
+
+    public void calcularnodos() {
+        cargaNick();
+        cargaFoto();
     }
 
 }

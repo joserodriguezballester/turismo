@@ -97,6 +97,7 @@ public class UsuarioController implements Initializable {
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        vent = new VentanaEmergente();
         gestion = new GestionBD();
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
@@ -218,15 +219,16 @@ public class UsuarioController implements Initializable {
 
             //principalController.setUsuarioDAO(usuario, bda, cambiador);
             //Damos valores a los nodos antes de mostrarlos
-            //principalController.calcularnodos();
+            principalAdminController.calcularnodos();
             escenario.setScene(new Scene(root));
             escenario.show();
 
         } catch (IOException ex) {
+            ex.printStackTrace();
             not.error("ERROR IOException",
                     "en cargarVentanaPrincipalAdmin() --- UsuarioController");
             //aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
-            System.err.println("error");  ////mostrar en ventana
+     
         }
     }
 
@@ -391,9 +393,10 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void pruebaVentana(ActionEvent event) {
+        
         String titulo = "TituloPrueba";
         String mensaje = "AAAAAAAAAA por favor que vaya";
         
-        vent.info(titulo, mensaje, fondoUsuario); 
+        vent.info(titulo, mensaje, fondoUsuario);
     }
 }

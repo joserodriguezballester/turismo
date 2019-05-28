@@ -313,7 +313,6 @@ public class PrincipalController implements Initializable {
             perfilController = loader.getController();
             perfilController.setUsuario(usuario);
             perfilController.setcontroler(principalController);
-
             perfilController.setGestion(gestion);
             perfilController.calcularnodos();
             Ventana.getChildren().add(root);

@@ -34,7 +34,7 @@ public class VentanaEmergente {
         content.setBorder(Border.EMPTY);
         
         JFXDialog dialog = new JFXDialog(spane, content, JFXDialog.DialogTransition.CENTER);
-        JFXButton button = new JFXButton("Press");
+        JFXButton button = new JFXButton("Aceptar");
         
         button.setStyle("-fx-background-color:white");
         button.setOnAction((ActionEvent event1)-> {
@@ -43,11 +43,14 @@ public class VentanaEmergente {
         
         button.setLayoutY(200); 
         content.setActions(button);
-        content.setStyle("-fx-background-color: red");
+        content.setStyle("-fx-background-color: rgb(213, 213, 213)");
+        
+       
         
         spane.setPrefSize(300, 150);
         root.getChildren().add(spane);
-        
+        spane.setLayoutX(500);
+        spane.setLayoutY(290);
         dialog.show();
     }
     
