@@ -7,7 +7,6 @@ import Modelo.Actividad;
 import Modelo.Notificacion;
 import Modelo.Subtipo;
 import Modelo.Tipo;
-import Modelo.VentanaEmergente;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXListView;
@@ -51,7 +50,7 @@ public class ActividadController implements Initializable {
     private subtiposDAO gestionSubtipos;
     private TranslateTransition translate;
     private TranslateTransition transl;
-    private VentanaEmergente vent;
+    private Notificacion not;
     private JFXButton boton;
 
     @FXML
@@ -99,7 +98,7 @@ public class ActividadController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
-        vent = new VentanaEmergente();
+        not = new Notificacion();
 
         styleInicio();
     }
@@ -135,9 +134,10 @@ public class ActividadController implements Initializable {
                 paneListaBotones.getChildren().add(botonLista);
             }
         } catch (SQLException ex) {
-            vent.info("ERROR", "Error al conectar con la DB turismo", Ventana);
+            not.error("ERROR", "Error al conectar con la DB Turismo");
+            
         } catch (Exception es) {
-            vent.info("ERROR", "Error al conectar con la DB turismo", Ventana);
+            not.error("ERROR", "Error al conectar con la DB Turismo");
         }
 
     }
@@ -188,9 +188,9 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException ex) {
-            vent.info("ERROR", "Error al conectar con la DB turismo", Ventana);
+            not.error("ERROR", "Error al conectar con la DB Turismo");
         } catch (Exception es) {
-            vent.info("ERROR", "Error al cargar la información", Ventana);
+            not.error("ERROR", "Error al cargar información");
 
         }
 
@@ -250,7 +250,7 @@ public class ActividadController implements Initializable {
         try {
             subtipo = subDAO.consultarSubtipoActividad(actividad).getNombre();
         } catch (SQLException e) {
-            vent.info("ERROR", "No se ha podido encontrar el subtipo", Ventana);
+            not.error("ERROR", "Error al conectar con la DB Turismo");
         }
         etiquetaSubtipoTitulo.setText(subtipo + " - " + actividad.getNombre());
         etiquetaSubtipoTitulo.getStyleClass().add("tituloActividades");
@@ -317,7 +317,7 @@ public class ActividadController implements Initializable {
             }
             listaElementos.setItems(listaDatosActividades);
         } catch (SQLException e) {
-            vent.info("ERROR", "No se han podido cargar las actividades", Ventana);
+            not.error("ERROR", "Error al conectar con la DB Turismo");
         }
 
     }

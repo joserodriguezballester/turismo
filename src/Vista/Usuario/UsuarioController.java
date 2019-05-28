@@ -6,7 +6,6 @@ import Modelo.Correo;
 import Modelo.Notificacion;
 import Modelo.Transicion;
 import Modelo.Usuario;
-import Modelo.VentanaEmergente;
 import Vista.Administrador.Principal.PrincipalAdminController;
 import Vista.Principal.PrincipalController;
 import Vista.Registrar.RegistrarController;
@@ -68,7 +67,6 @@ public class UsuarioController implements Initializable {
     private GestionBD gestion;
     private usuariosDAO usuarioDAO;
     private Notificacion not;
-    private VentanaEmergente vent;
     Usuario usuario;
 
     @FXML
@@ -97,7 +95,7 @@ public class UsuarioController implements Initializable {
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        vent = new VentanaEmergente();
+        
         gestion = new GestionBD();
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
@@ -307,8 +305,10 @@ public class UsuarioController implements Initializable {
                 not.error("ERROR SQL",
                         "en logearseBueno() --- UsuarioController");
             }
-        } else {
-            //mostrar ventana que no existe o contraseña erronea
+        } else { 
+           not.alertWarningDelete("ERROR","Usuario o contraseña incorrectos");
+//            not.prueba("Error", "Usuario o contraseña incorrectos"); 
+
             nickTF.setText("");
             contraTF.setText("");
         }
@@ -391,12 +391,10 @@ public class UsuarioController implements Initializable {
         cargarVentanaPrincipalAdmin();
     }
 
-    @FXML
     private void pruebaVentana(ActionEvent event) {
         
         String titulo = "TituloPrueba";
         String mensaje = "AAAAAAAAAA por favor que vaya";
-        
-        vent.info(titulo, mensaje, fondoUsuario);
+
     }
 }
