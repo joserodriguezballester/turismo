@@ -312,13 +312,13 @@ public class ExperienciaAdminController implements Initializable {
     
     private List<ActividadExperiencia> insertarActividadExperiencia(){
         int numOrden, idExperiencia,numPlazas;
-        
-        Actividad actividad = null;
-        LocalDateTime fechaIni, fechaFinal;
-        double precio;
+        double precio;        
+        LocalDateTime fechaIni, fechaFinal;       
         List<ActividadExperiencia> listaActividadExperiencia = new ArrayList<>();
+        Actividad actividad = null;
         ActividadExperiencia acEx;
         boolean ok = false;
+        boolean general = true;
         
                
         actExperiencia = tableListaExperiencias.getSelectionModel().getSelectedItem();
