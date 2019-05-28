@@ -97,6 +97,7 @@ public class UsuarioController implements Initializable {
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        vent = new VentanaEmergente();
         gestion = new GestionBD();
         gestion.conectar();
         usuarioDAO = new usuariosDAO(gestion);
@@ -392,9 +393,10 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void pruebaVentana(ActionEvent event) {
+        
         String titulo = "TituloPrueba";
         String mensaje = "AAAAAAAAAA por favor que vaya";
         
-        vent.info(titulo, mensaje, fondoUsuario); 
+        vent.info(titulo, mensaje, fondoUsuario);
     }
 }
