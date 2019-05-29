@@ -493,3 +493,37 @@ and open the template in the editor.
 .fondoLiso{
     -fx-background-color:rgb(179, 180, 181);
 }
+
+/*ESTILOS_VISTA.ADMINISTRADOR.TIPOSSUBTIPOS-----------------------------------------------------*/
+.fondoAdminTiposSubtipos{
+    -fx-background-color: rgb(223, 191, 159);
+}
+.botonAnyadirTiposSubtipos{
+    -fx-text-fill: #ffffff;
+
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(2,144,46);
+    -fx-cursor:hand;
+}
+.botonModificarTiposSubtipos{
+    -fx-text-fill: #ffffff;
+
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(20,40,100);
+    -fx-cursor:hand;
+}
+.botonBorrarTiposSubtipos{
+    -fx-text-fill: #ffffff;
+
+    -fx-font-size: 10px;
+    -fx-font-weight: bold;
+    -fx-background-color:rgb(238,32,32);
+    -fx-cursor:hand;
+}
+
+/*ESTILOS_VISTA.ADMINISTRADOR.AGENDA-----------------------------------------------------*/
+.fondoAdminAgenda{
+    -fx-background-color: rgb(223, 191, 159);
+}

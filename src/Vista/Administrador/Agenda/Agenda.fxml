@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXDatePicker?>
 <?import java.net.URL?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="Vista.Administrador.Agenda.AgendaController">
+<AnchorPane id="AnchorPane" fx:id="anchorP" prefHeight="730.0" prefWidth="1300.0" styleClass="mainFxmlClass" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Vista.Administrador.Agenda.AgendaController">
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
+   <children>
+      <Label layoutX="610.0" layoutY="37.0" text="AGENDA DEL DIA" />
+      <Label layoutX="53.0" layoutY="85.0" text="Seleccione un dia de inicio:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="53.0" layoutY="130.0" text="Seleccione un dia de inicio:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <JFXDatePicker fx:id="datePickerInicio" layoutX="323.0" layoutY="84.0" />
+      <JFXDatePicker fx:id="datePickerFinal" layoutX="323.0" layoutY="130.0" />
+      <JFXButton fx:id="botonComprobarAgenda" layoutX="550.0" layoutY="118.0" onAction="#cargarActividades" text="Comprobar Agenda" />
+   </children>
 </AnchorPane>
