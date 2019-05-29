@@ -53,7 +53,7 @@
                </effect></Button>
          </children>
       </GridPane>
-      <TableView fx:id="tableView" layoutX="40.0" layoutY="60.0" onMousePressed="#mostrar" prefHeight="210.0" prefWidth="550.0">
+      <TableView fx:id="tableView" layoutX="40.0" layoutY="58.0" onMousePressed="#mostrar" prefHeight="210.0" prefWidth="550.0" translateY="14.0">
         <columns>
           <TableColumn fx:id="tb_idExperiencia" minWidth="0.0" prefWidth="0.0" text="idExperiencia" />
           <TableColumn fx:id="tb_nombre" prefWidth="114.99996948242188" text="nombre" />
@@ -95,19 +95,19 @@
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textNombre" layoutX="325.0" layoutY="365.0">
+      <TextField fx:id="textNombre" layoutX="285.0" layoutY="365.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textDescripcion" layoutX="325.0" layoutY="405.0">
+      <TextField fx:id="textDescripcion" layoutX="285.0" layoutY="405.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textFecha" layoutX="325.0" layoutY="445.0">
+      <TextField fx:id="textFecha" layoutX="285.0" layoutY="445.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textFoto" layoutX="325.0" layoutY="485.0">
+      <TextField fx:id="textFoto" layoutX="285.0" layoutY="485.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
@@ -120,7 +120,7 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="textUsuario" layoutX="325.0" layoutY="525.0">
+      <TextField fx:id="textUsuario" layoutX="285.0" layoutY="525.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
@@ -133,7 +133,7 @@
          <effect>
             <DropShadow />
          </effect></Line>
-      <TableView fx:id="tableListaExperiencias" layoutX="706.0" layoutY="60.0" onMousePressed="#mostrarActividadExperiencia" prefHeight="210.0" prefWidth="550.0">
+      <TableView fx:id="tableListaExperiencias" layoutX="706.0" layoutY="70.0" onMousePressed="#mostrarActividadExperiencia" prefHeight="210.0" prefWidth="550.0">
         <columns>
           <TableColumn fx:id="tb_orden" prefWidth="69.66668701171875" text="ordenExperiencia" />
           <TableColumn fx:id="tb_idExperi" prefWidth="67.33331298828125" text="idExperiencia" />
@@ -197,39 +197,39 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="textOrden" layoutX="1050.0" layoutY="320.0">
+      <TextField fx:id="textOrden" layoutX="1005.0" layoutY="320.0" prefWidth="160.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textIdExperiencia" layoutX="1050.0" layoutY="360.0">
+      <TextField fx:id="textIdExperiencia" layoutX="1005.0" layoutY="360.0" prefWidth="160.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textIdActividad" layoutX="1050.0" layoutY="400.0">
+      <TextField fx:id="textIdActividad" layoutX="1005.0" layoutY="400.0" prefHeight="25.0" prefWidth="160.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textFechaInicio" layoutX="1050.0" layoutY="440.0">
+      <TextField fx:id="textFechaInicio" layoutX="1005.0" layoutY="440.0" prefHeight="25.0" prefWidth="66.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textFechaFinal" layoutX="1050.0" layoutY="480.0">
+      <TextField fx:id="textFechaFinal" layoutX="1005.0" layoutY="480.0" prefHeight="25.0" prefWidth="66.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textPrecio" layoutX="1050.0" layoutY="520.0">
+      <TextField fx:id="textPrecio" layoutX="1005.0" layoutY="520.0" prefWidth="160.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textNumPlazas" layoutX="1050.0" layoutY="560.0">
+      <TextField fx:id="textNumPlazas" layoutX="1005.0" layoutY="560.0" prefWidth="160.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <JFXTimePicker fx:id="horaInicio" layoutX="1215.0" layoutY="438.0" prefHeight="28.0" prefWidth="0.0" />
-      <JFXTimePicker fx:id="horaFin" layoutX="1215.0" layoutY="478.0" prefHeight="28.0" prefWidth="0.0" />
-      <JFXDatePicker fx:id="fechaInicio" layoutX="990.0" layoutY="438.0" prefHeight="28.0" prefWidth="27.0" />
-      <JFXDatePicker fx:id="fechaFin" layoutX="990.0" layoutY="478.0" prefHeight="28.0" prefWidth="12.0" />
-      <JFXDatePicker fx:id="fechaTopeValidez" layoutX="266.0" layoutY="444.0" prefHeight="28.0" prefWidth="26.0" />
+      <JFXTimePicker fx:id="horaInicio" layoutX="1124.0" layoutY="434.0" prefHeight="25.0" prefWidth="80.0" />
+      <JFXTimePicker fx:id="horaFin" layoutX="1125.0" layoutY="476.0" prefHeight="25.0" prefWidth="80.0" />
+      <JFXDatePicker fx:id="fechaInicio" layoutX="1011.0" layoutY="436.0" prefHeight="25.0" prefWidth="100.0" />
+      <JFXDatePicker fx:id="fechaFin" layoutX="1012.0" layoutY="475.0" prefHeight="25.0" prefWidth="100.0" />
+      <JFXDatePicker fx:id="fechaTopeValidez" layoutX="293.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
       <RadioButton fx:id="radioId" layoutX="72.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarEx" selected="true" visible="false">
          <font>
             <Font size="14.0" />
@@ -241,7 +241,7 @@
             <ToggleGroup fx:id="grupoEx" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="radioNombre" layoutX="74.0" layoutY="600.0" mnemonicParsing="false" onAction="#ordenarEx" selected="true" toggleGroup="$grupoEx">
+      <RadioButton fx:id="radioNombre" layoutX="256.0" layoutY="25.0" mnemonicParsing="false" onAction="#ordenarEx" selected="true" toggleGroup="$grupoEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -249,7 +249,7 @@
             <DropShadow radius="8.5" width="15.0" />
          </effect>
       </RadioButton>
-      <RadioButton fx:id="radioFechaTope" layoutX="204.0" layoutY="600.0" mnemonicParsing="false" onAction="#ordenarEx" toggleGroup="$grupoEx">
+      <RadioButton fx:id="radioFechaTope" layoutX="390.0" layoutY="25.0" mnemonicParsing="false" onAction="#ordenarEx" toggleGroup="$grupoEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -257,7 +257,7 @@
             <DropShadow radius="8.5" width="15.0" />
          </effect>
       </RadioButton>
-      <RadioButton fx:id="radioPrecio" layoutX="1095.0" layoutY="608.0" mnemonicParsing="false" onAction="#ordenarAcEx">
+      <RadioButton fx:id="radioPrecio" layoutX="1170.0" layoutY="25.0" mnemonicParsing="false" onAction="#ordenarAcEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -268,7 +268,7 @@
             <ToggleGroup fx:id="grupoAcEx" />
          </toggleGroup>
       </RadioButton>
-      <RadioButton fx:id="radioFechaInicio" layoutX="943.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarAcEx" toggleGroup="$grupoAcEx">
+      <RadioButton fx:id="radioFechaInicio" layoutX="1039.0" layoutY="25.0" mnemonicParsing="false" onAction="#ordenarAcEx" toggleGroup="$grupoAcEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -276,7 +276,7 @@
             <DropShadow radius="8.5" width="15.0" />
          </effect>
       </RadioButton>
-      <RadioButton fx:id="radioOrden" layoutX="833.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarAcEx" selected="true" toggleGroup="$grupoAcEx">
+      <RadioButton fx:id="radioOrden" layoutX="943.0" layoutY="25.0" mnemonicParsing="false" onAction="#ordenarAcEx" selected="true" toggleGroup="$grupoAcEx">
          <font>
             <Font size="14.0" />
          </font>
@@ -284,17 +284,17 @@
             <DropShadow radius="8.5" width="15.0" />
          </effect>
       </RadioButton>
-      <Label layoutX="861.0" layoutY="608.0" text="ORDEN">
+      <Label layoutX="971.0" layoutY="25.0" text="ORDEN">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="971.0" layoutY="609.0" text="FECHA INICIO">
+      <Label layoutX="1066.0" layoutY="25.0" text="FECHA INICIO">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="1123.0" layoutY="609.0" text="PRECIO">
+      <Label layoutX="1200.0" layoutY="25.0" text="PRECIO">
          <font>
             <Font size="14.0" />
          </font>
@@ -304,15 +304,25 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="106.0" layoutY="600.0" text="NOMBRE">
+      <Label layoutX="286.0" layoutY="25.0" text="NOMBRE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Label layoutX="236.0" layoutY="600.0" text="FECHATOPE">
+      <Label layoutX="420.0" layoutY="25.0" text="FECHATOPE">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
+      <TextField fx:id="textHoraInicio" layoutX="1118.0" layoutY="438.0" prefHeight="25.0" prefWidth="47.0">
+         <effect>
+            <DropShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </TextField>
+      <TextField fx:id="textHoraFin" layoutX="1119.0" layoutY="480.0" prefHeight="25.0" prefWidth="47.0">
+         <effect>
+            <DropShadow height="15.0" radius="7.0" width="15.0" />
+         </effect>
+      </TextField>
    </children>
 </AnchorPane>

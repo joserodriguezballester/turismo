@@ -108,6 +108,10 @@ public class ExperienciaAdminController implements Initializable {
     @FXML
     private TextField textFechaFinal;
     @FXML
+    private TextField textHoraInicio;
+    @FXML
+    private TextField textHoraFin;
+    @FXML
     private TextField textPrecio;
     @FXML
     private TextField textNumPlazas;
@@ -153,6 +157,7 @@ public class ExperienciaAdminController implements Initializable {
     private actividadesDAO activiDAO;
     
     boolean delete;
+    
     
        
     
@@ -214,64 +219,24 @@ public class ExperienciaAdminController implements Initializable {
 // -------------------------- INSERTAR ----------------------------------
     
     private void insertar(){
-        ValidarCampos validar = new ValidarCampos();
+//        ValidarCampos validar = new ValidarCampos();
         int id = 0, idUsuario = 0;
         String nombre,descripcion,foto;
         LocalDate fechaTope = null;
         List<ActividadExperiencia> lista = null;
         boolean ok = false;
-        boolean general = true;
-            
         
-        if(textUsuario.getText().isEmpty()){
-            not.alert("ERROR IDUSUARIO DESCONOCIDO", "El idUsuario no existe, debe ser\n"
-                    + " un usuario que exista en la DB experiencias");          
-        }
-        else{
-            if(validar.validarNumEntero(textUsuario.getText()) == 0){
-                general = false;
-                not.alert("ERROR CAMPO ID USUARIO VACIO", "No puede estar vacio");
-            }
-            else{
-                idUsuario = Integer.parseInt(textUsuario.getText());
-            }
-        }
+        boolean general = validarExperiencia();
+        
+        idUsuario = Integer.parseInt(textUsuario.getText());
         nombre = textNombre.getText();
-        if(!nombre.isEmpty()){
-
-        }
-        else {
-            general = false;
-            not.alert("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
-        }
         descripcion = textDescripcion.getText();           
         fechaTope = fechaTopeValidez.getValue();
-        if(fechaTope != null){
-            if(validar.validarFechaLD(fechaTope) == true){
-                general =  false;
-                not.alert("ERROR FECHA SELECCIONADA", "No puede ser una fecha anterior a la actual");
-            }
-            else{
-                textFecha.setText(fechaTope.toString());
-            } 
-        }
-        else{
-            general = false;
-            not.alert("ERROR CAMPO FECHA VACIO", "No puede estar vacio");
-        }                    
         foto = textFoto.getText();
-        if(foto.isEmpty()){
+//        String idAux = String.valueOf(experiencia.getId());
+//        id = Integer.parseInt(textExperiencia.getText());
 
-        }
-        else{
-            if(validar.validarFoto(foto) == true){
-
-            }
-            else{
-                general = false;
-                not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
-            }
-        }
+       
             
         if(general){               
             try {
@@ -381,10 +346,54 @@ public class ExperienciaAdminController implements Initializable {
         int id = 0,idUsuario = 0;
         String nombre,descripcion,foto;
         LocalDate fechaTope;
-        boolean general = true;
         boolean ok = false;
         
         experiencia = tableView.getSelectionModel().getSelectedItem();
+        
+        idUsuario = Integer.parseInt(textUsuario.getText());
+        nombre = textNombre.getText();
+        descripcion = textDescripcion.getText();           
+        fechaTope = fechaTopeValidez.getValue();
+        foto = textFoto.getText();
+        String idAux = String.valueOf(experiencia.getId());
+//        id = Integer.parseInt(textExperiencia.getText());
+
+        boolean general = validarExperiencia();
+
+        if(general){
+            try {
+            ok = experienDAO.modificarExperiencia(idUsuario,nombre,descripcion,fechaTope,foto,id);
+            
+            } catch(SQLException ex){
+                not.error("ERROR", "Error al modificar en tabla Experiencias");
+            } catch(DateTimeParseException dt){
+                String valor = "Text '' could not be parsed at index 0";
+                if(dt.equals(valor)){
+                    not.alert("FORMATO FECHA INVALIDO", "Debes introducir un formato como este yyyy-MM-dd");
+                }
+            }        
+            if(ok){
+                not.confirm("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
+            }
+            else {
+                not.alert("FORMATO FECHA INVALIDO", "Debes introducir un formato de fecha \ncomo este --> yyyy-MM-dd");
+            } 
+        }
+        else{
+            not.error("ERROR ", "AL MODIFICAR LA TABLA EXPERIENCIAS");
+        }       
+    }
+    
+    
+    private boolean validarExperiencia(){
+        ValidarCampos validar = new ValidarCampos();
+        int id = 0,idUsuario = 0;
+        String nombre,descripcion,foto;
+        LocalDate fechaTope;
+        boolean general = true;
+//        boolean ok = false;
+        
+//        experiencia = tableView.getSelectionModel().getSelectedItem();
         
         if(textUsuario.getText().isEmpty()){
             not.error("ERROR ID USUARIO DESCONOCIDO", "El idUsuario no existe, debe ser\n"
@@ -436,44 +445,22 @@ public class ExperienciaAdminController implements Initializable {
                 not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
             }
         }
-        String idAux = String.valueOf(experiencia.getId());
-        if(idAux.isEmpty()){
-            not.error("ERROR ID DESCONOCIDO", "El id no existe, debe ser\n"
-                    + " un id que exista en la tabla experiencias"); 
-            general = false;
-        }
-        else{
-            if(validar.validarNumEntero(textExperiencia.getText()) == 0){
-                general = false;
-                not.alert("ERROR CAMPO ID VACIO", "No puede estar vacio");
-            }
-            else{
-                id = Integer.parseInt(textExperiencia.getText());
-            }
-        }
-
-        if(general){
-            try {
-            ok = experienDAO.modificarExperiencia(idUsuario,nombre,descripcion,fechaTope,foto,id);
-            
-            } catch(SQLException ex){
-                not.error("ERROR", "Error al modificar en tabla Experiencias");
-            } catch(DateTimeParseException dt){
-                String valor = "Text '' could not be parsed at index 0";
-                if(dt.equals(valor)){
-                    not.alert("FORMATO FECHA INVALIDO", "Debes introducir un formato como este yyyy-MM-dd");
-                }
-            }        
-            if(ok){
-                not.confirm("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
-            }
-            else {
-                not.alert("FORMATO FECHA INVALIDO", "Debes introducir un formato de fecha \ncomo este --> yyyy-MM-dd");
-            } 
-        }
-        else{
-            not.error("ERROR ", "AL MODIFICAR LA TABLA EXPERIENCIAS");
-        }       
+//        String idAux = String.valueOf(experiencia.getId());
+//        if(idAux.isEmpty()){
+//            not.error("ERROR ID DESCONOCIDO", "El id no existe, debe ser\n"
+//                    + " un id que exista en la tabla experiencias"); 
+//            general = false;
+//        }
+//        else{
+//            if(validar.validarNumEntero(textExperiencia.getText()) == 0){
+//                general = false;
+//                not.alert("ERROR CAMPO ID VACIO", "No puede estar vacio");
+//            }
+//            else{
+//                id = Integer.parseInt(textExperiencia.getText());
+//            }
+//        }
+        return general;
     }
     
     

@@ -38,16 +38,13 @@ public class experienciasDAO {
         boolean insertado = false;
 
         if (conn != null) {
-            System.out.println("usuario");
-            System.out.println(experiencia.getIdUsuario());
-            System.out.println("--------------");
             String consulta = "INSERT INTO EXPERIENCIAS (ID,IDUSUARIO, NOMBRE, DESCRIPCION, FECHATOPEVALIDEZ, FOTO) VALUES (?, ?, ?, ?, ?, ?);";
             PreparedStatement ps = conn.prepareStatement(consulta);
             ps.setObject(1, null);
             ps.setInt(2, experiencia.getIdUsuario());
             ps.setString(3, experiencia.getNombre());
             ps.setString(4, experiencia.getDescripcion());
-            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez().plusDays(1)));
+            ps.setDate(5, Date.valueOf(experiencia.getFechaTopeValidez()));
 //            ps.setString(5, fechaTopeValidez.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
             ps.setString(6, experiencia.getFoto());
             ps.executeUpdate();
