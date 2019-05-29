@@ -45,14 +45,14 @@ import javafx.util.Duration;
  */
 public class PrincipalAdminController implements Initializable {
 
+    private Notificacion not = new Notificacion();
+    private GestionBD gestion;
+    private Usuario usuario;
+    
     @FXML
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
-
-    private Notificacion not = new Notificacion();
-    private GestionBD gestion;
-    private Usuario usuario;
     @FXML
     private Button usuarioBT;
     @FXML
@@ -132,13 +132,9 @@ public class PrincipalAdminController implements Initializable {
             controlador.setGestion(gestion);
             anchorP.getChildren().add(root);
         } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en irInicio --- PrincipalController");
+            not.error("ERROR", "Error al intentar cargar la ventana Principal");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA INICIO",
-                    "Revisa el código y vuelve a intentarlo, (irInicio PrincipalController)");
+            not.error("ERROR", "Error al intentar cargar la ventana Principal");
         }
     }
 
@@ -158,13 +154,9 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            ex.printStackTrace();
-
-            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
+            not.error("ERROR", "Error al intentar cargar la ventana de Actividades");
         } catch (Exception es) {
-            not.error("ERROR AL CARGAR ACTIVIDAD ADMIN", "Verifica tu código,"
-                    + "(irActividad PrincipalAdminController)");
-
+            not.error("ERROR", "Error al intentar cargar la ventana de Actividades");
         }
 //        ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -184,11 +176,9 @@ public class PrincipalAdminController implements Initializable {
 
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
+            not.error("ERROR", " No se encuentra la ventana de Experiencia");
         } catch (Exception es) {
-            not.error("ERROR AL CARGAR EXPERIENCIA ADMIN", "Verifica tu código,"
-                    + "(irExperiencia PrincipalAdminController)");
-
+            not.error("ERROR", " No se encuentra la ventana de Experiencia");
         }
     }
 
@@ -206,13 +196,9 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
+            not.error("ERROR", " No se encuentra la ventana de Perfil");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR PERFIL ADMIN", "Verifica tu código,"
-                    + "(irPerfil PrincipalAdminController)");
-
+            not.error("ERROR", " No se encuentra la ventana de Perfil");
         }
     }
 
@@ -234,9 +220,11 @@ public class PrincipalAdminController implements Initializable {
             stage.show();
 
         } catch (SQLException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            not.error("ERROR", " No se ha podido salir");
+//            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
+            not.error("ERROR", " No se ha podido salir");
+//            Logger.getLogger(PrincipalController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -254,11 +242,9 @@ public class PrincipalAdminController implements Initializable {
 //           anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            not.error("ERROR IOExcepction", " No se encuentra la ventana de login");
+            not.error("ERROR", " No se encuentra la ventana de Información");
         } catch (Exception es) {
-            not.error("ERROR AL CARGAR TRNSPORTE ADMIN", "Verifica tu código,"
-                    + "(irTransporteAdmin PrincipalAdminController)");
-
+            not.error("ERROR", " No se encuentra la ventana de Información");
         }
     }
 
@@ -274,6 +260,7 @@ public class PrincipalAdminController implements Initializable {
             try {
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
             } catch (Exception e) {
+                not.error("ERROR", " No se ha podido cargar la foto");
 //                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
         }
@@ -293,7 +280,6 @@ public class PrincipalAdminController implements Initializable {
 
             Ventana.getChildren().add(root);
         } catch (Exception es) {
-            es.printStackTrace();
             not.error("Error", "No se ha podido cargar la ventana de tipos y subtipos");
         }
     }

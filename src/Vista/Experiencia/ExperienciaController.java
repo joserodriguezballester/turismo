@@ -132,9 +132,7 @@ public class ExperienciaController implements Initializable {
                 listaVisualExperiencias.getItems().add(exp);
             }
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR EXCEPTION (initialize ExperienciaController)",
-                    "Revisa el código y vuelve a intentarlo");
+            not.error("ERROR", "NError al intentar cargar experiencias");
         }
     }
     
@@ -192,13 +190,10 @@ public class ExperienciaController implements Initializable {
             controlador.setUsuario(usuario);
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en CargarVentanaCrear() --- ExperienciaController");
+            not.error("ERROR", "No se ha podido conectar con la base de datos");
         } catch (Exception es) {
             es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
-                    "en CargarVentanaCrear --- ExperienciaController");
+            not.error("ERROR", "Error al intentar cargar experiencias");
         }
     }
     
@@ -218,13 +213,9 @@ public class ExperienciaController implements Initializable {
             controlador.setExperiencia(experiencia);
             Ventana.getChildren().add(root);
         } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en CargarVentanaCrear(param) --- ExperienciaController");
+            not.error("ERROR", "No se ha podido conectar con la base de datos");
         } catch (Exception es) {
-            es.printStackTrace();
-            not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
-                    "en CargarVentanaCrear(param) --- ExperienciaController");
+            not.error("ERROR", "Error al intentar cargar experiencias");
         }
     }
     

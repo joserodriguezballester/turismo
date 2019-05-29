@@ -47,6 +47,8 @@ public class RegistrarController implements Initializable {
     public String foto = "avatar.png";
     private String aviso = " -fx-text-fill:black";
     private String mal = " -fx-text-fill:red";
+    private Usuario usuario;
+    private ValidarCampos validarCampos;
 
     String nick, contrasena, nombre, apellidos, dni, telefono, direccion, email;
     LocalDate fecNac;
@@ -110,8 +112,6 @@ public class RegistrarController implements Initializable {
     private Label contraL;
     @FXML
     private Label nickL;
-    private Usuario usuario;
-    private ValidarCampos validarCampos;
     @FXML
     private Label rolL;
     @FXML
@@ -183,7 +183,6 @@ public class RegistrarController implements Initializable {
 
         if (comprobacionCampos() == true) {         //Validando formato de entrada
             LocalDate fecNac = fecNacTF.getValue();
-           
 
             //Control de entradas nulas//
             boolean noInsertar = camposVacios();        //ValidaCampos not null
@@ -202,13 +201,13 @@ public class RegistrarController implements Initializable {
                 usuario.setFotoFile(fotoFile);
                 String foto = usuario.fotoToString();
                 usuario.setFoto(foto);
-                
-                RadioButton selecRol = (RadioButton) rolUsuRB.getSelectedToggle();               
+
+                RadioButton selecRol = (RadioButton) rolUsuRB.getSelectedToggle();
                 usuario.setPerfil(selecRol.getText().toUpperCase());
-                System.out.println("perfil"+usuario.getPerfilString());
+                System.out.println("perfil" + usuario.getPerfilString());
                 try {
                     //insertar usuario en BD//
-                registrado = usuarioDAO.insertarUsuario(usuario);
+                    registrado = usuarioDAO.insertarUsuario(usuario);
                 } catch (SQLException ex) {
                     not.alert("Error", "Hay un error de SQL");
                 }
@@ -221,9 +220,9 @@ public class RegistrarController implements Initializable {
                     stage.close();
                     //Fin cerrar ventana
 
-                    not.alert("Registrarse", "Ya te has registrado");
+                    not.confirm("Bienvenido", "Ya te has registrado");
                 } else {
-                    not.confirm("Registrarse", "No te has registrado");
+                    not.alert("Registrarse", "No te ha sido posible registrar");
                 }
             }
         }

@@ -102,7 +102,7 @@ public class TiposSubtiposController implements Initializable {
             columnaIdTipo.setCellValueFactory(new PropertyValueFactory<>("id"));
             columnaNombreTipo.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         } catch (Exception e) {
-            not.error("Error", "Error cargando los tipos");
+            not.error("Error", "Error al intentar cargar los tipos");
         }
     }
     
@@ -117,7 +117,7 @@ public class TiposSubtiposController implements Initializable {
             columnaTipoSubtipo.setCellValueFactory(new PropertyValueFactory<>("tipo"));
             columnaNombreSubtipo.setCellValueFactory(new PropertyValueFactory<>("nombre"));
         } catch (Exception e) {
-            not.error("Error", "Error cargando los subtipos");
+            not.error("Error", "Error al intentar cargar los subtipos");
         }
         cargarTipos();
     }
@@ -129,8 +129,7 @@ public class TiposSubtiposController implements Initializable {
             tipDAO.insertarTipo(tipo);
             cargarTipos();
         } catch (Exception e) {
-            e.printStackTrace();
-            not.error("Error", "No se ha podido insertar el nuevo tipo");
+            not.alert("Error", "No se ha podido insertar el nuevo tipo");
         }
     }
     
@@ -141,8 +140,7 @@ public class TiposSubtiposController implements Initializable {
             tipDAO.actualizarTipo(tipoSeleccionado);
             cargarTipos();
         } catch (Exception e) {
-            e.printStackTrace();
-            not.error("Error", "No se ha podido modificar el tipo");
+            not.alert("Error", "No se ha podido modificar el tipo");
         }
     }
     
@@ -152,8 +150,7 @@ public class TiposSubtiposController implements Initializable {
             System.out.println(tipoSeleccionado);
             tipDAO.borrarTipo(tipoSeleccionado);
         } catch (Exception e) {
-            e.printStackTrace();
-            not.error("Error", "No se ha podido borrar el tipo");
+            not.alert("Error", "No se ha podido borrar el tipo");
         }
     }
     

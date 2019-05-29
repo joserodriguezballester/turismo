@@ -8,6 +8,7 @@ package Vista.Contactar;
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
 import Modelo.Correo;
+import Modelo.Notificacion;
 import Modelo.Usuario;
 import com.jfoenix.controls.JFXListView;
 import java.net.URL;
@@ -29,6 +30,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javax.mail.MessagingException;
+import org.controlsfx.control.Notifications;
 
 /**
  * FXML Controller class
@@ -37,6 +39,14 @@ import javax.mail.MessagingException;
  */
 public class ContactarController implements Initializable {
 
+    private Correo correo;
+    private ObservableList guiasOL = FXCollections.observableArrayList();
+    private List<Usuario> guiasL;
+    private GestionBD gestion;
+    private usuariosDAO usuarioDAO;
+    private Usuario usuario;
+    private Usuario guiaTuristico;
+    private Notificacion not;
     @FXML
     private AnchorPane fondoUsuario;
     @FXML
@@ -51,15 +61,8 @@ public class ContactarController implements Initializable {
     private Button mandarBT;
     @FXML
     private TextArea mensajeTA;
-    private Correo correo;
-    private ObservableList guiasOL = FXCollections.observableArrayList();
-    private List<Usuario> guiasL;
-    private GestionBD gestion;
-    private usuariosDAO usuarioDAO;
-    private Usuario usuario;
     @FXML
     private TextField passgmail;
-    private Usuario guiaTuristico;
     @FXML
     private TextField asuntoTA;
     
@@ -69,6 +72,7 @@ public class ContactarController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        not = new Notificacion();
         correo = new Correo();
         guiasLV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> modifSelecListView(newValue));
@@ -85,7 +89,7 @@ public class ContactarController implements Initializable {
             String mensaje=mensajeTA.getText();
             correo.sendEmail(emisor, receptor, contrasena,asunto,mensaje);
         } catch (MessagingException ex) {
-            System.out.println("error " + ex);
+            not.error("ERROR", "No se ha podido mandar el correo");
         }
     }
 
@@ -100,7 +104,7 @@ public class ContactarController implements Initializable {
         try {
             guiasL = usuarioDAO.listarAdministradores();
         } catch (SQLException ex) {
-            ex.printStackTrace();
+            not.error("ERROR", "No se ha podido con la base de datos");
         }
         guiasOL.addAll(guiasL);
         guiasLV.setItems(guiasOL);

@@ -7,14 +7,11 @@ import Modelo.Usuario;
 import Vista.Actividad.ActividadController;
 import Vista.Buscador.BuscadorController;
 import Vista.Contactar.ContactarController;
-
 import Vista.Perfil.PerfilController;
-
 import Vista.ListaExperiencias.ListaExperienciasController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXButton.ButtonType;
 import com.jfoenix.controls.JFXNodesList;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -57,12 +54,13 @@ public class PrincipalController implements Initializable {
 
     private Usuario usuario;
     private Notificacion not;
-
+    private GestionBD gestion;
+    private PrincipalController principalController;
+       
     @FXML
     private AnchorPane Menu;
     @FXML
     private AnchorPane Ventana;
-    private GestionBD gestion;
     @FXML
     private Button botonActividades;
     @FXML
@@ -87,7 +85,6 @@ public class PrincipalController implements Initializable {
     private ImageView caraIV;
     @FXML
     private ImageView imgLupa;
-    private PrincipalController principalController;
     @FXML
     private JFXButton botonContactar;
 
@@ -182,7 +179,7 @@ public class PrincipalController implements Initializable {
             Ventana.getChildren().addAll(botonesNodesList, etiquetaFacebook, etiquetaInstagram, etiquetaTwitter);
             botonesNodesList.toFront();
         } catch (Exception e) {
-            not.error("Error", "Error cargando las redes sociales.");
+            not.error("Error", "Error al intentar cargar las redes sociales.");
         }
 
     }
@@ -350,7 +347,7 @@ public class PrincipalController implements Initializable {
             //anchorPane.getChildren().add(FXMLLoader.load(loader.getLocation()));
             Ventana.getChildren().add(root);
         } catch (Exception es) {
-            not.error("Error", "Error al cargar la ventana Transporte");
+            not.error("Error", "Error al cargar la ventana Información");
         }
         //ActividadController actividadController=loader.getController(); por si hace falta
     }
@@ -449,8 +446,7 @@ public class PrincipalController implements Initializable {
             Ventana.toBack();
             tr.start();
         } catch (Exception e) {
-            not.error("Error",
-                    "Error al realizar el efecto slider");
+            not.error("Error", "Error al cargar imagenes");
         }
     }
 

@@ -171,10 +171,9 @@ public class BuscadorController implements Initializable {
                 paneActividadesBuscador.getChildren().add(pane);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("error sql");
+            not.error("ERROR", "Error al conectar con la DB Turismo");
         } catch (Exception e) {
-            e.printStackTrace();
+            not.error("ERROR", "Error al cargar actividades");
         }
     }
 
@@ -212,7 +211,6 @@ public class BuscadorController implements Initializable {
         try {
             encontrados = actDAO.filtrarActividades(busqueda, precioMin, precioMax, tipo, subtipo);
         } catch (Exception e) {
-            e.printStackTrace();
             not.error("Error", "No se han podido encontrar las actividades");
         }
 

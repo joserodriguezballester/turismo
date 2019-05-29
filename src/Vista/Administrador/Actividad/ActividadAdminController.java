@@ -56,6 +56,20 @@ import org.controlsfx.control.Notifications;
 
 public class ActividadAdminController implements Initializable {
 
+    private ObservableList<Actividad> actividades;
+    private ObservableList<String> tipos;
+
+    private List<Tipo> listaTipos = new ArrayList<>();
+    private List<Actividad> lista = new ArrayList<>();
+    
+    private Actividad actividad;
+
+    private static GestionBD gestion;
+
+    private actividadesDAO activiDAO;
+    private tiposDAO tipoDAO;
+    private Notificacion not;
+    
     @FXML
     private GridPane menu2;
     @FXML
@@ -130,21 +144,7 @@ public class ActividadAdminController implements Initializable {
     private RadioButton radioPrecio;
     @FXML
     private Button botonImportar;
-    
-    private ObservableList<Actividad> actividades;
-    private ObservableList<String> tipos;
-
-    private List<Tipo> listaTipos = new ArrayList<>();
-    private List<Actividad> lista = new ArrayList<>();
-    
-    private Actividad actividad;
-
-    private static GestionBD gestion;
-
-    private actividadesDAO activiDAO;
-    private tiposDAO tipoDAO;
-    private Notificacion not;
-    
+        
     public void setGestion(GestionBD gestion) {
         ActividadAdminController.gestion = gestion;
     }
@@ -156,8 +156,7 @@ public class ActividadAdminController implements Initializable {
         try {
             listaTipos = tipoDAO.consultarTipos();
         } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " Error al consultar la DB turismo");
+            not.error("ERROR", " Error al consultar la DB turismo");
         }
 
         cargarCombo();
@@ -208,11 +207,9 @@ public class ActividadAdminController implements Initializable {
             lista = activiDAO.listarActividad();           
           
         } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " Error al consultar la DB turismo");
+            not.error("ERROR", " Error al consultar la DB turismo");
         } catch (Exception es) {
-            not.error("ERROR EXCEPTION", "" + es.getMessage()
-                    + " Error al mostrar la información");
+            not.error("ERROR EXCEPTION", " Error al mostrar la información");
         }
    
         cargarTabla(lista);
@@ -266,10 +263,9 @@ public class ActividadAdminController implements Initializable {
         try {
             listaPorTipo = activiDAO.consultarActividadesPorTipo(tipo);
         } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " Error al consultar la DB turismo");
+            not.error("ERROR SQL", " Error al consultar la DB turismo");
         } catch (Exception es) {
-            not.error("ERROR EXCEPTION",
+            not.alert("ERROR EXCEPTION",
                     "Primero selecciona un tipo de actividad, (Combo)\n "
                     + "luego puedes presionar el boton de listarID ");
         }
@@ -339,7 +335,7 @@ public class ActividadAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
+            not.alert("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
         }
         descripcion = textDescripcion.getText();       
         horario = textHorario.getText();       
@@ -349,7 +345,7 @@ public class ActividadAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR DE FORMATO PRECIO","No puede estar vacio");
+            not.alert("ERROR DE FORMATO PRECIO","No puede estar vacio");
         }
         direccion = textDireccion.getText();       
         url = textUrl.getText();
@@ -388,7 +384,7 @@ public class ActividadAdminController implements Initializable {
             }
             else{
                 general = false;
-                not.error("ERROR DE FORMATO FOTO","La extensión no es válida");
+                not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
             }
         }
         idsubTipo = validar.validarNumEntero(textIdTipo.getText());
@@ -397,7 +393,7 @@ public class ActividadAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
+            not.alert("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
         }
                
         if(general){
@@ -406,19 +402,18 @@ public class ActividadAdminController implements Initializable {
                         descripcion, url, direccion, telefono, foto, idsubTipo);
                 ok = activiDAO.insertarActividad(act);
             } catch (SQLException ex) {
-                not.error("ERROR SQL", "" + ex.getMessage()
-                        + " Error al insertar un registro en DB turismo");
+                not.error("ERROR SQL", " Error al insertar un registro en DB turismo");
             }
             if (ok == true) {
                 not.confirm("INSERTAR CON EXITO EN LA TABLA ACTIVIDADES",
                         " La operación se ha realizado con éxito");
             } else {
-                not.confirm("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
+                not.alert("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
                         " No se ha insertado el registro");
             }
         }
         else {
-            not.error("ERROR AL INSERTAR ACTIVIDAD","");
+            not.error("ERROR ","AL INSERTAR ACTIVIDAD");
         }
     }
 
@@ -439,7 +434,7 @@ public class ActividadAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
+            not.alert("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
         }
         descripcion = textDescripcion.getText();       
         horario = textHorario.getText();       
@@ -449,7 +444,7 @@ public class ActividadAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR DE FORMATO PRECIO","No puede estar vacio");
+            not.alert("ERROR DE FORMATO PRECIO","No puede estar vacio");
         }
         direccion = textDireccion.getText();       
         url = textUrl.getText();
@@ -475,7 +470,7 @@ public class ActividadAdminController implements Initializable {
             }
             else {
                 general = false;
-                not.error("ERROR DE FORMATO TELEFONO","No es un telefono valido");
+                not.alert("ERROR DE FORMATO TELEFONO","No es un telefono valido");
             }
         }        
         foto = textFoto.getText();
@@ -488,7 +483,7 @@ public class ActividadAdminController implements Initializable {
             }
             else{
                 general = false;
-                not.error("ERROR DE FORMATO FOTO","La extensión no es válida");
+                not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
             }
         }
         idsubTipo = validar.validarNumEntero(textIdTipo.getText());
@@ -497,7 +492,7 @@ public class ActividadAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
+            not.alert("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
         }
         
         if(general){
@@ -505,19 +500,18 @@ public class ActividadAdminController implements Initializable {
                 ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
                         url, direccion, telefono, foto, idsubTipo);
             } catch (SQLException ex) {
-                not.error("ERROR SQL", "" + ex.getMessage()
-                        + " Error al modificar la actividad en DB turismo");
+                not.error("ERROR SQL", " Error al modificar la actividad en DB turismo");
             }
             if (ok) {
                 not.confirm("ACTUALIZAR CON EXITO EN LA TABLA ACTIVIDADES",
                         " Operación realizada con éxito");
             } else {
-                not.confirm("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
+                not.alert("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
                         " No se ha modificado el registro");
             } 
         }
         else {
-            not.error("ERROR AL MODIFICAR ACTIVIDAD","");
+            not.error("ERROR ","AL MODIFICAR ACTIVIDAD");
         }
     }
 
@@ -531,7 +525,7 @@ public class ActividadAdminController implements Initializable {
         id = actividad.getId();
         
         ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO " + id + "",
-                "¿Estas seguro !!!?\n confirma presionando Aceptar");
+                "¿Estas seguro !!!?");
         
         if(ok){
             try {
@@ -541,8 +535,7 @@ public class ActividadAdminController implements Initializable {
                     " Operación realizada con éxito");
                 }
             } catch (SQLException ex) {
-                not.error("ERROR SQL", "" + ex.getMessage()
-                        + "Error al eliminar el registro "+ id + " de tabla actividades");
+                not.error("ERROR", "Error al eliminar el registro "+ id + " de tabla actividades");
             }
         }
     }
@@ -680,8 +673,7 @@ public class ActividadAdminController implements Initializable {
                         act = new Actividad(id, nombre, precio, horario, descripcion, url, direccion, telefono, foto, idSubtipo);
                         activiDAO.insertarActividad(act);
                     } catch (SQLException e) {
-//                            ERROR SQL
-                        e.printStackTrace();
+                         not.error("ERROR", "Error al intentar conectar con la base de datos");
                     }
                 }
                 numLinea++;

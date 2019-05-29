@@ -160,8 +160,7 @@ public class UsuarioController implements Initializable {
             escena.setScene(new Scene(root));
             escena.showAndWait();
         } catch (IOException ex) {
-            not.error("ERROR IOException",
-                    "en Registrarse() --- UsuarioController");
+            not.error("ERROR", "Error al intentar cargar ventana registro");
         }
     }
 
@@ -191,10 +190,7 @@ public class UsuarioController implements Initializable {
             escenario.show();
 
         } catch (IOException ex) {
-            not.error("ERROR IOException",
-                    "en cargarVentanaPrincipal() --- UsuarioController");
-            //aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
-            System.err.println("error");  ////mostrar en ventana
+            not.error("ERROR", "Error al intentar cargar ventana Principal");
         }
     }
 
@@ -222,41 +218,34 @@ public class UsuarioController implements Initializable {
             escenario.show();
 
         } catch (IOException ex) {
-            ex.printStackTrace();
-            not.error("ERROR IOException",
-                    "en cargarVentanaPrincipalAdmin() --- UsuarioController");
-            //aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
+            not.error("ERROR", "Error al intentar cargar ventana Principal Administrador");
      
         }
     }
 
-    private void cargarVentanaRegistrarse() {
-
-        Parent root;
-
-        try {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
-            root = loader.load(); // el metodo initialize() se ejecuta
-            //OBTENER EL CONTROLADOR DE LA VENTANA     UsuarioController usuarioControlador = loader.getController();
-
-            Stage escena = new Stage();     //En Stage nuevo.
-            escena.setTitle("Registrarse");
-
-            // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
-            escena.initModality(Modality.APPLICATION_MODAL);
-            escena.setScene(new Scene(root));
-            escena.showAndWait();
-            //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
-
-        } catch (IOException ex) {
-            not.error("ERROR IOException",
-                    "en cargarVentanaRegistrarse() --- UsuarioController");
-            //aviso.mostrarAlarma("ERROR IOExcepction:  No se encuentra la ventana de login");
-            //mostrar error
-
-        }
-    }
+//    private void cargarVentanaRegistrarse() {
+//
+//        Parent root;
+//
+//        try {
+//            FXMLLoader loader = new FXMLLoader();
+//            loader.setLocation(getClass().getResource("/Vista/Registrar/Registrar.fxml"));
+//            root = loader.load(); // el metodo initialize() se ejecuta
+//            //OBTENER EL CONTROLADOR DE LA VENTANA     UsuarioController usuarioControlador = loader.getController();
+//
+//            Stage escena = new Stage();     //En Stage nuevo.
+//            escena.setTitle("Registrarse");
+//
+//            // NO PERMITE ACCESO A LA VENTANA PRINCIPAL
+//            escena.initModality(Modality.APPLICATION_MODAL);
+//            escena.setScene(new Scene(root));
+//            escena.showAndWait();
+//            //RECOGEMOS  LA INFORMACION ESCRITA EN LA OTRA VENTANA
+//
+//        } catch (IOException ex) {
+//            not.error("ERROR", "Error al intentar cargar ventana Principal");
+//        }
+//    }
 
     //CONTROL-------------------------------------------------------------------
     public boolean verificaUsuario() {
@@ -389,12 +378,5 @@ public class UsuarioController implements Initializable {
 
     private void logearseComoAdministrador() {
         cargarVentanaPrincipalAdmin();
-    }
-
-    private void pruebaVentana(ActionEvent event) {
-        
-        String titulo = "TituloPrueba";
-        String mensaje = "AAAAAAAAAA por favor que vaya";
-
     }
 }

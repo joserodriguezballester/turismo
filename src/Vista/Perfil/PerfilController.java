@@ -47,6 +47,20 @@ import javafx.stage.Stage;
  */
 public class PerfilController implements Initializable {
 
+    private Notificacion not;
+    private GestionBD gestion;
+    private usuariosDAO usuarioDAO;
+    private PrincipalController principalController;
+    private File fotoFile;
+    private JFXPasswordField contraPF;
+    private String foto;
+    private boolean selecionarFoto;
+    private String mal = " -fx-text-fill:red";
+    private String correcto = " -fx-text-fill: rgb(56, 175, 88)"; //Verde
+    private String nick, nombre, apellidos, dni, telefono, direccion, email;
+    private LocalDate fecNac;
+    private PrincipalAdminController controlador;
+    
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -74,10 +88,6 @@ public class PerfilController implements Initializable {
     private Usuario usuario;
     @FXML
     private Button modificarBT;
-
-    private Notificacion not;
-    private GestionBD gestion;
-    private usuariosDAO usuarioDAO;
     @FXML
     private Label labelUser;
     @FXML
@@ -88,19 +98,12 @@ public class PerfilController implements Initializable {
     private Pane barra;
     @FXML
     private Pane paneBienvenido;
-    private PrincipalController principalController;
-    private File fotoFile;
-    private JFXPasswordField contraPF;
-    private String foto;
     @FXML
     private Button botonGuardar;
     @FXML
     private JFXButton cancelarBT;
     @FXML
     private Label labelPW;
-    private boolean selecionarFoto;
-    private String mal = " -fx-text-fill:red";
-    private String correcto = " -fx-text-fill: rgb(56, 175, 88)"; //Verde
     @FXML
     private Label nickL;
     private ValidarCampos validarCampos;
@@ -117,9 +120,6 @@ public class PerfilController implements Initializable {
     @FXML
     private Label fecNacL;
 
-    private String nick, nombre, apellidos, dni, telefono, direccion, email;
-    private LocalDate fecNac;
-    private PrincipalAdminController controlador;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -364,7 +364,7 @@ public class PerfilController implements Initializable {
             usuario.setFoto(foto);
             modiFoto = usuarioDAO.modificarFoto(foto, id);
             if (modiFoto) {
-                not.info("Modificar", "Ha sido modificado con exito");
+                not.confirm("Modificar", "Ha sido modificado con exito");
             } else {
                 correctoSQL = false;
             }
@@ -384,9 +384,9 @@ public class PerfilController implements Initializable {
         }
 //////INFORMAR DEL RESULTADO  
         if (todoCorrecto && correctoSQL) {
-            not.info("Modificar", "Ha sido modificado con exito");
+            not.confirm("Modificar", "Ha sido modificado con exito");
         } else {
-            not.error("Modificar", "NO ha sido modificado con exito");
+            not.error("Modificar", "NO ha sido posible modificar");
         }
 
     }
@@ -491,9 +491,12 @@ public class PerfilController implements Initializable {
             escena.setScene(new Scene(root));
             escena.setResizable(false);
             escena.showAndWait();
+            
+            if(cambiarcontracontroller.conseguido() == true){
+                not.confirm("Enhorabuena", "La contraseña se ha guardado");
+            }
         } catch (IOException ex) {
-            not.error("ERROR IOException",
-                    "en Perfil() --- UsuarioController");
+            not.error("ERROR", "Error al conectar con la base de datos");
         }
     }
 

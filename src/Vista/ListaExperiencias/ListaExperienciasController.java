@@ -190,10 +190,9 @@ public class ListaExperienciasController implements Initializable {
                 paneActividadesBuscador.getChildren().add(pane);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            System.out.println("error sql");
+            not.error("ERROR", "No se ha podido conectar con la base de datos");
         } catch (Exception e) {
-            e.printStackTrace();
+            not.error("ERROR", "Error al intentar listar experiencias");
         }
     }
 
@@ -231,6 +230,7 @@ public class ListaExperienciasController implements Initializable {
                     }
                 }
             } catch (Exception e) {
+                not.error("ERROR", "La busqueda ha fallado");
             }
         }
         return encontrados;
@@ -268,11 +268,9 @@ public class ListaExperienciasController implements Initializable {
                 controlador.setListaExperiencias(listaExperienciasSeleccionadas);
                 Ventana.getChildren().add(root);
             } catch (IOException ex) {
-                not.error("ERROR IOException",
-                        "en irActividad --- PrincipalController");
+                not.error("ERROR", "No se ha podido conectar con la base de datos");
             } catch (Exception es) {
-                not.error("ERROR AL CARGAR VENTANA EXPERIENCIA",
-                        "Revisa el código y vuelve a intentarlo, (irExperiencia PrincipalController)");
+                not.error("ERROR", "Error al intentar cargar experiencias");
             }
         } else {
             not.error("ELIGE UN CONJUNTO DE EXPERIENCIAS", "Debes elegir un conjunto de experiencias a consultar");
@@ -323,8 +321,7 @@ public class ListaExperienciasController implements Initializable {
                 bw.newLine();
             }
         } catch (IOException ex) {
-            not.error("ERROR AL GENERAR TICKET",
-                    "Ha habido un error al exportar las experiencias");
+            not.error("ERROR AL GENERAR TICKET", "Ha habido un error al exportar las experiencias");
         }
     }
 }
