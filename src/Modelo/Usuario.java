@@ -58,15 +58,12 @@ public class Usuario implements Comparable<Usuario> {
         FileChooser fileChooser = new FileChooser();
         // Agregar filtros para facilitar la busqueda
         fileChooser.getExtensionFilters().addAll(
-                // new FileChooser.ExtensionFilter("All Images", "*.*"),
+                // new FileChooser.ExtensionFilter("All ", "*.*"),
                 new FileChooser.ExtensionFilter("JPG", "*.jpg"),
                 new FileChooser.ExtensionFilter("PNG", "*.png")
         );
         File fotoElegida = fileChooser.showOpenDialog(null);
-//        if (fotoFile != null) {
-//            Image image = new Image(fotoFile.toURI().toString());
-//            caraIV.setImage(image);
-//        }
+
         return fotoElegida;
     }
 
@@ -78,8 +75,10 @@ public class Usuario implements Comparable<Usuario> {
             Files.copy(from.toAbsolutePath(), to.toAbsolutePath(),StandardCopyOption.REPLACE_EXISTING);            
         }
     }
-
-    public String fotoToString() {
+    
+    
+/// Poner el NICK como nombre del ARCHIVO FOTO
+    public String fotoToNick() {
         if (fotoFile == null) {
             foto = "avatar.png";
         } else {

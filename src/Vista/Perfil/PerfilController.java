@@ -360,7 +360,7 @@ public class PerfilController implements Initializable {
 //---FOTO   
         if (selecionarFoto) {
             usuario.setFotoFile(fotoFile);
-            foto = usuario.fotoToString();  ///pasar fotofile a string
+            foto = usuario.fotoToNick();  ///pasar fotofile a string
             usuario.setFoto(foto);
             modiFoto = usuarioDAO.modificarFoto(foto, id);
             if (modiFoto) {

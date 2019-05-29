@@ -206,7 +206,7 @@ public class PerfilAdminController implements Initializable {
 
     @FXML
     private void modificar(ActionEvent event) throws SQLException {   ///falta el rol
-
+ 
         boolean modiNick = false;
         boolean modiFoto = false;
         boolean todoCorrecto = true;
@@ -223,60 +223,48 @@ public class PerfilAdminController implements Initializable {
         String rol = rolCB.getValue();
 //        int id = Integer.parseInt(id_invisibleTF.getText());
         int id = usuario.getId();
-
+try {
         /////********************//////       //falta comprobar valores de entrada
         /////COMPARAMOS SI HAY CAMBIOS, cambiamos en BD y cambiamos en USUARIO
-//---NICK
+////---NICK
         if (!usuario.getNick().equals(nick)) {
-            try {
+          
                 //Miramos que sea valido
                 if ((usuarioDAO.clienteExiste(nick) == true) || nickTF.getText().equals("")) {
                     todoCorrecto = false;
                     nickTF.setText("");
                     if (nickTF.getText().equals("")) {
-                        nickTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+                        nickTF.setPromptText("*OBLIGATORIO");
                     } else {
                         nickTF.setPromptText("Ese usuario ya existe");
                     }
                     nickL.setStyle(MAL);
-                } else {
+                } else {    
                     nickL.setStyle(CORRECTO);
-                    modiNick = usuarioDAO.modificarNick(nick, id);
+                    modiNick = usuarioDAO.modificarNick(nick, id);  // modificacion en BD
                     if (modiNick) {
-                        usuario.setNick(nick);
+                         //**cambiar nombre foto  
+                         archivoTF.setText( usuario.fotoToNick()); /// aun no se ha guardado la foto
+                        
                     } else {
                         correctoSQL = false;
                     }
                 }
-
-                //// Otras consecuencias del cambios de Nick
-//        if (modiNick) {
-//            //**cambiar nombre foto              
-//            File oldfile = usuario.getFotoFile();
-//            File newfile = fotoFile;
-//            oldfile.renameTo(newfile); //creo que no lo hace bien mejor guardar foto
-//            //**cambios en vista            
-//            labelUser.setText(nick.toUpperCase());
-//            if (principalController != null) {
-//                principalController.cargaNick();
-//                principalController.cargaFoto();
-//            }
-//              if (controlador != null) {
-//                controlador.cargaNick();
-//                controlador.cargaFoto();
-//            }   
+        }
+ 
 //fin NICK  ------------
-//---NOMBRE
+////---NOMBRE
                 if (!usuario.getNombre().equals(nombre)) {
                     if (nombre.equals("")) {
                         todoCorrecto = false;
                         nombreL.setStyle(MAL);
-                        nombreTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+                        nombreTF.setPromptText("* OBLIGATORIO");
                     } else {
 
                         boolean modiNombre = usuarioDAO.modificarNombre(nombre, id);
                         if (modiNombre) {
-                            usuario.setNombre(nombre);
+                            //informar que es correcto?
+//                            usuario.setNombre(nombre);
                         } else {
                             correctoSQL = false;
                         }
@@ -288,11 +276,11 @@ public class PerfilAdminController implements Initializable {
                     if (apellidos.equals("")) {
                         todoCorrecto = false;
                         apellidosL.setStyle(MAL);
-                        apellidosTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+                        apellidosTF.setPromptText("* OBLIGATORIO");
                     } else {
                         boolean modificado = usuarioDAO.modificarApellidosTF(apellidos, id);
                         if (modificado) {
-                            usuario.setApellidos(apellidos);
+//                            usuario.setApellidos(apellidos);
                         } else {
                             correctoSQL = false;
                         }
@@ -309,7 +297,7 @@ public class PerfilAdminController implements Initializable {
                         dniL.setStyle(CORRECTO);
                         boolean modificado = usuarioDAO.modificarDni(dni, id);
                         if (modificado) {
-                            usuario.setDni(dni);
+//                            usuario.setDni(dni);
                         } else {
                             correctoSQL = false;
                         }
@@ -319,11 +307,11 @@ public class PerfilAdminController implements Initializable {
                 if (!usuario.getFecNac().equals(fecNac) || fecNac == null) {
                     todoCorrecto = false;
                     fecNacL.setStyle(MAL);
-                    fecNacDP.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+                    fecNacDP.setPromptText("* OBLIGATORIO");
                 } else {
                     boolean modificado = usuarioDAO.modificarFecNac(fecNac, id);
                     if (modificado) {
-                        usuario.setFecNac(fecNac);
+//                        usuario.setFecNac(fecNac);
                     } else {
                         correctoSQL = false;
                     }
@@ -340,7 +328,7 @@ public class PerfilAdminController implements Initializable {
                         telefL.setStyle(CORRECTO);
                         boolean modificado = usuarioDAO.modificarTelefono(telefono, id);
                         if (modificado) {
-                            usuario.setTelefono(telefono);
+//                            usuario.setTelefono(telefono);
                         } else {
                             correctoSQL = false;
                         }
@@ -350,7 +338,7 @@ public class PerfilAdminController implements Initializable {
                 if (!usuario.getDireccion().equals(direccion)) {
                     boolean modificado = usuarioDAO.modificarDireccion(direccion, id);
                     if (modificado) {
-                        usuario.setDireccion(direccion);
+//                        usuario.setDireccion(direccion);
                     } else {
                         correctoSQL = false;
                     }
@@ -366,7 +354,7 @@ public class PerfilAdminController implements Initializable {
                         emailL.setStyle(CORRECTO);
                         boolean modificado = usuarioDAO.modificarEmail(email, id);
                         if (modificado) {
-                            usuario.setEmail(email);
+//                            usuario.setEmail(email);
                         } else {
                             correctoSQL = false;
                         }
@@ -375,7 +363,7 @@ public class PerfilAdminController implements Initializable {
 //---FOTO   
 //        if (selecionarFoto) {
 //            usuario.setFotoFile(fotoFile);
-//            foto = usuario.fotoToString();  ///pasar fotofile a string
+//            foto = usuario.fotoToNick();  ///pasar fotofile a string
 //            usuario.setFoto(foto);
 //            modiFoto = usuarioDAO.modificarFoto(foto, id);
 //            if (modiFoto) {
@@ -397,6 +385,7 @@ public class PerfilAdminController implements Initializable {
 //            }
 
 //        }
+
 //////INFORMAR DEL RESULTADO  
                 if (todoCorrecto && correctoSQL) {
                     not.confirm("Modificar", "Ha sido modificado con exito");
@@ -405,23 +394,17 @@ public class PerfilAdminController implements Initializable {
                 }
 
                 ////********************/// fin comprobar valores
-//                boolean modificado = usuarioDAO.modificarUsuario(dni, nombre, apellidos, rol, nick, direccion, telefono, email, id, fecNac);
-//                // si ha modificado algo
-//                if (modificado) {
-//                    cargarTabla(rolCB.getValue()); //asi hemos recargado la lista
-//                    not.confirm("Modificado", "Se ha modificado con exito");
-//                } else {
-//                    not.alert("Modificado", "No se ha modificado con exito");
-//                }
+/////RECARGAR LA LISTA
+
+
             } catch (SQLException ex) {
                 not.error("ERROR", "Error al intentar conectar con la base de datos");
             }
         }
-    }       //////falta controlar campos, comprobar que introduce todos en particular foto y rol
+      //////falta controlar campos, comprobar que introduce todos en particular foto y rol
 
     @FXML
     private void borrar(ActionEvent event) {
-//        int id = Integer.valueOf(id_invisibleTF.getText());
         if (usuario != null) {
             not.alertWarningDelete("Borrar", "Seguro que quieres borrar este usuario");         //////*******esta not no vale.
             int id = usuario.getId();
@@ -476,12 +459,10 @@ public class PerfilAdminController implements Initializable {
         } else {
             limpiarEtiquetas();
         }
-
+        renovarLabels();
     }
 
     private void cargarEtiquetas() {
-//        id_invisibleTF.setText(Integer.toString(usuario.getId()));
-//        id_invisibleTF.setText(usuario.getId() + "");
         nickTF.setText(usuario.getNick());
         nombreTF.setText(usuario.getNombre());
         apellidosTF.setText(usuario.getApellidos());
@@ -504,8 +485,7 @@ public class PerfilAdminController implements Initializable {
     }
 
     private void limpiarEtiquetas() {
-//        id_invisibleTF.setText(Integer.toString(usuario.getId()));
-//        id_invisibleTF.setText("");
+
         nickTF.setText("");
         nombreTF.setText("");
         apellidosTF.setText("");

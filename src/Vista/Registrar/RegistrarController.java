@@ -199,7 +199,7 @@ public class RegistrarController implements Initializable {
                 usuario.setEmail(email);
                 usuario.setFecNac(fecNac);
                 usuario.setFotoFile(fotoFile);
-                String foto = usuario.fotoToString();
+                String foto = usuario.fotoToNick();
                 usuario.setFoto(foto);
 
                 RadioButton selecRol = (RadioButton) rolUsuRB.getSelectedToggle();
