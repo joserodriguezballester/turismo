@@ -44,71 +44,71 @@
                   <TableColumn fx:id="archivoTC" prefWidth="75.0" text="foto" />
                </columns>
             </TableView>
-            <Label layoutX="40.0" layoutY="385.0" text="Nick">
+            <Label fx:id="nickL" layoutX="40.0" layoutY="385.0" text="Nick">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="40.0" layoutY="420.0" text="NOMBRE">
+            <Label fx:id="nombreL" layoutX="40.0" layoutY="420.0" text="NOMBRE">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="40.0" layoutY="490.0" text="Dni">
+            <Label fx:id="dniL" layoutX="40.0" layoutY="490.0" text="Dni">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="40.0" layoutY="455.0" text="APELLIDOS">
+            <Label fx:id="apellidosL" layoutX="40.0" layoutY="455.0" text="APELLIDOS">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="393.0" layoutY="385.0" text="TELEFONO">
+            <Label fx:id="telefL" layoutX="393.0" layoutY="385.0" text="TELEFONO">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="393.0" layoutY="420.0" prefHeight="25.0" prefWidth="86.0" text="DIRECCION">
+            <Label fx:id="direccL" layoutX="393.0" layoutY="420.0" prefHeight="25.0" prefWidth="86.0" text="DIRECCION">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="393.0" layoutY="455.0" prefHeight="25.0" prefWidth="58.0" text="EMAIL">
+            <Label fx:id="emailL" layoutX="393.0" layoutY="455.0" prefHeight="25.0" prefWidth="58.0" text="EMAIL">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <Label layoutX="36.0" layoutY="525.0" text="Fec. Nacimiento">
+            <Label fx:id="fecNacL" layoutX="36.0" layoutY="525.0" text="Fec. Nacimiento">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXTextField fx:id="nickTF" layoutX="174.0" layoutY="385.0">
+            <JFXTextField fx:id="nickTF" editable="false" layoutX="174.0" layoutY="385.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <JFXTextField fx:id="nombreTF" layoutX="174.0" layoutY="420.0">
+            <JFXTextField fx:id="nombreTF" editable="false" layoutX="174.0" layoutY="420.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <JFXTextField fx:id="apellidosTF" layoutX="174.0" layoutY="455.0">
+            <JFXTextField fx:id="apellidosTF" editable="false" layoutX="174.0" layoutY="455.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <JFXTextField fx:id="telefonoTF" layoutX="502.0" layoutY="385.0" prefHeight="25.0" prefWidth="100.0">
+            <JFXTextField fx:id="telefonoTF" editable="false" layoutX="502.0" layoutY="385.0" prefHeight="25.0" prefWidth="100.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <JFXTextField fx:id="direccionTF" layoutX="502.0" layoutY="420.0" prefHeight="25.0" prefWidth="182.0">
+            <JFXTextField fx:id="direccionTF" editable="false" layoutX="502.0" layoutY="420.0" prefHeight="25.0" prefWidth="182.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <JFXTextField fx:id="emailTF" layoutX="502.0" layoutY="455.0" prefHeight="25.0" prefWidth="182.0">
+            <JFXTextField fx:id="emailTF" editable="false" layoutX="502.0" layoutY="455.0" prefHeight="25.0" prefWidth="182.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
-            <JFXTextField fx:id="dniTF" layoutX="174.0" layoutY="490.0">
+            <JFXTextField fx:id="dniTF" editable="false" layoutX="174.0" layoutY="490.0">
                <font>
                   <Font size="14.0" />
                </font></JFXTextField>
@@ -133,13 +133,13 @@
                   <Button fx:id="botonAñadir" mnemonicParsing="false" onAction="#anadir" prefHeight="39.0" prefWidth="100.0" text="Añadir" />
                   <Button fx:id="botonBorrar" mnemonicParsing="false" onAction="#borrar" prefHeight="39.0" prefWidth="100.0" text="Borrar" GridPane.rowIndex="1" />
                   <Button fx:id="editarBT" mnemonicParsing="false" onAction="#editar" prefHeight="39.0" prefWidth="100.0" text="Editar" GridPane.rowIndex="2" />
-                  <Button fx:id="botonModificar" disable="true" mnemonicParsing="false" onAction="#modificar" prefHeight="39.0" prefWidth="100.0" text="Modificar" GridPane.rowIndex="3" />
+                  <Button fx:id="modificarBT" mnemonicParsing="false" onAction="#modificar" prefHeight="39.0" prefWidth="100.0" text="Modificar" visible="false" GridPane.rowIndex="3" />
                </children>
             </GridPane>
             <Label fx:id="id_invisibleTF" layoutX="780.0" layoutY="542.0" text="id_invisible" visible="false" />
             <JFXComboBox fx:id="rolCB" layoutX="498.0" layoutY="525.0" prefHeight="25.0" prefWidth="182.0" />
             <JFXComboBox fx:id="tipoUsuario" layoutX="106.0" layoutY="24.0" prefHeight="25.0" prefWidth="163.0" />
-            <JFXDatePicker fx:id="fecNacDP" layoutX="174.0" layoutY="524.0" />
+            <JFXDatePicker fx:id="fecNacDP" editable="false" layoutX="174.0" layoutY="524.0" />
             <ImageView fx:id="caraIV" fitHeight="208.0" fitWidth="200.0" layoutX="771.0" layoutY="378.0" pickOnBounds="true" preserveRatio="true" />
             <JFXTextField fx:id="archivoTF" layoutX="780.0" layoutY="603.0" prefHeight="25.0" prefWidth="182.0">
                <font>
