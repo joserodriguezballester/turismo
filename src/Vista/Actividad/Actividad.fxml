@@ -19,8 +19,8 @@
         <URL value="@/resources/estilo.css" />
     </stylesheets>
     <children>
-      <JFXComboBox fx:id="selectorSubtipos" layoutX="172.0" maxWidth="250.0" onAction="#cargarActividades" prefHeight="30.0" prefWidth="217.0" promptText="Subtipo" />
-        <ScrollPane fx:id="scrollTipoActividades" prefHeight="730.0" prefWidth="200.0">
+      <JFXComboBox fx:id="selectorSubtipos" layoutX="172.0" layoutY="20.0" maxWidth="250.0" onAction="#cargarActividades" prefHeight="30.0" prefWidth="217.0" promptText="Subtipo" />
+        <ScrollPane fx:id="scrollTipoActividades" layoutY="50.0" prefHeight="680.0" prefWidth="200.0">
             <content>
                 <Pane fx:id="paneListaBotones" />
             </content>
@@ -57,6 +57,6 @@
                </font>
             </Label>
          </children></Pane>
-        <JFXListView fx:id="listaElementos" layoutY="30.0" maxWidth="250.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="700.0" prefWidth="217.0" />
+        <JFXListView fx:id="listaElementos" layoutY="50.0" maxWidth="250.0" minWidth="200.0" onMouseClicked="#cargarInformacionActividad" prefHeight="680.0" prefWidth="217.0" />
     </children>
 </AnchorPane>

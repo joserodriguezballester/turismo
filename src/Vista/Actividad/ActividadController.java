@@ -112,7 +112,7 @@ public class ActividadController implements Initializable {
         try {
             List<Tipo> lista = gestionBDActividad.consultarTipoActividades();
             double posicionX = 5;
-            double posicionY = 5;
+            double posicionY = 25;
             JFXButton boton;
             for (Tipo tipo : lista) {
                 boton = new JFXButton(tipo.getNombre());
@@ -135,7 +135,7 @@ public class ActividadController implements Initializable {
             }
         } catch (SQLException ex) {
             not.error("ERROR", "Error al conectar con la DB Turismo");
-            
+
         } catch (Exception es) {
             not.error("ERROR", "Error al conectar con la DB Turismo");
         }
@@ -172,7 +172,10 @@ public class ActividadController implements Initializable {
         paneListaBotones.getStyleClass().add("scrollPaneActividades");
         listaElementos.getStyleClass().add("listaActividades");
         selectorSubtipos.getStyleClass().add("combo");
-
+        informacionDireccion.getStyleClass().add("textoActividad");
+        informacionPrecio.getStyleClass().add("textoActividad");
+        informacionHorario.getStyleClass().add("textoActividad");
+        descripcionActividad.getStyleClass().add("textoActividad");
     }
 
     public void cargarActividades(Tipo tipo) {
@@ -248,39 +251,50 @@ public class ActividadController implements Initializable {
         subtiposDAO subDAO = new subtiposDAO(gestion);
         String subtipo = "";
         try {
-            subtipo = subDAO.consultarSubtipoActividad(actividad).getNombre();
+            subtipo = subDAO.consultarSubtipoActividad(actividad).getNombre() + " - ";
         } catch (SQLException e) {
             not.error("ERROR", "Error al conectar con la DB Turismo");
         }
-        etiquetaSubtipoTitulo.setText(subtipo + " - " + actividad.getNombre());
+        etiquetaSubtipoTitulo.setText(subtipo + actividad.getNombre());
         etiquetaSubtipoTitulo.getStyleClass().add("tituloActividades");
 
-        if (actividad.getDireccion().equals("")) {
-            informacionDireccion.setText("Sin dirección");
-        } else {
+        try {
             informacionDireccion.setText(actividad.getDireccion());
+            if (informacionDireccion.getText().isEmpty()) {
+                informacionDireccion.setText("Sin dirección");
+            }
+        } catch (Exception e) {
+            informacionDireccion.setText("Sin dirección");
         }
-        informacionDireccion.getStyleClass().add("textoActividad");
 
-        if (actividad.getPrecio() == 0) {
+        try {
+            informacionPrecio.setText(String.valueOf(actividad.getPrecio()));
+            if (informacionPrecio.getText().equals("0.0")) {
+                informacionPrecio.setText("Gratis");
+            } else {
+                informacionPrecio.appendText("€ por persona");
+            }
+        } catch (Exception e) {
             informacionPrecio.setText("Gratis");
-        } else {
-            informacionPrecio.setText(String.valueOf(actividad.getPrecio()) + "€ por persona");
         }
-        informacionPrecio.getStyleClass().add("textoActividad");
-        if (actividad.getHorario().equals("")) {
-            informacionHorario.setText("Horario libre");
-        } else {
-            informacionHorario.setText(actividad.getHorario());
-        }
-        informacionHorario.getStyleClass().add("textoActividad");
 
-        if (actividad.getDescripcion().equals("")) {
-            descripcionActividad.setText("Sin descripcion");
-        } else {
-            descripcionActividad.setText(actividad.getDescripcion());
+        try {
+            informacionHorario.setText(actividad.getHorario());
+            if (informacionHorario.getText().isEmpty()) {
+                informacionHorario.setText("Horario libre");
+            }
+        } catch (Exception e) {
+            informacionHorario.setText("Horario libre");
         }
-        descripcionActividad.getStyleClass().add("textoActividad");
+
+        try {
+            descripcionActividad.setText(actividad.getDescripcion());
+            if (descripcionActividad.getText().isEmpty()) {
+                descripcionActividad.setText("Sin descripcion");
+            }
+        } catch (Exception e) {
+            descripcionActividad.setText("Sin descripcion");
+        }
 
         try {
             fotoActividad.setImage(new Image("Imagenes/" + actividad.getFoto()));

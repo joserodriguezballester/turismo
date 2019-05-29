@@ -113,13 +113,39 @@ public class experienciasActividadesDAO {
     }
 
     public List<ActividadExperiencia> consultarAgenda(LocalDate fechaInicial, LocalDate fechaFinal, Tipo tipo, Subtipo subtipo) throws SQLException {
+        Date inicioPS = null;
+        Date finalPS = null;
+
+        if (fechaInicial == null) {
+            inicioPS = null;
+        } else {
+            inicioPS = Date.valueOf(fechaInicial);
+        }
+        if (fechaFinal == null) {
+            finalPS = null;
+        } else {
+            finalPS = Date.valueOf(fechaFinal);
+        }
+
+        String tipoInsert;
+        String subTipoInsert;
+        if (tipo == null) {
+            tipoInsert = null;
+        } else {
+            tipoInsert = tipo.getNombre();
+        }
+        if (subtipo == null) {
+            subTipoInsert = null;
+        } else {
+            subTipoInsert = subtipo.getNombre();
+        }
         List<ActividadExperiencia> lista = new ArrayList<>();
         String sql = "call agendaDelDia(?, ?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setDate(1, Date.valueOf(fechaInicial));
-        ps.setDate(2, Date.valueOf(fechaFinal));
-        ps.setString(3, tipo.getNombre());
-        ps.setString(4, subtipo.getNombre());
+        ps.setDate(1, inicioPS);
+        ps.setDate(2, finalPS);
+        ps.setString(3, tipoInsert);
+        ps.setString(4, subTipoInsert);
         ResultSet rs = ps.executeQuery();
         actividadesDAO actividadesDAO = new actividadesDAO(gestion);
 

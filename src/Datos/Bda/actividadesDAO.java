@@ -142,7 +142,7 @@ public class actividadesDAO {
     //UPDATE
     public boolean modificarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int idSubtipo) throws SQLException {
         boolean modificado = false;
-
+       
         if (gestion.getConn() != null) {
 
             String consulta = "UPDATE ACTIVIDADES SET NOMBRE = ?, PRECIO = ?, HORARIO = ?, DESCRIPCION = ?, URL = ?, DIRECCION = ?, TELEFONO = ?, FOTO = ?, IDSUBTIPO = ? WHERE ID = ? ORDER BY nombre;";
@@ -153,11 +153,12 @@ public class actividadesDAO {
             ps.setString(4, descripcion);
             ps.setString(5, url);
             ps.setString(6, direccion);
+            System.out.println("ps"+ps);
             ps.setString(7, telefono);
             ps.setString(8, rutaFoto);
             ps.setInt(9, idSubtipo);
             ps.setInt(10, id);
-            ps.executeUpdate();
+                      ps.executeUpdate();
             modificado = true;
         }
         return modificado;

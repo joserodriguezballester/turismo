@@ -119,6 +119,7 @@ public class RegistrarController implements Initializable {
     @FXML
     private ToggleGroup rolUsuRB;
 
+    
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -126,7 +127,6 @@ public class RegistrarController implements Initializable {
         usuario = new Usuario();
         validarCampos = new ValidarCampos();
         styleInicio();
-
         styleRellenarCamposVacios();
     }
 
