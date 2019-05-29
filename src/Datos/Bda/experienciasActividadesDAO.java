@@ -7,12 +7,16 @@ package Datos.Bda;
 
 import Modelo.Actividad;
 import Modelo.ActividadExperiencia;
+import Modelo.Subtipo;
+import Modelo.Tipo;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -56,30 +60,27 @@ public class experienciasActividadesDAO {
         ResultSet rs = ps.executeQuery();
         actividadesDAO actividadesDAO = new actividadesDAO(gestion);
         while (rs.next()) {
-            
-            
             listaActividadesExperiencia.add(
                     new ActividadExperiencia(rs.getInt("orden"),
                             rs.getInt("idExperiencia"),
                             actividadesDAO.consultarActividad(rs.getInt("idActividad")),
                             rs.getTimestamp("fechaInicio").toLocalDateTime(),
-                            rs.getTimestamp("fechaFinal").toLocalDateTime(),                            
+                            rs.getTimestamp("fechaFinal").toLocalDateTime(),
                             rs.getDouble("precio"),
                             rs.getInt("numPlazas")));
         }
         return listaActividadesExperiencia;
     }
-    
-    
-    public boolean modificarActividadExperiencia(int orden,int idExperiencia,Actividad idActividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal,Double precio,int numPlazas) throws SQLException {
+
+    public boolean modificarActividadExperiencia(int orden, int idExperiencia, Actividad idActividad, LocalDateTime fechaInicio, LocalDateTime fechaFinal, Double precio, int numPlazas) throws SQLException {
         boolean modificado = false;
-        
-        if(conn != null){
+
+        if (conn != null) {
             String consulta = "UPDATE experiencia_actividad SET orden = ?, idExperiencia = ?, idActividad = ?,fechaInicio = ?, fechaFinal = ?, precio = ?, numPlazas = ?  WHERE idExperiencia = ? AND orden = ?";
             PreparedStatement ps = conn.prepareStatement(consulta);
             ps.setInt(1, orden);
             ps.setInt(2, idExperiencia);
-            ps.setInt(3, idActividad.getId());      
+            ps.setInt(3, idActividad.getId());
             ps.setTimestamp(4, Timestamp.valueOf(fechaInicio));
             ps.setTimestamp(5, Timestamp.valueOf(fechaFinal));
             ps.setDouble(6, precio);
@@ -87,27 +88,51 @@ public class experienciasActividadesDAO {
             ps.setInt(8, idExperiencia);
             ps.setInt(9, orden);
             ps.executeUpdate();
-            
-            modificado = true;                                
+
+            modificado = true;
         }
-              
+
         return modificado;
     }
-    
+
     public boolean eliminarActividadExperiencia(int orden, int idExperiencia) throws SQLException {
         boolean eliminado = false;
-        
-        if(conn != null){
+
+        if (conn != null) {
             String consulta = "DELETE FROM experiencia_actividad WHERE orden = ? AND idExperiencia = ?;";
 
             PreparedStatement ps = conn.prepareStatement(consulta);
             ps.setInt(1, orden);
             ps.setInt(2, idExperiencia);
             ps.executeUpdate();
-            
+
             eliminado = true;
         }
-       
+
         return eliminado;
+    }
+
+    public List<ActividadExperiencia> consultarAgenda(LocalDate fechaInicial, LocalDate fechaFinal, Tipo tipo, Subtipo subtipo) throws SQLException {
+        List<ActividadExperiencia> lista = new ArrayList<>();
+        String sql = "call agendaDelDia(?, ?, ?, ?)";
+        PreparedStatement ps = conn.prepareStatement(sql);
+        ps.setDate(1, Date.valueOf(fechaInicial));
+        ps.setDate(2, Date.valueOf(fechaFinal));
+        ps.setString(3, tipo.getNombre());
+        ps.setString(4, subtipo.getNombre());
+        ResultSet rs = ps.executeQuery();
+        actividadesDAO actividadesDAO = new actividadesDAO(gestion);
+
+        while (rs.next()) {
+            lista.add(
+                    new ActividadExperiencia(rs.getInt("orden"),
+                            rs.getInt("idExperiencia"),
+                            actividadesDAO.consultarActividad(rs.getInt("idActividad")),
+                            rs.getTimestamp("fechaInicio").toLocalDateTime(),
+                            rs.getTimestamp("fechaFinal").toLocalDateTime(),
+                            rs.getDouble("precio"),
+                            rs.getInt("numPlazas")));
+        }
+        return lista;
     }
 }
