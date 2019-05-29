@@ -328,74 +328,20 @@ public class ActividadAdminController implements Initializable {
         String nombre, descripcion, horario, url, direccion, telefono, foto;
         boolean ok = false;
         boolean general = true;
-      
+        
+        
+        actividad = tableview.getSelectionModel().getSelectedItem();
+        id = actividad.getId();
         nombre = textNombre.getText();
-        if(!nombre.isEmpty()){
-
-        }
-        else {
-            general = false;
-            not.alert("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
-        }
         descripcion = textDescripcion.getText();       
         horario = textHorario.getText();       
         precio = validar.validarNumDecimal(textPrecio.getText());
-        if(precio != 0.0){
-            
-        }
-        else {
-            general = false;
-            not.alert("ERROR DE FORMATO PRECIO","No puede estar vacio");
-        }
         direccion = textDireccion.getText();       
         url = textUrl.getText();
-        if(url.isEmpty()){
-            
-        }
-        else{
-            if(validar.isURL(url ) == true){
-           
-        }
-            else {
-                general = false;
-                not.error("ERROR DE URL NO VALIDA", "URL incorrecta o no existe");
-            } 
-        }       
         telefono = textTelefono.getText();
-        if(telefono.isEmpty()){
-            
-        }
-        else{
-            if(validar.comprobarTelefono(telefono) == true){
-            
-            }
-            else {
-                general = false;
-                not.error("ERROR DE FORMATO TELEFONO","No es un telefono valido");
-            }
-        }        
         foto = textFoto.getText();
-        if(foto.isEmpty()){
-            
-        }
-        else{
-            if(validar.validarFoto(foto) == true){
-                
-            }
-            else{
-                general = false;
-                not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
-            }
-        }
         idsubTipo = validar.validarNumEntero(textIdTipo.getText());
-        if(idsubTipo != 0){
             
-        }
-        else {
-            general = false;
-            not.alert("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
-        }
-               
         if(general){
             try {
                 Actividad act = new Actividad(id, nombre, precio, horario,
@@ -420,8 +366,48 @@ public class ActividadAdminController implements Initializable {
 // -------------------------------- ACTUALIZAR --------------------------
     private void actualizar() {
         ValidarCampos validar = new ValidarCampos();
-        boolean general = true;
+        boolean general = comprobarActividad();
         boolean ok = false;
+        int id = 0, idsubTipo;
+        double precio;
+        String nombre, descripcion, horario, direccion, url, telefono, foto;
+                
+        actividad = tableview.getSelectionModel().getSelectedItem();
+        id = actividad.getId();
+        nombre = textNombre.getText();
+        descripcion = textDescripcion.getText();       
+        horario = textHorario.getText();       
+        precio = validar.validarNumDecimal(textPrecio.getText());
+        direccion = textDireccion.getText();       
+        url = textUrl.getText();
+        telefono = textTelefono.getText();
+        foto = textFoto.getText();
+        idsubTipo = validar.validarNumEntero(textIdTipo.getText());
+               
+        if(general){
+            try {
+                ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
+                        url, direccion, telefono, foto, idsubTipo);
+            } catch (SQLException ex) {
+                not.error("ERROR SQL", " Error al modificar la actividad en DB turismo");
+            }
+            if (ok) {
+                not.confirm("ACTUALIZAR CON EXITO EN LA TABLA ACTIVIDADES",
+                        " Operación realizada con éxito");
+            } else {
+                not.alert("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
+                        " No se ha modificado el registro");
+            } 
+        }
+        else {
+            not.error("ERROR ","AL MODIFICAR ACTIVIDAD");
+        }
+    }
+    
+    private boolean comprobarActividad(){
+        boolean ok = true;
+        ValidarCampos validar = new ValidarCampos();
+        boolean general = true;
         int id = 0, idsubTipo;
         double precio;
         String nombre, descripcion, horario, direccion, url, telefono, foto;
@@ -495,24 +481,8 @@ public class ActividadAdminController implements Initializable {
             not.alert("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
         }
         
-        if(general){
-            try {
-                ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
-                        url, direccion, telefono, foto, idsubTipo);
-            } catch (SQLException ex) {
-                not.error("ERROR SQL", " Error al modificar la actividad en DB turismo");
-            }
-            if (ok) {
-                not.confirm("ACTUALIZAR CON EXITO EN LA TABLA ACTIVIDADES",
-                        " Operación realizada con éxito");
-            } else {
-                not.alert("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
-                        " No se ha modificado el registro");
-            } 
-        }
-        else {
-            not.error("ERROR ","AL MODIFICAR ACTIVIDAD");
-        }
+        
+        return ok;
     }
 
 // -------------------------------- ELIMINAR ----------------------------
