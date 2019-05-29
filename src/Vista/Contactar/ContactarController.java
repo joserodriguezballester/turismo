@@ -77,6 +77,17 @@ public class ContactarController implements Initializable {
         guiasLV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> modifSelecListView(newValue));
          caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+         
+         //Imagen fondo
+        Image img = new Image("Imagenes/fondoContactar.jpg");
+        ImageView imagev = new ImageView(img);
+
+         imagev.setFitHeight(230);
+        imagev.setFitWidth(1300);
+
+        imagev.setOpacity(0.7); 
+        this.fondoUsuario.getChildren().add(imagev);
+        imagev.toBack();
     }
 
     @FXML
