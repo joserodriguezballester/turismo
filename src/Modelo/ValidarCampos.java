@@ -23,14 +23,17 @@ public class ValidarCampos {
     }
     
        public boolean comprobarTelefono(String telefono) {
-        boolean tlfCorrecto;
-        if (telefono.matches("^[0-9]{2,3}-? ?[0-9]{6,7}|"
-                + "([9|7|6]{1}[0-9]{1,2}){1}-?([0-9]{6,7}){1}|"
-                + "([(]{1}[9|7|6]{1}[0-9]{1,2}[)]{1}){1}-?([0-9]{6,7}){1}$")) {
-            tlfCorrecto = true;
-        } else {
-            tlfCorrecto = false;
-        }
+        boolean tlfCorrecto = false;
+            if (telefono!=null) {
+                if (telefono.matches("^[0-9]{2,3}-? ?[0-9]{6,7}|"
+                    + "([9|7|6]{1}[0-9]{1,2}){1}-?([0-9]{6,7}){1}|"
+                    + "([(]{1}[9|7|6]{1}[0-9]{1,2}[)]{1}){1}-?([0-9]{6,7}){1}$")) {
+                    tlfCorrecto = true;
+                } else {
+                    tlfCorrecto = false;
+                }  
+           }
+       
         return tlfCorrecto;
 
     }
@@ -45,11 +48,11 @@ public class ValidarCampos {
     }
     
         public boolean isURL(String url) {
-            boolean ok = false;
-            try {
-               (new java.net.URL(url)).openStream().close();
-                ok = true;
-            } catch (Exception ex) { }
+            boolean ok = true;
+//            try {
+//               (new java.net.URL(url)).openStream().close();
+//                ok = true;
+//            } catch (Exception ex) { }
             return ok;
         }
     
