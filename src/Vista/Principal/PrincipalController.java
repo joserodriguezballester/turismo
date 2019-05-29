@@ -101,17 +101,17 @@ public class PrincipalController implements Initializable {
             JFXNodesList botonesNodesList = new JFXNodesList();
             JFXButton redes = new JFXButton("Redes Sociales");
 
-            Image twitter = new Image("/Imagenes/iconos/twitterLogo.png");
+            Image twitter = new Image("/Imagenes/iconos/twitter.png");
             ImageView imgTwitter = new ImageView(twitter);
             imgTwitter.setFitHeight(40);
             imgTwitter.setFitWidth(40);
 
-            Image facebook = new Image("/Imagenes/iconos/facebookLogo.jpg");
+            Image facebook = new Image("/Imagenes/iconos/facebook.png");
             ImageView imgFacebook = new ImageView(facebook);
             imgFacebook.setFitHeight(40);
             imgFacebook.setFitWidth(40);
 
-            Image instagram = new Image("/Imagenes/iconos/instagramLogo.png");
+            Image instagram = new Image("/Imagenes/iconos/instagram.png");
             ImageView imgInstagram = new ImageView(instagram);
             imgInstagram.setFitHeight(40);
             imgInstagram.setFitWidth(40);

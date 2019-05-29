@@ -74,6 +74,8 @@ public class BuscadorController implements Initializable {
     private JFXComboBox<Tipo> comboBoxTipos;
     @FXML
     private JFXComboBox<Subtipo> comboBoxSubtipos;
+    @FXML
+    private Pane paneFiltro;
 
     public void setGestion(GestionBD gestion) {
         this.gestion = gestion;
@@ -106,6 +108,11 @@ public class BuscadorController implements Initializable {
         }
 
         scrollPaneActividadesBuscador.getStyleClass().add("paneBuscador");
+        paneFiltro.getStyleClass().add("paneExperienciaTitulo");
+        comboBoxSubtipos.getStyleClass().add("combo");
+        comboBoxTipos.getStyleClass().add("combo");
+        entradaPrecioMaximo.getStyleClass().add("buscador"); 
+        entradaPrecioMinimo.getStyleClass().add("buscador");
         entradaBusqueda.getStyleClass().add("buscador");
 
     }

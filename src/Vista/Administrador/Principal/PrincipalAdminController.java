@@ -62,8 +62,6 @@ public class PrincipalAdminController implements Initializable {
 //    private ImageView caraIV;
     private ImageView cara1;
     @FXML
-    private Button usuarioBT;
-    @FXML
     private ImageView caraIV;
     @FXML
     private GridPane gridpane;
