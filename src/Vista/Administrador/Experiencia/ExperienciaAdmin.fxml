@@ -209,11 +209,11 @@
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textFechaInicio" layoutX="1005.0" layoutY="440.0" prefHeight="25.0" prefWidth="66.0">
+      <TextField fx:id="textFechaInicio" layoutX="1005.0" layoutY="440.0" prefHeight="25.0" prefWidth="78.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <TextField fx:id="textFechaFinal" layoutX="1005.0" layoutY="480.0" prefHeight="25.0" prefWidth="66.0">
+      <TextField fx:id="textFechaFinal" layoutX="1005.0" layoutY="480.0" prefHeight="25.0" prefWidth="78.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
@@ -225,10 +225,8 @@
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect></TextField>
-      <JFXTimePicker fx:id="horaInicio" layoutX="1124.0" layoutY="434.0" prefHeight="25.0" prefWidth="80.0" />
-      <JFXTimePicker fx:id="horaFin" layoutX="1125.0" layoutY="476.0" prefHeight="25.0" prefWidth="80.0" />
-      <JFXDatePicker fx:id="fechaInicio" layoutX="1011.0" layoutY="436.0" prefHeight="25.0" prefWidth="100.0" />
-      <JFXDatePicker fx:id="fechaFin" layoutX="1012.0" layoutY="475.0" prefHeight="25.0" prefWidth="100.0" />
+      <JFXDatePicker fx:id="fechaInicio" layoutX="1004.0" layoutY="437.0" prefHeight="25.0" prefWidth="110.0" />
+      <JFXDatePicker fx:id="fechaFin" layoutX="1004.0" layoutY="475.0" prefHeight="25.0" prefWidth="110.0" />
       <JFXDatePicker fx:id="fechaTopeValidez" layoutX="293.0" layoutY="441.0" prefHeight="25.0" prefWidth="180.0" />
       <RadioButton fx:id="radioId" layoutX="72.0" layoutY="610.0" mnemonicParsing="false" onAction="#ordenarEx" selected="true" visible="false">
          <font>
@@ -314,15 +312,17 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <TextField fx:id="textHoraInicio" layoutX="1118.0" layoutY="438.0" prefHeight="25.0" prefWidth="47.0">
+      <TextField fx:id="textHoraInicio" layoutX="1118.0" layoutY="440.0" prefHeight="25.0" prefWidth="47.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </TextField>
-      <TextField fx:id="textHoraFin" layoutX="1119.0" layoutY="480.0" prefHeight="25.0" prefWidth="47.0">
+      <TextField fx:id="textHoraFin" layoutX="1118.0" layoutY="478.0" prefHeight="25.0" prefWidth="47.0">
          <effect>
             <DropShadow height="15.0" radius="7.0" width="15.0" />
          </effect>
       </TextField>
+      <JFXTimePicker fx:id="horaInicio" layoutX="1123.0" layoutY="435.0" prefHeight="25.0" prefWidth="75.0" />
+      <JFXTimePicker fx:id="horaFin" layoutX="1124.0" layoutY="473.0" prefHeight="25.0" prefWidth="75.0" />
    </children>
 </AnchorPane>
