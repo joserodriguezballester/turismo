@@ -276,12 +276,12 @@ public class CrearExperienciaController implements Initializable {
                 for (ActividadExperiencia actExp : listaActividadesCarrito.getItems()) {
                     if (fechaInicio.isAfter(actExp.getFechaInicio()) && fechaInicio.isBefore(actExp.getFechaFinal())) {
                         actividadValida = false;
-                        not.error("Error", "La fecha de inicio se solapa con otra actividad de tu lista.");
+                        not.alert("Error", "La fecha de inicio se solapa con otra actividad de tu lista.");
                         throw new Exception();
                     }
                     if (fechaFinal.isAfter(actExp.getFechaInicio()) && fechaFinal.isBefore(actExp.getFechaFinal())) {
                         actividadValida = false;
-                        not.error("Error", "La fecha de inicio se solapa con otra actividad de tu lista.");
+                        not.alert("Error", "La fecha de inicio se solapa con otra actividad de tu lista.");
                         throw new Exception();
                     }
                 }
@@ -370,9 +370,7 @@ public class CrearExperienciaController implements Initializable {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            not.error("ERROR SQL", "" + e.getMessage()
-                    + "en cargarTodasActividades --- CrearExperienciaController");
+            not.error("ERROR", "No se ha podido conectar con la base de datos");
         }
 
     }
@@ -411,9 +409,7 @@ public class CrearExperienciaController implements Initializable {
             }
         } catch (SQLException e) {
 //            EXCEPCION SQL
-            e.printStackTrace();
-            not.error("ERROR SQL", "" + e.getMessage()
-                    + "en actualizarTipos --- CrearExperienciaController");
+            not.error("ERROR", "No se ha podido conectar con la base de datos");
         }
         cargarTodasActividades();
     }
@@ -433,9 +429,7 @@ public class CrearExperienciaController implements Initializable {
                 comboBoxSubTipos.getItems().add(subtipo);
             }
         } catch (SQLException e) {
-            e.printStackTrace();
-            not.error("ERROR SQL", "" + e.getMessage()
-                    + "en actualizarSubtipos --- CrearExperienciaController");
+            not.error("ERROR", "No se ha podido conectar con la base de datos");
         }
         cargarTodasActividades();
     }
@@ -463,7 +457,6 @@ public class CrearExperienciaController implements Initializable {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
             not.error("Error", "No ha podido insertarse la experiencia en la BD");
         }
 

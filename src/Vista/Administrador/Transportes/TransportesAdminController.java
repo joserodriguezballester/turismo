@@ -88,8 +88,7 @@ public class TransportesAdminController implements Initializable {
             TreeItem<String> tarjetas = new TreeItem<>("Tarjetas");
             tarjetasTV.setRoot(tarjetas);
         } catch (SQLException ex) {
-            not.error("ERROR SQL", "" + ex.getMessage() + 
-                    "en  initialize --- TransportesAdminController");
+            not.error("ERROR", "Error al conectar con la base de datos");
         }
 
     }

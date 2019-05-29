@@ -224,13 +224,13 @@ public class ExperienciaAdminController implements Initializable {
             
         
         if(textUsuario.getText().isEmpty()){
-            not.error("ERROR IDUSUARIO DESCONOCIDO", "El idUsuario no existe, debe ser\n"
+            not.alert("ERROR IDUSUARIO DESCONOCIDO", "El idUsuario no existe, debe ser\n"
                     + " un usuario que exista en la DB experiencias");          
         }
         else{
             if(validar.validarNumEntero(textUsuario.getText()) == 0){
                 general = false;
-                not.error("ERROR CAMPO IDUSUARIO VACIO", "No puede estar vacio");
+                not.alert("ERROR CAMPO ID USUARIO VACIO", "No puede estar vacio");
             }
             else{
                 idUsuario = Integer.parseInt(textUsuario.getText());
@@ -242,14 +242,14 @@ public class ExperienciaAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
+            not.alert("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
         }
         descripcion = textDescripcion.getText();           
         fechaTope = fechaTopeValidez.getValue();
         if(fechaTope != null){
             if(validar.validarFechaLD(fechaTope) == true){
                 general =  false;
-                not.error("ERROR FECHA SELECCIONADA", "No puede ser una fecha anterior a la actual");
+                not.alert("ERROR FECHA SELECCIONADA", "No puede ser una fecha anterior a la actual");
             }
             else{
                 textFecha.setText(fechaTope.toString());
@@ -257,7 +257,7 @@ public class ExperienciaAdminController implements Initializable {
         }
         else{
             general = false;
-            not.error("ERROR CAMPO FECHA VACIO", "No puede estar vacio");
+            not.alert("ERROR CAMPO FECHA VACIO", "No puede estar vacio");
         }                    
         foto = textFoto.getText();
         if(foto.isEmpty()){
@@ -269,7 +269,7 @@ public class ExperienciaAdminController implements Initializable {
             }
             else{
                 general = false;
-                not.error("ERROR DE FORMATO FOTO","La extensión no es válida");
+                not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
             }
         }
             
@@ -280,17 +280,17 @@ public class ExperienciaAdminController implements Initializable {
                 ok = experienDAO.insertarExperiencia(nueva);
 
             } catch (SQLException ex) {
-                not.error("ERROR SQL", "Verifica el código");
+                not.error("ERROR", "Error al intentar conectar con la base de datos");
                 ex.getStackTrace();
             } catch (java.time.DateTimeException dt){
-                not.error("ERROR EN FECHA TOPE", "Formato de fecha invalido");
+                not.alert("ERROR EN FECHA TOPE", "Formato de fecha invalido");
             }
 
             if(ok){
                 not.confirm("INSERTAR REGISTRO", "Operación realizada con exito");
             }
             else{
-                not.confirm("ERRO AL INSERTAR REGISTRO", "Operación fallida");
+                not.alert("ERROR AL INSERTAR REGISTRO", "Operación fallida");
             }
         }
         else{
@@ -339,15 +339,15 @@ public class ExperienciaAdminController implements Initializable {
             ok = eaDAO.insertarActividadExperiencia(acEx);
                 
         } catch (SQLException ex) {
-            not.error("ERROR SQL", "Error al insertar un registro en la tabla ActividadExperiencia");
+            not.error("ERROR", "Error al insertar un registro en la tabla ActividadExperiencia");
         } catch (java.time.format.DateTimeParseException dt){           
-            not.error("ERROR EN EL FORMATO FECHA", "El formato de fecha no es correcto\n"
+            not.alert("ERROR EN EL FORMATO FECHA", "El formato de fecha no es correcto\n"
                     + " debe se asi --->  yyyy-MM-ddTHH:mm:ss  ");
         } catch (NumberFormatException nf) { 
             if(nf.getCause() == null && (nf.getMessage().equals("empty String") ||
                     (nf.getMessage().equals("For input string: \" \"")) ||
                     (nf.getMessage().equals("For input string: \"\"")))){
-                not.error("ERROR CAMPO DE TEXTO VACIO","Verifica los campos de texto"
+                not.alert("ERROR CAMPO DE TEXTO VACIO","Verifica los campos de texto"
                       + " \n no pueden estar vacios");
                               
             }    
@@ -356,21 +356,20 @@ public class ExperienciaAdminController implements Initializable {
                     (nf.getMessage().equals("For input string: \""+ textIdActividad.getText() +"\"")) ||
                     (nf.getMessage().equals("For input string: \""+ textPrecio.getText() +"\"")) ||
                     (nf.getMessage().equals("For input string: \""+ textNumPlazas.getText() +"\""))){
-                        not.error("ERROR FORMATO NUMERICO", "No introducir texto en los siguientes "
+                        not.alert("ERROR FORMATO NUMERICO", "No introducir texto en los siguientes "
                        + "campos\n: Orden, idExperiencia, idActividad, precio, numPlazas"); 
             }
             else{
-                
-                    not.error("ERROR DE OTRO TIPO","Verifica los campos de texto"
+                    not.alert("ERROR DE OTRO TIPO","Verifica los campos de texto"
                       + " \n algo raro ha ocurrido");
             }     
         }   
        
         if(ok){
-            not.info("INSERTAR DB TURISMO","Operación realizada con éxito");
+            not.confirm("INSERTAR DB TURISMO","Operación realizada con éxito");
         }
         else {
-            not.info("INSERTAR DB TURISMO", "No se pudo insertar el registro");
+            not.alert("INSERTAR DB TURISMO", "No se pudo insertar el registro");
         }
         return listaActividadExperiencia;
     }
@@ -388,14 +387,14 @@ public class ExperienciaAdminController implements Initializable {
         experiencia = tableView.getSelectionModel().getSelectedItem();
         
         if(textUsuario.getText().isEmpty()){
-            not.error("ERROR IDUSUARIO DESCONOCIDO", "El idUsuario no existe, debe ser\n"
+            not.error("ERROR ID USUARIO DESCONOCIDO", "El idUsuario no existe, debe ser\n"
                     + " un usuario que exista en la tabla experiencias");
             general = false;
         }
         else{
             if(validar.validarNumEntero(textUsuario.getText()) == 0){
                 general = false;
-                not.error("ERROR CAMPO IDUSUARIO VACIO", "No puede estar vacio");
+                not.alert("ERROR CAMPO IDUSUARIO VACIO", "No puede estar vacio");
             }
             else{
                 idUsuario = Integer.parseInt(textUsuario.getText());
@@ -407,14 +406,14 @@ public class ExperienciaAdminController implements Initializable {
         }
         else {
             general = false;
-            not.error("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
+            not.alert("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
         }
         descripcion = textDescripcion.getText();           
         fechaTope = fechaTopeValidez.getValue();
         if(fechaTope != null){
             if(validar.validarFechaLD(fechaTope) == true){
                 general =  false;
-                not.error("ERROR FECHA SELECCIONADA", "No puede ser una fecha anterior a la actual");
+                not.alert("ERROR FECHA SELECCIONADA", "No puede ser una fecha anterior a la actual");
             }
             else{
                 textFecha.setText(fechaTope.toString());
@@ -422,7 +421,7 @@ public class ExperienciaAdminController implements Initializable {
         }
         else{
             general = false;
-            not.error("ERROR CAMPO FECHA VACIO", "No puede estar vacio");
+            not.alert("ERROR CAMPO FECHA VACIO", "No puede estar vacio");
         }                    
         foto = textFoto.getText();
         if(foto.isEmpty()){
@@ -434,7 +433,7 @@ public class ExperienciaAdminController implements Initializable {
             }
             else{
                 general = false;
-                not.error("ERROR DE FORMATO FOTO","La extensión no es válida");
+                not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
             }
         }
         String idAux = String.valueOf(experiencia.getId());
@@ -446,7 +445,7 @@ public class ExperienciaAdminController implements Initializable {
         else{
             if(validar.validarNumEntero(textExperiencia.getText()) == 0){
                 general = false;
-                not.error("ERROR CAMPO ID VACIO", "No puede estar vacio");
+                not.alert("ERROR CAMPO ID VACIO", "No puede estar vacio");
             }
             else{
                 id = Integer.parseInt(textExperiencia.getText());
@@ -458,22 +457,22 @@ public class ExperienciaAdminController implements Initializable {
             ok = experienDAO.modificarExperiencia(idUsuario,nombre,descripcion,fechaTope,foto,id);
             
             } catch(SQLException ex){
-                not.error("SQL ERROR", "Error al modificar en tabla Experiencias, Verifica tu código");
+                not.error("ERROR", "Error al modificar en tabla Experiencias");
             } catch(DateTimeParseException dt){
                 String valor = "Text '' could not be parsed at index 0";
                 if(dt.equals(valor)){
-                    not.confirm("FORMATO FECHA INVALIDO", "Debes introducir un formato como este yyyy-MM-dd");
+                    not.alert("FORMATO FECHA INVALIDO", "Debes introducir un formato como este yyyy-MM-dd");
                 }
             }        
             if(ok){
                 not.confirm("MODIFICAR EXPERIENCIA","Operación realizada con éxito");
             }
             else {
-                not.error("FORMATO FECHA INVALIDO", "Debes introducir un formato de fecha \ncomo este --> yyyy-MM-dd");
+                not.alert("FORMATO FECHA INVALIDO", "Debes introducir un formato de fecha \ncomo este --> yyyy-MM-dd");
             } 
         }
         else{
-            not.error("ERROR AL MODIFICAR LA TABLA EXPERIENCIAS", "");
+            not.error("ERROR ", "AL MODIFICAR LA TABLA EXPERIENCIAS");
         }       
     }
     
@@ -499,15 +498,15 @@ public class ExperienciaAdminController implements Initializable {
             
             ok = eaDAO.modificarActividadExperiencia(orden, idExperiencia, idActividad, fechaInicio, fechaFinal, precio, numPlazas);
         } catch (SQLException ex) {
-            not.error("ERROR SQL", "Error al modificar un registro en la tabla ActividadExperiencia");
+            not.error("ERROR", "Error al modificar un registro en la tabla ActividadExperiencia");
         } catch (java.time.format.DateTimeParseException dt){           
-            not.error("ERROR EN EL FORMATO FECHA", "El formato de fecha no es correcto\n"
+            not.alert("ERROR EN EL FORMATO FECHA", "El formato de fecha no es correcto\n"
                     + " debe se asi --->  yyyy-MM-ddTHH:mm:ss  ");
         } catch (NumberFormatException nf) { 
             if(nf.getCause() == null && (nf.getMessage().equals("empty String") ||
                     (nf.getMessage().equals("For input string: \" \"")) ||
                     (nf.getMessage().equals("For input string: \"\"")))){
-                not.error("ERROR CAMPO DE TEXTO VACIO","Verifica los campos de texto"
+                not.alert("ERROR CAMPO DE TEXTO VACIO","Verifica los campos de texto"
                       + " \n no pueden estar vacios");
                               
             }    
@@ -516,21 +515,20 @@ public class ExperienciaAdminController implements Initializable {
                     (nf.getMessage().equals("For input string: \""+ textIdActividad.getText() +"\"")) ||
                     (nf.getMessage().equals("For input string: \""+ textPrecio.getText() +"\"")) ||
                     (nf.getMessage().equals("For input string: \""+ textNumPlazas.getText() +"\""))){
-                        not.error("ERROR FORMATO NUMERICO", "No introducir texto en los siguientes "
+                        not.alert("ERROR FORMATO NUMERICO", "No introducir texto en los siguientes "
                        + "campos\n: Orden, idExperiencia, idActividad, precio, numPlazas"); 
             }
             else{
-                
                     not.error("ERROR DE OTRO TIPO","Verifica los campos de texto"
                       + " \n algo raro ha ocurrido");
             }     
         }   
        
         if(ok){
-            not.info("MODIFICAR DB TURISMO","Operación realizada con éxito");
+            not.confirm("MODIFICAR DB TURISMO","Operación realizada con éxito");
         }
         else {
-            not.info("MODIFICAR DB TURISMO", "No se pudo insertar el registro");
+            not.alert("MODIFICAR DB TURISMO", "No se pudo insertar el registro");
         }      
     }
  
@@ -544,7 +542,7 @@ public class ExperienciaAdminController implements Initializable {
         id = experiencia.getId();
         
         ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO " + id + " EN LA TABLA EXPERIENCIAS",
-                "¿ESTAS SEGURO !!! ?\n Confirma presionando Aceptar");
+                "¿ESTAS SEGURO !!! ?");
         
         if(ok){
             try {
@@ -554,8 +552,7 @@ public class ExperienciaAdminController implements Initializable {
                     " Operación realizada con éxito");
                 }
             } catch (SQLException ex) {
-                not.error("ERROR SQL", "" + ex.getMessage()
-                        + "Error al eliminar el registro "+ id + " de tabla experiencias");
+                not.error("ERROR", "Error al eliminar el registro "+ id + " de tabla experiencias");
             }
         }
 
@@ -570,7 +567,7 @@ public class ExperienciaAdminController implements Initializable {
         orden = actExperiencia.getOrden();
         
             ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO CON NUMERO DE ORDEN " + orden + "",
-                "¿ESTAS SEGURO !!! ?\n Confirma presionando Aceptar");
+                "¿ESTAS SEGURO !!! ?");
         
         if(ok){
             try {
@@ -580,8 +577,7 @@ public class ExperienciaAdminController implements Initializable {
                     " Operación realizada con éxito");
                 }
             } catch (SQLException ex) {
-                not.error("ERROR SQL", "" + ex.getMessage()
-                        + "Error al eliminar el registro "+ orden + " de tabla experiencia actividad");
+                not.error("ERROR", "Error al eliminar el registro "+ orden + " de tabla experiencia actividad");
             }
         }
         
@@ -622,8 +618,7 @@ public class ExperienciaAdminController implements Initializable {
             tb_idUsuario.setCellValueFactory(new PropertyValueFactory<>("idUsuario"));
             
         } catch(SQLException es){
-            not.error("ERROR SQL","" + es.getMessage() + 
-                    "Error al listar informacion de experiencias");
+            not.error("ERROR SQL", "Error al listar informacion de experiencias");
         }
     }
     

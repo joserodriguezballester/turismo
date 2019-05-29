@@ -46,6 +46,13 @@ import javafx.stage.Stage;
  */
 public class PerfilAdminController implements Initializable {
 
+    private GestionBD gestion;
+    private ObservableList<Usuario> usuarios;
+    private usuariosDAO usuarioDAO;
+    private ObservableList<String> rolOL;
+    private Notificacion not;
+    private Usuario usuario;
+    //    private TextField rolTF;
     @FXML
     private Button botonAñadir;
     @FXML
@@ -70,12 +77,8 @@ public class PerfilAdminController implements Initializable {
     private TableColumn<Usuario, String> emailTC;
     @FXML
     private TableColumn<Usuario, LocalDate> fecNacTC;
-     @FXML
-    private TableColumn<Usuario,String> archivoTC;
-
-    private GestionBD gestion;
-    private ObservableList<Usuario> usuarios;
-    private usuariosDAO usuarioDAO;
+    @FXML
+    private TableColumn<Usuario,String> archivoTC; 
     @FXML
     private TableView<Usuario> usuariosTV;
     @FXML
@@ -92,13 +95,10 @@ public class PerfilAdminController implements Initializable {
     private TextField emailTF;
     @FXML
     private TextField dniTF;
-//    private TextField rolTF;
     @FXML
     private Label id_invisibleTF;
     @FXML
     private JFXComboBox<String> rolCB;
-    private ObservableList<String> rolOL;
-    private Notificacion not;
     @FXML
     private JFXDatePicker fecNacDP;
     @FXML
@@ -107,7 +107,6 @@ public class PerfilAdminController implements Initializable {
     private ImageView caraIV;
     @FXML
     private JFXTextField archivoTF;
-    private Usuario usuario;
     @FXML
     private AnchorPane Ventana;
     @FXML
@@ -177,8 +176,7 @@ public class PerfilAdminController implements Initializable {
             escena.setScene(new Scene(root));
             escena.showAndWait();
         } catch (IOException ex) {
-            not.error("ERROR IOException", "" + ex.getMessage()
-                    + " en anadir() --- PerfilAdminController");
+            not.error("ERROR", " No se encuentra la ventana de Registrar");
         }
         recargarlista();
     }
@@ -205,13 +203,11 @@ public class PerfilAdminController implements Initializable {
                 cargarTabla(rolCB.getValue()); //asi hemos recargado la lista
                 not.confirm("Modificado", "Se ha modificado con exito");
             } else {
-                not.error("Modificado", "No se ha modificado con exito");
+                not.alert("Modificado", "No se ha modificado con exito");
             }
 
         } catch (SQLException ex) {
-          
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " en modificar() --- PerfilAdminController");
+          not.error("ERROR", "Error al intentar conectar con la base de datos");
         }
     }   //////falta controlar campos, comprobar que introduce todos en particular foto y rol
 
@@ -219,16 +215,16 @@ public class PerfilAdminController implements Initializable {
     private void borrar(ActionEvent event) {
 //        int id = Integer.valueOf(id_invisibleTF.getText());
         if (usuario != null) {
-            not.confirm("Borrar","Seguro que quieres borrar este usuario");         //////*******esta not no vale.
+            not.alertWarningDelete("Borrar","Seguro que quieres borrar este usuario");         //////*******esta not no vale.
             int id = usuario.getId();
             try {
                 usuarioDAO.borrarUsuario(id);
             } catch (SQLException ex) {
-                not.alert("Error SQL", "Error al borrar");
+                not.alert("ERROR", " No se ha podido borrar");
             }
             recargarlista();
         }else{
-            not.info("Borrar","no has seleccionado ningun usuario");
+            not.alert("Borrar","no has seleccionado ningun usuario");
         }
     }       //// Pracicamente acabado falta que la ventana de confirmacion     
 
@@ -254,9 +250,7 @@ public class PerfilAdminController implements Initializable {
             cargarUsuarios(lista);
 
         } catch (SQLException ex) {
-              ex.printStackTrace();
-            not.error("ERROR SQL", "" + ex.getMessage()
-                    + " en cargarTabla() --- PerfilAdminController");
+            not.error("ERROR", "Error al intentar conectar con la base de datos");
         }
     }
 

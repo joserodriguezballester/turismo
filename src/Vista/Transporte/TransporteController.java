@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Vista.Transporte;
 
 import Datos.Bda.GestionBD;
@@ -26,22 +21,21 @@ import javafx.util.Duration;
 
 public class TransporteController implements Initializable {
 
-    @FXML
-    private ImageView imagTarj;
-
     private static GestionBD gestion;
     private Connection conn;
     private TransportesDAO transDAO;
     private Transporte transporte;
     private Notificacion not;
-
     private List<Transporte> listaTransporte = new ArrayList<>();
+    
     @FXML
     private TreeView<String> informacionTV;
     @FXML
     private AnchorPane fondoUsuario;
     @FXML
     private AnchorPane frenteAP;
+    @FXML
+    private ImageView imagTarj;
 
     public void setConn(Connection conn) {
         this.conn = conn;

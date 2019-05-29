@@ -2,19 +2,16 @@ package Modelo;
 
 import java.util.Optional;
 import javafx.application.Platform;
-
 import com.jfoenix.controls.JFXDialog;
 import com.jfoenix.controls.JFXDialogLayout;
 import eu.hansolo.enzo.notification.Notification;
 import eu.hansolo.enzo.notification.Notification.Notifier;
 import java.io.File;
 import java.net.URL;
-
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,7 +22,6 @@ import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
-
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,7 +31,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
 import javafx.util.Duration;
 import javafx.util.Pair;
 import org.controlsfx.control.Notifications;
@@ -43,27 +38,31 @@ import org.controlsfx.control.Notifications;
 public class Notificacion {
 
     public void info(String titulo, String mensaje) {
+        Image img = new Image("/Imagenes/iconos/info.png");
+        ImageView imgV = new ImageView(img);
+        imgV.setFitHeight(30);
+        imgV.setFitWidth(30);
+
         Notifications notification = Notifications.create()
                 .title(titulo)
                 .text(mensaje)
-                .graphic(null)
-                .hideAfter(Duration.seconds(20))
-                .position(Pos.TOP_CENTER)
+                .graphic(imgV)
+                .hideAfter(Duration.seconds(3))
+                .position(Pos.BOTTOM_RIGHT)
                 .onAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent arg0) {
-//                System.out.println("Not supported yet.");
                     }
 
                 });
 
-        notification.showInformation();
+        notification.darkStyle();
         notification.show();
     }
 
     public void confirm(String titulo, String mensaje) {
 
-        Image img = new Image("/Imagenes/iconos/info.png");
+        Image img = new Image("/Imagenes/iconos/tick.png");
         ImageView imgV = new ImageView(img);
         imgV.setFitHeight(30);
         imgV.setFitWidth(30);

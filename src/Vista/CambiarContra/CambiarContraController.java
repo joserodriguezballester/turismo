@@ -37,6 +37,13 @@ import org.jasypt.util.password.PasswordEncryptor;
  */
 public class CambiarContraController implements Initializable {
 
+    private String nick;
+    private usuariosDAO usuarioDAO;
+    private Notificacion not;
+    private Usuario usuario;
+    private String contrasenyaNueva;
+    private boolean exito = false;
+    
     @FXML
     private JFXPasswordField antiguaPW;
     @FXML
@@ -51,13 +58,6 @@ public class CambiarContraController implements Initializable {
     private AnchorPane anchorFondo;
     @FXML
     private Pane paneContra;
-
-    private String nick;
-    private usuariosDAO usuarioDAO;
-    private Notificacion not;
-    private Usuario usuario;
-    private String contrasenyaNueva;
-
     @FXML
     private Label antiguaL;
     @FXML
@@ -109,17 +109,13 @@ public class CambiarContraController implements Initializable {
                         PasswordEncryptor encryptor = new BasicPasswordEncryptor();
                         String contrasenaEncriptada = encryptor.encryptPassword(contrasenyaNueva);
                         if ((usuarioDAO.introducirContra(contrasenaEncriptada, nick)) == true) {
-                            not.alert("ERROR",
-                                    "La contraseña se ha guardado");
-
-                            TimeUnit.SECONDS.sleep(3);
-
+                            exito = true;
+                            
                             cerrarVentana();
                         }
 
                     } catch (SQLException ex) {
-                        not.alert("ERROR",
-                                "No se ha podido cambiar la Contraseña");
+                        not.alert("ERROR","No se ha podido cambiar la Contraseña");
                         nuevaPW.setText("");
                         repetirNuevaPW.setText("");
                     }
@@ -134,15 +130,13 @@ public class CambiarContraController implements Initializable {
 
                 }
             } else {
-                not.alert("ERROR",
-                        "Contraseña incorrecta");
+                not.alert("ERROR", "Contraseña incorrecta");
                 antiguaL.setStyle("-fx-text-fill: red");
                 antiguaPW.setText("");
             }
 
         }else{
-            not.alert("ERROR",
-                        "Campos Vacios");
+            not.alert("ERROR", "Campos Vacios");
         }
     }
 
@@ -176,8 +170,7 @@ public class CambiarContraController implements Initializable {
             contrasenaBD = usuarioDAO.obtenerContra(nick);
 
         } catch (SQLException ex) {
-            not.alert("ERROR IOException",
-                    "en CambiarContra() --- CambiarContraController");
+            not.error("ERROR", "Error al conectar con la DB Turismo");
         }
         checkPassword = encryptor.checkPassword(contrasena, contrasenaBD);
         return checkPassword;
@@ -188,21 +181,23 @@ public class CambiarContraController implements Initializable {
         contrasenyaNueva = nuevaPW.getText();
         if (contrasenyaNueva.equals(repetirNuevaPW.getText())) {
             if (contrasenyaNueva.equals("")) {
-                not.alert("ERROR",
-                        "Los campos estan vacios");
+                not.alert("ERROR", "Los campos estan vacios");
                 iguales = false;
             } else {
 
                 iguales = true;
             }
         } else {
-            not.alert("ERROR",
-                    "Las contraseñas no coinciden");
+            not.error("ERROR", "Las contraseñas no coinciden");
             nuevaContraL.setStyle("-fx-text-fill: red");
             repetirContraL.setStyle("-fx-text-fill: red");
         }
 
         return iguales;
+    }
+    
+    public boolean conseguido(){
+        return exito;
     }
 
 }
