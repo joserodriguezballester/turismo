@@ -29,6 +29,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javax.mail.MessagingException;
 import org.controlsfx.control.Notifications;
 
@@ -65,6 +66,14 @@ public class ContactarController implements Initializable {
     private TextField passgmail;
     @FXML
     private TextField asuntoTA;
+    @FXML
+    private Pane paneContacto;
+    @FXML
+    private Pane barra;
+    @FXML
+    private Pane paneImg;
+    @FXML
+    private Label nickL1;
     
 
     /**
@@ -82,12 +91,16 @@ public class ContactarController implements Initializable {
         Image img = new Image("Imagenes/fondoContactar.jpg");
         ImageView imagev = new ImageView(img);
 
-         imagev.setFitHeight(230);
+        imagev.setFitHeight(230);
         imagev.setFitWidth(1300);
 
         imagev.setOpacity(0.7); 
         this.fondoUsuario.getChildren().add(imagev);
         imagev.toBack();
+        paneImg.toFront();
+        
+        paneContacto.getStyleClass().add("paneActividadBuscador");
+        barra.getStyleClass().add("barraPerfil");
     }
 
     @FXML
@@ -119,7 +132,7 @@ public class ContactarController implements Initializable {
         }
         guiasOL.addAll(guiasL);
         guiasLV.setItems(guiasOL);
-        nickL.setText("");
+        nickL.setText("Contactanos");
         telefL.setText("");
         caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));         
     }

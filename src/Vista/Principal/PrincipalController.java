@@ -257,6 +257,7 @@ public class PrincipalController implements Initializable {
             not.error("Error", "Error al cargar la ventana Inicio");
         }
     }
+    
 
     @FXML
     private void irActividad(ActionEvent event) {
@@ -439,7 +440,7 @@ public class PrincipalController implements Initializable {
         this.principalController = principalController;
     }
 
-    private void efectoTransicion() {
+    public void efectoTransicion() {
         try {
             Transicion tr = new Transicion();
             tr.setRoot(Ventana);

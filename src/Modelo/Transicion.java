@@ -65,6 +65,7 @@ public class Transicion {
             } else {
                 duracionFadeIn = 1500;
             }
+
             
 //            if ((i == (slides.size())) || (i == (slides.size()-1)) || (i == 0)){
 //                duracionFadeOut = 0.1;
