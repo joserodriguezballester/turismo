@@ -279,6 +279,8 @@ public class ActividadAdminController implements Initializable {
         Actividad actividad = null;
         
         String nombre, descripcion, horario, direccion, url, telefono, foto;
+        
+        limpiar();
 
         actividad = tableview.getSelectionModel().getSelectedItem();
 
@@ -303,6 +305,8 @@ public class ActividadAdminController implements Initializable {
         textTelefono.setText(telefono);
         textFoto.setText(foto);
         textIdTipo.setText(String.valueOf(idsubTipo));
+        
+        
 
         try {
             if (foto == null) {
@@ -318,6 +322,7 @@ public class ActividadAdminController implements Initializable {
             not.error("NO SE ENCUENTRA ESA IMAGEN EN EL ARCHIVO DE IMAGENES", 
                     " Error al no encontrar la ruta de las imagenes");
         }
+        
     }
 
 /// ----------------------------- INSERTAR -------------------------------         
@@ -327,11 +332,8 @@ public class ActividadAdminController implements Initializable {
         double precio;
         String nombre, descripcion, horario, url, direccion, telefono, foto;
         boolean ok = false;
-        boolean general = true;
         
         
-        actividad = tableview.getSelectionModel().getSelectedItem();
-        id = actividad.getId();
         nombre = textNombre.getText();
         descripcion = textDescripcion.getText();       
         horario = textHorario.getText();       
@@ -341,148 +343,162 @@ public class ActividadAdminController implements Initializable {
         telefono = textTelefono.getText();
         foto = textFoto.getText();
         idsubTipo = validar.validarNumEntero(textIdTipo.getText());
-            
+        
+        boolean general = comprobarActividad();
+       
         if(general){
             try {
-                Actividad act = new Actividad(id, nombre, precio, horario,
-                        descripcion, url, direccion, telefono, foto, idsubTipo);
-                ok = activiDAO.insertarActividad(act);
+            Actividad act = new Actividad(id, nombre, precio, horario,
+                    descripcion, url, direccion, telefono, foto, idsubTipo);
+            ok = activiDAO.insertarActividad(act);
             } catch (SQLException ex) {
                 not.error("ERROR SQL", " Error al insertar un registro en DB turismo");
             }
             if (ok == true) {
-                not.confirm("INSERTAR CON EXITO EN LA TABLA ACTIVIDADES",
+                not.confirm("REGISTRO INSERTADO CON EXITO EN LA TABLA ACTIVIDADES",
                         " La operación se ha realizado con éxito");
             } else {
-                not.alert("INSERTAR SIN EXITO EN TABLA ACTIVIDADES",
+                not.alert("REGISTRO INSERTADO SIN EXITO EN TABLA ACTIVIDADES",
                         " No se ha insertado el registro");
-            }
-        }
-        else {
-            not.error("ERROR ","AL INSERTAR ACTIVIDAD");
-        }
+            } 
+        }                
     }
 
 // -------------------------------- ACTUALIZAR --------------------------
     private void actualizar() {
-        ValidarCampos validar = new ValidarCampos();
-        boolean general = comprobarActividad();
+        ValidarCampos validar = new ValidarCampos();        
         boolean ok = false;
-        int id = 0, idsubTipo;
+        int id , idsubTipo;
         double precio;
         String nombre, descripcion, horario, direccion, url, telefono, foto;
                 
         actividad = tableview.getSelectionModel().getSelectedItem();
-        id = actividad.getId();
-        nombre = textNombre.getText();
-        descripcion = textDescripcion.getText();       
-        horario = textHorario.getText();       
-        precio = validar.validarNumDecimal(textPrecio.getText());
-        direccion = textDireccion.getText();       
-        url = textUrl.getText();
-        telefono = textTelefono.getText();
-        foto = textFoto.getText();
-        idsubTipo = validar.validarNumEntero(textIdTipo.getText());
-               
-        if(general){
-            try {
-                ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
-                        url, direccion, telefono, foto, idsubTipo);
-            } catch (SQLException ex) {
-                not.error("ERROR SQL", " Error al modificar la actividad en DB turismo");
+        System.out.println("Actividad Actualizar: " +  actividad);
+        if(actividad != null){
+            id = actividad.getId();
+            nombre = textNombre.getText();
+            descripcion = textDescripcion.getText();       
+            horario = textHorario.getText();       
+            precio = validar.validarNumDecimal(textPrecio.getText());
+            direccion = textDireccion.getText();       
+            url = textUrl.getText();
+            telefono = textTelefono.getText();
+            foto = textFoto.getText();
+            idsubTipo = validar.validarNumEntero(textIdTipo.getText());
+            
+            boolean general = comprobarActividad();
+
+            if(general){
+                try {
+                    ok = activiDAO.modificarActividad(id, nombre, precio, horario, descripcion,
+                            url, direccion, telefono, foto, idsubTipo);
+                } catch (SQLException ex) {
+                    not.error("ERROR SQL", " Error al modificar la actividad en DB turismo");
+                }
+                if (ok) {
+                    not.confirm("SE HA ACTUALIZADO CON EXITO EN LA TABLA ACTIVIDADES",
+                            " Operación realizada con éxito");
+                } else {
+                    not.alert("NO SE HA ACTUALIZADO LA TABLA ACTIVIDADES",
+                            " No se ha modificado el registro");
+                } 
             }
-            if (ok) {
-                not.confirm("ACTUALIZAR CON EXITO EN LA TABLA ACTIVIDADES",
-                        " Operación realizada con éxito");
-            } else {
-                not.alert("ACTUALIZAR SIN EXITO EN TABLA ACTIVIDADES",
-                        " No se ha modificado el registro");
-            } 
+            else {
+                not.error("ERROR ","AL MODIFICAR ACTIVIDAD");
+            }
         }
-        else {
-            not.error("ERROR ","AL MODIFICAR ACTIVIDAD");
+        else{
+            not.error("ERROR NO HAY ACTIVIDAD SELECCIONADA", "Selecciona una actividad");
         }
     }
     
     private boolean comprobarActividad(){
-        boolean ok = true;
         ValidarCampos validar = new ValidarCampos();
         boolean general = true;
-        int id = 0, idsubTipo;
+        int idsubTipo;
         double precio;
         String nombre, descripcion, horario, direccion, url, telefono, foto;
-                
-        actividad = tableview.getSelectionModel().getSelectedItem();
-     
+                    
         nombre = textNombre.getText();
-        if(!nombre.isEmpty()){
-
-        }
-        else {
+        if(nombre.isEmpty()){           
             general = false;
             not.alert("ERROR CAMPO NOMBRE VACIO","No puede estar vacio");
+            textNombre.setStyle("-fx-background-color: tomato");
+        }
+        else {
+            System.out.println("Nombre: " + nombre);
+            textNombre.setStyle("-fx-background-color: white");
         }
         descripcion = textDescripcion.getText();       
         horario = textHorario.getText();       
         precio = validar.validarNumDecimal(textPrecio.getText());
-        if(precio != 0.0){
-            
-        }
-        else {
+        if(precio == 0.0){
             general = false;
             not.alert("ERROR DE FORMATO PRECIO","No puede estar vacio");
+            textPrecio.setStyle("-fx-background-color: tomato");
+        }
+        else {
+            System.out.println("Precio: " + precio);
+            textPrecio.setStyle("-fx-background-color: white");
         }
         direccion = textDireccion.getText();       
         url = textUrl.getText();
-        if(url.isEmpty()){
-            
-        }
-        else{
+        if(!url.isEmpty()){           
             if(validar.isURL(url ) == true){
-           
-        }
+                textUrl.setStyle("-fx-background-color: white");
+            }
             else {
                 general = false;
                 not.error("ERROR DE URL NO VALIDA", "URL incorrecta o no existe");
-            } 
-        }       
-        telefono = textTelefono.getText();
-        if(telefono.isEmpty()){
-            
+                textUrl.setStyle("-fx-background-color: tomato");
+            }
         }
         else{
+            System.out.println("URL: " + url);
+            textUrl.setStyle("-fx-background-color: white");
+        }       
+        telefono = textTelefono.getText();
+        if(!telefono.isEmpty()){            
             if(validar.comprobarTelefono(telefono) == true){
-            
+                textTelefono.setStyle("-fx-background-color: white");
             }
             else {
                 general = false;
                 not.alert("ERROR DE FORMATO TELEFONO","No es un telefono valido");
+                textTelefono.setStyle("-fx-background-color: tomato");
             }
-        }        
-        foto = textFoto.getText();
-        if(foto.isEmpty()){
-            
         }
         else{
+            System.out.println("Telefono: " + telefono);
+            textTelefono.setStyle("-fx-background-color: white");
+        }        
+        foto = textFoto.getText();
+        if(!foto.isEmpty()){           
             if(validar.validarFoto(foto) == true){
-                
+                textFoto.setStyle("-fx-background-color: white");
             }
             else{
                 general = false;
                 not.alert("ERROR DE FORMATO FOTO","La extensión no es válida");
+                textFoto.setStyle("-fx-background-color: tomato");
             }
         }
+        else{
+            System.out.println("Foto: " + foto);
+            textFoto.setStyle("-fx-background-color: white");
+        }
         idsubTipo = validar.validarNumEntero(textIdTipo.getText());
-        if(idsubTipo != 0){
-            
+        if(idsubTipo == 0){           
+            general = false;
+            not.alert("ERROR CAMPO ID TIPO VACIO","No puede estar vacio");
+            textIdTipo.setStyle("-fx-background-color: tomato");
         }
         else {
-            general = false;
-            not.alert("ERROR DE FORMATO NUMERO ENTERO","No puede estar vacio");
+            System.out.println("IdSubTipo: " + idsubTipo);
+            textIdTipo.setStyle("-fx-background-color: white");
         }
-        
-        
-        return ok;
+               
+        return general;
     }
 
 // -------------------------------- ELIMINAR ----------------------------
@@ -494,25 +510,31 @@ public class ActividadAdminController implements Initializable {
         System.out.println("ACTIVIDAD: " + actividad);
         id = actividad.getId();
         
-        ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO " + id + "",
-                "¿Estas seguro !!!?");
+        if(actividad != null){
         
-        if(ok){
-            try {
-                activiDAO.borrarActividad(id);
-                if(ok){
-                    not.confirm("SE HA ELIMINADO EL REGISTRO " + id + " EN LA TABLA ACTIVIDADES", 
-                    " Operación realizada con éxito");
+            ok = not.alertWarningDelete("SE ELIMINARA EL REGISTRO " + id + "",
+                    "¿Estas seguro !!!?");
+
+            if(ok){
+                try {
+                    activiDAO.borrarActividad(id);
+                    if(ok){
+                        not.confirm("SE HA ELIMINADO EL REGISTRO " + id + " EN LA TABLA ACTIVIDADES", 
+                        " Operación realizada con éxito");
+                    }
+                } catch (SQLException ex) {
+                    not.error("ERROR", "Error al eliminar el registro "+ id + " de tabla actividades");
                 }
-            } catch (SQLException ex) {
-                not.error("ERROR", "Error al eliminar el registro "+ id + " de tabla actividades");
             }
+        }
+        else{
+            not.error("ERROR NO HAY ACTIVIDAD SELECCIONADA", "Selecciona una actividad");
         }
     }
 
 // ----------------------- LIMPIAR LOS CAMPOS DE TEXTO --------------------
     private void limpiar() {
-        textId.clear();
+//        textId.clear();
         textNombre.clear();
         textHorario.clear();
         textDescripcion.clear();
@@ -522,6 +544,14 @@ public class ActividadAdminController implements Initializable {
         textTelefono.clear();
         textFoto.clear();
         textIdTipo.clear();
+        
+        textNombre.setStyle("-fx-background-color: white");
+        textPrecio.setStyle("-fx-background-color: white");
+        textDireccion.setStyle("-fx-background-color: white");
+        textUrl.setStyle("-fx-background-color: white");
+        textTelefono.setStyle("-fx-background-color: white");
+        textFoto.setStyle("-fx-background-color: white");
+        textIdTipo.setStyle("-fx-background-color: white");
 
         imageView.setVisible(false);
 

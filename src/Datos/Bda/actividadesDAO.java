@@ -153,7 +153,7 @@ public class actividadesDAO {
             ps.setString(4, descripcion);
             ps.setString(5, url);
             ps.setString(6, direccion);
-            System.out.println("ps"+ps);
+//            System.out.println("ps"+ps);
             ps.setString(7, telefono);
             ps.setString(8, rutaFoto);
             ps.setInt(9, idSubtipo);

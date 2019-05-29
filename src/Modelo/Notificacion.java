@@ -47,8 +47,8 @@ public class Notificacion {
                 .title(titulo)
                 .text(mensaje)
                 .graphic(imgV)
-                .hideAfter(Duration.seconds(3))
-                .position(Pos.BOTTOM_RIGHT)
+                .hideAfter(Duration.seconds(15))
+                .position(Pos.BOTTOM_LEFT)
                 .onAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent arg0) {
@@ -71,8 +71,8 @@ public class Notificacion {
                 .title(titulo)
                 .text(mensaje)
                 .graphic(imgV)
-                .hideAfter(Duration.seconds(3))
-                .position(Pos.BOTTOM_RIGHT)
+                .hideAfter(Duration.seconds(15))
+                .position(Pos.TOP_RIGHT)
                 .onAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent arg0) {
@@ -94,7 +94,7 @@ public class Notificacion {
                 .title(titulo)
                 .text(mensaje)
                 .graphic(imgV)
-                .hideAfter(Duration.seconds(3))
+                .hideAfter(Duration.seconds(15))
                 .position(Pos.BOTTOM_RIGHT)
                 .onAction(new EventHandler<ActionEvent>() {
                     @Override
@@ -117,8 +117,8 @@ public class Notificacion {
                 .title(titulo)
                 .text(mensaje)
                 .graphic(imgV)
-                .hideAfter(Duration.seconds(3))
-                .position(Pos.BOTTOM_RIGHT)
+                .hideAfter(Duration.seconds(15))
+                .position(Pos.TOP_LEFT)
                 .onAction(new EventHandler<ActionEvent>() {
                     @Override
                     public void handle(ActionEvent arg0) {
