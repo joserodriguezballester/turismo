@@ -14,48 +14,49 @@
     <stylesheets>
         <URL value="@/resources/estilo.css" />
     </stylesheets>
-   <children>
-      <AnchorPane fx:id="Menu" layoutX="20.0" layoutY="20.0" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <GridPane fx:id="gridpane" layoutY="-14.0" minHeight="0.0" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints />
-               </columnConstraints>
-               <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-               </rowConstraints>
-               <children>
-                  <JFXButton fx:id="botonExperiencias" onAction="#irExperiencia" prefHeight="70.0" prefWidth="149.0" text="Experiencias" GridPane.columnIndex="2" />
-                  <JFXButton fx:id="botonTransportes" onAction="#IrPerfil" prefHeight="70.0" prefWidth="149.0" text="Perfiles" GridPane.columnIndex="3" />
-                  <JFXButton fx:id="botnSalir" onAction="#irSalir" prefHeight="70.0" prefWidth="149.0" text="Salir" GridPane.columnIndex="8" />
-                  <JFXButton fx:id="botonPerfil" alignment="CENTER_RIGHT" onAction="#IrPerfilAdmin" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="7" />
-                  <JFXButton fx:id="botonTiposSubtipos" alignment="CENTER" onAction="#irTiposSubtiposAdmin" prefHeight="70.0" prefWidth="200.0" text="Tipos y Subtipos" GridPane.columnIndex="4" GridPane.columnSpan="2" />
-                  <JFXButton fx:id="botonAgenda" alignment="CENTER" onAction="#irAgenda" prefHeight="70.0" prefWidth="200.0" text="Agenda" GridPane.columnIndex="6" />
-                  <ImageView fx:id="caraIV" fitHeight="70.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" />
-                  <JFXButton fx:id="botonInicio" onAction="#irInicio" prefHeight="70.0" prefWidth="149.0" text="Inicio" />
-                  <JFXButton fx:id="botonActividades" onAction="#irActividad" prefHeight="70.0" prefWidth="149.0" text="Actividades" GridPane.columnIndex="1" />
-                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="1" />
-                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="2" />
-                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="3" />
-                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="7" />
-                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="8" />
-                  <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="4" />
-               </children>
-            </GridPane>
-         </children>
-      </AnchorPane>
-      <AnchorPane fx:id="Ventana" layoutY="90.0" prefHeight="730.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
-         <children>
-            <Pane fx:id="taparP" layoutX="305.0" layoutY="353.0" prefHeight="470.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
-         </children></AnchorPane>
-   </children>
+    <children>
+        <AnchorPane fx:id="Menu" layoutX="20.0" layoutY="20.0" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+                <GridPane fx:id="gridpane" layoutY="-14.0" minHeight="0.0" prefHeight="70.0" prefWidth="1300.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <JFXButton fx:id="botonInicio" onAction="#irInicio" prefHeight="70.0" prefWidth="149.0" text="Inicio" />
+                        <JFXButton fx:id="botonExperiencias" onAction="#irExperiencia" prefHeight="70.0" prefWidth="149.0" text="Experiencias" GridPane.columnIndex="2" />
+                        <JFXButton fx:id="botonTransportes" onAction="#IrPerfil" prefHeight="70.0" prefWidth="149.0" text="Perfiles" GridPane.columnIndex="3" />
+                        <JFXButton fx:id="botnSalir" onAction="#irSalir" prefHeight="70.0" prefWidth="149.0" text="Salir" GridPane.columnIndex="8" />
+                        <JFXButton fx:id="botonPerfil" alignment="CENTER_RIGHT" onAction="#IrPerfilAdmin" prefHeight="70.0" prefWidth="200.0" text="Perfil" GridPane.columnIndex="7" />
+                        <JFXButton fx:id="botonTiposSubtipos" alignment="CENTER" onAction="#irTiposSubtiposAdmin" prefHeight="70.0" prefWidth="200.0" text="Tipos y Subtipos" GridPane.columnIndex="4" GridPane.columnSpan="2" />
+                        <JFXButton fx:id="botonAgenda" alignment="CENTER" onAction="#irAgenda" prefHeight="70.0" prefWidth="200.0" text="Agenda" GridPane.columnIndex="6" />
+                        <ImageView fx:id="caraIV" fitHeight="70.0" fitWidth="54.0" pickOnBounds="true" preserveRatio="true" GridPane.columnIndex="7" />
+                        <JFXButton fx:id="botonActividades" onAction="#irActividad" prefHeight="70.0" prefWidth="149.0" text="Actividades" GridPane.columnIndex="1" />
+                        <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="1" />
+                        <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="2" />
+                        <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="3" />
+                        <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="7" />
+                        <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="8" />
+                        <Line endX="-100.0" endY="40.0" startX="-100.0" GridPane.columnIndex="4" />
+                    </children>
+                </GridPane>
+            </children>
+        </AnchorPane>
+        <AnchorPane fx:id="Ventana" layoutY="90.0" prefHeight="730.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0">
+            <children>
+                <Pane fx:id="taparP" layoutX="305.0" layoutY="353.0" prefHeight="470.0" prefWidth="1300.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" />
+            </children>
+        </AnchorPane>
+    </children>
 </AnchorPane>
