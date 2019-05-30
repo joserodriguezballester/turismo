@@ -111,7 +111,7 @@ public class BuscadorController implements Initializable {
         paneFiltro.getStyleClass().add("paneExperienciaTitulo");
         comboBoxSubtipos.getStyleClass().add("combo");
         comboBoxTipos.getStyleClass().add("combo");
-        entradaPrecioMaximo.getStyleClass().add("buscador"); 
+        entradaPrecioMaximo.getStyleClass().add("buscador");
         entradaPrecioMinimo.getStyleClass().add("buscador");
         entradaBusqueda.getStyleClass().add("buscador");
 
@@ -186,7 +186,9 @@ public class BuscadorController implements Initializable {
 
     private List<Actividad> buscarActividades(List<Actividad> lista) {
         String busqueda = entradaBusqueda.getText();
-
+        if (busqueda.equals("")) {
+            busqueda = null;
+        }
         double precioMin = 0.0;
         if (!entradaPrecioMinimo.getText().equals("")) {
             try {
@@ -224,26 +226,6 @@ public class BuscadorController implements Initializable {
         return encontrados;
     }
 
-    private List<Actividad> filtrarPorPrecio(String stringPrecioMinimo, String stringPrecioMaximo, List<Actividad> lista) {
-        List<Actividad> encontrados = new ArrayList<>();
-        double precioMinimo = 0;
-        double precioMaximo = 99999;
-
-        if (!stringPrecioMinimo.equals("")) {
-            precioMinimo = Double.parseDouble(stringPrecioMinimo);
-        }
-        if (!stringPrecioMaximo.equals("")) {
-            precioMaximo = Double.parseDouble(stringPrecioMaximo);
-        }
-
-        for (Actividad act : lista) {
-            if (act.getPrecio() > precioMinimo && act.getPrecio() < precioMaximo) {
-                encontrados.add(act);
-            }
-        }
-        return encontrados;
-    }
-
     @FXML
     private void buscar(KeyEvent event) {
         cargarActividades();
@@ -256,6 +238,7 @@ public class BuscadorController implements Initializable {
 
     @FXML
     private void buscarSubtipos(ActionEvent event) {
+        comboBoxSubtipos.getItems().clear();
         try {
             comboBoxSubtipos.getItems().addAll(subDAO.consultarSubtiposporTipo(comboBoxTipos.getSelectionModel().getSelectedItem()));
         } catch (SQLException e) {

@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXDatePicker?>
 <?import java.net.URL?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -25,6 +28,18 @@
       </Label>
       <JFXDatePicker fx:id="datePickerInicio" layoutX="323.0" layoutY="84.0" />
       <JFXDatePicker fx:id="datePickerFinal" layoutX="323.0" layoutY="130.0" />
-      <JFXButton fx:id="botonComprobarAgenda" layoutX="550.0" layoutY="118.0" onAction="#cargarActividades" text="Comprobar Agenda" />
+      <JFXButton fx:id="botonComprobarAgenda" layoutX="715.0" layoutY="118.0" onAction="#cargarActividades" text="Comprobar Agenda" />
+      <TableView fx:id="tablaActividadesAgenda" layoutX="100.0" layoutY="200.0" prefHeight="480.0" prefWidth="1100.0">
+         <columns>
+            <TableColumn fx:id="columnaIdExperiencia" maxWidth="183.333" minWidth="183.333" prefWidth="183.333" resizable="false" text="Id Experiencia" />
+            <TableColumn fx:id="columnaActividad" maxWidth="183.333" minWidth="183.333" prefWidth="183.333" resizable="false" text="Actividad" />
+            <TableColumn fx:id="columnaInicio" maxWidth="183.333" minWidth="183.333" prefWidth="183.333" resizable="false" text="Inicio" />
+            <TableColumn fx:id="columnaFinal" maxWidth="183.333" minWidth="183.333" prefWidth="183.333" resizable="false" text="Final" />
+            <TableColumn fx:id="columnaPlazas" maxWidth="183.333" minWidth="183.333" prefWidth="183.333" resizable="false" text="Nº Plazas" />
+            <TableColumn fx:id="columnaPrecio" maxWidth="183.333" minWidth="183.333" prefWidth="183.333" resizable="false" text="Precio" />
+         </columns>
+      </TableView>
+      <JFXComboBox fx:id="comboTipo" layoutX="566.0" layoutY="86.0" onAction="#cargarActividadesTipo" prefWidth="100.0" promptText="Tipo" />
+      <JFXComboBox fx:id="comboSubtipo" layoutX="566.0" layoutY="132.0" prefWidth="100.0" promptText="Subtipo" />
    </children>
 </AnchorPane>

@@ -5,7 +5,6 @@
  */
 package Modelo;
 
-import java.time.Duration;
 import java.time.LocalDateTime;
 
 
@@ -20,7 +19,6 @@ public class ActividadExperiencia implements Comparable<ActividadExperiencia>{
     private Actividad actividad;
     private LocalDateTime fechaInicio;
     private LocalDateTime fechaFinal;
-//    private Duration duracion;
     private double precio;
     private int numPlazas;
 
@@ -33,17 +31,7 @@ public class ActividadExperiencia implements Comparable<ActividadExperiencia>{
         this.fechaFinal = fechaFinal;
         this.precio = precio;
         this.numPlazas = numPlazas;
-        
-//        this.duracion = Duration.between(fechaInicio, fechaFinal);
     }
-
-//    public Duration getDuracion() {
-//        return duracion;
-//    }
-//
-//    public void setDuracion(Duration duracion) {
-//        this.duracion = duracion;
-//    }
 
     public double getPrecio() {
         return precio;
