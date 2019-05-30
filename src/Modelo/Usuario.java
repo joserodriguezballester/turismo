@@ -72,11 +72,18 @@ public class Usuario implements Comparable<Usuario> {
             Path from = Paths.get(fotoFile.toURI());
             Path to = Paths.get("src/imagenes/usuarios/" + foto);
             //Files.copy(from.toFile(), to.toFile());
-            Files.copy(from.toAbsolutePath(), to.toAbsolutePath(),StandardCopyOption.REPLACE_EXISTING);            
+            Files.copy(from.toAbsolutePath(), to.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
         }
     }
-    
-    
+     public void cambiarArchivoFoto(String OldArchivo,String NewArchivo) throws IOException {
+     
+            Path from = Paths.get(OldArchivo);
+            Path to = Paths.get("src/imagenes/usuarios/" + NewArchivo);
+            //Files.copy(from.toFile(), to.toFile());
+            Files.copy(from.toAbsolutePath(), to.toAbsolutePath(), StandardCopyOption.REPLACE_EXISTING);
+        
+    }
+
 /// Poner el NICK como nombre del ARCHIVO FOTO
     public String fotoToNick() {
         if (fotoFile == null) {
@@ -89,6 +96,8 @@ public class Usuario implements Comparable<Usuario> {
         return foto;
     }
 
+    
+    
     private enum rol {
         CLIENTE, ADMINISTRADOR
     }
@@ -211,13 +220,11 @@ public class Usuario implements Comparable<Usuario> {
 //                + ", telefono=" + telefono
 //                + ", email=" + email + '}';
 //    }
-
-      @Override
+    @Override
     public String toString() {
         return nick;
     }
-    
-    
+
     @Override
     public int compareTo(Usuario us) {
         int compara;

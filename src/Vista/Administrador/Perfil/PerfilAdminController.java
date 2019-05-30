@@ -133,6 +133,8 @@ public class PerfilAdminController implements Initializable {
     private final String MAL = " -fx-text-fill:red";
     private String CORRECTO = " -fx-text-fill: rgb(56, 175, 88)"; //Verde
     private ValidarCampos validarCampos;
+    private Usuario usuarioSeleccionado;
+    private boolean cambioFoto;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -154,10 +156,6 @@ public class PerfilAdminController implements Initializable {
         usuariosTV.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> modifSelecListView(newValue));
 
-    }
-
-    public void setGestion(GestionBD gestion) {
-        this.gestion = gestion;
     }
 
     public void ejecutaAlPrincipio() {
@@ -206,7 +204,7 @@ public class PerfilAdminController implements Initializable {
 
     @FXML
     private void modificar(ActionEvent event) throws SQLException {   ///falta el rol
- 
+
         boolean modiNick = false;
         boolean modiFoto = false;
         boolean todoCorrecto = true;
@@ -222,156 +220,143 @@ public class PerfilAdminController implements Initializable {
         String email = emailTF.getText();
         String rol = rolCB.getValue();
 //        int id = Integer.parseInt(id_invisibleTF.getText());
-        int id = usuario.getId();
-try {
-        /////********************//////       //falta comprobar valores de entrada
-        /////COMPARAMOS SI HAY CAMBIOS, cambiamos en BD y cambiamos en USUARIO
+        int id = usuarioSeleccionado.getId();
+        try {
+
+            /////COMPARAMOS SI HAY CAMBIOS, cambiamos en BD y cambiamos en USUARIO
 ////---NICK
-        if (!usuario.getNick().equals(nick)) {
-          
-                //Miramos que sea valido
-                if ((usuarioDAO.clienteExiste(nick) == true) || nickTF.getText().equals("")) {
+            if (!usuarioSeleccionado.getNick().equals(nick)) {
+                //Miramos que no este repetido
+                if (usuarioDAO.clienteExiste(nick)) {
                     todoCorrecto = false;
                     nickTF.setText("");
+                    nickTF.setPromptText("Ese usuario ya existe");
+                    nickL.setStyle(MAL);
+                } else { //miramos que no este en blanco
                     if (nickTF.getText().equals("")) {
                         nickTF.setPromptText("*OBLIGATORIO");
-                    } else {
-                        nickTF.setPromptText("Ese usuario ya existe");
-                    }
-                    nickL.setStyle(MAL);
-                } else {    
-                    nickL.setStyle(CORRECTO);
-                    modiNick = usuarioDAO.modificarNick(nick, id);  // modificacion en BD
-                    if (modiNick) {
-                         //**cambiar nombre foto  
-                         archivoTF.setText( usuario.fotoToNick()); /// aun no se ha guardado la foto
-                        
-                    } else {
-                        correctoSQL = false;
+                        todoCorrecto = false;
+                        nickL.setStyle(MAL);
+                    } else {   //modificamos en BD
+                        nickL.setStyle(CORRECTO);
+                        modiNick = usuarioDAO.modificarNick(nick, id);  // modificacion en BD
+                        if (modiNick) {
+                            //**cambiar nombre foto al cambiar el nick 
+                            archivoTF.setText(usuarioSeleccionado.fotoToNick());
+                            usuarioSeleccionado.cambiarArchivoFoto(usuarioSeleccionado.getFoto(), archivoTF.getText());
+                            usuarioDAO.modificarFoto(archivoTF.getText(), id);
+                        } else {
+                            correctoSQL = false;
+                        }
                     }
                 }
-        }
- 
+            }
+
 //fin NICK  ------------
 ////---NOMBRE
-                if (!usuario.getNombre().equals(nombre)) {
-                    if (nombre.equals("")) {
-                        todoCorrecto = false;
-                        nombreL.setStyle(MAL);
-                        nombreTF.setPromptText("* OBLIGATORIO");
-                    } else {
-
-                        boolean modiNombre = usuarioDAO.modificarNombre(nombre, id);
-                        if (modiNombre) {
-                            //informar que es correcto?
-//                            usuario.setNombre(nombre);
-                        } else {
-                            correctoSQL = false;
-                        }
+            if (!usuarioSeleccionado.getNombre().equals(nombre)) {
+                if (nombre.equals("")) {
+                    todoCorrecto = false;
+                    nombreL.setStyle(MAL);
+                    nombreTF.setPromptText("* OBLIGATORIO");
+                } else {
+                    boolean modiNombre = usuarioDAO.modificarNombre(nombre, id);
+                    if (!modiNombre) {
+                        correctoSQL = false;
                     }
                 }
+            }
 
 //---APELLIDOS
-                if (!usuario.getApellidos().equals(apellidos)) {
-                    if (apellidos.equals("")) {
-                        todoCorrecto = false;
-                        apellidosL.setStyle(MAL);
-                        apellidosTF.setPromptText("* OBLIGATORIO");
-                    } else {
-                        boolean modificado = usuarioDAO.modificarApellidosTF(apellidos, id);
-                        if (modificado) {
-//                            usuario.setApellidos(apellidos);
-                        } else {
-                            correctoSQL = false;
-                        }
-                    }
-                }
-//---DNI
-                if (!usuario.getDni().equals(dni)) {
-                    if (validarCampos.comprobardni(dni) == false || dni.equals("")) {
-                        todoCorrecto = false;
-                        dniTF.setText("");
-                        dniTF.setPromptText("Intoduce un DNI valido");
-                        dniL.setStyle(MAL);
-                    } else {
-                        dniL.setStyle(CORRECTO);
-                        boolean modificado = usuarioDAO.modificarDni(dni, id);
-                        if (modificado) {
-//                            usuario.setDni(dni);
-                        } else {
-                            correctoSQL = false;
-                        }
-                    }
-                }
-//---FECHA NACIMIENTO
-                if (!usuario.getFecNac().equals(fecNac) || fecNac == null) {
+            if (!usuarioSeleccionado.getApellidos().equals(apellidos)) {
+                if (apellidos.equals("")) {
                     todoCorrecto = false;
-                    fecNacL.setStyle(MAL);
-                    fecNacDP.setPromptText("* OBLIGATORIO");
+                    apellidosL.setStyle(MAL);
+                    apellidosTF.setPromptText("* OBLIGATORIO");
                 } else {
-                    boolean modificado = usuarioDAO.modificarFecNac(fecNac, id);
-                    if (modificado) {
-//                        usuario.setFecNac(fecNac);
-                    } else {
+                    boolean modificado = usuarioDAO.modificarApellidosTF(apellidos, id);
+                    if (!modificado) {
                         correctoSQL = false;
                     }
                 }
+            }
+
+//---DNI
+            if (!usuarioSeleccionado.getDni().equals(dni)) {
+                if (validarCampos.comprobardni(dni) == false || dni.equals("")) {
+                    todoCorrecto = false;
+                    dniTF.setText("");
+                    dniTF.setPromptText("Intoduce un DNI valido");
+                    dniL.setStyle(MAL);
+                } else {
+                    dniL.setStyle(CORRECTO);
+                    boolean modificado = usuarioDAO.modificarDni(dni, id);
+                    if (!modificado) {
+                        correctoSQL = false;
+                    }
+                }
+            }
+//---FECHA NACIMIENTO
+            if (!usuarioSeleccionado.getFecNac().equals(fecNac) || fecNac == null) {
+                todoCorrecto = false;
+                fecNacL.setStyle(MAL);
+                fecNacDP.setPromptText("* OBLIGATORIO");
+            } else {
+                boolean modificado = usuarioDAO.modificarFecNac(fecNac, id);
+                if (!modificado) {
+                    correctoSQL = false;
+                }
+            }
 
 //---TELEFONO
-                if (!usuario.getTelefono().equals(telefono)) {
-                    if (validarCampos.comprobarTelefono(telefono) == false || telefono.equals("")) {
-                        todoCorrecto = false;
-                        telefonoTF.setText("");
-                        telefonoTF.setPromptText("Intoduce un Número valido");
-                        telefL.setStyle(MAL);
-                    } else {
-                        telefL.setStyle(CORRECTO);
-                        boolean modificado = usuarioDAO.modificarTelefono(telefono, id);
-                        if (modificado) {
-//                            usuario.setTelefono(telefono);
-                        } else {
-                            correctoSQL = false;
-                        }
-                    }
-                }
-                //---DIRECCION
-                if (!usuario.getDireccion().equals(direccion)) {
-                    boolean modificado = usuarioDAO.modificarDireccion(direccion, id);
-                    if (modificado) {
-//                        usuario.setDireccion(direccion);
-                    } else {
+            if (!usuarioSeleccionado.getTelefono().equals(telefono)) {
+                if (validarCampos.comprobarTelefono(telefono) == false || telefono.equals("")) {
+                    todoCorrecto = false;
+                    telefonoTF.setText("");
+                    telefonoTF.setPromptText("Intoduce un Número valido");
+                    telefL.setStyle(MAL);
+                } else {
+                    telefL.setStyle(CORRECTO);
+                    boolean modificado = usuarioDAO.modificarTelefono(telefono, id);
+                    if (!modificado) {
                         correctoSQL = false;
                     }
                 }
+            }
+            //---DIRECCION
+            if (!usuarioSeleccionado.getDireccion().equals(direccion)) {
+                boolean modificado = usuarioDAO.modificarDireccion(direccion, id);
+                if (!modificado) {
+                    correctoSQL = false;
+                }
+            }
 //---EMAIL
-                if (!usuario.getEmail().equals(email)) {
-                    if (validarCampos.comprobarEmail(email) == false || email.equals("")) {
-                        todoCorrecto = false;
-                        emailTF.setText("");
-                        emailTF.setPromptText("Intoduce un Email valido");
-                        emailL.setStyle(MAL);
-                    } else {
-                        emailL.setStyle(CORRECTO);
-                        boolean modificado = usuarioDAO.modificarEmail(email, id);
-                        if (modificado) {
-//                            usuario.setEmail(email);
-                        } else {
-                            correctoSQL = false;
-                        }
+            if (!usuarioSeleccionado.getEmail().equals(email)) {
+                if (validarCampos.comprobarEmail(email) == false || email.equals("")) {
+                    todoCorrecto = false;
+                    emailTF.setText("");
+                    emailTF.setPromptText("Intoduce un Email valido");
+                    emailL.setStyle(MAL);
+                } else {
+                    emailL.setStyle(CORRECTO);
+                    boolean modificado = usuarioDAO.modificarEmail(email, id);
+                    if (!modificado) {
+                        correctoSQL = false;
                     }
                 }
-//---FOTO   
-//        if (selecionarFoto) {
-//            usuario.setFotoFile(fotoFile);
-//            foto = usuario.fotoToNick();  ///pasar fotofile a string
-//            usuario.setFoto(foto);
-//            modiFoto = usuarioDAO.modificarFoto(foto, id);
-//            if (modiFoto) {
-//                not.confirm("Modificar", "Ha sido modificado con exito");
-//            } else {
-//                correctoSQL = false;
-//            }
-//
+            }
+//---FOTO
+
+        if (cambioFoto) {
+    
+            modiFoto = usuarioDAO.modificarFoto(usuarioSeleccionado.getFoto(), id);
+            if (modiFoto) {
+                not.confirm("Modificar", "Ha sido modificado con exito");
+            } else {
+                correctoSQL = false;
+            }
+        }
+//}
 //        }
 ////// Otras consecuencias del cambios de Foto
 //        if (modiFoto) {
@@ -383,31 +368,37 @@ try {
 //            } else {
 //                controlador.cargaFoto();
 //            }
-
 //        }
-
-//////INFORMAR DEL RESULTADO  
-                if (todoCorrecto && correctoSQL) {
-                    not.confirm("Modificar", "Ha sido modificado con exito");
-                } else {
-                    not.error("Modificar", "NO ha sido posible modificar");
+////ROL
+            if (!usuarioSeleccionado.getPerfilString().equals(rolCB.getValue())) {
+                boolean modificado = usuarioDAO.modificarRol(rolCB.getValue(), id);
+                if (!modificado) {
+                    correctoSQL = false;
                 }
-
-                ////********************/// fin comprobar valores
-/////RECARGAR LA LISTA
-
-
-            } catch (SQLException ex) {
-                not.error("ERROR", "Error al intentar conectar con la base de datos");
             }
-        }
-      //////falta controlar campos, comprobar que introduce todos en particular foto y rol
 
+////********************/// fin comprobar valores
+//////INFORMAR DEL RESULTADO  
+            if (todoCorrecto && correctoSQL) {
+                not.confirm("Modificar", "Ha sido modificado con exito");
+            } else {
+                not.error("Modificar", "NO ha sido posible modificar");
+            }
+
+        } catch (SQLException ex) {
+            not.error("ERROR", "Error al intentar conectar con la base de datos");
+        } catch (IOException ex) {
+            not.error("ERROR", "Error al modificar la foto");
+        }
+    }
+    /////RECARGAR LA LISTA
+
+    //////falta controlar campos, comprobar que introduce todos en particular foto y rol
     @FXML
     private void borrar(ActionEvent event) {
-        if (usuario != null) {
+        if (usuarioSeleccionado != null) {
             not.alertWarningDelete("Borrar", "Seguro que quieres borrar este usuario");         //////*******esta not no vale.
-            int id = usuario.getId();
+            int id = usuarioSeleccionado.getId();
             try {
                 usuarioDAO.borrarUsuario(id);
             } catch (SQLException ex) {
@@ -453,8 +444,8 @@ try {
     }
 
     private void modifSelecListView(Usuario newValue) {
-        this.usuario = newValue;
-        if (usuario != null) {
+        this.usuarioSeleccionado = newValue;
+        if (usuarioSeleccionado != null) {
             cargarEtiquetas();
         } else {
             limpiarEtiquetas();
@@ -463,22 +454,22 @@ try {
     }
 
     private void cargarEtiquetas() {
-        nickTF.setText(usuario.getNick());
-        nombreTF.setText(usuario.getNombre());
-        apellidosTF.setText(usuario.getApellidos());
-        dniTF.setText(usuario.getDni());
-        telefonoTF.setText(usuario.getTelefono());
-        direccionTF.setText(usuario.getDireccion());
-        emailTF.setText(usuario.getEmail());
-        fecNacDP.setValue(usuario.getFecNac());
-        rolCB.setValue(usuario.getPerfilString());
-        archivoTF.setText(usuario.getFoto());
+        nickTF.setText(usuarioSeleccionado.getNick());
+        nombreTF.setText(usuarioSeleccionado.getNombre());
+        apellidosTF.setText(usuarioSeleccionado.getApellidos());
+        dniTF.setText(usuarioSeleccionado.getDni());
+        telefonoTF.setText(usuarioSeleccionado.getTelefono());
+        direccionTF.setText(usuarioSeleccionado.getDireccion());
+        emailTF.setText(usuarioSeleccionado.getEmail());
+        fecNacDP.setValue(usuarioSeleccionado.getFecNac());
+        rolCB.setValue(usuarioSeleccionado.getPerfilString());
+        archivoTF.setText(usuarioSeleccionado.getFoto());
         cargarfoto();
     }
 
     private void cargarfoto() {
         try {
-            caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+            caraIV.setImage(new Image("Imagenes/usuarios/" + usuarioSeleccionado.getFoto()));
         } catch (Exception e) {
             caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
         }
@@ -519,10 +510,37 @@ try {
         emailTF.setEditable(true);
 //        fecNacDP.setEditable(true);
         archivoTF.setEditable(true);
+        fotoEditable();
+    }
+
+ 
+ 
+    private void fotoEditable() {
+        caraIV.setOnMouseClicked(event -> SelecionarFoto());
+    }
+
+    private void SelecionarFoto() {
+        cambioFoto=true;
+        try {
+            File fotoElegida = usuarioSeleccionado.cargarfoto();
+            caraIV.setImage(new Image(fotoElegida.toURI().toString()));
+            String nombreString = fotoElegida.getName();
+            String[] extensionStrings = nombreString.split("\\.");
+            
+            String foto = usuarioSeleccionado.getNick() + "." + (extensionStrings[extensionStrings.length - 1]);
+            System.out.println("usu "+usuarioSeleccionado.getNick());
+            System.out.println("foto "+foto);
+            System.out.println(" "+fotoElegida.toURI().toString());
+            usuarioSeleccionado.cambiarArchivoFoto(fotoElegida.toURI().toString(),"Imagenes/usuarios/"+ foto);
+            usuarioSeleccionado.setFoto(foto);
+
+        } catch (IOException ex) {
+            not.error("Error", "Al guardar el archivo");
+        }
     }
 
     private void renovarLabels() {
-        CORRECTO= " -fx-text-fill:black";
+        CORRECTO = " -fx-text-fill:black";
         nickL.setStyle(CORRECTO);
         nombreL.setStyle(CORRECTO);
         apellidosL.setStyle(CORRECTO);
@@ -533,6 +551,10 @@ try {
 //        fecNacDP.setEditable(true);
         archivoTF.setEditable(true);
 
+    }
+
+    public void setGestion(GestionBD gestion) {
+        this.gestion = gestion;
     }
 
 }
