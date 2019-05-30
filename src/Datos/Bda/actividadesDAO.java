@@ -142,7 +142,7 @@ public class actividadesDAO {
     //UPDATE
     public boolean modificarActividad(int id, String nombre, double precio, String horario, String descripcion, String url, String direccion, String telefono, String rutaFoto, int idSubtipo) throws SQLException {
         boolean modificado = false;
-       
+
         if (gestion.getConn() != null) {
 
             String consulta = "UPDATE ACTIVIDADES SET NOMBRE = ?, PRECIO = ?, HORARIO = ?, DESCRIPCION = ?, URL = ?, DIRECCION = ?, TELEFONO = ?, FOTO = ?, IDSUBTIPO = ? WHERE ID = ? ORDER BY nombre;";
@@ -158,7 +158,7 @@ public class actividadesDAO {
             ps.setString(8, rutaFoto);
             ps.setInt(9, idSubtipo);
             ps.setInt(10, id);
-                      ps.executeUpdate();
+            ps.executeUpdate();
             modificado = true;
         }
         return modificado;
@@ -259,7 +259,10 @@ public class actividadesDAO {
         } else {
             textoSubtipo = subtipo.getNombre();
         }
-
+        if (busqueda.equals("")) {
+            System.out.println("la busqueda es null");
+            busqueda = null;
+        }
         List<Actividad> listaActividades = new ArrayList<>();
         String sql = "CALL filtrarActividades(?, ?, ?, ?, ?)";
         PreparedStatement ps = conn.prepareStatement(sql);

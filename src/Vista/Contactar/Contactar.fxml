@@ -65,9 +65,9 @@
             <JFXPasswordField fx:id="passgmail" layoutX="690.0" layoutY="134.0" promptText="Contraseña gmail" />
          </children>
       </Pane>
-      <Pane fx:id="paneImg" layoutX="976.0" layoutY="95.0" prefHeight="236.0" prefWidth="236.0">
+      <Pane fx:id="paneImg" layoutX="975.0" layoutY="95.0" prefHeight="257.0" prefWidth="216.0">
          <children>
-            <ImageView fx:id="caraIV" fitHeight="228.0" fitWidth="216.0" layoutX="10.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="caraIV" fitHeight="228.0" fitWidth="200.0" layoutX="8.0" layoutY="15.0" pickOnBounds="true" preserveRatio="true" />
          </children>
       </Pane>
       <Pane fx:id="barra" layoutX="-13.0" layoutY="230.0" prefHeight="12.0" prefWidth="1328.0" />

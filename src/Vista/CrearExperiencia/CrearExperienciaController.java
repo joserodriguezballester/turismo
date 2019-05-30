@@ -31,6 +31,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -110,6 +111,7 @@ public class CrearExperienciaController implements Initializable {
     private Notificacion not = new Notificacion();
     private experienciasDAO expDAO;
     private experienciasActividadesDAO expActDAO;
+    private String nombreExp;
     @FXML
     private Pane paneExperiencia;
     @FXML
@@ -336,10 +338,17 @@ public class CrearExperienciaController implements Initializable {
 
     @FXML
     private void EliminarActividad(ActionEvent event) {
-        listaActividadesCarrito.getItems().removeAll(listaActividadesCarrito.getSelectionModel().getSelectedItems());
-        experiencia.getListaActividades().removeAll(listaActividadesCarrito.getSelectionModel().getSelectedItems());
-        actualizarOrden();
-        calcularPrecio();
+        if (!listaActividadesCarrito.getSelectionModel().isEmpty()) {
+            listaActividadesCarrito.getItems().removeAll(listaActividadesCarrito.getSelectionModel().getSelectedItems());
+            experiencia.getListaActividades().removeAll(listaActividadesCarrito.getSelectionModel().getSelectedItems());
+            actualizarOrden();
+            calcularPrecio();
+            
+            not.confirm("Enhorabuena", "La actividad ha sido borrada con éxito");
+        } else {
+            not.alert("ERROR", "Debe seleccionar una actividad para poder borrarla");
+        }
+
     }
 
     private void cargarActividadesExperiencia() {
@@ -440,26 +449,32 @@ public class CrearExperienciaController implements Initializable {
     }
 
     @FXML
-    private void AñadirExperiencia(ActionEvent event) {
+    private void AñadirExperiencia(ActionEvent event) throws SQLException {
         experiencia.setIdUsuario(usuario.getId());
         experiencia.setFechaTopeValidez(LocalDate.now().plusYears(1));
         experiencia.setNombre(textNombreExperiencia.getText());
         experiencia.setDescripcion(textDescripcion.getText());
-        try {
-            experiencia.setId(expDAO.idExperienciaSiguiente());
-            expDAO.insertarExperiencia(experiencia);
-            for (ActividadExperiencia actExp : experiencia.getListaActividades()) {
-                try {
-                    actExp.setIdExperiencia(experiencia.getId());
-                    expActDAO.insertarActividadExperiencia(actExp);
-                } catch (Exception e) {
-//            ERROR CONSIGUIENDO EL SIGUIENTE ID
+        if (comprobarNombre()) {
+            try {
+                experiencia.setId(expDAO.idExperienciaSiguiente());
+                expDAO.insertarExperiencia(experiencia);
+                for (ActividadExperiencia actExp : experiencia.getListaActividades()) {
+                    try {
+                        actExp.setIdExperiencia(experiencia.getId());
+                        expActDAO.insertarActividadExperiencia(actExp);
+                    } catch (Exception e) {
+                        not.error("Error", "Error al insertar actividades a experiencia");
+                        throw new Exception();
+                    }
                 }
+                not.confirm("Enhorabuena", "Se ha creado su experiencia \nde forma satisfactoria");
+            } catch (Exception e) {
+                e.printStackTrace();
+                not.error("Error", "No ha podido insertarse la experiencia en la BD");
             }
-        } catch (Exception e) {
-            not.error("Error", "No ha podido insertarse la experiencia en la BD");
+        } else {
+            not.alert("Error", "Ese nombre de experiencia ya existe");
         }
-
     }
 
     private void limpiar() {
@@ -479,5 +494,21 @@ public class CrearExperienciaController implements Initializable {
             textPrecioPorPersona.setText(String.valueOf(act.getPrecio()) + "€ por persona");
         }
 
+    }
+
+    private boolean comprobarNombre() throws SQLException {
+        boolean nombreDisponible = true;
+        List<String> NombreExperiencias = new ArrayList<>();
+        nombreExp = textNombreExperiencia.getText();
+
+        NombreExperiencias = expDAO.consultarNombre();
+
+        for (String nom : NombreExperiencias) {
+            if (nom.equalsIgnoreCase(nombreExp)) {
+                nombreDisponible = false;
+            }
+        }
+
+        return nombreDisponible;
     }
 }

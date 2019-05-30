@@ -118,8 +118,25 @@ public class experienciasDAO {
         PreparedStatement ps = conn.prepareStatement(consulta);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-            id = rs.getInt("id") + 1;
+            id = rs.getInt("max(id)") + 1;
         }
         return id;
+    }
+
+    public List<String> consultarNombre() throws SQLException {
+
+        List<String> NombreExperiencias = new ArrayList<>();
+        
+        if (conn != null) {
+            String consulta = "SELECT nombre FROM experiencias;";
+            PreparedStatement ps = conn.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            experienciasActividadesDAO experienciasActividadesdao = new experienciasActividadesDAO(gestion);
+            while (rs.next()) {
+                NombreExperiencias.add(rs.getString("nombre"));
+
+            }
+        }
+        return NombreExperiencias;
     }
 }
