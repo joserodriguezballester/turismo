@@ -99,6 +99,7 @@ public class ContactarController implements Initializable {
         imagev.toBack();
         paneImg.toFront();
         
+        paneImg.getStyleClass().add("panePerfilPersonal");
         paneContacto.getStyleClass().add("paneActividadBuscador");
         barra.getStyleClass().add("barraPerfil");
     }
