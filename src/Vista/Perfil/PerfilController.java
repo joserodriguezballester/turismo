@@ -241,7 +241,7 @@ public class PerfilController implements Initializable {
             labelUser.setText(nick.toUpperCase());
             if (principalController != null) {
                 principalController.cargaNick();
-                principalController.cargaFoto();
+                principalController.MuestraImagen();
             }
               if (controlador != null) {
                 controlador.cargaNick();
@@ -376,7 +376,7 @@ public class PerfilController implements Initializable {
             usuario.guardarFoto();
             //cambios en vista        
             if (principalController != null) {
-                principalController.cargaFoto();
+                principalController.MuestraImagen();
             } else {
                 controlador.cargaFoto();
             }

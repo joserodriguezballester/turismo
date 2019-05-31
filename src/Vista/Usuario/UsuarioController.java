@@ -285,9 +285,6 @@ public class UsuarioController implements Initializable {
                     if ("ADMINISTRADOR".equalsIgnoreCase(usuario.getPerfilString())) {
                         String rol = "admin";
                         transicionPrincipal(rol);
-                    } else {
-                        not.error("Segun lorenzo soy tonto",
-                                "en logearseBueno() --- UsuarioController");
                     }
                 }
             } catch (SQLException ex) {
@@ -296,8 +293,6 @@ public class UsuarioController implements Initializable {
             }
         } else { 
            not.error("ERROR","Usuario o contraseña incorrectos");
-//            not.prueba("Error", "Usuario o contraseña incorrectos"); 
-
             nickTF.setText("");
             contraTF.setText("");
         }
@@ -305,7 +300,7 @@ public class UsuarioController implements Initializable {
 
     @FXML
     private void habilitarBT(MouseEvent event) {
-        //Hasta que pulsas para escribir los campos no se habilita el boton de login
+    //Hasta que pulsas para escribir los campos no se habilita el boton de login
         if (botonLog.isDisable()) {
             FadeTransition ft = new FadeTransition(Duration.millis(500), botonLog);
             ft.setFromValue(0.6);
@@ -333,7 +328,8 @@ public class UsuarioController implements Initializable {
         translateAgencia.play();
 
         translatePrincipal.setOnFinished(new EventHandler<ActionEvent>() {
-            @Override
+    
+    @Override
             public void handle(ActionEvent event) {
                 if (rol.equalsIgnoreCase("cliente")) {
                     cargarVentanaPrincipal();

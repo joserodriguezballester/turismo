@@ -84,7 +84,7 @@ public class Usuario implements Comparable<Usuario> {
         
     }
 
-/// Poner el NICK como nombre del ARCHIVO FOTO
+///// Poner el NICK como nombre del ARCHIVO FOTO
     public String fotoToNick() {
         if (fotoFile == null) {
             foto = "avatar.png";

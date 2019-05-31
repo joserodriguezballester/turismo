@@ -1,6 +1,7 @@
 package Vista.Registrar;
 
 import Datos.Bda.usuariosDAO;
+import FilesDAO.UsuarioFiles;
 import Modelo.ValidarCampos;
 import Modelo.Notificacion;
 import Modelo.Usuario;
@@ -18,6 +19,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -118,13 +121,14 @@ public class RegistrarController implements Initializable {
     private JFXRadioButton adminRB;
     @FXML
     private ToggleGroup rolUsuRB;
+    private UsuarioFiles usuarioFile;
 
-    
     //INICIO--------------------------------------------------------------------
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         not = new Notificacion();
         usuario = new Usuario();
+        usuarioFile = new UsuarioFiles();
         validarCampos = new ValidarCampos();
         styleInicio();
         styleRellenarCamposVacios();
@@ -162,12 +166,16 @@ public class RegistrarController implements Initializable {
         fecNacTF.setOnMouseClicked(event -> fecNacL.setStyle(aviso));
     }
 
+    /**
+     * Carga una imagen en el ImagenView
+     */
     private void cargarfoto() {
-//        Stage stage = (Stage) this.avatarIV.getParent().getScene().getWindow();
-        fotoFile = usuario.cargarfoto();
+        fotoFile = usuarioFile.SelectFoto();
         if (fotoFile != null) {
             Image image = new Image(fotoFile.toURI().toString());
             avatarIV.setImage(image);
+        } else {
+            // imagen avatar
         }
 
     }
@@ -199,8 +207,8 @@ public class RegistrarController implements Initializable {
                 usuario.setEmail(email);
                 usuario.setFecNac(fecNac);
                 usuario.setFotoFile(fotoFile);
-                String foto = usuario.fotoToNick();
-                usuario.setFoto(foto);
+                String ArchivoFoto = usuarioFile.darNombreFoto(fotoFile, nick);
+                usuario.setFoto(ArchivoFoto);
 
                 RadioButton selecRol = (RadioButton) rolUsuRB.getSelectedToggle();
                 usuario.setPerfil(selecRol.getText().toUpperCase());
@@ -214,7 +222,7 @@ public class RegistrarController implements Initializable {
                 //avatarIV.getImage().getUrl();
 
                 if (registrado) {
-                    usuario.guardarFoto();
+                    usuarioFile.guardarFoto(fotoFile, foto);
                     //Cerrar ventana 
                     Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();//Identificamos la ventana (Stage) 
                     stage.close();
@@ -240,59 +248,74 @@ public class RegistrarController implements Initializable {
         Stage stage = (Stage) this.aceptarBT.getParent().getScene().getWindow();
         stage.close();
     }
-    //CONTROL DE DATOS----------------------------------------------------------
 
-    private boolean comprobacionCampos() throws SQLException {
-        recogerDatos();
+//CONTROL DE DATOS----------------------------------------------------------
+    /**
+     * Comprueba que el formato de los campos introducidos
+     * corresponden con los de la Base de Datos y la realidad
+     * 
+     * @return 
+     */
+    private boolean comprobacionCampos() {
         boolean todoCorrecto = true;
         String correcto = " -fx-text-fill: rgb(56, 175, 88)"; //Verde
-
-        if ((usuarioDAO.clienteExiste(nick) == true) || nickTF.getText().equals("")) {
-            todoCorrecto = false;
-            nickTF.setText("");
-            if (nickTF.getText().equals("")) {
-                nickTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+        recogerDatos();
+        
+        try {
+            if ((usuarioDAO.clienteExiste(nick) == true) || nickTF.getText().equals("")) {
+                todoCorrecto = false;
+                nickTF.setText("");
+                if (nickTF.getText().equals("")) {
+                    nickTF.setPromptText("*  ESTE CAMPO ES OBLIGATORIO");
+                } else {
+                    nickTF.setPromptText("Ese usuario ya existe");
+                }
+                nickL.setStyle(mal);
             } else {
-                nickTF.setPromptText("Ese usuario ya existe");
+                nickL.setStyle(correcto);
             }
-            nickL.setStyle(mal);
-        } else {
-            nickL.setStyle(correcto);
-        }
-
-        if (validarCampos.comprobardni(dni) == false) {
-            todoCorrecto = false;
-            dniTF.setText("");
-            dniTF.setPromptText("Intoduce un DNI valido");
-            dniL.setStyle(mal);
-        } else {
-            dniL.setStyle(correcto);
-        }
-        if (validarCampos.comprobarTelefono(telefono) == false) {
-            todoCorrecto = false;
-            telefonoTF.setText("");
-            telefonoTF.setPromptText("Intoduce un Número valido");
-            telefL.setStyle(mal);
-        } else {
-            telefL.setStyle(correcto);
-        }
-        if (validarCampos.comprobarEmail(email) == false) {
-            todoCorrecto = false;
-            emailTF.setText("");
-            emailTF.setPromptText("Intoduce un Email valido");
-            emailL.setStyle(mal);
-        } else {
-            emailL.setStyle(correcto);
-        }
+       
+            if (validarCampos.comprobardni(dni) == false) {
+                todoCorrecto = false;
+                dniTF.setText("");
+                dniTF.setPromptText("Intoduce un DNI valido");
+                dniL.setStyle(mal);
+            } else {
+                dniL.setStyle(correcto);
+            }
+            
+            if (validarCampos.comprobarTelefono(telefono) == false) {
+                todoCorrecto = false;
+                telefonoTF.setText("");
+                telefonoTF.setPromptText("Intoduce un Número valido");
+                telefL.setStyle(mal);
+            } else {
+                telefL.setStyle(correcto);
+            }
+            
+            if (validarCampos.comprobarEmail(email) == false) {
+                todoCorrecto = false;
+                emailTF.setText("");
+                emailTF.setPromptText("Intoduce un Email valido");
+                emailL.setStyle(mal);
+            } else {
+                emailL.setStyle(correcto);
+            }
+         } catch (SQLException ex) {
+          ///---------errorr
+        }            
         return todoCorrecto;
     }
-
-    private boolean camposVacios() {   //   devuelve true si hay algun campo "necesario" nulo 
+/**
+ * Comprueba que los campos recogidos no sean null  Si así lo requiere la BD. 
+ * Modifica la visualizacion del Label correspondiente
+ * @return  devuelve true si hay algun campo "necesario" nulo 
+ */
+    private boolean camposVacios() {   
         boolean vacio = false;
         String estilo = null;
         recogerDatos();
-
-        //Comprobar si los campos estan vacios y pone el label en rojo
+      
         if (nick.equals("")) {
             vacio = true;
             nickL.setStyle(mal);
@@ -333,7 +356,6 @@ public class RegistrarController implements Initializable {
 
     //METODOS UTILES------------------------------------------------------------
     private void recogerDatos() {
-
         nick = nickTF.getText();
         contrasena = contraPF.getText();
         nombre = nombreTF.getText();

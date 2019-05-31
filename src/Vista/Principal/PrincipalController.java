@@ -56,7 +56,7 @@ public class PrincipalController implements Initializable {
     private Notificacion not;
     private GestionBD gestion;
     private PrincipalController principalController;
-       
+
     @FXML
     private AnchorPane Menu;
     @FXML
@@ -194,7 +194,7 @@ public class PrincipalController implements Initializable {
 
     public void calcularNodos() {
         cargaNick();
-        cargaFoto();
+        MuestraImagen();
     }
 
     public void cargaNick() {
@@ -203,16 +203,35 @@ public class PrincipalController implements Initializable {
         }
     }
 
-    public void cargaFoto() {
-        if (usuario.getFotoFile() != null) {
-            caraIV.setImage(new Image(usuario.getFotoFile().toURI().toString()));
-        } else {
-            try {
+    public void MuestraImagen() {
+        if (usuario.getFotoFile() == null) {
+            if (usuario.getFoto() != null) {
+                try {
+                    caraIV.setImage(new Image("C:\\tempTurismo\\" + usuario.getFoto()));
+                } catch (Exception e) {
+                    try {
+                        caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+                    } catch (Exception ex) {
+                        caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+                    }
+                }
+            } else {
                 caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
-            } catch (Exception e) {
-                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
             }
+
+        } else {
+            caraIV.setImage(new Image(usuario.getFotoFile().toURI().toString()));
         }
+
+//        if (usuario.getFotoFile() != null) {
+//            caraIV.setImage(new Image(usuario.getFotoFile().toURI().toString()));
+//        } else {
+//            try {
+//                caraIV.setImage(new Image("Imagenes/usuarios/" + usuario.getFoto()));
+//            } catch (Exception e) {
+//                caraIV.setImage(new Image("Imagenes/usuarios/avatar.png"));
+//            }
+//        }
     }
 
     private void styleInicio() {
@@ -257,7 +276,6 @@ public class PrincipalController implements Initializable {
             not.error("Error", "Error al cargar la ventana Inicio");
         }
     }
-    
 
     @FXML
     private void irActividad(ActionEvent event) {

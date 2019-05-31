@@ -2,6 +2,7 @@ package Vista.Administrador.Perfil;
 
 import Datos.Bda.GestionBD;
 import Datos.Bda.usuariosDAO;
+import FilesDAO.UsuarioFiles;
 import Modelo.Notificacion;
 import Modelo.Usuario;
 import Modelo.ValidarCampos;
@@ -135,10 +136,12 @@ public class PerfilAdminController implements Initializable {
     private ValidarCampos validarCampos;
     private Usuario usuarioSeleccionado;
     private boolean cambioFoto;
+    private UsuarioFiles usuarioFile;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         validarCampos = new ValidarCampos();
+        usuarioFile = new UsuarioFiles();
         not = new Notificacion();
         usuarios = FXCollections.observableArrayList();
         nickTC.setCellValueFactory(new PropertyValueFactory<>("nick"));
@@ -242,8 +245,8 @@ public class PerfilAdminController implements Initializable {
                         modiNick = usuarioDAO.modificarNick(nick, id);  // modificacion en BD
                         if (modiNick) {
                             //**cambiar nombre foto al cambiar el nick 
-                            archivoTF.setText(usuarioSeleccionado.fotoToNick());
-                            usuarioSeleccionado.cambiarArchivoFoto(usuarioSeleccionado.getFoto(), archivoTF.getText());
+                            archivoTF.setText(usuarioFile.cambiarNombreFoto(usuario.getFoto(), nick));                          
+                            usuarioFile.cambiarArchivoFoto(usuarioSeleccionado.getFoto(), archivoTF.getText());                     
                             usuarioDAO.modificarFoto(archivoTF.getText(), id);
                         } else {
                             correctoSQL = false;
@@ -351,24 +354,12 @@ public class PerfilAdminController implements Initializable {
     
             modiFoto = usuarioDAO.modificarFoto(usuarioSeleccionado.getFoto(), id);
             if (modiFoto) {
-                not.confirm("Modificar", "Ha sido modificado con exito");
+//                not.confirm("Modificar", "Ha sido modificado con exito");
             } else {
                 correctoSQL = false;
             }
         }
-//}
-//        }
-////// Otras consecuencias del cambios de Foto
-//        if (modiFoto) {
-//            // guardar foto nueva
-//            usuario.guardarFoto();
-//            //cambios en vista        
-//            if (principalController != null) {
-//                principalController.cargaFoto();
-//            } else {
-//                controlador.cargaFoto();
-//            }
-//        }
+
 ////ROL
             if (!usuarioSeleccionado.getPerfilString().equals(rolCB.getValue())) {
                 boolean modificado = usuarioDAO.modificarRol(rolCB.getValue(), id);
@@ -522,17 +513,13 @@ public class PerfilAdminController implements Initializable {
     private void SelecionarFoto() {
         cambioFoto=true;
         try {
-            File fotoElegida = usuarioSeleccionado.cargarfoto();
+            File fotoElegida = usuarioFile.SelectFoto();
             caraIV.setImage(new Image(fotoElegida.toURI().toString()));
-            String nombreString = fotoElegida.getName();
-            String[] extensionStrings = nombreString.split("\\.");
+            String nombreFoto = usuarioFile.darNombreFoto(fotoElegida, usuarioSeleccionado.getNick());
+            usuarioFile.guardarFoto(fotoElegida, nombreFoto);
             
-            String foto = usuarioSeleccionado.getNick() + "." + (extensionStrings[extensionStrings.length - 1]);
-            System.out.println("usu "+usuarioSeleccionado.getNick());
-            System.out.println("foto "+foto);
-            System.out.println(" "+fotoElegida.toURI().toString());
-            usuarioSeleccionado.cambiarArchivoFoto(fotoElegida.toURI().toString(),"Imagenes/usuarios/"+ foto);
-            usuarioSeleccionado.setFoto(foto);
+//            usuarioSeleccionado.cambiarArchivoFoto(fotoElegida.toURI().toString(),"Imagenes/usuarios/"+ foto);
+            usuarioSeleccionado.setFoto(nombreFoto);
 
         } catch (IOException ex) {
             not.error("Error", "Al guardar el archivo");
